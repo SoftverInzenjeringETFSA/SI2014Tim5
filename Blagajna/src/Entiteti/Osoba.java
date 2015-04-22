@@ -2,7 +2,8 @@ package Entiteti;
 
 public abstract class Osoba {
 
-
+	private int id;
+	private String ime;
 	private String prezime;
 	private String jmbg;
 	private String mail;
@@ -13,8 +14,8 @@ public abstract class Osoba {
 	public Osoba() {}
 	
 	
-	public Osoba(String prezime, String jmbg, String mail, String adresa,
-			String opcina, String telefon, String ime) {
+	public Osoba(int id, String ime, String prezime, String jmbg, String mail, String adresa,
+			String opcina, String telefon) {
 		super();
 		this.prezime = prezime;
 		this.jmbg = jmbg;
@@ -25,8 +26,14 @@ public abstract class Osoba {
 		this.ime = ime;
 	}
 
-
-	private String ime;
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getIme() {
 		return ime;
 	}
@@ -87,7 +94,7 @@ public abstract class Osoba {
 	
 	@Override
 	public String toString() {
-		return ime +  prezime;
+		return ime + " " + prezime;
 	}
 	
 }

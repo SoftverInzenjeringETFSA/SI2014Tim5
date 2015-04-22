@@ -10,12 +10,14 @@ public class Student extends Osoba {
 	private String drzavaRodjenja;
 	private double popust;
 	private int godinaStudija;
-	public Student(String prezime, String jmbg, String mail, String adresa,
+	
+	public Student() {}
+	public Student(int id, String prezime, String jmbg, String mail, String adresa,
 			String opcina, String telefon, String ime, int indeks, double troskoviSkolarine,
 			double troskoviLiterature, String imeRoditelja,
 			String mjestoRodjenja, String opcinaRodjenja,
 			String drzavaRodjenja, double popust, int godinaStudija) {
-		super(prezime, jmbg, mail, adresa, opcina, telefon, ime);
+		super(id, ime, prezime, jmbg, mail, adresa, opcina, telefon);
 		this.indeks = indeks;
 		this.troskoviSkolarine = troskoviSkolarine;
 		this.troskoviLiterature = troskoviLiterature;
@@ -82,5 +84,8 @@ public class Student extends Osoba {
 		this.godinaStudija = godinaStudija;
 	}
 	
+	public Object[] dajPodatkeZaPrikaz() {
+		return new Object[] {this.getId() , this.toString(), this.getIndeks(), this.getTroskoviSkolarine(), this.getTroskoviLiterature() };
+	}
 	
 }

@@ -32,7 +32,10 @@ import java.awt.Color;
 
 
 
+
+
 import Entiteti.Osoba;
+import Entiteti.Student;
 import Dodaci.Komponenta;
 
 import java.awt.ScrollPane;
@@ -43,16 +46,37 @@ import java.awt.FlowLayout;
 import java.awt.List;
 
 import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
+import com.jgoodies.forms.factories.FormFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JSeparator;
 
 
 public class MainWindow {
 
-	private JFrame frame;
+	private JFrame frmBlagajna;
 	private JTable table;
+	private JTextField textField;
 
 	/**
 	 * Create the application.
 	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					MainWindow window = new MainWindow();
+					window.frmBlagajna.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 	public MainWindow() {
 		initialize();
 	}
@@ -61,36 +85,118 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 628, 395);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmBlagajna = new JFrame();
+		frmBlagajna.setTitle("Blagajna\r\n");
+		frmBlagajna.setBounds(100, 100, 593, 425);
+		frmBlagajna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
+				FormFactory.UNRELATED_GAP_COLSPEC,
+				ColumnSpec.decode("71px:grow"),
+				ColumnSpec.decode("95px:grow"),
+				ColumnSpec.decode("129px:grow"),
+				ColumnSpec.decode("128px:grow"),
+				ColumnSpec.decode("131px:grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("20px"),
+				RowSpec.decode("33px"),
+				RowSpec.decode("fill:269px:grow"),
+				RowSpec.decode("max(25dlu;default)"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,});
+		frmBlagajna.getContentPane().setLayout(formLayout);
 		
 		JLabel lblDo = new JLabel("Dobar dan, ");
-		lblDo.setBounds(10, 11, 104, 14);
-		frame.getContentPane().add(lblDo);
+		lblDo.setVerticalAlignment(SwingConstants.TOP);
+		lblDo.setHorizontalAlignment(SwingConstants.RIGHT);
+		frmBlagajna.getContentPane().add(lblDo, "2, 2");
 		
-		JButton btnDeaktiviraj = new JButton("Deaktiviraj");
-		btnDeaktiviraj.setBounds(513, 7, 89, 23);
-		frame.getContentPane().add(btnDeaktiviraj);
+		JLabel lblIme = new JLabel("{Ime}");
+		frmBlagajna.getContentPane().add(lblIme, "3, 2");
+		
+		JButton btnDeaktiviraj = new JButton("Napusti");
+		frmBlagajna.getContentPane().add(btnDeaktiviraj, "6, 2, right, top");
+		
+		JLabel label = new JLabel("Pretraga po:");
+		frmBlagajna.getContentPane().add(label, "3, 3, center, default");
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Indeks", "Naziv", "Dug za skolarinu", "Dug za literaturu"}));
+		frmBlagajna.getContentPane().add(comboBox, "4, 3");
+		
+		textField = new JTextField();
+		frmBlagajna.getContentPane().add(textField, "5, 3");
+		textField.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 41, 592, 279);
-		frame.getContentPane().add(scrollPane);
+		frmBlagajna.getContentPane().add(scrollPane, "2, 4, 5, 1");
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setRowSelectionAllowed(true);
-		
+		Student s = new Student();
+		s.setIme("Faris");
+		s.setPrezime("Dzafic");
+		s.setIndeks(1123);
+		s.setTroskoviLiterature(19);
+		s.setTroskoviSkolarine(541);
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, "", "", null},
-				{null, null, "", null, null},
+				
 			},
 			new String[] {
 				"ID", "Ime i Prezime", "Indeks", "Dug za \u0161koralinu", "Dug za literaturu"
 			}
 		));
+		
+		JButton btnDodaj = new JButton("Dodaj");
+		frmBlagajna.getContentPane().add(btnDodaj, "3, 5, center, default");
+		
+		JButton btnUredi = new JButton("Uredi");
+		frmBlagajna.getContentPane().add(btnUredi, "4, 5, center, default");
+		
+		JButton btnObrisi = new JButton("Obrisi");
+		frmBlagajna.getContentPane().add(btnObrisi, "5, 5, center, default");
+		
+		JButton btnUplate = new JButton("Uplate");
+		frmBlagajna.getContentPane().add(btnUplate, "6, 5, center, default");
+		
+		JMenuBar menuBar = new JMenuBar();
+		frmBlagajna.setJMenuBar(menuBar);
+		
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		JSeparator separator_1 = new JSeparator();
+		mnFile.add(separator_1);
+		
+		JMenuItem mntmUplate = new JMenuItem("Uplate");
+		mnFile.add(mntmUplate);
+		
+		JSeparator separator = new JSeparator();
+		mnFile.add(separator);
+		
+		JMenuItem mntmNapusti = new JMenuItem("Napusti");
+		mnFile.add(mntmNapusti);
+		
+		JMenu mnUredi = new JMenu("Uredi");
+		menuBar.add(mnUredi);
+		
+		JMenuItem mntmUrediUposlenike = new JMenuItem("Uredi uposlenike");
+		mnUredi.add(mntmUrediUposlenike);
+		
+		JMenuItem mntmIzvjetaj = new JMenuItem("Izvje\u0161taj");
+		mnUredi.add(mntmIzvjetaj);
+		
+		JSeparator separator_2 = new JSeparator();
+		mnUredi.add(separator_2);
+		
+		JMenuItem mntmPromijeniLozinku = new JMenuItem("Promijeni lozinku");
+		mnUredi.add(mntmPromijeniLozinku);
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.addRow(s.dajPodatkeZaPrikaz());
 	}
 }
