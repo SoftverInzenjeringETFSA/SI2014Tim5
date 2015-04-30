@@ -36,7 +36,6 @@ import java.awt.Color;
 
 import Entiteti.Osoba;
 import Entiteti.Student;
-import Dodaci.Komponenta;
 
 import java.awt.ScrollPane;
 
@@ -87,18 +86,22 @@ public class MainWindow {
 	private void initialize() {
 		frmBlagajna = new JFrame();
 		frmBlagajna.setTitle("Blagajna\r\n");
-		frmBlagajna.setBounds(100, 100, 593, 425);
+		frmBlagajna.setBounds(100, 100, 673, 466);
 		frmBlagajna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		FormLayout formLayout = new FormLayout(new ColumnSpec[] {
 				FormFactory.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("71px:grow"),
-				ColumnSpec.decode("95px:grow"),
+				ColumnSpec.decode("75px:grow"),
+				ColumnSpec.decode("122px:grow"),
 				ColumnSpec.decode("129px:grow"),
 				ColumnSpec.decode("128px:grow"),
-				ColumnSpec.decode("131px:grow"),
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("94px:grow"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,},
 			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("20px"),
 				RowSpec.decode("33px"),
@@ -111,27 +114,27 @@ public class MainWindow {
 		JLabel lblDo = new JLabel("Dobar dan, ");
 		lblDo.setVerticalAlignment(SwingConstants.TOP);
 		lblDo.setHorizontalAlignment(SwingConstants.RIGHT);
-		frmBlagajna.getContentPane().add(lblDo, "2, 2");
+		frmBlagajna.getContentPane().add(lblDo, "2, 4");
 		
 		JLabel lblIme = new JLabel("{Ime}");
-		frmBlagajna.getContentPane().add(lblIme, "3, 2");
-		
-		JButton btnDeaktiviraj = new JButton("Napusti");
-		frmBlagajna.getContentPane().add(btnDeaktiviraj, "6, 2, right, top");
+		frmBlagajna.getContentPane().add(lblIme, "3, 4");
 		
 		JLabel label = new JLabel("Pretraga po:");
-		frmBlagajna.getContentPane().add(label, "3, 3, center, default");
+		frmBlagajna.getContentPane().add(label, "3, 5, center, default");
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Indeks", "Naziv", "Dug za skolarinu", "Dug za literaturu"}));
-		frmBlagajna.getContentPane().add(comboBox, "4, 3");
+		frmBlagajna.getContentPane().add(comboBox, "4, 5");
 		
 		textField = new JTextField();
-		frmBlagajna.getContentPane().add(textField, "5, 3");
+		frmBlagajna.getContentPane().add(textField, "5, 5");
 		textField.setColumns(10);
 		
+		JButton btnPretrai = new JButton("Pretra\u017Ei");
+		frmBlagajna.getContentPane().add(btnPretrai, "6, 5");
+		
 		JScrollPane scrollPane = new JScrollPane();
-		frmBlagajna.getContentPane().add(scrollPane, "2, 4, 5, 1");
+		frmBlagajna.getContentPane().add(scrollPane, "2, 6, 7, 1");
 		
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -152,17 +155,17 @@ public class MainWindow {
 			}
 		));
 		
-		JButton btnDodaj = new JButton("Dodaj");
-		frmBlagajna.getContentPane().add(btnDodaj, "3, 5, center, default");
-		
-		JButton btnUredi = new JButton("Uredi");
-		frmBlagajna.getContentPane().add(btnUredi, "4, 5, center, default");
-		
 		JButton btnObrisi = new JButton("Obrisi");
-		frmBlagajna.getContentPane().add(btnObrisi, "5, 5, center, default");
 		
-		JButton btnUplate = new JButton("Uplate");
-		frmBlagajna.getContentPane().add(btnUplate, "6, 5, center, default");
+		JButton btnUredi = new JButton("Detalji/\r\nUredi");
+		
+		JButton button = new JButton("Uplate");
+		frmBlagajna.getContentPane().add(button, "3, 7");
+		
+		JButton btnZaduiKnjigu = new JButton("Kupi literaturu");
+		frmBlagajna.getContentPane().add(btnZaduiKnjigu, "4, 7, right, default");
+		frmBlagajna.getContentPane().add(btnUredi, "5, 7, center, default");
+		frmBlagajna.getContentPane().add(btnObrisi, "8, 7, fill, default");
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmBlagajna.setJMenuBar(menuBar);
@@ -173,7 +176,7 @@ public class MainWindow {
 		JSeparator separator_1 = new JSeparator();
 		mnFile.add(separator_1);
 		
-		JMenuItem mntmUplate = new JMenuItem("Uplate");
+		JMenuItem mntmUplate = new JMenuItem("Promijeni lozinku");
 		mnFile.add(mntmUplate);
 		
 		JSeparator separator = new JSeparator();
@@ -185,17 +188,27 @@ public class MainWindow {
 		JMenu mnUredi = new JMenu("Uredi");
 		menuBar.add(mnUredi);
 		
-		JMenuItem mntmUrediUposlenike = new JMenuItem("Uredi uposlenike");
+		JMenuItem mntmUrediUposlenike = new JMenuItem("Uredi korisnike");
+		mntmUrediUposlenike.setVisible(false);
 		mnUredi.add(mntmUrediUposlenike);
 		
-		JMenuItem mntmIzvjetaj = new JMenuItem("Izvje\u0161taj");
-		mnUredi.add(mntmIzvjetaj);
+		JMenuItem mntmLiteratura = new JMenuItem("Uredi literaturu");
+		mnUredi.add(mntmLiteratura);
 		
-		JSeparator separator_2 = new JSeparator();
-		mnUredi.add(separator_2);
+		JMenu mnDodaj = new JMenu("Dodaj");
+		menuBar.add(mnDodaj);
 		
-		JMenuItem mntmPromijeniLozinku = new JMenuItem("Promijeni lozinku");
-		mnUredi.add(mntmPromijeniLozinku);
+		JMenuItem mntmDodajStudenta = new JMenuItem("Dodaj studenta");
+		mnDodaj.add(mntmDodajStudenta);
+		
+		JMenuItem mntmDodajKorisnika = new JMenuItem("Dodaj korisnika");
+		mnDodaj.add(mntmDodajKorisnika);
+		
+		JMenuItem mntmDodajLiteraturu = new JMenuItem("Dodaj literaturu");
+		mnDodaj.add(mntmDodajLiteraturu);
+		
+		JMenu mnIzvjetaj = new JMenu("Izvje\u0161taj");
+		menuBar.add(mnIzvjetaj);
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.addRow(s.dajPodatkeZaPrikaz());
 	}
