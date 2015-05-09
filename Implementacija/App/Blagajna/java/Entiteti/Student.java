@@ -282,5 +282,11 @@ public class Student implements java.io.Serializable {
 			System.out.println("Izuzetak " + ex.getMessage());
 		}
 	}
+	
+	public void obrisiStudenta(Session session) {
+	}
+	public void urediStudenta(Session session) {
+		
+	}	
 
 }

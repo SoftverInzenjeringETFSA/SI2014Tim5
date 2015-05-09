@@ -1,0 +1,18 @@
+package Entiteti;
+
+import Dodaci.TipKorisnika;
+import java.util.*;
+
+public class Korisnik {
+	private String ime;
+	private String prezime;
+	private String jmbg;
+	private String adresa;	
+	private String telefon;
+	private String mail;
+	private TipKorisnika tipKorisnika;
+	private ArrayList<Izvjestaj> izvjestaji;
+	
+	
+	
+}
