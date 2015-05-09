@@ -1,0 +1,9 @@
+package Entiteti;
+
+import java.util.*;
+
+public class Izvjestaj {
+	private Date datum;
+	private String sadrzaj;
+	private Korisnik kreator;
+}
