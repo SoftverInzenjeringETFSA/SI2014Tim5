@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.hibernate.Session;
 
-import Dodaci.TipDuga;
 
 public class Rata {
 	

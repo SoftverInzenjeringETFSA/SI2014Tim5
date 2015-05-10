@@ -5,23 +5,23 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema blagajnadb
+-- Schema tim5
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema blagajnadb
+-- Schema tim5
 -- -----------------------------------------------------
 
 CREATE USER 'EtfSI2014'@'localhost' IDENTIFIED BY '2014SIEtf';
-grant all on blagajnadb.* to 'EtfSI2014'@'localhost';
-CREATE SCHEMA IF NOT EXISTS `blagajnadb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
-USE `blagajnadb` ;
+grant all on tim5.* to 'EtfSI2014'@'localhost';
+CREATE SCHEMA IF NOT EXISTS `tim5` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+USE `tim5` ;
 
 
 -- -----------------------------------------------------
--- Table `blagajnadb`.`Studenti`
+-- Table `tim5`.`Studenti`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `blagajnadb`.`Studenti` (
+CREATE TABLE IF NOT EXISTS `tim5`.`Studenti` (
   `studentId` INT NOT NULL AUTO_INCREMENT,
   `ime` VARCHAR(45) NULL,
   `imeRoditelja` VARCHAR(45) NULL,
@@ -38,9 +38,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `blagajnadb`.`Literatura`
+-- Table `tim5`.`Literatura`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `blagajnadb`.`Literatura` (
+CREATE TABLE IF NOT EXISTS `tim5`.`Literatura` (
   `literaturaId` INT NOT NULL AUTO_INCREMENT,
   `isbn` VARCHAR(45) NULL,
   `naziv` VARCHAR(45) NULL,
@@ -52,9 +52,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `blagajnadb`.`Dugovi`
+-- Table `tim5`.`Dugovi`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `blagajnadb`.`Dugovi` (
+CREATE TABLE IF NOT EXISTS `tim5`.`Dugovi` (
   `dugId` INT NOT NULL AUTO_INCREMENT,
   `vrijednost` DOUBLE NULL,
   `daLiJeIzmiren` TINYINT(1) NULL,
@@ -66,21 +66,21 @@ CREATE TABLE IF NOT EXISTS `blagajnadb`.`Dugovi` (
   INDEX `fk_Dugovi_Literatura1_idx` (`literaturaId` ASC),
   CONSTRAINT `fk_Dugovi_Studenti`
     FOREIGN KEY (`studentId`)
-    REFERENCES `blagajnadb`.`Studenti` (`studentId`)
+    REFERENCES `tim5`.`Studenti` (`studentId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Dugovi_Literatura1`
     FOREIGN KEY (`literaturaId`)
-    REFERENCES `blagajnadb`.`Literatura` (`literaturaId`)
+    REFERENCES `tim5`.`Literatura` (`literaturaId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `blagajnadb`.`Rate`
+-- Table `tim5`.`Rate`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `blagajnadb`.`Rate` (
+CREATE TABLE IF NOT EXISTS `tim5`.`Rate` (
   `rataId` INT NOT NULL AUTO_INCREMENT,
   `vrijednost` DOUBLE NULL,
   `datumZaduzenja` DATE NULL,
@@ -92,16 +92,16 @@ CREATE TABLE IF NOT EXISTS `blagajnadb`.`Rate` (
   INDEX `fk_Rate_Dugovi1_idx` (`dugId` ASC),
   CONSTRAINT `fk_Rate_Dugovi1`
     FOREIGN KEY (`dugId`)
-    REFERENCES `blagajnadb`.`Dugovi` (`dugId`)
+    REFERENCES `tim5`.`Dugovi` (`dugId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `blagajnadb`.`Korisnici`
+-- Table `tim5`.`Korisnici`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `blagajnadb`.`Korisnici` (
+CREATE TABLE IF NOT EXISTS `tim5`.`Korisnici` (
   `korisnikId` INT NOT NULL AUTO_INCREMENT,
   `ime` VARCHAR(45) NULL,
   `prezime` VARCHAR(45) NULL,
@@ -117,9 +117,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `blagajnadb`.`Izvjestaji`
+-- Table `tim5`.`Izvjestaji`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `blagajnadb`.`Izvjestaji` (
+CREATE TABLE IF NOT EXISTS `tim5`.`Izvjestaji` (
   `izvjestajId` INT NOT NULL AUTO_INCREMENT,
   `datum` DATE NULL,
   `sadrzaj` VARCHAR(45) NULL,
@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `blagajnadb`.`Izvjestaji` (
   INDEX `fk_Izvjestaji_Korisnici1_idx` (`korisnikId` ASC),
   CONSTRAINT `fk_Izvjestaji_Korisnici1`
     FOREIGN KEY (`korisnikId`)
-    REFERENCES `blagajnadb`.`Korisnici` (`korisnikId`)
+    REFERENCES `tim5`.`Korisnici` (`korisnikId`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -137,4 +137,4 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-ALTER SCHEMA `blagajnadb`  DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_bin ;
+ALTER SCHEMA `tim5`  DEFAULT CHARACTER SET utf8  DEFAULT COLLATE utf8_bin ;

@@ -273,10 +273,9 @@ public class Student implements java.io.Serializable {
 			RollbackException, HeuristicMixedException,
 			HeuristicRollbackException, SystemException {
 		try {
-			Transaction t = (Transaction) session.beginTransaction();
-			Student s = new Student();
+			Transaction t = (Transaction) session.beginTransaction();			
 			session.save(this);
-			System.out.println("Dodan student sa IDom " + id);
+			System.out.println("Dodan student sa IDom " + this.id);
 			t.commit();
 		} catch (Exception ex) {
 			System.out.println("Izuzetak " + ex.getMessage());
