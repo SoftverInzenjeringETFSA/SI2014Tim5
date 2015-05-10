@@ -4,7 +4,7 @@ import java.util.*;
 
 import org.hibernate.Session;
 
-public class Izvjestaj {
+public class Izvjestaj implements java.io.Serializable{
 	private Date datum;
 	private String sadrzaj;
 	private Korisnik kreator;

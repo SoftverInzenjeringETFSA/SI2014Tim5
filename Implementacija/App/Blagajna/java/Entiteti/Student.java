@@ -1,5 +1,7 @@
 package Entiteti;
 
+import java.util.ArrayList;
+
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.RollbackException;
@@ -8,11 +10,7 @@ import javax.transaction.Transaction;
 
 import org.hibernate.Session;
 
-public class Student implements java.io.Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Student implements java.io.Serializable {	
 	long id;
 
 	private String ime;
@@ -31,14 +29,15 @@ public class Student implements java.io.Serializable {
 	private String drzavaRodjenja;
 	private double popust;
 	private int godinaStudija;
-	
+	private ArrayList<Dug> dugovi;
 
 	public Student(long id, String ime, String prezime, String jmbg,
 			String mail, String adresa, String opcina, String telefon,
 			int indeks, double troskoviSkolarine, double troskoviLiterature,
 			String imeRoditelja, String mjestoRodjenja, String opcinaRodjenja,
-			String drzavaRodjenja, double popust, int godinaStudija) {
+			String drzavaRodjenja, double popust, int godinaStudija, ArrayList<Dug> dugovi) {
 		super();
+		this.dugovi = dugovi;
 		this.id = id;
 		this.ime = ime;
 		this.prezime = prezime;
@@ -60,8 +59,16 @@ public class Student implements java.io.Serializable {
 
 
 	public Student() {
+		dugovi = new ArrayList<Dug>();
 	}
-
+	
+	public ArrayList<Dug> getDugovi() {
+		return dugovi;
+	}
+	
+	public void setDugovi(ArrayList<Dug> dugovi) {
+		this.dugovi = dugovi;
+	}
 	
 	public long getId() {
 		return id;
@@ -266,7 +273,13 @@ public class Student implements java.io.Serializable {
 	}
 
 
-
+	public double dajUkupniDug() {
+		return 0;
+	}
+	
+	public void izvrsiUplatu(Rata rata) {
+		
+	}
 	
 
 	public void dodajStudenta(Session session) throws SecurityException,

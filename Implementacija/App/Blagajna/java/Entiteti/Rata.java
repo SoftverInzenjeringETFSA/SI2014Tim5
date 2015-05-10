@@ -5,7 +5,7 @@ import java.util.Date;
 import org.hibernate.Session;
 
 
-public class Rata {
+public class Rata implements java.io.Serializable {
 	
 	private double vrijednost;
 	private boolean jeLiUplacena;

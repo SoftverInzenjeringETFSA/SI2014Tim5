@@ -6,7 +6,7 @@ import java.util.*;
 
 import org.hibernate.Session;
 
-public class Korisnik {
+public class Korisnik implements java.io.Serializable{
 	private String ime;
 	private String prezime;
 	private String jmbg;
@@ -81,6 +81,10 @@ public class Korisnik {
 	}
 	public void setIzvjestaji(ArrayList<Izvjestaj> izvjestaji) {
 		this.izvjestaji = izvjestaji;
+	}
+	
+	public void registrujIzvjestaj(Izvjestaj izvjestaj) {
+		
 	}
 	
 	public void dodajKorisnika(Session session) {

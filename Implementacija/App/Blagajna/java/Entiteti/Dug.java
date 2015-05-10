@@ -7,9 +7,9 @@ import org.hibernate.Session;
 import Dodaci.TipDuga;
 
 
-public class Dug {
-	private ArrayList<Rata> rate;
-	private ArrayList<Literatura> literature;
+public class Dug implements java.io.Serializable {
+	private ArrayList<Rata> rate; //ako je tip duga dugZaLiteraturu, ovo je null,
+	private ArrayList<Literatura> literature; // u suprotnom je ovo null
 	private boolean jeLiIzmiren;
 	private String akademskaGodina;
 	double vrijednost;
@@ -19,6 +19,7 @@ public class Dug {
 		rate = new ArrayList<Rata>();
 		literature = new ArrayList<Literatura>();
 	}
+		
 	
 	public Dug(ArrayList<Rata> rate, ArrayList<Literatura> literature,
 			boolean jeLiIzmiren, String akademskaGodina, double vrijednost,
@@ -66,6 +67,14 @@ public class Dug {
 	}
 	public void setTipDuga(TipDuga tipDuga) {
 		this.tipDuga = tipDuga;
+	}
+	
+	public void dodajRatu(Rata rata) {
+		
+	}
+	
+	public void dodajLiteraturu(Literatura literatura) {
+		
 	}
 	
 	public void dodajDug(Session session) {

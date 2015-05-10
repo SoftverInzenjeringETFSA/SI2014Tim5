@@ -2,7 +2,7 @@ package Entiteti;
 
 import org.hibernate.Session;
 
-public class Literatura {
+public class Literatura implements java.io.Serializable{
 	
 	private String isbn;
 	private String naziv;
