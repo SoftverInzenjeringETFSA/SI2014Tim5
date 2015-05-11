@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated May 9, 2015 1:21:29 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="Entiteti.Student" table="STUDENTi">
+    <class name="Entiteti.Student" table="studenti">
         <id name="studentiId" type="long">
             <column name="ID" />
             <generator class="native" />

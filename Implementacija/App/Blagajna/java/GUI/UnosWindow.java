@@ -9,6 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 import Dodaci.GodinaStudija;
+import Entiteti.Student;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -27,6 +28,7 @@ import javax.swing.JButton;
 
 import java.awt.Choice;
 import java.awt.Button;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -86,8 +88,18 @@ public class UnosWindow {
 	 */
 	public UnosWindow() {
 		initialize();
+	}	
+	
+	private ArrayList<Student> studenti;
+	private Student student;
+	public UnosWindow(ArrayList<Student> studenti) {
+		initialize();
+		this.studenti = studenti;
 	}
-
+	public UnosWindow(Student student) {
+		initialize();
+		this.student = student;		
+	}	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -142,6 +154,7 @@ public class UnosWindow {
 			
 				
 				JLabel lblNewLabel = new JLabel("Ime:");
+				
 				panel.add(lblNewLabel, "2, 2");
 				
 				textField = new JTextField();
