@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 13, 2015 12:05:33 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="Entiteti.Literatura" table="LITERATURA">
+        <id name="isbn" type="java.lang.String">
+            <column name="ISBN" />
+            <generator class="assigned" />
+        </id>
+        <property name="naziv" type="java.lang.String">
+            <column name="NAZIV" />
+        </property>
+        <property name="autor" type="java.lang.String">
+            <column name="AUTOR" />
+        </property>
+        <property name="kolicina" type="int">
+            <column name="KOLICINA" />
+        </property>
+        <property name="cijena" type="double">
+            <column name="CIJENA" />
+        </property>
+    </class>
+</hibernate-mapping>
