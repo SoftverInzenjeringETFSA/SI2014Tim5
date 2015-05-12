@@ -56,8 +56,7 @@ public class Student implements java.io.Serializable {
 		this.popust = popust;
 		this.godinaStudija = godinaStudija;
 	}
-
-
+	
 	public Student() {
 		dugovi = new ArrayList<Dug>();
 	}

@@ -7,6 +7,7 @@ import java.util.*;
 import org.hibernate.Session;
 
 public class Korisnik implements java.io.Serializable{
+	private long id;
 	private String ime;
 	private String prezime;
 	private String jmbg;
@@ -21,10 +22,11 @@ public class Korisnik implements java.io.Serializable{
 		izvjestaji = new ArrayList<Izvjestaj>();
 	}
 	
-	public Korisnik(String ime, String prezime, String jmbg, String adresa,
+	public Korisnik(long id, String ime, String prezime, String jmbg, String adresa,
 			String telefon, String mail, TipKorisnika tipKorisnika,
 			ArrayList<Izvjestaj> izvjestaji) {
 		super();
+		this.id = id;
 		this.ime = ime;
 		this.prezime = prezime;
 		this.jmbg = jmbg;
@@ -33,6 +35,12 @@ public class Korisnik implements java.io.Serializable{
 		this.mail = mail;
 		this.tipKorisnika = tipKorisnika;
 		this.izvjestaji = izvjestaji;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId() {
+		this.id = id;
 	}
 	public String getIme() {
 		return ime;

@@ -18,10 +18,15 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
+import org.hibernate.Session;
+
+import util.HibernateUtil;
 import Dodaci.GodinaStudija;
+import Entiteti.Literatura;
 
 public class DugWindow {
-
+		
 	private JFrame frmDugovanjaUplate;
 	private JTable table;
 	private JLabel lblStudent;

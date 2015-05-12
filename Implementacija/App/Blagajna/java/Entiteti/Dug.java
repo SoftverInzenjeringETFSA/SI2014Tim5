@@ -8,6 +8,7 @@ import Dodaci.TipDuga;
 
 
 public class Dug implements java.io.Serializable {
+	private long id;
 	private ArrayList<Rata> rate; //ako je tip duga dugZaLiteraturu, ovo je null,
 	private ArrayList<Literatura> literature; // u suprotnom je ovo null
 	private boolean jeLiIzmiren;
@@ -21,16 +22,23 @@ public class Dug implements java.io.Serializable {
 	}
 		
 	
-	public Dug(ArrayList<Rata> rate, ArrayList<Literatura> literature,
+	public Dug(long id, ArrayList<Rata> rate, ArrayList<Literatura> literature,
 			boolean jeLiIzmiren, String akademskaGodina, double vrijednost,
 			TipDuga tipDuga) {
 		super();
+		this.id = id;
 		this.rate = rate;
 		this.literature = literature;
 		this.jeLiIzmiren = jeLiIzmiren;
 		this.akademskaGodina = akademskaGodina;
 		this.vrijednost = vrijednost;
 		this.tipDuga = tipDuga;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	public ArrayList<Rata> getRate() {
 		return rate;

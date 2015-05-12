@@ -2,8 +2,9 @@ package Entiteti;
 
 import org.hibernate.Session;
 
+
 public class Literatura implements java.io.Serializable{
-	
+	private long id;
 	private String isbn;
 	private String naziv;
 	private String autor;
@@ -11,14 +12,22 @@ public class Literatura implements java.io.Serializable{
 	private double cijena;
 	
 	public Literatura() {}
-	public Literatura(String isbn, String naziv, String autor, int kolicina,
+	public Literatura(long id, String isbn, String naziv, String autor, int kolicina,
 			double cijena) {
 		super();
+		this.id = id;
 		this.isbn = isbn;
 		this.naziv = naziv;
 		this.autor = autor;
 		this.kolicina = kolicina;
 		this.cijena = cijena;
+	}
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
 	}
 	public String getIsbn() {
 		return isbn;
@@ -52,7 +61,9 @@ public class Literatura implements java.io.Serializable{
 	}
 
 	public void dodajLiteraturu(Session session) {
-		
+		org.hibernate.Transaction t = session.beginTransaction();
+		session.save(this);
+		t.commit();
 	}
 	
 	public void obrisiLiteraturu(Session session) {

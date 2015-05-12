@@ -5,17 +5,26 @@ import java.util.*;
 import org.hibernate.Session;
 
 public class Izvjestaj implements java.io.Serializable{
+	private long id;
 	private Date datum;
 	private String sadrzaj;
 	private Korisnik kreator;
 	
 	public Izvjestaj() {}
 	
-	public Izvjestaj(Date datum, String sadrzaj, Korisnik kreator) {
+	public Izvjestaj(long id, Date datum, String sadrzaj, Korisnik kreator) {
 		super();
+		this.id = id;
 		this.datum = datum;
 		this.sadrzaj = sadrzaj;
 		this.kreator = kreator;
+	}
+	
+	public long getId() {
+		return id;
+	}
+	public void setId() {
+		this.id = id;
 	}
 	public Date getDatum() {
 		return datum;

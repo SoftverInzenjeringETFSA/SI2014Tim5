@@ -1,13 +1,16 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated May 13, 2015 12:05:33 AM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated May 13, 2015 12:15:55 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="Entiteti.Literatura" table="LITERATURA">
-        <id name="isbn" type="java.lang.String">
-            <column name="ISBN" />
-            <generator class="assigned" />
+        <id name="id" type="long">
+            <column name="literaturaId" />
+            <generator class="native" />
         </id>
+        <property name="isbn" type="java.lang.String">
+            <column name="ISBN" />
+        </property>
         <property name="naziv" type="java.lang.String">
             <column name="NAZIV" />
         </property>

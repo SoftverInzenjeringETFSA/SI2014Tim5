@@ -6,24 +6,39 @@ import org.hibernate.Session;
 
 
 public class Rata implements java.io.Serializable {
-	
+	private long id;
 	private double vrijednost;
 	private boolean jeLiUplacena;
 	private Date datumZaduzenja;
 	private Date datumRazduzenja;
-	private Date rokUplate;		
+	private Date rokUplate;	
+	private long dugId;
 	
 	public Rata() {}
-	public Rata(double vrijednost, boolean jeLiUplacena, Date datumZaduzenja,
-			Date datumRazduzenja, Date rokUplate) {
+	public Rata(long id, double vrijednost, boolean jeLiUplacena, Date datumZaduzenja,
+			Date datumRazduzenja, Date rokUplate, long dugId) {
 		super();
+		this.id = id;
 		this.vrijednost = vrijednost;
 		this.jeLiUplacena = jeLiUplacena;
 		this.datumZaduzenja = datumZaduzenja;
 		this.datumRazduzenja = datumRazduzenja;
-		this.rokUplate = rokUplate;		
+		this.rokUplate = rokUplate;
+		this.dugId = dugId;
+	}
+	public long getDugId() {
+		return dugId;
+	}
+	public void setDugId(long id) {
+		this.dugId = dugId;
 	}
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public double getVrijednost() {
 		return vrijednost;
 	}

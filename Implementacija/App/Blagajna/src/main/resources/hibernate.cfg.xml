@@ -5,9 +5,10 @@
  <session-factory name="">
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.password">2014SIEtf</property>
-  <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/tim5</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost/tim5</property>
   <property name="hibernate.connection.username">EtfSI2014</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-  <property name="hibernate.hbm2ddl.auto">update</property>  
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <mapping resource="Entiteti/Literatura.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>
