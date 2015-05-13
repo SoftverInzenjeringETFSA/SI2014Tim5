@@ -3,7 +3,11 @@ package Entiteti;
 import org.hibernate.Session;
 
 
-public class Literatura implements java.io.Serializable{
+public class Literatura implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5006244416455980668L;
 	private long id;
 	private String isbn;
 	private String naziv;

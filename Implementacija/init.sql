@@ -12,9 +12,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema tim5
 -- -----------------------------------------------------
 
+
+CREATE SCHEMA IF NOT EXISTS `tim5` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 CREATE USER 'EtfSI2014'@'localhost' IDENTIFIED BY '2014SIEtf';
 grant all on tim5.* to 'EtfSI2014'@'localhost';
-CREATE SCHEMA IF NOT EXISTS `tim5` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 USE `tim5` ;
 
 
