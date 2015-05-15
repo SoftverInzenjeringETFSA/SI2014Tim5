@@ -204,12 +204,12 @@ public class LiteraturaWindow {
 		btnUnesi = new JButton("Unesi");
 		btnUnesi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*String isbn = tFieldIsbn.getText();
+				String isbn = tFieldIsbn.getText();
 				String naziv = tFieldNaziv.getText();
 				String autor = tFieldAutor.getText();
 				int kolicina = Integer.parseInt(tFieldKolicina.getText());
-				double cijena = Double.parseDouble(tFieldIsbn.getText());
-				//Literatura l = new Literatura(1,isbn,naziv, autor, kolicina, cijena);*/
+				double cijena = Double.parseDouble(tFieldCijena.getText());
+				//Literatura l = new Literatura(1,isbn,naziv, autor, kolicina, cijena);
 		
 			}
 		});

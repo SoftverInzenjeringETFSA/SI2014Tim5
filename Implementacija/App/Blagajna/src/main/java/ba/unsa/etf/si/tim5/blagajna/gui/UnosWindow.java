@@ -335,8 +335,8 @@ public class UnosWindow {
 						String mail = tFieldMail.getText();
 						int indeks =  Integer.parseInt(tFieldIndeks.getText());
 						int godinaUpisa = cBoxGodina.getSelectedIndex();
-						double troskovi = Integer.parseInt(tFieldTroskovi.getText());
-						double popust = Integer.parseInt(tFieldPopust.getText());
+						double troskovi = Double.parseDouble(tFieldTroskovi.getText());
+						double popust =  Double.parseDouble(tFieldPopust.getText());
 						double cijena  = troskovi * popust /100;
 						Student s = new Student(1, ime, prezime, jmbg,
 								mail, adresaPreb, opcinaPreb, telefon,
