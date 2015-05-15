@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 15, 2015 1:33:36 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.tim5.blagajna.entiteti.Izvjestaj" table="IZVJESTAJ">
+        <id name="id" type="long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="datum" type="java.util.Date">
+            <column name="DATUM" />
+        </property>
+        <property name="sadrzaj" type="java.lang.String">
+            <column name="SADRZAJ" />
+        </property>
+        <property name="korisnikId" type="long">
+            <column name="KORISNIKID" />
+        </property>
+    </class>
+</hibernate-mapping>

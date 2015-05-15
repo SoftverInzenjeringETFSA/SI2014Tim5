@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 15, 2015 1:33:36 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="ba.unsa.etf.si.tim5.blagajna.entiteti.Rata" table="RATA">
+        <id name="id" type="long">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="vrijednost" type="double">
+            <column name="VRIJEDNOST" />
+        </property>
+        <property name="jeLiUplacena" type="boolean">
+            <column name="JELIUPLACENA" />
+        </property>
+        <property name="datumZaduzenja" type="java.util.Date">
+            <column name="DATUMZADUZENJA" />
+        </property>
+        <property name="datumRazduzenja" type="java.util.Date">
+            <column name="DATUMRAZDUZENJA" />
+        </property>
+        <property name="rokUplate" type="java.util.Date">
+            <column name="ROKUPLATE" />
+        </property>
+        <property name="dugId" type="long">
+            <column name="DUGID" />
+        </property>
+    </class>
+</hibernate-mapping>
