@@ -33,14 +33,14 @@ public class Student implements java.io.Serializable {
 	private String opcinaRodjenja;
 	private String drzavaRodjenja;
 	private double popust;
-	private int godinaStudija;
-	private ArrayList<Dug> dugovi;
+	private int godinaStudija;	
+	private long dugId;
 
 	public Student(long id, String ime, String prezime, String jmbg,
 			String mail, String adresa, String opcina, String telefon,
-			int indeks, double troskoviSkolarine, double troskoviLiterature,
+			int indeks, double troskoviSkolarine,
 			String imeRoditelja, String mjestoRodjenja, String opcinaRodjenja,
-			String drzavaRodjenja, double popust, int godinaStudija, long dugId) {
+			String drzavaRodjenja, double popust, int godinaStudija) {
 		super();		
 		this.id = id;
 		this.ime = ime;
@@ -51,30 +51,29 @@ public class Student implements java.io.Serializable {
 		this.opcina = opcina;
 		this.telefon = telefon;
 		this.indeks = indeks;
-		this.troskoviSkolarine = troskoviSkolarine;
-		this.troskoviLiterature = troskoviLiterature;
+		this.troskoviSkolarine = troskoviSkolarine;		
 		this.imeRoditelja = imeRoditelja;
 		this.mjestoRodjenja = mjestoRodjenja;
 		this.opcinaRodjenja = opcinaRodjenja;
 		this.drzavaRodjenja = drzavaRodjenja;
 		this.popust = popust;
-		this.godinaStudija = godinaStudija;
+		this.godinaStudija = godinaStudija;		
 	}
 	
 	
 	
 	public Student() {
-		dugovi = new ArrayList<Dug>();
+		
 	}
-	
-	public ArrayList<Dug> getDugovi() {
-		return dugovi;
+
+	public long getDugId() {
+		return dugId;
 	}
-	
-	public void setDugovi(ArrayList<Dug> dugovi) {
-		this.dugovi = dugovi;
+
+	public void setDugId(long dugId) {
+		this.dugId = dugId;
 	}
-	
+
 	public long getId() {
 		return id;
 	}

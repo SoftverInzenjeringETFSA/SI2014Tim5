@@ -3,19 +3,30 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+
 import javax.swing.JButton;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UnosKorisnikaWindow {
 
@@ -145,6 +156,12 @@ public class UnosKorisnikaWindow {
 		frmUnosKorisnika.getContentPane().add(comboBox, "4, 16, 4, 1, fill, center");
 		
 		JButton btnDodaj = new JButton("Dodaj");
+		btnDodaj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Korisnik k = new Korisnik();
+				
+			}
+		});
 		frmUnosKorisnika.getContentPane().add(btnDodaj, "4, 18, center, center");
 		
 		JButton btnUredi = new JButton("Uredi");

@@ -10,6 +10,7 @@ import javax.swing.GroupLayout.Alignment;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -33,37 +34,46 @@ import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+
+import org.hibernate.Session;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UnosWindow {
 
 	private JFrame frmUnosStudenta;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField tFieldIme;
+	private JTextField tFieldMjestoRodj;
+	private JTextField tFieldPrezime;
+	private JTextField tFieldRoditelj;
+	private JTextField tFieldTelefon;
+	private JTextField tFieldJmbg;
+	private JTextField tFieldOpcina;
+	private JTextField tFieldDrzava;
+	private JTextField tFieldAdresaPreb;
+	private JTextField tFieldOpcinaPreb;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JLabel lblNewLabel_5;
 	private JLabel lblNewLabel_6;
-	private JTextField textField_10;
-	private JTextField textField_11;
+	private JTextField tFieldIndeks;
+	private JTextField tFieldTroskovi;
 	private JLabel lblGodinaKojuUpisje;
 	private JLabel lblPopust;
-	private JTextField textField_13;
+	private JTextField tFieldPopust;
 	private JLabel lblNewLabel_7;
 	private JButton btnNewButton_1;
 	private JButton btnUnesi;
 	private JLabel lblKm;
-	private JComboBox comboBox;
+	private JComboBox cBoxGodina;
 	private JCheckBox chckbxNewCheckBox;
 	private JLabel lblEmail;
-	private JTextField textField_12;
+	private JTextField tFieldMail;
 	private JLabel lblUkupniTrokovi;
 	private JLabel lblcijena;
 
@@ -87,7 +97,7 @@ public class UnosWindow {
 	 * Create the application.
 	 */
 	public UnosWindow() {
-		initialize();
+		initialize();			
 	}	
 	
 	private ArrayList<Student> studenti;
@@ -98,8 +108,15 @@ public class UnosWindow {
 	}
 	public UnosWindow(Student student) {
 		initialize();
-		this.student = student;		
+		this.student = student;	
+		this.btnUnesi.setText("Uredi");
+		//this.chckbxNewCheckBox.setContentAreaFilled(true);
+		popuniPolja();
 	}	
+	
+	private void popuniPolja() {
+		this.tFieldIme.setText(student.getIme());
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -157,79 +174,79 @@ public class UnosWindow {
 				
 				panel.add(lblNewLabel, "2, 2");
 				
-				textField = new JTextField();
-				panel.add(textField, "4, 2");
-				textField.setColumns(10);
+				tFieldIme = new JTextField();
+				panel.add(tFieldIme, "4, 2");
+				tFieldIme.setColumns(10);
 				
 				JLabel lblNewLabel_2 = new JLabel("Mjesto ro\u0111enja:");
 				panel.add(lblNewLabel_2, "8, 2");
 				
-				textField_1 = new JTextField();
-				panel.add(textField_1, "10, 2");
-				textField_1.setColumns(10);
+				tFieldMjestoRodj = new JTextField();
+				panel.add(tFieldMjestoRodj, "10, 2");
+				tFieldMjestoRodj.setColumns(10);
 				
 				JLabel lblPrezime = new JLabel("Prezime:");
 				panel.add(lblPrezime, "2, 4");
 				
-				textField_2 = new JTextField();
-				panel.add(textField_2, "4, 4");
-				textField_2.setColumns(10);
+				tFieldPrezime = new JTextField();
+				panel.add(tFieldPrezime, "4, 4, default, top");
+				tFieldPrezime.setColumns(10);
 				
 				JLabel lblNewLabel_3 = new JLabel("Op\u0107ina ro\u0111enja:");
 				panel.add(lblNewLabel_3, "8, 4");
 				
-				textField_6 = new JTextField();
-				panel.add(textField_6, "10, 4");
-				textField_6.setColumns(10);
+				tFieldOpcina = new JTextField();
+				panel.add(tFieldOpcina, "10, 4");
+				tFieldOpcina.setColumns(10);
 				
 				JLabel lblNewLabel_1 = new JLabel("Ime roditelja:");
 				panel.add(lblNewLabel_1, "2, 6");
 				
-				textField_3 = new JTextField();
-				panel.add(textField_3, "4, 6");
-				textField_3.setColumns(10);
+				tFieldRoditelj = new JTextField();
+				panel.add(tFieldRoditelj, "4, 6");
+				tFieldRoditelj.setColumns(10);
 				
 				JLabel lblNewLabel_4 = new JLabel("Dr\u017Eava ro\u0111enja:");
 				panel.add(lblNewLabel_4, "8, 6");
 				
-				textField_7 = new JTextField();
-				panel.add(textField_7, "10, 6");
-				textField_7.setColumns(10);
+				tFieldDrzava = new JTextField();
+				panel.add(tFieldDrzava, "10, 6");
+				tFieldDrzava.setColumns(10);
 				
 				JLabel lblBrojTelefona = new JLabel("Broj telefona:");
 				panel.add(lblBrojTelefona, "2, 8");
 				
-				textField_4 = new JTextField();
-				panel.add(textField_4, "4, 8");
-				textField_4.setColumns(10);
+				tFieldTelefon = new JTextField();
+				panel.add(tFieldTelefon, "4, 8");
+				tFieldTelefon.setColumns(10);
 				
 				JLabel lblAdresaPrebivalita = new JLabel("Adresa prebivali\u0161ta:");
 				panel.add(lblAdresaPrebivalita, "8, 8");
 				
-				textField_8 = new JTextField();
-				panel.add(textField_8, "10, 8");
-				textField_8.setColumns(10);
+				tFieldAdresaPreb = new JTextField();
+				panel.add(tFieldAdresaPreb, "10, 8");
+				tFieldAdresaPreb.setColumns(10);
 				
 				JLabel lblJmbg = new JLabel("JMBG:");
 				panel.add(lblJmbg, "2, 10");
 				
-				textField_5 = new JTextField();
-				panel.add(textField_5, "4, 10");
-				textField_5.setColumns(10);
+				tFieldJmbg = new JTextField();
+				panel.add(tFieldJmbg, "4, 10");
+				tFieldJmbg.setColumns(10);
 				
 				JLabel lblOpinaPrebivalita = new JLabel("Op\u0107ina prebivali\u0161ta:");
 				panel.add(lblOpinaPrebivalita, "8, 10");
 				
-				textField_9 = new JTextField();
-				panel.add(textField_9, "10, 10");
-				textField_9.setColumns(10);
+				tFieldOpcinaPreb = new JTextField();
+				panel.add(tFieldOpcinaPreb, "10, 10");
+				tFieldOpcinaPreb.setColumns(10);
 				
 				lblEmail = new JLabel("E-Mail:");
 				panel.add(lblEmail, "8, 12, right, default");
 				
-				textField_12 = new JTextField();
-				textField_12.setColumns(10);
-				panel.add(textField_12, "10, 12, fill, default");
+				tFieldMail = new JTextField();
+				tFieldMail.setColumns(10);
+				panel.add(tFieldMail, "10, 12, fill, default");
 				
 				panel_1 = new JPanel();
 				panel_1.setBorder(BorderFactory.createTitledBorder("Podaci o studiju"));
@@ -262,16 +279,16 @@ public class UnosWindow {
 				lblNewLabel_5 = new JLabel("Broj indeksa:");
 				panel_1.add(lblNewLabel_5, "2, 2, right, default");
 				
-				textField_10 = new JTextField();
-				panel_1.add(textField_10, "4, 2, left, default");
-				textField_10.setColumns(10);
+				tFieldIndeks = new JTextField();
+				panel_1.add(tFieldIndeks, "4, 2, left, default");
+				tFieldIndeks.setColumns(10);
 				
 				lblNewLabel_6 = new JLabel("Tro\u0161kovi strudija:");
 				panel_1.add(lblNewLabel_6, "8, 2, right, default");
 				
-				textField_11 = new JTextField();
-				panel_1.add(textField_11, "10, 2, 3, 1, fill, default");
-				textField_11.setColumns(10);
+				tFieldTroskovi = new JTextField();
+				panel_1.add(tFieldTroskovi, "10, 2, 3, 1, fill, default");
+				tFieldTroskovi.setColumns(10);
 				
 				lblKm = new JLabel("KM");
 				panel_1.add(lblKm, "14, 2");
@@ -279,16 +296,16 @@ public class UnosWindow {
 				lblGodinaKojuUpisje = new JLabel("Godina koju upisje:");
 				panel_1.add(lblGodinaKojuUpisje, "2, 4, right, default");
 				
-				comboBox = new JComboBox();
-				comboBox.setModel(new DefaultComboBoxModel(GodinaStudija.values()));
-				panel_1.add(comboBox, "4, 4, fill, default");
+				cBoxGodina = new JComboBox();
+				cBoxGodina.setModel(new DefaultComboBoxModel(GodinaStudija.values()));
+				panel_1.add(cBoxGodina, "4, 4, fill, default");
 				
 				lblPopust = new JLabel("Popust:");
 				panel_1.add(lblPopust, "8, 4, right, default");
 				
-				textField_13 = new JTextField();
-				panel_1.add(textField_13, "10, 4, 3, 1, fill, default");
-				textField_13.setColumns(10);
+				tFieldPopust = new JTextField();
+				panel_1.add(tFieldPopust, "10, 4, 3, 1, fill, default");
+				tFieldPopust.setColumns(10);
 				
 				lblNewLabel_7 = new JLabel("%");
 				panel_1.add(lblNewLabel_7, "14, 4");
@@ -303,6 +320,53 @@ public class UnosWindow {
 				panel_1.add(lblcijena, "10, 6, left, default");
 				
 				btnUnesi = new JButton("Unesi");
+				btnUnesi.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String ime = tFieldIme.getText();
+						String prezime = tFieldPrezime.getText();
+						String roditelj = tFieldRoditelj.getText();
+						String telefon = tFieldTelefon.getText();
+						String jmbg = tFieldJmbg.getText();
+						String mjestoRodj = tFieldMjestoRodj.getText();
+						String opcinaRodj = tFieldOpcina.getText();
+						String drzava = tFieldDrzava.getText();
+						String adresaPreb = tFieldAdresaPreb.getText();
+						String opcinaPreb = tFieldOpcinaPreb.getText();
+						String mail = tFieldMail.getText();
+						int indeks =  Integer.parseInt(tFieldIndeks.getText());
+						int godinaUpisa = cBoxGodina.getSelectedIndex();
+						double troskovi = Integer.parseInt(tFieldTroskovi.getText());
+						double popust = Integer.parseInt(tFieldPopust.getText());
+						double cijena  = troskovi * popust /100;
+						Student s = new Student(1, ime, prezime, jmbg,
+								mail, adresaPreb, opcinaPreb, telefon,
+								indeks, troskovi, roditelj, mjestoRodj, opcinaRodj,
+							    drzava, popust, godinaUpisa);
+						Session session = HibernateUtil.getSessionFactory().openSession();
+						if(chckbxNewCheckBox.isSelected()) {
+						/*try {
+							//s.dodajStudenta(session);
+							//studenti.add(s);
+						} catch (SecurityException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (RollbackException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (HeuristicMixedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (HeuristicRollbackException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (SystemException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						}else s.urediStudenta(session);*/
+						session.close();
+					}
+				}});
 				frmUnosStudenta.getContentPane().add(btnUnesi, "2, 6, fill, top");
 				
 				btnNewButton_1 = new JButton("Iza\u0111i");

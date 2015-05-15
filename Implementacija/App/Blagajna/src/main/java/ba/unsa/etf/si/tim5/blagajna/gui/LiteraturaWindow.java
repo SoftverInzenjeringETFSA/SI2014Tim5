@@ -16,6 +16,8 @@ import java.awt.Insets;
 
 import javax.swing.JButton;
 
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -26,6 +28,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JPanel;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LiteraturaWindow {
 
@@ -38,11 +43,11 @@ public class LiteraturaWindow {
 	private JLabel lblAutor;
 	private JLabel lblKoliina;
 	private JLabel lblCijena;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField tFieldIsbn;
+	private JTextField tFieldNaziv;
+	private JTextField tFieldAutor;
+	private JTextField tFieldKolicina;
+	private JTextField tFieldCijena;
 	private JButton btnUnesi;
 	private JButton btnNewButton;
 
@@ -67,6 +72,7 @@ public class LiteraturaWindow {
 	 */
 	public LiteraturaWindow() {
 		initialize();
+		
 	}
 
 	/**
@@ -163,39 +169,50 @@ public class LiteraturaWindow {
 		lblIsbn = new JLabel("ISBN:");
 		panel.add(lblIsbn, "2, 4, right, default");
 		
-		textField = new JTextField();
-		panel.add(textField, "4, 4, fill, default");
-		textField.setColumns(10);
+		tFieldIsbn = new JTextField();
+		panel.add(tFieldIsbn, "4, 4, fill, default");
+		tFieldIsbn.setColumns(10);
 		
 		lblNaziv = new JLabel("Naziv:");
 		panel.add(lblNaziv, "2, 6, right, default");
 		
-		textField_1 = new JTextField();
-		panel.add(textField_1, "4, 6, fill, default");
-		textField_1.setColumns(10);
+		tFieldNaziv = new JTextField();
+		panel.add(tFieldNaziv, "4, 6, fill, default");
+		tFieldNaziv.setColumns(10);
 		
 		lblAutor = new JLabel("Autor:");
 		panel.add(lblAutor, "2, 8, right, default");
 		
-		textField_2 = new JTextField();
-		panel.add(textField_2, "4, 8, fill, default");
-		textField_2.setColumns(10);
+		tFieldAutor = new JTextField();
+		panel.add(tFieldAutor, "4, 8, fill, default");
+		tFieldAutor.setColumns(10);
 		
 		lblKoliina = new JLabel("Koli\u010Dina:");
 		panel.add(lblKoliina, "2, 10, right, default");
 		
-		textField_3 = new JTextField();
-		panel.add(textField_3, "4, 10, fill, default");
-		textField_3.setColumns(10);
+		tFieldKolicina = new JTextField();
+		panel.add(tFieldKolicina, "4, 10, fill, default");
+		tFieldKolicina.setColumns(10);
 		
 		lblCijena = new JLabel("Cijena:");
 		panel.add(lblCijena, "2, 12, right, default");
 		
-		textField_4 = new JTextField();
-		panel.add(textField_4, "4, 12, fill, default");
-		textField_4.setColumns(10);
+		tFieldCijena = new JTextField();
+		panel.add(tFieldCijena, "4, 12, fill, default");
+		tFieldCijena.setColumns(10);
 		
 		btnUnesi = new JButton("Unesi");
+		btnUnesi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*String isbn = tFieldIsbn.getText();
+				String naziv = tFieldNaziv.getText();
+				String autor = tFieldAutor.getText();
+				int kolicina = Integer.parseInt(tFieldKolicina.getText());
+				double cijena = Double.parseDouble(tFieldIsbn.getText());
+				//Literatura l = new Literatura(1,isbn,naziv, autor, kolicina, cijena);*/
+		
+			}
+		});
 		panel.add(btnUnesi, "4, 16");
 	}
 

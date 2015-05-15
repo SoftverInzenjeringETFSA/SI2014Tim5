@@ -1,5 +1,7 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
+import java.util.ArrayList;
+
 import org.hibernate.Session;
 
 
@@ -72,6 +74,10 @@ public class Literatura implements java.io.Serializable {
 	
 	public void obrisiLiteraturu(Session session) {
 		
+	}
+	
+	public ArrayList<Literatura> dajSvuLiteraturu(Session session) {
+		return null;
 	}
 	
 }
