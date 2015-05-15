@@ -1,6 +1,5 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
-import java.util.ArrayList;
 
 import org.hibernate.Session;
 
@@ -13,74 +12,107 @@ public class Dug implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 6950513813519064755L;
 	private long id;
-	private ArrayList<Rata> rate; //ako je tip duga dugZaLiteraturu, ovo je null,
-	private ArrayList<Literatura> literature; // u suprotnom je ovo null
+	private long rataId; //ako je tip duga dugZaLiteraturu, ovo je null,
+	private long literaturaId; // u suprotnom je ovo null
 	private boolean jeLiIzmiren;
 	private String akademskaGodina;
 	double vrijednost;
 	TipDuga tipDuga;
 	
 	public Dug() {
-		rate = new ArrayList<Rata>();
-		literature = new ArrayList<Literatura>();
 	}
-		
+			
 	
-	public Dug(long id, ArrayList<Rata> rate, ArrayList<Literatura> literature,
-			boolean jeLiIzmiren, String akademskaGodina, double vrijednost,
-			TipDuga tipDuga) {
+	public Dug(long id, long rataId, long literaturaId, boolean jeLiIzmiren,
+			String akademskaGodina, double vrijednost, TipDuga tipDuga) {
 		super();
 		this.id = id;
-		this.rate = rate;
-		this.literature = literature;
+		this.rataId = rataId;
+		this.literaturaId = literaturaId;
 		this.jeLiIzmiren = jeLiIzmiren;
 		this.akademskaGodina = akademskaGodina;
 		this.vrijednost = vrijednost;
 		this.tipDuga = tipDuga;
 	}
+	
+	
+
+
 	public long getId() {
 		return id;
 	}
+
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public ArrayList<Rata> getRate() {
-		return rate;
+
+
+	public long getRataId() {
+		return rataId;
 	}
-	public void setRate(ArrayList<Rata> rate) {
-		this.rate = rate;
+
+
+	public void setRataId(long rataId) {
+		this.rataId = rataId;
 	}
-	public ArrayList<Literatura> getLiterature() {
-		return literature;
+
+
+	public long getLiteraturaId() {
+		return literaturaId;
 	}
-	public void setLiterature(ArrayList<Literatura> literature) {
-		this.literature = literature;
+
+
+	public void setLiteraturaId(long literaturaId) {
+		this.literaturaId = literaturaId;
 	}
+
+
 	public boolean isJeLiIzmiren() {
 		return jeLiIzmiren;
 	}
+
+
 	public void setJeLiIzmiren(boolean jeLiIzmiren) {
 		this.jeLiIzmiren = jeLiIzmiren;
 	}
+
+
 	public String getAkademskaGodina() {
 		return akademskaGodina;
 	}
+
+
 	public void setAkademskaGodina(String akademskaGodina) {
 		this.akademskaGodina = akademskaGodina;
 	}
+
+
 	public double getVrijednost() {
 		return vrijednost;
 	}
+
+
 	public void setVrijednost(double vrijednost) {
 		this.vrijednost = vrijednost;
 	}
+
+
 	public TipDuga getTipDuga() {
 		return tipDuga;
 	}
+
+
 	public void setTipDuga(TipDuga tipDuga) {
 		this.tipDuga = tipDuga;
 	}
-	
+
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
 	public void dodajRatu(Rata rata) {
 		
 	}

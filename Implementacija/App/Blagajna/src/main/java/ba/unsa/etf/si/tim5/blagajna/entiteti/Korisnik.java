@@ -2,8 +2,6 @@ package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 
-import java.util.*;
-
 import org.hibernate.Session;
 
 public class Korisnik implements java.io.Serializable{
@@ -18,17 +16,14 @@ public class Korisnik implements java.io.Serializable{
 	private String adresa;	
 	private String telefon;
 	private String mail;
-	private TipKorisnika tipKorisnika;
-	private ArrayList<Izvjestaj> izvjestaji;
+	private TipKorisnika tipKorisnika;	
 	
 	
-	public Korisnik() {
-		izvjestaji = new ArrayList<Izvjestaj>();
+	public Korisnik() {		
 	}
 	
 	public Korisnik(long id, String ime, String prezime, String jmbg, String adresa,
-			String telefon, String mail, TipKorisnika tipKorisnika,
-			ArrayList<Izvjestaj> izvjestaji) {
+			String telefon, String mail, TipKorisnika tipKorisnika) {
 		super();
 		this.id = id;
 		this.ime = ime;
@@ -37,8 +32,7 @@ public class Korisnik implements java.io.Serializable{
 		this.adresa = adresa;
 		this.telefon = telefon;
 		this.mail = mail;
-		this.tipKorisnika = tipKorisnika;
-		this.izvjestaji = izvjestaji;
+		this.tipKorisnika = tipKorisnika;		
 	}
 	public long getId() {
 		return id;
@@ -88,13 +82,7 @@ public class Korisnik implements java.io.Serializable{
 	public void setTipKorisnika(TipKorisnika tipKorisnika) {
 		this.tipKorisnika = tipKorisnika;
 	}
-	public ArrayList<Izvjestaj> getIzvjestaji() {
-		return izvjestaji;
-	}
-	public void setIzvjestaji(ArrayList<Izvjestaj> izvjestaji) {
-		this.izvjestaji = izvjestaji;
-	}
-	
+
 	public void registrujIzvjestaj(Izvjestaj izvjestaj) {
 		
 	}
