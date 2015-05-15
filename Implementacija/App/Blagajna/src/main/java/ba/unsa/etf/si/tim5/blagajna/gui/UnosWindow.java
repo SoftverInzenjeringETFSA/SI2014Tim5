@@ -344,9 +344,9 @@ public class UnosWindow {
 							    drzava, popust, godinaUpisa);
 						Session session = HibernateUtil.getSessionFactory().openSession();
 						if(chckbxNewCheckBox.isSelected()) {
-						/*try {
-							//s.dodajStudenta(session);
-							//studenti.add(s);
+						try {
+							s.dodajStudenta(session);
+							studenti.add(s);
 						} catch (SecurityException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -363,9 +363,10 @@ public class UnosWindow {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-						}else s.urediStudenta(session);*/
+						}
+						else s.urediStudenta(session);
 						session.close();
-					}
+					
 				}});
 				frmUnosStudenta.getContentPane().add(btnUnesi, "2, 6, fill, top");
 				

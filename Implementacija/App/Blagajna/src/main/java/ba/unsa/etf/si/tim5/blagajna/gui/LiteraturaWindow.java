@@ -17,6 +17,8 @@ import java.awt.Insets;
 import javax.swing.JButton;
 
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -26,11 +28,19 @@ import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JPanel;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+
+import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class LiteraturaWindow {
 
@@ -73,6 +83,13 @@ public class LiteraturaWindow {
 	public LiteraturaWindow() {
 		initialize();
 		
+	}
+	
+	private ArrayList<Literatura> literatura = new ArrayList<Literatura>();
+	
+	public LiteraturaWindow(ArrayList<Literatura> literatura) {
+		initialize();
+		this.setLiteratura(literatura);
 	}
 
 	/**
@@ -209,11 +226,36 @@ public class LiteraturaWindow {
 				String autor = tFieldAutor.getText();
 				int kolicina = Integer.parseInt(tFieldKolicina.getText());
 				double cijena = Double.parseDouble(tFieldCijena.getText());
-				//Literatura l = new Literatura(1,isbn,naziv, autor, kolicina, cijena);
-		
+				
+				Literatura l = new Literatura(1,isbn,naziv, autor, kolicina, cijena);
+				literatura.add(l);
+				
+				
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+												   
+				model.addRow(literatura.toArray());
+				
+				
+				
+				
+				/*Session session = HibernateUtil.getSessionFactory().openSession();
+				   
+				   l.dodajLiteraturu(session);
+				   literatura.add(l);
+				   session.close();*/
+				
+				
 			}
 		});
 		panel.add(btnUnesi, "4, 16");
+	}
+
+	public ArrayList<Literatura> getLiteratura() {
+		return literatura;
+	}
+
+	public void setLiteratura(ArrayList<Literatura> literatura) {
+		this.literatura = literatura;
 	}
 
 }
