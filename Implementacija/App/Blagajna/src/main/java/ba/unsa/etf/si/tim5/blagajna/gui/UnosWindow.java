@@ -344,25 +344,8 @@ public class UnosWindow {
 							    drzava, popust, godinaUpisa);
 						Session session = HibernateUtil.getSessionFactory().openSession();
 						if(chckbxNewCheckBox.isSelected()) {
-						try {
 							s.dodajStudenta(session);
-							studenti.add(s);
-						} catch (SecurityException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (RollbackException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (HeuristicMixedException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (HeuristicRollbackException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (SystemException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+							studenti.add(s);						
 						}
 						else s.urediStudenta(session);
 						session.close();

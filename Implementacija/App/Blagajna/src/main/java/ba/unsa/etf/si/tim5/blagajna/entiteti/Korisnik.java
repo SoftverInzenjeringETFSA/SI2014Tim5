@@ -87,14 +87,21 @@ public class Korisnik implements java.io.Serializable{
 		
 	}
 	
-	public void dodajKorisnika(Session session) {
-		
+	public long dodajKorisnika(Session session) {
+		org.hibernate.Transaction t = session.beginTransaction();
+		Long id = (Long)session.save(this);
+		t.commit();
+		return id;
 	}
 	public void obrisiKorisnika(Session session) {
-		
+		org.hibernate.Transaction t = session.beginTransaction();
+		session.delete(this);
+		t.commit();	
 	}
 	
 	public void urediKorisnika(Session session) {
-		
+		org.hibernate.Transaction t = session.beginTransaction();
+		session.update(this);
+		t.commit();		
 	}
 }

@@ -7,16 +7,16 @@ import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 public class Test {
 
 	public static void main(String[] args) {
-		Literatura l = new Literatura(141, "asd", "asd", "asd", 1, 42.3);
+		Literatura l = new Literatura(8, "xxx", "asd", "asd", 1, 42.3);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		//l.dodajLiteraturu(sess);
 		org.hibernate.Transaction t = session.beginTransaction();
-		session.save(l);
+		session.update(l);
 		t.commit();
 		session.close();
 		
-		System.out.println("dodano");
+		System.out.println("izmjenjeno");
 	}
 
 }

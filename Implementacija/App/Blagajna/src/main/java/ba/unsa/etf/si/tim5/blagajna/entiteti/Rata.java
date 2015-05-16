@@ -74,10 +74,15 @@ public class Rata implements java.io.Serializable {
 		this.rokUplate = rokUplate;
 	}
 	
-	public void dodajRatu(Session session) {
-		
+	public long dodajRatu(Session session) {
+		org.hibernate.Transaction t = session.beginTransaction();
+		Long id = (Long)session.save(this);
+		t.commit();
+		return id;
 	}
 	public void urediRatu(Session session) {
-		
+		org.hibernate.Transaction t = session.beginTransaction();
+		session.update(this);
+		t.commit();		
 	}
 }

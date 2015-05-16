@@ -1,5 +1,6 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
+import java.util.ArrayList;
 
 import org.hibernate.Session;
 
@@ -111,22 +112,23 @@ public class Dug implements java.io.Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-
-	public void dodajRatu(Rata rata) {
+	
+	public ArrayList<Rata> dajSveRate(Session session) {
+		return null;
 		
 	}
 	
-	public void dodajLiteraturu(Literatura literatura) {
-		
-	}
-	
-	public void dodajDug(Session session) {
-		
+	public long dodajDug(Session session) {
+		org.hibernate.Transaction t = session.beginTransaction();
+		Long id = (Long)session.save(this);
+		t.commit();
+		return id;
 	}
 	
 	public void urediDug(Session session) { // kad se izmiri dug potrebno je urediti to u bazi
-		
+		org.hibernate.Transaction t = session.beginTransaction();
+		session.update(this);
+		t.commit();		
 	}
 	
 	

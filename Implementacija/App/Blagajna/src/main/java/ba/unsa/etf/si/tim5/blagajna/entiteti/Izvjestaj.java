@@ -56,7 +56,10 @@ public class Izvjestaj implements java.io.Serializable{
 		return null;
 	}
 
-	public void dodajIzvjestaj(Session session) {
-		
+	public long dodajIzvjestaj(Session session) {
+		org.hibernate.Transaction t = session.beginTransaction();
+		Long id = (Long)session.save(this);
+		t.commit();
+		return id;
 	}
 } 
