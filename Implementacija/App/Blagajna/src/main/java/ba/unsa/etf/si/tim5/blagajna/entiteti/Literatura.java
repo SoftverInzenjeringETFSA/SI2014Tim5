@@ -66,10 +66,11 @@ public class Literatura implements java.io.Serializable {
 		this.cijena = cijena;
 	}
 
-	public void dodajLiteraturu(Session session) {
+	public long dodajLiteraturu(Session session) {
 		org.hibernate.Transaction t = session.beginTransaction();
-		session.save(this);
+		Long id = (Long)session.save(this);
 		t.commit();
+		return id;
 	}
 	
 	public void obrisiLiteraturu(Session session) {

@@ -6,7 +6,7 @@
     <class name="ba.unsa.etf.si.tim5.blagajna.entiteti.Dug" table="DUG">
         <id name="id" type="long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="rataId" type="long">
             <column name="RATAID" />

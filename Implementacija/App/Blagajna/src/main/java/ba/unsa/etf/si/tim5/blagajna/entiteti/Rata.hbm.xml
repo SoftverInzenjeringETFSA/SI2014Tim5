@@ -6,7 +6,7 @@
     <class name="ba.unsa.etf.si.tim5.blagajna.entiteti.Rata" table="RATA">
         <id name="id" type="long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="vrijednost" type="double">
             <column name="VRIJEDNOST" />
