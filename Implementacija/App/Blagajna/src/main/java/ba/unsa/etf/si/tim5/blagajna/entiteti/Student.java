@@ -222,6 +222,9 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void obrisiStudenta(Session session) {
+		org.hibernate.Transaction t = session.beginTransaction();
+		session.delete(this);
+		t.commit();		
 	}
 
 	public void urediStudenta(Session session) {
