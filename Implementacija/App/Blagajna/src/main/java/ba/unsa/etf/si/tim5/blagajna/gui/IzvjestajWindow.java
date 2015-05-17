@@ -13,9 +13,15 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
+//----------------------dodano
+import javax.swing.JFrame;
+
+//----------------------
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 
@@ -35,6 +41,7 @@ public class IzvjestajWindow {
 	private JFrame frmIzvjetaj;
 	//----------------------dodano
 	private Izvjestaj izvjestaj;
+	
 	//---------------------- 
 	/**
 	 * Launch the application.
@@ -97,7 +104,7 @@ public class IzvjestajWindow {
 		
 		//----------------------dodano
 		
-		izvjestaj = new Izvjestaj();
+		this.izvjestaj = new Izvjestaj();
 		
 		//----------------------
 		
@@ -147,9 +154,17 @@ public class IzvjestajWindow {
 	      }
 	    });
 	
+	btnIzai.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		 if (e.getActionCommand().equals("Iza\u0111i")) {
+			 
+			 System.exit(0);
+		 }
+		}
+	});
 	
 	
-	
+
 	
 	
 	}
