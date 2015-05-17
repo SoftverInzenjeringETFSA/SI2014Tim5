@@ -206,6 +206,7 @@ public class UnosKorisnikaWindow {
 				String mail = textField_3.getText();
 				String telefon = textField_4.getText();
 				String username = textField_6.getText();
+				String lozinka = "lozinka";
 				TipKorisnika tip;
 
 				if(comboBox.getSelectedItem()=="Korisnik"){
@@ -213,7 +214,7 @@ public class UnosKorisnikaWindow {
 				}
 				else tip=TipKorisnika.values()[1];
 			
-				Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa, telefon, mail, tip);
+				Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa, telefon, mail, tip,lozinka);
 				
 				try {
 				Session session = HibernateUtil.getSessionFactory().openSession();

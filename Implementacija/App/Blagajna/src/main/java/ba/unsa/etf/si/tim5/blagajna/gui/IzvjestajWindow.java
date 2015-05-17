@@ -21,6 +21,10 @@ import javax.swing.JButton;
 
 //----------------------dodano
 import javax.swing.JFrame;
+
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.util.Date;
 //----------------------
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
@@ -43,7 +47,7 @@ public class IzvjestajWindow {
 	private JFrame frmIzvjetaj;
 	//----------------------dodano
 	private Izvjestaj izvjestaj;
-	
+	private Korisnik korisnik;
 	//---------------------- 
 	/**
 	 * Launch the application.
@@ -67,7 +71,12 @@ public class IzvjestajWindow {
 	public IzvjestajWindow() {
 		initialize();
 	}
-
+	//----------------------dodano
+	public IzvjestajWindow(Korisnik k) {
+		initialize();
+		korisnik = k;
+	}
+	//----------------------
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -133,17 +142,23 @@ public class IzvjestajWindow {
 		final JTextPane textPane = new JTextPane();
 		frmIzvjetaj.getContentPane().add(textPane, "2, 8, 13, 1, fill, fill");
 
-		JButton btnNewButton = new JButton("Printaj");
-		frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
+		//JButton btnNewButton = new JButton("Printaj");
+		//frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
 		frmIzvjetaj.getContentPane().add(btnIzai, "12, 10, 3, 1, right, center");
 	
 		//----------------------dodano
+		
+		
+	/*	private void generisiIzvjestaj()
+		{
+			
+		}*/
 	JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
 	btnGenerisi.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			Izvjestaj i = new Izvjestaj();
+			//Izvjestaj i = new Izvjestaj();
 			 //textPane.replaceSelection(izvjestaj.getSadrzaj());
 			textPane.setText("");
 			String result = "";
@@ -153,23 +168,37 @@ public class IzvjestajWindow {
 		
 			
             textPane.setText(result);
+            
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            izvjestaj.dodajIzvjestaj(session);
+	    	session.close();
 		}
 	});
 	
 	
 	frmIzvjetaj.getContentPane().add(btnGenerisi, "2, 4, 13, 1, fill, center");
 	
-	/*btnGenerisi.addActionListener(new ActionListener() {
-	      public void actionPerformed(ActionEvent event) {
-	    	  textPane.replaceSelection(izvjestaj.getSadrzaj());
-	    	  
-	    	//  Session session = HibernateUtil.getSessionFactory().openSession();
-	    	//  izvjestaj.dodajIzvjestaj(session);
-	    	//  session.close();
-	      }
-	    });*/
+	JButton btnNewButton = new JButton("Generi\u0161i izvje\u0161taj");
+	btnNewButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			
+			izvjestaj.setDatum(date);
+			
+			izvjestaj.setKorisnikId(korisnik.getId());
+			//izvjestaj.setSadrzaj(sadrzaj);
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            long id = izvjestaj.dodajIzvjestaj(session);
+	    	session.close();
+	    	izvjestaj.setId(id);
+	    	
+	    	
+		}
+	});
 	
-	
+	frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
 	
 	btnIzai.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
