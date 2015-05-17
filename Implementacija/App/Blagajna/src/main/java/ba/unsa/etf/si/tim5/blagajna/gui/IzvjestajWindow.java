@@ -23,6 +23,8 @@ import ba.unsa.etf.si.tim5.blagajna.dodaci.Mjesec;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipIzvjestaja;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Izvjestaj;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
@@ -118,13 +120,16 @@ public class IzvjestajWindow {
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
 		frmIzvjetaj.getContentPane().add(btnIzai, "12, 10, 3, 1, right, center");
-	}
+	
 
 	
-	JButton btnGenerii = new JButton("Generisi izvjestaj");
-	btnGenerii.addActionListener(new ActionListener() {
+	JButton btnGenerisi = new JButton("Generisi izvjestaj");
+	btnGenerisi.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			Izvjestaj i = new Izvjestaj();
 		}
 	});
+	
+	
+	}
 }
