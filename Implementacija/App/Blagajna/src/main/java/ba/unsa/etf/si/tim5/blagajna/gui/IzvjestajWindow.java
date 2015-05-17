@@ -14,22 +14,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 //----------------------dodano
 import javax.swing.JFrame;
-
 //----------------------
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 
+import org.hibernate.Session;
+
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Mjesec;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipIzvjestaja;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
-
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Izvjestaj;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -142,17 +144,32 @@ public class IzvjestajWindow {
 	btnGenerisi.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			Izvjestaj i = new Izvjestaj();
+			 //textPane.replaceSelection(izvjestaj.getSadrzaj());
+			textPane.setText("");
+			String result = "";
+			result = "Izvjestaj datum: " + izvjestaj.getDatum() + "\n" +
+						"Izvjestaj sadrzaj: " + izvjestaj.getSadrzaj() + "\n" +
+						"Izvjestaj korisnik: " + izvjestaj.getKorisnikId() ;
+		
+			
+            textPane.setText(result);
 		}
 	});
 	
 	
 	frmIzvjetaj.getContentPane().add(btnGenerisi, "2, 4, 13, 1, fill, center");
 	
-	btnGenerisi.addActionListener(new ActionListener() {
+	/*btnGenerisi.addActionListener(new ActionListener() {
 	      public void actionPerformed(ActionEvent event) {
 	    	  textPane.replaceSelection(izvjestaj.getSadrzaj());
+	    	  
+	    	//  Session session = HibernateUtil.getSessionFactory().openSession();
+	    	//  izvjestaj.dodajIzvjestaj(session);
+	    	//  session.close();
 	      }
-	    });
+	    });*/
+	
+	
 	
 	btnIzai.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
