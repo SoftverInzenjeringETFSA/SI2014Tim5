@@ -33,7 +33,9 @@ import com.jgoodies.forms.layout.RowSpec;
 public class IzvjestajWindow {
 
 	private JFrame frmIzvjetaj;
-
+	//----------------------dodano
+	private Izvjestaj izvjestaj;
+	//---------------------- 
 	/**
 	 * Launch the application.
 	 */
@@ -92,6 +94,13 @@ public class IzvjestajWindow {
 				RowSpec.decode("21px"),
 				RowSpec.decode("23px"),}));
 		
+		
+		//----------------------dodano
+		
+		izvjestaj = new Izvjestaj();
+		
+		//----------------------
+		
 		JLabel lblTipIzvjetaja = new JLabel("Tip izvje\u0161taja:");
 		frmIzvjetaj.getContentPane().add(lblTipIzvjetaja, "2, 2, right, center");
 		
@@ -106,29 +115,41 @@ public class IzvjestajWindow {
 		comboBox_1.setModel(new DefaultComboBoxModel(Mjesec.values()));
 		frmIzvjetaj.getContentPane().add(comboBox_1, "8, 2, fill, center");
 		
-		JButton btnGenerii = new JButton("Generi\u0161i izvje\u0161taj");
-		frmIzvjetaj.getContentPane().add(btnGenerii, "2, 4, 13, 1, fill, center");
+		//JButton btnGenerii = new JButton("Generi\u0161i izvje\u0161taj");
+		//frmIzvjetaj.getContentPane().add(btnGenerii, "2, 4, 13, 1, fill, center");
 		
 		JLabel lblPrikazIzvjetaja = new JLabel("Prikaz izvje\u0161taja:");
 		frmIzvjetaj.getContentPane().add(lblPrikazIzvjetaja, "2, 6, 3, 1, center, center");
 		
-		JTextPane textPane = new JTextPane();
+		final JTextPane textPane = new JTextPane();
 		frmIzvjetaj.getContentPane().add(textPane, "2, 8, 13, 1, fill, fill");
-		
+
 		JButton btnNewButton = new JButton("Printaj");
 		frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
 		frmIzvjetaj.getContentPane().add(btnIzai, "12, 10, 3, 1, right, center");
 	
-
-	
-	JButton btnGenerisi = new JButton("Generisi izvjestaj");
+		//----------------------dodano
+	JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
 	btnGenerisi.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			Izvjestaj i = new Izvjestaj();
 		}
 	});
+	
+	
+	frmIzvjetaj.getContentPane().add(btnGenerisi, "2, 4, 13, 1, fill, center");
+	
+	btnGenerisi.addActionListener(new ActionListener() {
+	      public void actionPerformed(ActionEvent event) {
+	    	  textPane.replaceSelection(izvjestaj.getSadrzaj());
+	      }
+	    });
+	
+	
+	
+	
 	
 	
 	}
