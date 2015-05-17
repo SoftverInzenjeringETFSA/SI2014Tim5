@@ -76,11 +76,6 @@ public class KupiLiteraturuWindow {
 	    conn = (Connection)DriverManager.getConnection(myUrl, "root", "");
 	}
 	
-	  
-	    
-	    
-	    
-	    
 	
 	/**
 	 * Initialize the contents of the frame.

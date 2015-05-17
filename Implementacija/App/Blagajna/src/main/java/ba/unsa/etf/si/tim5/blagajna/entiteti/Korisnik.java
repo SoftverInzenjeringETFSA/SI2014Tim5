@@ -17,13 +17,13 @@ public class Korisnik implements java.io.Serializable{
 	private String telefon;
 	private String mail;
 	private TipKorisnika tipKorisnika;	
-	
+	private String lozinka;
 	
 	public Korisnik() {		
 	}
 	
 	public Korisnik(long id, String ime, String prezime, String jmbg, String adresa,
-			String telefon, String mail, TipKorisnika tipKorisnika) {
+			String telefon, String mail, TipKorisnika tipKorisnika, String lozinka) {
 		super();
 		this.id = id;
 		this.ime = ime;
@@ -33,7 +33,16 @@ public class Korisnik implements java.io.Serializable{
 		this.telefon = telefon;
 		this.mail = mail;
 		this.tipKorisnika = tipKorisnika;		
+		this.lozinka = lozinka;
 	}
+	public String getLozinka() {
+		return lozinka;
+	}
+
+	public void setLozinka(String lozinka) {
+		this.lozinka = lozinka;
+	}
+
 	public long getId() {
 		return id;
 	}
