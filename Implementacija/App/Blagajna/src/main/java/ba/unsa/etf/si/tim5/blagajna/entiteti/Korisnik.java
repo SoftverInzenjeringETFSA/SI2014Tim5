@@ -99,9 +99,10 @@ public class Korisnik implements java.io.Serializable{
 		t.commit();	
 	}
 	
-	public void urediKorisnika(Session session) {
+	public long urediKorisnika(Session session) {
 		org.hibernate.Transaction t = session.beginTransaction();
 		session.update(this);
-		t.commit();		
+		t.commit();
+		return id;		
 	}
 }

@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -34,11 +35,14 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class KorisniciWindow {
 
 	private JFrame frmKorisnici;	
 	private JTable table;
+	
+	private ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>();
 
 	/**
 	 * Launch the application.
@@ -63,6 +67,8 @@ public class KorisniciWindow {
 		initialize();
 	}
 
+	
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -113,12 +119,19 @@ public class KorisniciWindow {
 		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Korisnik k = new Korisnik();
+				UnosKorisnikaWindow.main(null);
 			}
 		});
 		frmKorisnici.getContentPane().add(btnDodaj, "3, 5, center, default");
 		
 		JButton btnUredi = new JButton("Detalji/Uredi");
+		btnUredi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Korisnik k = new Korisnik(1,"dino","hurem","2311991170041","aef","062/772-669","aef",TipKorisnika.values()[0]);
+				korisnici.add(k);
+				UnosKorisnikaWindow.main(k.getId(),korisnici);
+			}
+		});
 		frmKorisnici.getContentPane().add(btnUredi, "4, 5, center, default");
 		
 		JButton btnObrisi = new JButton("Obrisi");

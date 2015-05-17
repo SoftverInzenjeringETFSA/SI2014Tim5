@@ -2,6 +2,7 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.EventQueue;
 
+import javax.persistence.Table;
 import javax.swing.JFrame;
 
 import java.awt.GridBagLayout;
@@ -11,14 +12,20 @@ import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
+import javax.swing.ComboBoxEditor;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import javax.swing.JButton;
+
+import org.hibernate.Session;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -27,18 +34,27 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class UnosKorisnikaWindow {
 
 	private JFrame frmUnosKorisnika;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-
+	private static JTextField textField;
+	private static  JTextField textField_1;
+	private static JTextField textField_2;
+	private static JTextField textField_3;
+	private static JTextField textField_4;
+	private static JTextField textField_5;
+	private static JTextField textField_6;
+	
+	
+	private static ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>();
+	static Korisnik k=new Korisnik();
+	private static long id;
+	
+	static JButton btnUredi = new JButton("Uredi");
+	static JButton btnDodaj = new JButton("Dodaj");
+	
 	/**
 	 * Launch the application.
 	 */
@@ -48,11 +64,35 @@ public class UnosKorisnikaWindow {
 				try {
 					UnosKorisnikaWindow window = new UnosKorisnikaWindow();
 					window.frmUnosKorisnika.setVisible(true);
+					btnUredi.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+	
+	public static void main(long _id,ArrayList<Korisnik> _korisnici) {
+		korisnici=_korisnici;
+		id=_id;
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UnosKorisnikaWindow window = new UnosKorisnikaWindow();
+					window.frmUnosKorisnika.setVisible(true);
+					popuniPolja(id,korisnici);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+		});
+		
+		
+		
+		
+		
 	}
 
 	/**
@@ -60,6 +100,7 @@ public class UnosKorisnikaWindow {
 	 */
 	public UnosKorisnikaWindow() {
 		initialize();
+				
 	}
 
 	/**
@@ -151,24 +192,122 @@ public class UnosKorisnikaWindow {
 		JLabel lblTip = new JLabel("Tip:");
 		frmUnosKorisnika.getContentPane().add(lblTip, "2, 16, right, center");
 		
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(TipKorisnika.values()));
 		frmUnosKorisnika.getContentPane().add(comboBox, "4, 16, 4, 1, fill, center");
 		
-		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Korisnik k = new Korisnik();
+			
+				String ime = textField.getText();
+				String prezime = textField_1.getText();
+				String jmbg = textField_5.getText();
+				String adresa = textField_2.getText();
+				String mail = textField_3.getText();
+				String telefon = textField_4.getText();
+				String username = textField_6.getText();
+				TipKorisnika tip;
+
+				if(comboBox.getSelectedItem()=="Korisnik"){
+					tip=TipKorisnika.values()[0];
+				}
+				else tip=TipKorisnika.values()[1];
+			
+				Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa, telefon, mail, tip);
 				
+				try {
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				
+					long id = k.dodajKorisnika(session);
+					k.setId(id);
+					korisnici.add(k);
+					session.close();	
+				    
+				}
+				
+				catch (Exception ex) {
+					JOptionPane.showMessageDialog(null,ex.getLocalizedMessage());
+			    }
+		
 			}
 		});
 		frmUnosKorisnika.getContentPane().add(btnDodaj, "4, 18, center, center");
 		
-		JButton btnUredi = new JButton("Uredi");
+		
+		btnUredi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				String ime = textField.getText();
+				String prezime = textField_1.getText();
+				String jmbg = textField_5.getText();
+				String adresa = textField_2.getText();
+				String mail = textField_3.getText();
+				String telefon = textField_4.getText();
+				String username = textField_6.getText();
+				TipKorisnika tip;
+
+				if(comboBox.getSelectedItem()=="Korisnik"){
+					tip=TipKorisnika.values()[0];
+				}
+				else tip=TipKorisnika.values()[1];
+							
+				
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				
+					long id = k.urediKorisnika(session);
+					
+					for (int i = 0; i < korisnici.size(); i++) {
+						if(korisnici.get(i).getId()==id)
+						{
+						
+							korisnici.get(i).setAdresa(adresa);
+							korisnici.get(i).setId(id);
+							korisnici.get(i).setIme(ime);
+							korisnici.get(i).setJmbg(jmbg);
+							korisnici.get(i).setMail(mail);
+							korisnici.get(i).setPrezime(prezime);
+							korisnici.get(i).setTelefon(telefon);
+							korisnici.get(i).setTipKorisnika(tip);
+							
+						}
+						
+					session.close();	
+				
+			}
+			}
+		});
+		
 		frmUnosKorisnika.getContentPane().add(btnUredi, "6, 18, center, center");
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
+		btnIzai.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frmUnosKorisnika.dispose();
+			}
+		});
 		frmUnosKorisnika.getContentPane().add(btnIzai, "7, 18, right, center");
 	}
+	
+	static void popuniPolja(long id,ArrayList<Korisnik> korisnici)
+	{
+		Korisnik k1=new Korisnik();
+		for (int i = 0; i < korisnici.size(); i++) {
+			if(korisnici.get(i).getId()==id)
+			{
+			
+			k1=korisnici.get(i);
+			}
+		
+			btnUredi.setVisible(true);
+			btnDodaj.setVisible(false);
+			textField.setText(k1.getIme());
+			textField_1.setText(k1.getPrezime());
+			textField_5.setText(k1.getJmbg());
+			textField_2.setText(k1.getAdresa());
+			textField_3.setText(k1.getMail());
+			textField_4.setText(k1.getTelefon());
+			}
 
+
+	}
 }
