@@ -21,10 +21,13 @@ import javax.swing.JButton;
 
 //----------------------dodano
 import javax.swing.JFrame;
-
+import java.awt.print.*;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.util.Date;
+import java.awt.*;
+import java.awt.event.*;
+
 //----------------------
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
@@ -179,7 +182,29 @@ public class IzvjestajWindow {
 	frmIzvjetaj.getContentPane().add(btnGenerisi, "2, 4, 13, 1, fill, center");
 	
 	JButton btnNewButton = new JButton("Generi\u0161i izvje\u0161taj");
-	btnNewButton.addActionListener(new ActionListener() {
+	frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
+
+	  class btnPrintAction implements ActionListener, Printable{
+		         public int print(Graphics gx, PageFormat pf, int page) throws PrinterException {
+		             if (page>0){return NO_SUCH_PAGE;} 
+		             Graphics2D g = (Graphics2D)gx; 
+		             g.translate(pf.getImageableX(), pf.getImageableY()); 
+		             g.drawString ("Hello world", 100, 100); 
+		             return PAGE_EXISTS; 
+		         }
+		         public void actionPerformed(ActionEvent e) {
+		             PrinterJob job = PrinterJob.getPrinterJob(); 
+		             job.setPrintable(this); 
+		             if (job.printDialog() == true) { 
+		                 try {job.print();} catch (PrinterException ex){
+		                 }
+		             }
+		         }
+		     }
+
+
+	
+	/*btnNewButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -196,9 +221,9 @@ public class IzvjestajWindow {
 	    	
 	    	
 		}
-	});
+	});*/
 	
-	frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
+	
 	
 	btnIzai.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
