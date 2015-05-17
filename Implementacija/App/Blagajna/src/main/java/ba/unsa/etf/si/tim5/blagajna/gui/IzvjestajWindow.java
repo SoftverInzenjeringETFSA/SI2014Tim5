@@ -3,17 +3,26 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JTextPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
+
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Mjesec;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipIzvjestaja;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
@@ -111,4 +120,11 @@ public class IzvjestajWindow {
 		frmIzvjetaj.getContentPane().add(btnIzai, "12, 10, 3, 1, right, center");
 	}
 
+	
+	JButton btnGenerii = new JButton("Generisi izvjestaj");
+	btnGenerii.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			Izvjestaj i = new Izvjestaj();
+		}
+	});
 }
