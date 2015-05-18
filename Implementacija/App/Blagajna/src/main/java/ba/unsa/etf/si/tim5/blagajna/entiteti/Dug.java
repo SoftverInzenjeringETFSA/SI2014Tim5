@@ -12,12 +12,11 @@ public class Dug implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6950513813519064755L;
-	private long id;
-	private long rataId; //ako je tip duga dugZaLiteraturu, ovo je null,
-	private long literaturaId; // u suprotnom je ovo null
+	private long id;		
 	private boolean jeLiIzmiren;
 	private String akademskaGodina;
 	double vrijednost;
+	private long korisnikId;
 	TipDuga tipDuga;
 	
 	public Dug() {
@@ -25,11 +24,10 @@ public class Dug implements java.io.Serializable {
 			
 	
 	public Dug(long id, long rataId, long literaturaId, boolean jeLiIzmiren,
-			String akademskaGodina, double vrijednost, TipDuga tipDuga) {
+			String akademskaGodina, double vrijednost, long korisnikId, TipDuga tipDuga) {
 		super();
 		this.id = id;
-		this.rataId = rataId;
-		this.literaturaId = literaturaId;
+		this.korisnikId = korisnikId;		
 		this.jeLiIzmiren = jeLiIzmiren;
 		this.akademskaGodina = akademskaGodina;
 		this.vrijednost = vrijednost;
@@ -38,7 +36,8 @@ public class Dug implements java.io.Serializable {
 	
 	
 
-
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -46,26 +45,6 @@ public class Dug implements java.io.Serializable {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-
-	public long getRataId() {
-		return rataId;
-	}
-
-
-	public void setRataId(long rataId) {
-		this.rataId = rataId;
-	}
-
-
-	public long getLiteraturaId() {
-		return literaturaId;
-	}
-
-
-	public void setLiteraturaId(long literaturaId) {
-		this.literaturaId = literaturaId;
 	}
 
 
@@ -99,6 +78,16 @@ public class Dug implements java.io.Serializable {
 	}
 
 
+	public long getKorisnikId() {
+		return korisnikId;
+	}
+
+
+	public void setKorisnikId(long korisnikId) {
+		this.korisnikId = korisnikId;
+	}
+
+
 	public TipDuga getTipDuga() {
 		return tipDuga;
 	}
@@ -109,10 +98,6 @@ public class Dug implements java.io.Serializable {
 	}
 
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 	public ArrayList<Rata> dajSveRate(Session session) {
 		return null;
 		

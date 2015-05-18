@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
@@ -24,20 +25,24 @@ import org.hibernate.Session;
 import ba.unsa.etf.si.tim5.blagajna.util.*;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DugWindow {
 		
-	private JFrame frmDugovanjaUplate;
+	JFrame frmDugovanjaUplate;
 	private JTable table;
 	private JLabel lblStudent;
 	private JLabel lblimeIPrezime;
 	private JLabel lblStudijskaGodina;
-	private JComboBox comboBox;
+	private JComboBox StudijskaGodinaCB;
 	private JLabel lblUkupanDug;
-	private JLabel lbldug;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
-
+	private JLabel lblDug;
+	private JButton btnUplati;
+	private JButton btnPrintaj;
+	private Student student;
 	/**
 	 * Launch the application.
 	 */
@@ -53,11 +58,21 @@ public class DugWindow {
 			}
 		});
 	}
+	
+	public DugWindow()
+	{
+		//DugWindow window = new DugWindow();
+//		window.frmDugovanjaUplate.setVisible(true);
 
+		initialize();
+	}
+	
 	/**
 	 * Create the application.
 	 */
-	public DugWindow() {
+	public DugWindow(Student s) {
+		student = s;
+		
 		initialize();
 	}
 
@@ -109,13 +124,20 @@ public class DugWindow {
 		frmDugovanjaUplate.getContentPane().add(lblStudent, "3, 4");
 		
 		lblimeIPrezime = new JLabel("{ime i prezime}");
+		lblimeIPrezime.setText(student.getIme() + " "+ student.getPrezime());
+		
 		frmDugovanjaUplate.getContentPane().add(lblimeIPrezime, "5, 4");
 		
 		lblStudijskaGodina = new JLabel("Studijska godina:");
 		frmDugovanjaUplate.getContentPane().add(lblStudijskaGodina, "7, 4, right, default");
 		
-		comboBox = new JComboBox();
-		frmDugovanjaUplate.getContentPane().add(comboBox, "9, 4, fill, default");
+		StudijskaGodinaCB = new JComboBox();
+		StudijskaGodinaCB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String studijskaGodina =StudijskaGodinaCB.getSelectedItem().toString();
+			}
+		});
+		frmDugovanjaUplate.getContentPane().add(StudijskaGodinaCB, "9, 4, fill, default");
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -125,23 +147,55 @@ public class DugWindow {
 				"Id", "Dug", "Datum zadu\u017Eenja", "Datum razdu\u017Eenja", "Rok za uplatu", "Tip duga"
 			}
 		));
+		
 		table.getColumnModel().getColumn(0).setMinWidth(7);
 		table.getColumnModel().getColumn(2).setMinWidth(18);
 		table.getColumnModel().getColumn(3).setMinWidth(18);
-		JScrollPane scrollPane = new JScrollPane(table);
-		frmDugovanjaUplate.getContentPane().add(scrollPane, "3, 8, 7, 1, fill, fill");
+		JScrollPane TabelaDugova = new JScrollPane(table);
+		frmDugovanjaUplate.getContentPane().add(TabelaDugova, "3, 8, 7, 1, fill, fill");
 		
 		lblUkupanDug = new JLabel("Ukupan dug:");
 		frmDugovanjaUplate.getContentPane().add(lblUkupanDug, "7, 12");
 		
-		lbldug = new JLabel("{dug}");
-		frmDugovanjaUplate.getContentPane().add(lbldug, "9, 12");
+		lblDug = new JLabel("{dug}");
+		frmDugovanjaUplate.getContentPane().add(lblDug, "9, 12");
 		
-		btnNewButton = new JButton("Uplati");
-		frmDugovanjaUplate.getContentPane().add(btnNewButton, "3, 14, 7, 1");
+		btnUplati = new JButton("Uplati");
+		btnUplati.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+		/*		Literatura l = new Literatura(69, isbn, naziv, autor, kolicina,cijena);
+
+				
+				Session session = HibernateUtil.getSessionFactory().openSession();
+
+				long id = l.dodajLiteraturu(session); //svoj id dobije tek nakon smjestanja u bazu
+				session.close();
+				l.setId(id); //potrebno je sada promijeniti id na novi, pa tek onda dodat u tabelu i listu
+				literatura.add(l);
+			*/	
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				model.addRow(new Object[] { "12121", "1212", "3232", "dadas", "daads", "aad" });
+
+				String s = table.getValueAt(1, 1).toString();
+				JOptionPane.showMessageDialog(null,s,"Message",JOptionPane.INFORMATION_MESSAGE);
+				
+				
+				
+		//		String s = table.getValueAt(0, 0).toString();
+				
+				//
+			//
+			}
+		});
+		frmDugovanjaUplate.getContentPane().add(btnUplati, "3, 14, 7, 1");
 		
-		btnNewButton_1 = new JButton("Printaj potvrdu");
-		frmDugovanjaUplate.getContentPane().add(btnNewButton_1, "3, 18, 7, 1");
+		btnPrintaj = new JButton("Printaj potvrdu");
+		btnPrintaj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		frmDugovanjaUplate.getContentPane().add(btnPrintaj, "3, 18, 7, 1, default, top");
 		
 		
 		//frame.getContentPane().add(table, "2, 4, fill, fill");

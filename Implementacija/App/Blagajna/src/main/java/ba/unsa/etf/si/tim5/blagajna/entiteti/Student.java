@@ -51,7 +51,7 @@ public class Student implements java.io.Serializable {
 		this.opcinaRodjenja = opcinaRodjenja;
 		this.drzavaRodjenja = drzavaRodjenja;
 		this.popust = popust;
-		this.godinaStudija = godinaStudija;
+		this.godinaStudija = godinaStudija;		
 	}
 
 	public Student() {

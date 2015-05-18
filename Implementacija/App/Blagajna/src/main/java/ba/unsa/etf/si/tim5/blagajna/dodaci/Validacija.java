@@ -1,73 +1,28 @@
-package ba.unsa.etf.si.tim5.blagajna.entiteti;
+package ba.unsa.etf.si.tim5.blagajna.dodaci;
 
-import org.hibernate.Session;
-
-import java.lang.*;
-import java.io.*;
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class Validacija implements java.io.Serializable {
+public class Validacija {
 	
-	long id;
-	private String jmbg;
-	private String mail;
-	private String isbn;
-	//private long studentId;
+	private static Validacija instanca = null;
 	
+	public Validacija() {}
 	
-	public Validacija(long id, long stID) {
-		super();
-		this.id = id;
-		//this.studentId = stID;
-		this.mail = mail;
-		this.jmbg = jmbg;
+	public static Validacija getInstance() {
+		if(instanca == null) 
+			instanca = new Validacija();
+		return instanca;
 	}
 
-	public Validacija() {
-
-	}	
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
+	public boolean passwordValidation(String pass)
+	{
+		if (pass.length()<8) return false;
+		String passPattern = "^(.*[0-9].*[A-Z].*)|(.*[A-Z].*[0-9].*)$";
+	java.util.regex.Pattern p = java.util.regex.Pattern.compile(passPattern);
+	java.util.regex.Matcher m = p.matcher(pass);
+	return m.matches();
 	}
 	
-	/*public long getStudentId() {
-		return studentId;
-	}
-
-	public long setStudentId(String sID) {
-		this.studentId = sID;
-	}*/
-	
-	public String getJmbg() {
-		return jmbg;
-	}
-
-	public void setJmbg(String jmbg) {
-		this.jmbg = jmbg;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public String getIsbn() {
-		return isbn;
-	}
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
-
 	/*public static boolean emailValidation(String email) {
 		   boolean result = true;
 		   try {
@@ -85,15 +40,8 @@ public class Validacija implements java.io.Serializable {
          java.util.regex.Matcher m = p.matcher(email);
          return m.matches();
   }
-	 
-	 public boolean emailValidation() {
-         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-         java.util.regex.Matcher m = p.matcher(this.mail);
-         return m.matches();
-  }
 	
-	 private boolean jmbgValidation(String jmbgTemp)
+	 public boolean jmbgValidation(String jmbgTemp)
      {
          if ( jmbgTemp.length() == 13)
          {
@@ -160,7 +108,7 @@ public class Validacija implements java.io.Serializable {
              return false;
      }
 	 
-	 private boolean isbnValidation(String isbn)
+	 public boolean isbnValidation(String isbn)
      {
 		 if ( isbn == null )
 	        {

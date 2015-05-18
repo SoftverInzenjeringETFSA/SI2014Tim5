@@ -10,7 +10,7 @@ public class Test {
 		Literatura l = new Literatura(8, "xxx", "asd", "asd", 1, 42.3);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		//l.dodajLiteraturu(sess);
+		l.dodajLiteraturu(session);
 		org.hibernate.Transaction t = session.beginTransaction();
 		session.update(l);
 		t.commit();
@@ -18,5 +18,4 @@ public class Test {
 		
 		System.out.println("izmjenjeno");
 	}
-
 }

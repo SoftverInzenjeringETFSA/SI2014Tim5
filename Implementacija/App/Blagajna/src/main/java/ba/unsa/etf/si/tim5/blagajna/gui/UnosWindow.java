@@ -100,7 +100,7 @@ public class UnosWindow {
 		initialize();			
 	}	
 	
-	private ArrayList<Student> studenti;
+	private ArrayList<Student> studenti = new ArrayList<Student>();
 	private Student student;
 	public UnosWindow(ArrayList<Student> studenti) {
 		initialize();
@@ -110,12 +110,27 @@ public class UnosWindow {
 		initialize();
 		this.student = student;	
 		this.btnUnesi.setText("Uredi");
-		//this.chckbxNewCheckBox.setContentAreaFilled(true);
+		this.chckbxNewCheckBox.setContentAreaFilled(true);
 		popuniPolja();
 	}	
 	
 	private void popuniPolja() {
 		this.tFieldIme.setText(student.getIme());
+		this.tFieldPrezime.setText(student.getPrezime()); 
+	    this.tFieldRoditelj.setText(student.getImeRoditelja());
+	    this.tFieldTelefon.setText(student.getTelefon());
+		this.tFieldJmbg.setText(student.getJmbg());
+		this.tFieldMjestoRodj.setText(student.getMjestoRodjenja());
+		this.tFieldOpcina.setText(student.getOpcinaRodjenja());
+		this.tFieldDrzava.setText(student.getDrzavaRodjenja());
+		this.tFieldAdresaPreb.setText(student.getAdresa());
+		this.tFieldOpcinaPreb.setText(student.getOpcina());
+		this.tFieldMail.setText(student.getMail());
+		this.tFieldIndeks.setText(Integer.toString(student.getIndeks()));
+		this.cBoxGodina.setSelectedIndex(student.getGodinaStudija());
+		this.tFieldTroskovi.setText(String.valueOf(student.getTroskoviSkolarine()));
+		this.tFieldPopust.setText(String.valueOf(student.getPopust()));
+				
 	}
 	/**
 	 * Initialize the contents of the frame.
@@ -337,18 +352,23 @@ public class UnosWindow {
 						int godinaUpisa = cBoxGodina.getSelectedIndex();
 						double troskovi = Double.parseDouble(tFieldTroskovi.getText());
 						double popust =  Double.parseDouble(tFieldPopust.getText());
-						double cijena  = troskovi * popust /100;
+						double cijena  = troskovi - (troskovi * popust /100);
 						Student s = new Student(1, ime, prezime, jmbg,
 								mail, adresaPreb, opcinaPreb, telefon,
 								indeks, troskovi, roditelj, mjestoRodj, opcinaRodj,
 							    drzava, popust, godinaUpisa);
 						Session session = HibernateUtil.getSessionFactory().openSession();
+																		
 						if(chckbxNewCheckBox.isSelected()) {
-							s.dodajStudenta(session);
+							long id = s.dodajStudenta(session);
+							lblcijena.setText(String.valueOf(cijena));
+							s.setId(id);
 							studenti.add(s);						
 						}
-						else s.urediStudenta(session);
-						session.close();
+						else 
+							s.urediStudenta(session);
+						
+						session.close();						
 					
 				}});
 				frmUnosStudenta.getContentPane().add(btnUnesi, "2, 6, fill, top");

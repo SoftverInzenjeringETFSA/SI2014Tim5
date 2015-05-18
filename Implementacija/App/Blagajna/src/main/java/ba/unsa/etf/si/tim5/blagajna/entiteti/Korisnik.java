@@ -1,5 +1,7 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
+import java.util.ArrayList;
+
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 
 import org.hibernate.Session;
@@ -17,13 +19,13 @@ public class Korisnik implements java.io.Serializable{
 	private String telefon;
 	private String mail;
 	private TipKorisnika tipKorisnika;	
-	
+	private String lozinka;
 	
 	public Korisnik() {		
 	}
 	
 	public Korisnik(long id, String ime, String prezime, String jmbg, String adresa,
-			String telefon, String mail, TipKorisnika tipKorisnika) {
+			String telefon, String mail, TipKorisnika tipKorisnika, String lozinka) {
 		super();
 		this.id = id;
 		this.ime = ime;
@@ -33,7 +35,16 @@ public class Korisnik implements java.io.Serializable{
 		this.telefon = telefon;
 		this.mail = mail;
 		this.tipKorisnika = tipKorisnika;		
+		this.lozinka = lozinka;
 	}
+	public String getLozinka() {
+		return lozinka;
+	}
+
+	public void setLozinka(String lozinka) {
+		this.lozinka = lozinka;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -99,9 +110,10 @@ public class Korisnik implements java.io.Serializable{
 		t.commit();	
 	}
 	
-	public void urediKorisnika(Session session) {
+	public long urediKorisnika(Session session) {
 		org.hibernate.Transaction t = session.beginTransaction();
 		session.update(this);
-		t.commit();		
-	}
+		t.commit();
+		return id;		
+	}	
 }
