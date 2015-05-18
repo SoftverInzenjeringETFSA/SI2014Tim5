@@ -16,12 +16,7 @@ import java.awt.event.ActionListener;
 
 
 
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-
-//----------------------dodano
-import javax.swing.JFrame;
+import javax.swing.*;
 
 import java.awt.print.*;
 import java.text.SimpleDateFormat;
@@ -30,6 +25,9 @@ import java.util.Date;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Calendar;
+
+
+import javax.swing.JOptionPane;
 //----------------------
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
@@ -52,8 +50,9 @@ public class IzvjestajWindow {
 
 	private JFrame frmIzvjetaj;
 	//----------------------dodano
-	static Izvjestaj izvjestaj = new Izvjestaj();;
+	//static Izvjestaj izvjestaj;
 	static Korisnik korisnik;
+	String result = "";
 	//---------------------- 
 	/**
 	 * Launch the application.
@@ -81,6 +80,7 @@ public class IzvjestajWindow {
 	public IzvjestajWindow(Korisnik k) {
 		initialize();
 		korisnik = k;
+		
 	}
 	//----------------------
 	/**
@@ -119,6 +119,7 @@ public class IzvjestajWindow {
 				RowSpec.decode("23px"),}));
 		
 		
+		//izvjestaj = new Izvjestaj();
 		
 		JLabel lblTipIzvjetaja = new JLabel("Tip izvje\u0161taja:");
 		frmIzvjetaj.getContentPane().add(lblTipIzvjetaja, "2, 2, right, center");
@@ -150,15 +151,23 @@ public class IzvjestajWindow {
 		frmIzvjetaj.getContentPane().add(btnIzai, "12, 10, 3, 1, right, center");
 	
 		//----------------------dodano
+		 final Object rows[][] = {
+			      {"", "", "", "", ""}
 
-		
+			    };
+		 final Object headers[] = {"Index", "Ime i prezime", "Vrijednost skolarine", "Neplaceni dug (KM)", "Moze polagati ispit"};
+
+		 final JTable tableTroskoviStudija = new JTable(rows, headers);
+		 final JTable tableTroskoviLiterature = new JTable(rows, headers);
 
 	JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
 	btnGenerisi.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		
 			textPane.setText("");
-			String result = "";
+			//String result = "";
+			long ukupna_skolarina = 0;
+			long ukupan_dug = 0;
 			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
@@ -170,29 +179,51 @@ public class IzvjestajWindow {
 				result = "\n"+"\n"+ "International University of Sarajevo"+"\n" +
 						"Zagrebacka bb"+"\n" +
 						"+38733911911"+"\n" +"\n" +
-						"Datum: " + date + "\n" + "Izvjestaj o troskovima za mjesec " +
-						now.get(Calendar.MONTH) + 1 +"\n" +"\n" ;
+						"Datum: " + date + "\n" + "Izvjestaj o troskovima studija za mjesec " +
+						now.get(Calendar.MONTH) + 1 +"\n" +"\n";
+						try
+						{
+								tableTroskoviStudija.print();
+						}
+						catch (PrinterException pe) {
+					          System.err.println("Error printing: " + pe.getMessage());
+				        }
+				result = result + "\n" +"\n" + "\n" +
+						"Ukupna skolarina: " +
+						//TREBA IZRACUNATI SUMU KOLONE SKOLAriNE I DUGA
+						ukupna_skolarina +"\n" +
+						"Ukupan dug: "+ ukupan_dug + "\n"+"\n" +"\n" + "\n" +
+						"______________________" +
+						"Faris Dzafic";
 						
 						
-						
-				//		izvjestaj.getDatum() + "\n" +
-					//	"Izvjestaj sadrzaj: " + izvjestaj.getSadrzaj() + "\n" +
-						//"Izvjestaj korisnik: " + izvjestaj.getKorisnikId() ;
 			}
 			else {
-				//tip=TipIzvjestaja.values()[1];
+				result = "\n"+"\n"+ "International University of Sarajevo"+"\n" +
+						"Zagrebacka bb"+"\n" +
+						"+38733911911"+"\n" +"\n" +
+						"Datum: " + date + "\n" + "Izvjestaj o troskovima literature za mjesec " +
+						now.get(Calendar.MONTH) + 1 +"\n" +"\n";
+						try
+						{
+							tableTroskoviLiterature.print();
+						}
+						catch (PrinterException pe) {
+					          System.err.println("Error printing: " + pe.getMessage());
+				        }
+						result = result + "\n" +"\n" + "\n" +
+						"Ukupna skolarina: " +
+						//TREBA IZRACUNATI SUMU KOLONE SKOLAriNE I DUGA
+						ukupna_skolarina +"\n" +
+						"Ukupan dug: "+ ukupan_dug + "\n"+"\n" +"\n" + "\n" +
+						"______________________" +
+						"Faris Dzafic";
 			}
 							
-			result = "\n"+"\n"+ "Naziv fakulteta"+"\n" + izvjestaj.getDatum() + "\n" +
-						"Izvjestaj sadrzaj: " + izvjestaj.getSadrzaj() + "\n" +
-						"Izvjestaj korisnik: " + izvjestaj.getKorisnikId() ;
 		
 			
             textPane.setText(result);
-            
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            izvjestaj.dodajIzvjestaj(session);
-	    	session.close();
+           
 		}
 	});
 	
@@ -201,16 +232,35 @@ public class IzvjestajWindow {
 	
 	JButton btnNewButton = new JButton("Generi\u0161i izvje\u0161taj");
 	frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
-
-	  class btnPrintAction implements ActionListener, Printable{
-		         public int print(Graphics gx, PageFormat pf, int page) throws PrinterException {
+	
+	
+	btnNewButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+				
+		    Izvjestaj izvjestaj = new Izvjestaj(1,date,result,korisnik.getId());
+		         
+		    Session session = HibernateUtil.getSessionFactory().openSession();
+		         
+		    long id = izvjestaj.dodajIzvjestaj(session);
+		    izvjestaj.setId(id);
+		    session.close();
+			
+		}
+		
+	});
+	class btnPrintAction implements ActionListener, Printable{
+		         
+		  public int print(Graphics gx, PageFormat pf, int page) throws PrinterException {
 		             if (page>0){return NO_SUCH_PAGE;} 
 		             Graphics2D g = (Graphics2D)gx; 
 		             g.translate(pf.getImageableX(), pf.getImageableY()); 
 		             g.drawString ("Hello world", 100, 100); 
 		             return PAGE_EXISTS; 
 		         }
-		         public void actionPerformed(ActionEvent e) {
+		 public void actionPerformed(ActionEvent e) {
 		             PrinterJob job = PrinterJob.getPrinterJob(); 
 		             job.setPrintable(this); 
 		             if (job.printDialog() == true) { 
@@ -218,30 +268,21 @@ public class IzvjestajWindow {
 		                 }
 		             }
 		         }
-		     }
+		         
+		     /*   DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+				Date date = new Date();
+				
+		         Izvjestaj izvjestaj = new Izvjestaj(1,date,result,korisnik.getId());
+		         
+		         Session session = HibernateUtil.getSessionFactory().openSession();
+		         
+		        long id = izvjestaj.dodajIzvjestaj(session);
+		        izvjestaj.setId(id);
+		        session.close();
+		        */
+	  	}
+	
 
-
-	
-	/*btnNewButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			Date date = new Date();
-			
-			izvjestaj.setDatum(date);
-			
-			izvjestaj.setKorisnikId(korisnik.getId());
-			//izvjestaj.setSadrzaj(sadrzaj);
-            Session session = HibernateUtil.getSessionFactory().openSession();
-            long id = izvjestaj.dodajIzvjestaj(session);
-	    	session.close();
-	    	izvjestaj.setId(id);
-	    	
-	    	
-		}
-	});*/
-	
-	
 	
 	btnIzai.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
