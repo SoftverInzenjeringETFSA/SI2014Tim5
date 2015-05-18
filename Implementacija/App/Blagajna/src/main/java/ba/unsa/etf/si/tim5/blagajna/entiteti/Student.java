@@ -2,6 +2,8 @@ package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
 import java.util.ArrayList;
 
+import javax.swing.table.DefaultTableModel;
+
 import org.hibernate.Session;
 
 public class Student implements java.io.Serializable {
@@ -206,8 +208,12 @@ public class Student implements java.io.Serializable {
 		return 0;
 	}
 
-	public ArrayList<Dug> dajSveDugove() {
-		return null;
+	public ArrayList<Dug> dajSveDugove(Session session) {
+		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where korisnikId = "+this.id+";").addEntity(Dug.class).list();
+		t.commit();
+		return l;
 	}
 
 	public void izvrsiUplatu(Rata rata) {
