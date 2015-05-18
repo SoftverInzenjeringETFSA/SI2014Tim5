@@ -146,6 +146,10 @@ public class LiteraturaWindow {
 				.add(scrollPane, "4, 6, 5, 3, fill, fill");
 
 		btnNewButton = new JButton("Obri\u0161i");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		frmUnosDugaZa.getContentPane().add(btnNewButton, "6, 10, 3, 1");
 
 		panel = new JPanel();
