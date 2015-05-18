@@ -46,9 +46,9 @@ import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 
-public class UnosWindow {
-
+public class UnosWindow {	
 	private JFrame frmUnosStudenta;
 	private JTextField tFieldIme;
 	private JTextField tFieldMjestoRodj;
