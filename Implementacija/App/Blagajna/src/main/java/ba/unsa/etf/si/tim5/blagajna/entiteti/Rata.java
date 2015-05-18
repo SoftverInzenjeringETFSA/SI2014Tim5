@@ -80,6 +80,7 @@ public class Rata implements java.io.Serializable {
 		t.commit();
 		return id;
 	}
+
 	public void urediRatu(Session session) {
 		org.hibernate.Transaction t = session.beginTransaction();
 		session.update(this);

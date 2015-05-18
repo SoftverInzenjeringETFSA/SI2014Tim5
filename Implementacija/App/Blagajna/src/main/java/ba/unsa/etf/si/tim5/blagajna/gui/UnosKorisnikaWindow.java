@@ -223,13 +223,16 @@ public class UnosKorisnikaWindow {
 					k.setId(id);
 					korisnici.add(k);
 					session.close();	
+					
 				    
 				}
 				
 				catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,ex.getLocalizedMessage());
 			    }
-		
+				
+				
+				
 			}
 		});
 		frmUnosKorisnika.getContentPane().add(btnDodaj, "4, 18, center, center");
