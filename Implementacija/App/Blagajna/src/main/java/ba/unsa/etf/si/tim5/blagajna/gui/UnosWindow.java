@@ -9,6 +9,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
@@ -30,6 +32,7 @@ import javax.swing.JButton;
 import java.awt.Choice;
 import java.awt.Button;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -357,16 +360,25 @@ public class UnosWindow {
 								mail, adresaPreb, opcinaPreb, telefon,
 								indeks, troskovi, roditelj, mjestoRodj, opcinaRodj,
 							    drzava, popust, godinaUpisa);
+						s.setTroskoviSkolarine(cijena);
+						s.setPopust(popust);
 						Session session = HibernateUtil.getSessionFactory().openSession();
-																		
+						//String godina =  String.valueOf((new Date()).getYear()) + "/" + String.valueOf(Dug.addDays(new Date(), 366));
 						if(chckbxNewCheckBox.isSelected()) {
 							long id = s.dodajStudenta(session);
-							lblcijena.setText(String.valueOf(cijena));
+							Dug d = new Dug(1, false, "2014/2015",
+									s.dajDugZaSkolarinu(), s.getId(), TipDuga.dugZaSkolarinu);
+							d.dodajDug(session);
+							lblcijena.setText(String.valueOf(cijena));							
 							s.setId(id);
 							studenti.add(s);						
 						}
-						else 
+						else {
 							s.urediStudenta(session);
+							Dug d = new Dug(1, false, "2014/2015",
+									s.dajUkupniDug(), s.getId(), TipDuga.dugZaSkolarinu);
+							d.dodajDug(session);
+						}
 						
 						session.close();						
 					

@@ -113,7 +113,7 @@ public class Dug implements java.io.Serializable {
 		
 	}
 	
-	public Date addDays(Date date, int days)
+	public static Date addDays(Date date, int days)
     {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -136,7 +136,7 @@ public class Dug implements java.io.Serializable {
 		r1.dodajRatu(session);
 		r2.dodajRatu(session);
 		r3.dodajRatu(session);
-		r4.dodajRatu(session);				
+		r4.dodajRatu(session);			
 		return id;
 	}	
 	
