@@ -15,19 +15,21 @@ import java.awt.event.ActionListener;
 
 
 
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 //----------------------dodano
 import javax.swing.JFrame;
+
 import java.awt.print.*;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.util.Date;
 import java.awt.*;
 import java.awt.event.*;
-
+import java.util.Calendar;
 //----------------------
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
@@ -36,6 +38,7 @@ import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Mjesec;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipIzvjestaja;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Izvjestaj;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
@@ -49,8 +52,8 @@ public class IzvjestajWindow {
 
 	private JFrame frmIzvjetaj;
 	//----------------------dodano
-	private Izvjestaj izvjestaj;
-	private Korisnik korisnik;
+	static Izvjestaj izvjestaj = new Izvjestaj();;
+	static Korisnik korisnik;
 	//---------------------- 
 	/**
 	 * Launch the application.
@@ -116,16 +119,11 @@ public class IzvjestajWindow {
 				RowSpec.decode("23px"),}));
 		
 		
-		//----------------------dodano
-		
-		this.izvjestaj = new Izvjestaj();
-		
-		//----------------------
 		
 		JLabel lblTipIzvjetaja = new JLabel("Tip izvje\u0161taja:");
 		frmIzvjetaj.getContentPane().add(lblTipIzvjetaja, "2, 2, right, center");
 		
-		JComboBox comboBox = new JComboBox();
+		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(TipIzvjestaja.values()));
 		frmIzvjetaj.getContentPane().add(comboBox, "4, 2, fill, center");
 		
@@ -152,20 +150,40 @@ public class IzvjestajWindow {
 		frmIzvjetaj.getContentPane().add(btnIzai, "12, 10, 3, 1, right, center");
 	
 		//----------------------dodano
+
 		
-		
-	/*	private void generisiIzvjestaj()
-		{
-			
-		}*/
+
 	JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
 	btnGenerisi.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			//Izvjestaj i = new Izvjestaj();
-			 //textPane.replaceSelection(izvjestaj.getSadrzaj());
+		
 			textPane.setText("");
 			String result = "";
-			result = "Izvjestaj datum: " + izvjestaj.getDatum() + "\n" +
+			
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+
+			Calendar now = Calendar.getInstance();
+			
+			if(comboBox.getSelectedItem()=="TroskoviStudija"){
+				//tip=TipIzvjestaja.values()[0];
+				result = "\n"+"\n"+ "International University of Sarajevo"+"\n" +
+						"Zagrebacka bb"+"\n" +
+						"+38733911911"+"\n" +"\n" +
+						"Datum: " + date + "\n" + "Izvjestaj o troskovima za mjesec " +
+						now.get(Calendar.MONTH) + 1 +"\n" +"\n" ;
+						
+						
+						
+				//		izvjestaj.getDatum() + "\n" +
+					//	"Izvjestaj sadrzaj: " + izvjestaj.getSadrzaj() + "\n" +
+						//"Izvjestaj korisnik: " + izvjestaj.getKorisnikId() ;
+			}
+			else {
+				//tip=TipIzvjestaja.values()[1];
+			}
+							
+			result = "\n"+"\n"+ "Naziv fakulteta"+"\n" + izvjestaj.getDatum() + "\n" +
 						"Izvjestaj sadrzaj: " + izvjestaj.getSadrzaj() + "\n" +
 						"Izvjestaj korisnik: " + izvjestaj.getKorisnikId() ;
 		
