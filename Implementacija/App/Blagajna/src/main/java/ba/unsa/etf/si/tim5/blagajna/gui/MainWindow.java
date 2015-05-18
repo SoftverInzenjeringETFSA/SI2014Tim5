@@ -104,7 +104,7 @@ public class MainWindow {
 				 sviStudenti.get(i).getTroskoviLiterature() });
 }
 	
-	
+	session.close();
 	 
 	}
 	
