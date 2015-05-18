@@ -79,8 +79,37 @@ public class MainWindow {
 	private JFrame frmBlagajna;
 	private JTable table;
 	private JTextField textField;
+	ArrayList<Student> sviStudenti;
 	
-
+	public void ucitajSveStudente(){
+	
+	
+	Session session = HibernateUtil.getSessionFactory().openSession();
+	org.hibernate.Transaction t=session.beginTransaction();
+	
+	String statement = "SELECT * FROM Student";
+	org.hibernate.Query query = session.createQuery(statement);
+	
+	t.commit();
+	ArrayList<Student> list = (ArrayList<Student>)query.list();
+	sviStudenti=list;
+	
+	for(int i=0;i<sviStudenti.size();i++){
+		 DefaultTableModel model = (DefaultTableModel) table.getModel();
+		 model.addRow(new Object[] { 
+				 sviStudenti.get(i).getId(),
+				 sviStudenti.get(i).getIme()+studenti.get(i).getPrezime(), 
+				 sviStudenti.get(i).getIndeks(),
+				 sviStudenti.get(i).getTroskoviSkolarine(),
+				 sviStudenti.get(i).getTroskoviLiterature() });
+}
+	
+	
+	 
+	}
+	
+	
+	
 	/**
 	 * Create the application.
 	 */
@@ -101,6 +130,7 @@ public class MainWindow {
 	
 	public MainWindow() {
 		initialize();
+		ucitajSveStudente();
 	}
 
 	/**
@@ -293,11 +323,22 @@ public class MainWindow {
 		JButton button = new JButton("Uplate");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Student s = new Student();
-				s.setIme("Amra");
-				s.setPrezime("Dautbegovic");
-				DugWindow window = new DugWindow(s);
-				window.frmDugovanjaUplate.setVisible(true);
+				//Student s = new Student();
+				int indexSelektovani=table.getSelectedRow();
+				long idStudenta=(long)Integer.parseInt((table.getValueAt(indexSelektovani, 0).toString()));
+				
+				for(int i=0;i<sviStudenti.size();i++)
+				{
+					if(sviStudenti.get(i).getId()== idStudenta)
+						 { 
+							DugWindow window = new DugWindow(sviStudenti.get(i));
+							window.frmDugovanjaUplate.setVisible(true);
+						 
+						 }
+				}
+				
+				//DugWindow window = new DugWindow(s);
+				//window.frmDugovanjaUplate.setVisible(true);
 			}
 		});
 		frmBlagajna.getContentPane().add(button, "3, 7");
