@@ -14,6 +14,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+import java.util.Vector;
+
 
 
 import javax.swing.*;
@@ -27,6 +36,12 @@ import java.awt.event.*;
 import java.util.Calendar;
 
 
+
+import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 //----------------------
 import javax.swing.JTextField;
@@ -49,14 +64,16 @@ import com.jgoodies.forms.layout.RowSpec;
 public class IzvjestajWindow {
 
 	private JFrame frmIzvjetaj;
-	//----------------------dodano
-	//static Izvjestaj izvjestaj;
 	static Korisnik korisnik;
 	String result = "";
-	//---------------------- 
+	JTable tableTroskoviStudija;
+	JTable tableTroskoviLiterature;
+	 
 	/**
 	 * Launch the application.
 	 */
+	
+	  
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -76,11 +93,10 @@ public class IzvjestajWindow {
 	public IzvjestajWindow() {
 		initialize();
 	}
-	//----------------------dodano
+
 	public IzvjestajWindow(Korisnik k) {
-		initialize();
 		korisnik = k;
-		
+		initialize();			
 	}
 	//----------------------
 	/**
@@ -119,8 +135,6 @@ public class IzvjestajWindow {
 				RowSpec.decode("23px"),}));
 		
 		
-		//izvjestaj = new Izvjestaj();
-		
 		JLabel lblTipIzvjetaja = new JLabel("Tip izvje\u0161taja:");
 		frmIzvjetaj.getContentPane().add(lblTipIzvjetaja, "2, 2, right, center");
 		
@@ -135,30 +149,51 @@ public class IzvjestajWindow {
 		comboBox_1.setModel(new DefaultComboBoxModel(Mjesec.values()));
 		frmIzvjetaj.getContentPane().add(comboBox_1, "8, 2, fill, center");
 		
-		//JButton btnGenerii = new JButton("Generi\u0161i izvje\u0161taj");
-		//frmIzvjetaj.getContentPane().add(btnGenerii, "2, 4, 13, 1, fill, center");
-		
 		JLabel lblPrikazIzvjetaja = new JLabel("Prikaz izvje\u0161taja:");
 		frmIzvjetaj.getContentPane().add(lblPrikazIzvjetaja, "2, 6, 3, 1, center, center");
 		
 		final JTextPane textPane = new JTextPane();
 		frmIzvjetaj.getContentPane().add(textPane, "2, 8, 13, 1, fill, fill");
-
-		//JButton btnNewButton = new JButton("Printaj");
-		//frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
 		frmIzvjetaj.getContentPane().add(btnIzai, "12, 10, 3, 1, right, center");
 	
-		//----------------------dodano
-		 final Object rows[][] = {
-			      {"", "", "", "", ""}
+	
+		tableTroskoviStudija = new JTable();
+		tableTroskoviStudija.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, "", "", null, null},
+			},
+			new String[] {
+					"Index", "Ime i prezime", "Vrijednost skolarine", "Neplaceni dug (KM)", "Moze polagati ispit"
+			}
+		));
 
-			    };
-		 final Object headers[] = {"Index", "Ime i prezime", "Vrijednost skolarine", "Neplaceni dug (KM)", "Moze polagati ispit"};
-
-		 final JTable tableTroskoviStudija = new JTable(rows, headers);
-		 final JTable tableTroskoviLiterature = new JTable(rows, headers);
+		tableTroskoviStudija.getColumnModel().getColumn(0).setMinWidth(10);
+		tableTroskoviStudija.getColumnModel().getColumn(1).setMinWidth(40);
+		tableTroskoviStudija.getColumnModel().getColumn(2).setMinWidth(30);
+		tableTroskoviStudija.getColumnModel().getColumn(3).setMinWidth(30);
+		tableTroskoviStudija.getColumnModel().getColumn(4).setMinWidth(30);
+		JScrollPane TabelaTroskovaStudija = new JScrollPane(tableTroskoviStudija);
+		
+		tableTroskoviLiterature = new JTable();
+		tableTroskoviLiterature.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, "", "", null, null},
+			},
+			new String[] {
+					"Index", "Ime i prezime", "Vrijednost sliterature", "Neplaceni dug (KM)", "Moze polagati ispit"
+			}
+		));
+		
+		tableTroskoviLiterature.getColumnModel().getColumn(0).setMinWidth(10);
+		tableTroskoviLiterature.getColumnModel().getColumn(1).setMinWidth(40);
+		tableTroskoviLiterature.getColumnModel().getColumn(2).setMinWidth(30);
+		tableTroskoviLiterature.getColumnModel().getColumn(3).setMinWidth(30);
+		tableTroskoviLiterature.getColumnModel().getColumn(4).setMinWidth(30);
+		JScrollPane TabelaTroskovaLiterature = new JScrollPane(tableTroskoviLiterature);
+		
+		
 
 	JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
 	btnGenerisi.addActionListener(new ActionListener() {
