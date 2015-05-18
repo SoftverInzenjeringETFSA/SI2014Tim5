@@ -205,9 +205,13 @@ public class Student implements java.io.Serializable {
 	}
 
 	public double dajUkupniDug() {
-		return 0;
+		return dajDugZaSkolarinu() + troskoviLiterature;
 	}
-
+	
+	public double dajDugZaSkolarinu() {
+		return troskoviSkolarine - troskoviSkolarine * popust / 100;
+	}
+	
 	public ArrayList<Dug> dajSveDugove(Session session) {
 		
 		org.hibernate.Transaction t = session.beginTransaction();
