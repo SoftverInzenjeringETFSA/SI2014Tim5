@@ -23,21 +23,26 @@ public class Dug implements java.io.Serializable {
 	}
 			
 	
-	public Dug(long id, long rataId, long literaturaId, boolean jeLiIzmiren,
-			String akademskaGodina, double vrijednost, long korisnikId, TipDuga tipDuga) {
-		super();
-		this.id = id;
-		this.korisnikId = korisnikId;		
-		this.jeLiIzmiren = jeLiIzmiren;
-		this.akademskaGodina = akademskaGodina;
-		this.vrijednost = vrijednost;
-		this.tipDuga = tipDuga;
-	}
-	
 	
 
 	
 	
+	public Dug(long id, boolean jeLiIzmiren, String akademskaGodina,
+			double vrijednost, long korisnikId, TipDuga tipDuga) {
+		super();
+		this.id = id;
+		this.jeLiIzmiren = jeLiIzmiren;
+		this.akademskaGodina = akademskaGodina;
+		this.vrijednost = vrijednost;
+		this.korisnikId = korisnikId;
+		this.tipDuga = tipDuga;
+	}
+
+
+
+
+
+
 	public long getId() {
 		return id;
 	}
@@ -99,7 +104,10 @@ public class Dug implements java.io.Serializable {
 
 
 	public ArrayList<Rata> dajSveRate(Session session) {
-		return null;
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Rata> l = (ArrayList<Rata>)session.createSQLQuery("SELECT * FROM rata where dugId = "+this.id+";").addEntity(Rata.class).list();
+		t.commit();
+		return l;
 		
 	}
 	

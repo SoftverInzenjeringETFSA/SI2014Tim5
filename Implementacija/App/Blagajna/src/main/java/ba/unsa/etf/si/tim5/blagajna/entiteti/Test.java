@@ -1,7 +1,7 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
-
 import org.hibernate.Session;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 public class Test {
@@ -10,9 +10,12 @@ public class Test {
 		Literatura l = new Literatura(8, "xxx", "asd", "asd", 1, 42.3);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		l.dodajLiteraturu(session);
+		
+		Dug d = new Dug(1, true, "asd", 12, 1, TipDuga.dugZaLiteraturu );
+		d.dodajDug(session);
+		//l.dodajLiteraturu(session);
 		org.hibernate.Transaction t = session.beginTransaction();
-		session.update(l);
+		//session.update(l);
 		t.commit();
 		session.close();
 		
