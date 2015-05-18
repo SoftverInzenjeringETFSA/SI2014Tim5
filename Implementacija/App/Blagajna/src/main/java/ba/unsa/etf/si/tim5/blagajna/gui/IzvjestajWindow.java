@@ -25,6 +25,7 @@ import java.util.Vector;
 
 
 
+
 import javax.swing.*;
 
 import java.awt.print.*;
@@ -34,6 +35,7 @@ import java.util.Date;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Calendar;
+
 
 
 
@@ -208,6 +210,12 @@ public class IzvjestajWindow {
 			Date date = new Date();
 
 			Calendar now = Calendar.getInstance();
+
+			///////////////
+			//DefaultTableModel model = (DefaultTableModel) tableTroskoviStudija.getModel();
+			//model.addRow(new Object[] { "12121", "Amela Neckic", "3232", "300", "NE"});
+			
+			
 			
 			if(comboBox.getSelectedItem()=="TroskoviStudija"){
 				//tip=TipIzvjestaja.values()[0];
@@ -274,7 +282,8 @@ public class IzvjestajWindow {
 			
 			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			Date date = new Date();
-				
+			
+			
 		    Izvjestaj izvjestaj = new Izvjestaj(1,date,result,korisnik.getId());
 		         
 		    Session session = HibernateUtil.getSessionFactory().openSession();
@@ -282,7 +291,7 @@ public class IzvjestajWindow {
 		    long id = izvjestaj.dodajIzvjestaj(session);
 		    izvjestaj.setId(id);
 		    session.close();
-			
+		    System.out.println("Generisano");
 		}
 		
 	});
@@ -303,18 +312,6 @@ public class IzvjestajWindow {
 		                 }
 		             }
 		         }
-		         
-		     /*   DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-				Date date = new Date();
-				
-		         Izvjestaj izvjestaj = new Izvjestaj(1,date,result,korisnik.getId());
-		         
-		         Session session = HibernateUtil.getSessionFactory().openSession();
-		         
-		        long id = izvjestaj.dodajIzvjestaj(session);
-		        izvjestaj.setId(id);
-		        session.close();
-		        */
 	  	}
 	
 
