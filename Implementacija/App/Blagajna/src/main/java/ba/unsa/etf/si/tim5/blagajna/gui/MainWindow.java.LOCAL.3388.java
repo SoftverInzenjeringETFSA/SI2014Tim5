@@ -67,9 +67,6 @@ import javax.swing.JSeparator;
 import org.hibernate.Session;
 
 import java.awt.event.MouseAdapter;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -291,25 +288,19 @@ public class MainWindow {
 		JButton btnUredi = new JButton("Detalji/\r\nUredi");
 		
 		JButton button = new JButton("Uplate");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Student s = new Student();
-				s.setIme("Amra");
-				s.setPrezime("Dautbegovic");
-				DugWindow window = new DugWindow(s);
-				window.frmDugovanjaUplate.setVisible(true);
-			}
-		});
 		frmBlagajna.getContentPane().add(button, "3, 7");
 		
 		JButton btnZaduiKnjigu = new JButton("Kupi literaturu");
 		frmBlagajna.getContentPane().add(btnZaduiKnjigu, "4, 7, right, default");
 		frmBlagajna.getContentPane().add(btnUredi, "5, 7, center, default");
 		frmBlagajna.getContentPane().add(btnObrisi, "8, 7, fill, default");
+		
 		JMenuBar menuBar = new JMenuBar();
 		frmBlagajna.setJMenuBar(menuBar);
+		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
+		
 		JSeparator separator_1 = new JSeparator();
 		mnFile.add(separator_1);
 		

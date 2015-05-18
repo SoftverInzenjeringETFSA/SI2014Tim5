@@ -39,9 +39,12 @@ import java.awt.Color;
 
 
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 956e07ae7c7fbeda9bcd8337d51ade7b48941b21
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
 import java.awt.ScrollPane;
@@ -64,14 +67,16 @@ import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 
+<<<<<<< HEAD
 import org.hibernate.Session;
 
 import java.awt.event.MouseAdapter;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+=======
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+>>>>>>> 956e07ae7c7fbeda9bcd8337d51ade7b48941b21
 
 
 public class MainWindow {
