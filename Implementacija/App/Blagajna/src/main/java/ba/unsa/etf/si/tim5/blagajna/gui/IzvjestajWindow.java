@@ -162,7 +162,7 @@ public class IzvjestajWindow {
 		tableTroskoviStudija = new JTable();
 		tableTroskoviStudija.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, "", "", null, null},
+				{null, "", null, null, ""},
 			},
 			new String[] {
 					"Index", "Ime i prezime", "Vrijednost skolarine", "Neplaceni dug (KM)", "Moze polagati ispit"
@@ -179,7 +179,7 @@ public class IzvjestajWindow {
 		tableTroskoviLiterature = new JTable();
 		tableTroskoviLiterature.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, "", "", null, null},
+				{null, "", null, null, ""},
 			},
 			new String[] {
 					"Index", "Ime i prezime", "Vrijednost sliterature", "Neplaceni dug (KM)", "Moze polagati ispit"
