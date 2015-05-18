@@ -14,6 +14,15 @@ public class Validacija {
 		return instanca;
 	}
 
+	public boolean passwordValidation(String pass)
+	{
+		if (pass.length()<8) return false;
+		String passPattern = "^(.*[0-9].*[A-Z].*)|(.*[A-Z].*[0-9].*)$";
+	java.util.regex.Pattern p = java.util.regex.Pattern.compile(passPattern);
+	java.util.regex.Matcher m = p.matcher(pass);
+	return m.matches();
+	}
+	
 	/*public static boolean emailValidation(String email) {
 		   boolean result = true;
 		   try {

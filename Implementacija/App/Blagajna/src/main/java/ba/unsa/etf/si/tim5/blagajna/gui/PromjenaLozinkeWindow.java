@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
@@ -121,9 +122,9 @@ public class PromjenaLozinkeWindow {
 			
 			if (!s1.equals(korisnik.getLozinka()))
 				JOptionPane.showMessageDialog(null,"Stara lozinka nije tacna !","Error",JOptionPane.WARNING_MESSAGE);		
-			else if (s2.length()<8)
+			else if (Validacija.getInstance().passwordValidation(s2))
 			{
-				JOptionPane.showMessageDialog(null,"Lozinka mora imati najmanje 8 znakova !","Error",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(null,"Lozinka mora imati najmanje 8 znakova, jedno veliko slovo i jedan broj !","Error",JOptionPane.WARNING_MESSAGE);
 			}
 			else if (!s2.equals(s3))
 				JOptionPane.showMessageDialog(null,"Lozinka i potvrda lozinke se razlikuju !","Error",JOptionPane.WARNING_MESSAGE);

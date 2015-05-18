@@ -30,6 +30,7 @@ import javax.swing.border.BevelBorder;
 import java.awt.Color;
 
 
+
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
 import java.awt.ScrollPane;
@@ -42,12 +43,17 @@ import java.awt.List;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+
 import com.jgoodies.forms.factories.FormFactory;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JSeparator;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class MainWindow {
@@ -149,19 +155,25 @@ public class MainWindow {
 		JButton btnUredi = new JButton("Detalji/\r\nUredi");
 		
 		JButton button = new JButton("Uplate");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Student s = new Student();
+				s.setIme("Amra");
+				s.setPrezime("Dautbegovic");
+				DugWindow window = new DugWindow(s);
+				window.frmDugovanjaUplate.setVisible(true);
+			}
+		});
 		frmBlagajna.getContentPane().add(button, "3, 7");
 		
 		JButton btnZaduiKnjigu = new JButton("Kupi literaturu");
 		frmBlagajna.getContentPane().add(btnZaduiKnjigu, "4, 7, right, default");
 		frmBlagajna.getContentPane().add(btnUredi, "5, 7, center, default");
 		frmBlagajna.getContentPane().add(btnObrisi, "8, 7, fill, default");
-		
 		JMenuBar menuBar = new JMenuBar();
 		frmBlagajna.setJMenuBar(menuBar);
-		
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
-		
 		JSeparator separator_1 = new JSeparator();
 		mnFile.add(separator_1);
 		
