@@ -1,19 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated May 15, 2015 10:24:47 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated May 18, 2015 2:32:30 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.tim5.blagajna.entiteti.Dug" table="DUG">
         <id name="id" type="long">
             <column name="ID" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
-        <property name="rataId" type="long">
-            <column name="RATAID" />
-        </property>
-        <property name="literaturaId" type="long">
-            <column name="LITERATURAID" />
-        </property>
         <property name="jeLiIzmiren" type="boolean">
             <column name="JELIIZMIREN" />
         </property>
@@ -22,6 +16,9 @@
         </property>
         <property name="vrijednost" type="double">
             <column name="VRIJEDNOST" />
+        </property>
+        <property name="korisnikId" type="long">
+            <column name="KORISNIKID" />
         </property>
         <property name="tipDuga">
             <column name="TIPDUGA" />

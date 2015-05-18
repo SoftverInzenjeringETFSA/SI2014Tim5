@@ -368,7 +368,7 @@ public class UnosWindow {
 						else 
 							s.urediStudenta(session);
 						
-						session.close();
+						session.close();						
 					
 				}});
 				frmUnosStudenta.getContentPane().add(btnUnesi, "2, 6, fill, top");

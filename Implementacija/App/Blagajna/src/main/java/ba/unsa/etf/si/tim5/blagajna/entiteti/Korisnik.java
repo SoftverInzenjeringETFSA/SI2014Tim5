@@ -1,5 +1,7 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
+import java.util.ArrayList;
+
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 
 import org.hibernate.Session;
@@ -113,5 +115,5 @@ public class Korisnik implements java.io.Serializable{
 		session.update(this);
 		t.commit();
 		return id;		
-	}
+	}	
 }
