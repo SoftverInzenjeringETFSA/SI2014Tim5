@@ -84,8 +84,8 @@ public class LiteraturaWindow {
 	/**
 	 * Create the application.
 	 */
-	public LiteraturaWindow() {
-		initialize();
+	
+	private void inicijalizirajTabelu() {
 		ArrayList<Literatura> l = Dao.getInstance().dajSvuLiteraturu();			
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -94,6 +94,11 @@ public class LiteraturaWindow {
 		model.addRow(new Object[] { l.get(i).getId(), l.get(i).getIsbn(),
 				l.get(i).getNaziv(),l.get(i).getAutor(), l.get(i).getKolicina(),
 				l.get(i).getCijena() });		
+	}
+	
+	public LiteraturaWindow() {
+		initialize();
+		inicijalizirajTabelu();		
 
 	}
 
@@ -160,6 +165,15 @@ public class LiteraturaWindow {
 		btnNewButton = new JButton("Obri\u0161i");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int indexSelektovani = table.getSelectedRow();
+				long idLiteratura = (long) Integer.parseInt((table.getValueAt(
+						indexSelektovani, 0).toString()));
+				
+				Literatura l = Dao.getInstance().dajLiteraturuPoId(idLiteratura);
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				l.obrisiLiteraturu(session);
+				session.close();
+				((DefaultTableModel)table.getModel()).removeRow(indexSelektovani);
 			}
 		});
 		frmUnosDugaZa.getContentPane().add(btnNewButton, "6, 10, 3, 1");

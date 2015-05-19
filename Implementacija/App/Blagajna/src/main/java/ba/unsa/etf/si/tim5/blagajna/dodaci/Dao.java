@@ -2,8 +2,6 @@ package ba.unsa.etf.si.tim5.blagajna.dodaci;
 
 import java.util.ArrayList;
 
-import javax.swing.table.DefaultTableModel;
-
 import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
@@ -46,6 +44,15 @@ public class Dao {
 		Session session = HibernateUtil.getSessionFactory().openSession();		
 		org.hibernate.Transaction t = session.beginTransaction();
 		ArrayList<Literatura> l = (ArrayList<Literatura>)session.createSQLQuery("SELECT * FROM literatura").addEntity(Literatura.class).list();		
+		t.commit();	
+		session.close();
+		return l;
+	}
+	 
+	public Literatura dajLiteraturuPoId(long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		Literatura l = (Literatura)session.get(Literatura.class, id);		
 		t.commit();	
 		session.close();
 		return l;
