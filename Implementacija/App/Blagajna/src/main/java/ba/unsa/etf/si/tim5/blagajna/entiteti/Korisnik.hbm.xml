@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated May 15, 2015 10:24:47 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated May 19, 2015 9:09:49 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik" table="KORISNIK">
         <id name="id" type="long">
             <column name="ID" />
-            <generator class="native" />
+            <generator class="assigned" />
         </id>
         <property name="ime" type="java.lang.String">
             <column name="IME" />
@@ -32,6 +32,9 @@
                 <param name="type">12</param>
                 <param name="enumClass">ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika</param>
             </type>
+        </property>
+        <property name="lozinka" type="java.lang.String">
+            <column name="LOZINKA" />
         </property>
     </class>
 </hibernate-mapping>

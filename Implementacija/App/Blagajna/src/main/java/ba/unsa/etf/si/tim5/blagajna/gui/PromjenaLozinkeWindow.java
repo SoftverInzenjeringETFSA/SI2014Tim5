@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
@@ -21,6 +22,7 @@ import javax.swing.JPasswordField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -42,7 +44,7 @@ public class PromjenaLozinkeWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PromjenaLozinkeWindow window = new PromjenaLozinkeWindow(korisnik);
+					PromjenaLozinkeWindow window = new PromjenaLozinkeWindow();
 					window.frmPromjenaLozinke.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,6 +58,13 @@ public class PromjenaLozinkeWindow {
 	 */
 	public PromjenaLozinkeWindow(Korisnik k) {
 		korisnik = k;
+		initialize();
+	}
+	
+	public PromjenaLozinkeWindow()
+	{
+		ArrayList<Korisnik> korisnici = Dao.getInstance().dajSveKorisnike();
+		korisnik = korisnici.get(1);
 		initialize();
 	}
 
@@ -122,7 +131,7 @@ public class PromjenaLozinkeWindow {
 			
 			if (!s1.equals(korisnik.getLozinka()))
 				JOptionPane.showMessageDialog(null,"Stara lozinka nije tacna !","Error",JOptionPane.WARNING_MESSAGE);		
-			else if (Validacija.getInstance().passwordValidation(s2))
+			else if (!Validacija.getInstance().passwordValidation(s2))
 			{
 				JOptionPane.showMessageDialog(null,"Lozinka mora imati najmanje 8 znakova, jedno veliko slovo i jedan broj !","Error",JOptionPane.WARNING_MESSAGE);
 			}
