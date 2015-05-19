@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
@@ -33,6 +34,22 @@ public class Dao {
 		return l;
 	}
 	
+	public ArrayList<Korisnik> dajSveKorisnike() {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Korisnik> l = (ArrayList<Korisnik>)session.createSQLQuery("SELECT * FROM korisnik").addEntity(Korisnik.class).list();		
+		t.commit();	
+		session.close();
+		return l;
+	}
+	public ArrayList<Literatura> dajSvuLiteraturu() {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Literatura> l = (ArrayList<Literatura>)session.createSQLQuery("SELECT * FROM literatura").addEntity(Literatura.class).list();		
+		t.commit();	
+		session.close();
+		return l;
+	}
 	
 	
 }

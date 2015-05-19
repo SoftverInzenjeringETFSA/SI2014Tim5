@@ -84,15 +84,14 @@ public class MainWindow {
 		 * t.commit(); ArrayList<Student> list =
 		 * (ArrayList<Student>)query.list();
 		 */
-		sviStudenti = Dao.getInstance().dajSveStudente();
-		System.out.println(sviStudenti.size());
+		sviStudenti = Dao.getInstance().dajSveStudente();		
         
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (int i = 0; i < sviStudenti.size(); i++) {
 			System.out.println(sviStudenti.get(i).getIme());
 			
 			model.addRow(new Object[] { sviStudenti.get(i).getId(),
-					sviStudenti.get(i).getIme() + studenti.get(i).getPrezime(),
+					sviStudenti.get(i).getIme() + sviStudenti.get(i).getPrezime(),
 					sviStudenti.get(i).getIndeks(),
 					sviStudenti.get(i).getTroskoviSkolarine(),
 					sviStudenti.get(i).getTroskoviLiterature() }

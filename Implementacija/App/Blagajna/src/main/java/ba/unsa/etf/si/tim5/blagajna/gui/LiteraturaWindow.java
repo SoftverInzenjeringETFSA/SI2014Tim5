@@ -19,6 +19,7 @@ import java.awt.Insets;
 import javax.swing.JButton;
 
 import antlr.collections.List;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
@@ -85,19 +86,14 @@ public class LiteraturaWindow {
 	 */
 	public LiteraturaWindow() {
 		initialize();
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		
-		org.hibernate.Transaction t = session.beginTransaction();			
-		ArrayList<Literatura> l = (ArrayList<Literatura>)session.createSQLQuery("SELECT * FROM Literatura").addEntity(Literatura.class).list();			
-		t.commit();
+		ArrayList<Literatura> l = Dao.getInstance().dajSvuLiteraturu();			
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
 		for(int i = 0; i<l.size(); i++)
 		model.addRow(new Object[] { l.get(i).getId(), l.get(i).getIsbn(),
 				l.get(i).getNaziv(),l.get(i).getAutor(), l.get(i).getKolicina(),
-				l.get(i).getCijena() });
-		session.close();
+				l.get(i).getCijena() });		
 
 	}
 

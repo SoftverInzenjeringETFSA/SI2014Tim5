@@ -273,7 +273,7 @@ public class IzvjestajWindow {
 	
 	frmIzvjetaj.getContentPane().add(btnGenerisi, "2, 4, 13, 1, fill, center");
 	
-	JButton btnNewButton = new JButton("Generi\u0161i izvje\u0161taj");
+	JButton btnNewButton = new JButton("Printaj");
 	frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
 	
 	
