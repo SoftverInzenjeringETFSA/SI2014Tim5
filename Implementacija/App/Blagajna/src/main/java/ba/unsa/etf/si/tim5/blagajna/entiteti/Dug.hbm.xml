@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated May 18, 2015 2:32:30 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated May 19, 2015 11:31:28 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="ba.unsa.etf.si.tim5.blagajna.entiteti.Dug" table="DUG">
         <id name="id" type="long">
@@ -17,8 +17,8 @@
         <property name="vrijednost" type="double">
             <column name="VRIJEDNOST" />
         </property>
-        <property name="korisnikId" type="long">
-            <column name="KORISNIKID" />
+        <property name="studentId" type="long">
+            <column name="STUDENTID" />
         </property>
         <property name="tipDuga">
             <column name="TIPDUGA" />
@@ -26,6 +26,9 @@
                 <param name="type">12</param>
                 <param name="enumClass">ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga</param>
             </type>
+        </property>
+        <property name="literaturaId" type="long">
+            <column name="LITERATURAID" />
         </property>
     </class>
 </hibernate-mapping>

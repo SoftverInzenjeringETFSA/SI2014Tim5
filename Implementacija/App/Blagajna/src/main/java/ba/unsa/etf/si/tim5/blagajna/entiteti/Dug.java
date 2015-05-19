@@ -18,26 +18,36 @@ public class Dug implements java.io.Serializable {
 	private boolean jeLiIzmiren;
 	private String akademskaGodina;
 	double vrijednost;
-	private long korisnikId;
-	TipDuga tipDuga;
+	private long studentId;
+	private TipDuga tipDuga;
+	private long literaturaId;
 	
 	public Dug() {
 	}
 			
 	
 	
-
-	
-	
 	public Dug(long id, boolean jeLiIzmiren, String akademskaGodina,
-			double vrijednost, long korisnikId, TipDuga tipDuga) {
+			double vrijednost, long studentId, TipDuga tipDuga) {
 		super();
 		this.id = id;
 		this.jeLiIzmiren = jeLiIzmiren;
 		this.akademskaGodina = akademskaGodina;
 		this.vrijednost = vrijednost;
-		this.korisnikId = korisnikId;
+		this.studentId = studentId;
 		this.tipDuga = tipDuga;
+	}
+	
+	public Dug(long id, boolean jeLiIzmiren, String akademskaGodina,
+			double vrijednost, long studentId, TipDuga tipDuga, long literaturaId) {
+		super();
+		this.id = id;
+		this.jeLiIzmiren = jeLiIzmiren;
+		this.akademskaGodina = akademskaGodina;
+		this.vrijednost = vrijednost;
+		this.studentId = studentId;
+		this.tipDuga = tipDuga;
+		this.literaturaId = literaturaId;
 	}
 
 
@@ -85,14 +95,40 @@ public class Dug implements java.io.Serializable {
 	}
 
 
-	public long getKorisnikId() {
-		return korisnikId;
+	public long getStudentId() {
+		return studentId;
 	}
 
 
-	public void setKorisnikId(long korisnikId) {
-		this.korisnikId = korisnikId;
+
+
+
+
+	public void setStudentId(long studentId) {
+		this.studentId = studentId;
 	}
+
+
+
+
+
+
+	public long getLiteraturaId() {
+		return literaturaId;
+	}
+
+
+
+
+
+
+	public void setLiteraturaId(long literaturaId) {
+		this.literaturaId = literaturaId;
+	}
+
+
+
+
 
 
 	public TipDuga getTipDuga() {

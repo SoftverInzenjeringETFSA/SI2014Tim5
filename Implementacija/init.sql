@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2015 at 04:31 PM
+-- Generation Time: May 19, 2015 at 11:38 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -16,11 +16,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+
 CREATE SCHEMA IF NOT EXISTS `tim5` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 CREATE USER 'EtfSI2014'@'localhost' IDENTIFIED BY '2014SIEtf';
 grant all on tim5.* to 'EtfSI2014'@'localhost';
 USE `tim5` ;
-
 --
 -- Database: `tim5`
 --
@@ -37,19 +37,17 @@ CREATE TABLE IF NOT EXISTS `dug` (
   `AKADEMSKAGODINA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
   `VRIJEDNOST` double DEFAULT NULL,
   `TIPDUGA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `korisnikid` int(11) DEFAULT NULL,
+  `literaturaId` int(11) DEFAULT NULL,
+  `STUDENTID` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `dug`
 --
 
-INSERT INTO `dug` (`id`, `JELIIZMIREN`, `AKADEMSKAGODINA`, `VRIJEDNOST`, `TIPDUGA`, `korisnikid`) VALUES
-(1, b'1', 'asd', 12, 'dugZaLiteraturu', 1),
-(2, b'1', 'asd', 12, 'dugZaLiteraturu', 1),
-(3, b'0', '2014/2015', 11.748, 'dugZaSkolarinu', 9),
-(4, b'0', '2014/2015', 810, 'dugZaSkolarinu', 1);
+INSERT INTO `dug` (`id`, `JELIIZMIREN`, `AKADEMSKAGODINA`, `VRIJEDNOST`, `TIPDUGA`, `literaturaId`, `STUDENTID`) VALUES
+(5, b'0', '2014/2015', 18490512.795399997, 'dugZaSkolarinu', 0, 10);
 
 -- --------------------------------------------------------
 
@@ -97,22 +95,20 @@ CREATE TABLE IF NOT EXISTS `literatura` (
   `KOLICINA` int(11) DEFAULT NULL,
   `CIJENA` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `literatura`
 --
 
 INSERT INTO `literatura` (`id`, `ISBN`, `NAZIV`, `AUTOR`, `KOLICINA`, `CIJENA`) VALUES
-(1, 'asd', 'asd', 'asd', 1, 42.3),
 (2, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
 (3, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
 (4, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
 (5, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
 (6, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
 (7, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
-(8, 'xxx', 'asd', 'asd', 1, 42.3),
-(9, 'esafsd', 'dfsfsd', 'fsdfsdf', 213, 1312);
+(10, '123fasdfsd', 'Dzenanine zgode i nezgode', 'Dzenana', 12, 69);
 
 -- --------------------------------------------------------
 
@@ -129,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `rata` (
   `ROKUPLATE` datetime DEFAULT NULL,
   `DUGID` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `rata`
@@ -139,7 +135,11 @@ INSERT INTO `rata` (`id`, `VRIJEDNOST`, `JELIUPLACENA`, `DATUMZADUZENJA`, `DATUM
 (1, 202.5, b'0', '2015-05-18 16:24:37', NULL, '2015-08-16 16:24:37', 4),
 (2, 202.5, b'0', '2015-05-18 16:24:37', NULL, '2015-08-16 16:24:37', 4),
 (3, 202.5, b'0', '2015-05-18 16:24:37', NULL, '2015-08-16 16:24:37', 4),
-(4, 202.5, b'0', '2015-05-18 16:24:37', NULL, '2015-08-16 16:24:37', 4);
+(4, 202.5, b'0', '2015-05-18 16:24:37', NULL, '2015-08-16 16:24:37', 4),
+(5, 4622628.198849999, b'0', '2015-05-19 11:32:30', NULL, '2015-08-17 11:32:30', 5),
+(6, 4622628.198849999, b'0', '2015-05-19 11:32:30', NULL, '2015-08-17 11:32:30', 5),
+(7, 4622628.198849999, b'0', '2015-05-19 11:32:30', NULL, '2015-08-17 11:32:30', 5),
+(8, 4622628.198849999, b'0', '2015-05-19 11:32:30', NULL, '2015-08-17 11:32:30', 5);
 
 -- --------------------------------------------------------
 
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `GODINASTUDIJA` int(11) DEFAULT NULL,
   `DUGID` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `student`
@@ -182,7 +182,8 @@ INSERT INTO `student` (`id`, `IME`, `PREZIME`, `JMBG`, `MAIL`, `ADRESA`, `OPCINA
 (6, 'aaaa', 'aaaa', '', '', '', '', '', 123, 123, 0, 'aaaa', '', '', '', 1211, 0, 0),
 (7, 'asdasdas', '', '', '', '', '', '', 121111, 61.41, 0, '', '', '', '', 11, 0, 0),
 (8, 'asdasd', '', '', '', '', '', '', 123, 109.47, 0, '', '', '', '', 11, 0, 0),
-(9, 'Azra2', '', '', '', '', '', '', 69, 106.8, 0, '', '', '', '', 11, 0, 0);
+(9, 'Azra2', '', '', '', '', '', '', 69, 106.8, 0, '', '', '', '', 11, 0, 0),
+(10, 'lalalala', 'lalalal', '', '', '', '', '', 9999, -151053.94, 0, '', '', '', '', 12341, 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
