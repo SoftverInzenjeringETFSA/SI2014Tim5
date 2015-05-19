@@ -214,7 +214,7 @@ public class UnosKorisnikaWindow {
 				}
 				else tip=TipKorisnika.values()[1];
 			
-				Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa, telefon, mail, tip,lozinka);
+				Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa, telefon, mail, tip, username, lozinka);
 				
 				try {
 				Session session = HibernateUtil.getSessionFactory().openSession();

@@ -127,7 +127,7 @@ public class KorisniciWindow {
 		JButton btnUredi = new JButton("Detalji/Uredi");
 		btnUredi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Korisnik k = new Korisnik(1,"dino","hurem","2311991170041","aef","062/772-669","aef",TipKorisnika.values()[0],"lozinka");
+				Korisnik k = new Korisnik(1,"dino","hurem","2311991170041","aef","062/772-669","aef",TipKorisnika.values()[0],"user", "lozinka");
 				korisnici.add(k);
 				UnosKorisnikaWindow.main(k.getId(),korisnici);
 			}
