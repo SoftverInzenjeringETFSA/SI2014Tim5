@@ -87,12 +87,8 @@ public class LiteraturaWindow {
 		initialize();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		org.hibernate.Transaction t = session.beginTransaction();
-		
-		
-		ArrayList<Literatura> l = (ArrayList<Literatura>)session.createSQLQuery("SELECT * FROM Literatura").addEntity(Literatura.class).list();
-		
-		
+		org.hibernate.Transaction t = session.beginTransaction();			
+		ArrayList<Literatura> l = (ArrayList<Literatura>)session.createSQLQuery("SELECT * FROM Literatura").addEntity(Literatura.class).list();			
 		t.commit();
 		
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
