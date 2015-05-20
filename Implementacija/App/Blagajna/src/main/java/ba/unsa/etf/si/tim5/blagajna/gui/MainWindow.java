@@ -182,7 +182,7 @@ public class MainWindow {
 				org.hibernate.Transaction t = session.beginTransaction();
 				// session.beginTransaction();
 				//System.out.println(izbor);
-
+				studenti.clear();
 				if (izbor == "Indeks") {
 				
 					
@@ -251,16 +251,15 @@ public class MainWindow {
 				else if (izbor == "Dug za skolarinu") {
 					String dugSkolarina = textField.getText();
 
-					String statement = "SELECT * FROM Student WHERE troskoviSkolarine="
-							+ Double.parseDouble(dugSkolarina);
-					org.hibernate.Query query = session.createQuery(statement);
-					ArrayList<Student> list = (ArrayList<Student>) query.list();
-					studenti = list;
-					t.commit();
-
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if(sviStudenti.get(i).dajDugZaSkolarinu()==Double.parseDouble(dugSkolarina))
+							studenti.add(sviStudenti.get(i));
+					}
+					
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+					model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
-						DefaultTableModel model = (DefaultTableModel) table
-								.getModel();
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
