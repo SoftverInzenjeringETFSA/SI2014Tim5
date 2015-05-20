@@ -1,18 +1,23 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.FormLayout;
@@ -35,6 +40,8 @@ import java.awt.GridBagConstraints;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import org.hibernate.Session;
+
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -48,9 +55,10 @@ public class KorisniciWindow {
 	private JFrame frmKorisnici;	
 	private JTable table;
 	private Connection conn;
+	protected Component frame;
 	
 	private ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>();
-
+	private Korisnik k;
 	/**
 	 * Launch the application.
 	 */
@@ -164,8 +172,11 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 		
 		JButton btnUredi = new JButton("Detalji/Uredi");
 		btnUredi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			
 
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
 			/*	Korisnik k = new Korisnik();
 				table.getSelectedRow();
 				korisnici.add(k);
@@ -176,6 +187,28 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 		frmKorisnici.getContentPane().add(btnUredi, "4, 5, center, default");
 		
 		JButton btnObrisi = new JButton("Obrisi");
+		btnObrisi.addActionListener(new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int indexSelektovani = table.getSelectedRow();
+				long idKorisnika = (long) Integer.parseInt((table.getValueAt(
+						indexSelektovani, 0).toString()));
+				
+				korisnici = Dao.getInstance().dajSveKorisnike();
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				for(int i=0;i<korisnici.size();i++){
+					if(korisnici.get(i).getId()==idKorisnika){
+					korisnici.get(i).obrisiKorisnika(session);
+					JOptionPane.showMessageDialog(frame,"Izbrisali ste korisnika"+korisnici.get(i).getIme()+" "+ korisnici.get(i).getPrezime()+"!");
+					}
+				}
+				
+				session.close();
+				((DefaultTableModel)table.getModel()).removeRow(indexSelektovani);
+			}
+		});
 		frmKorisnici.getContentPane().add(btnObrisi, "5, 5, center, default");
 		
 		
