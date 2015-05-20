@@ -6,7 +6,8 @@ import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
-import javax.management.Query;
+
+import org.hibernate.Query;
 import javax.swing.JFrame;
 
 import java.awt.GridLayout;
@@ -88,7 +89,7 @@ public class MainWindow {
         
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (int i = 0; i < sviStudenti.size(); i++) {
-			System.out.println(sviStudenti.get(i).getIme());
+			
 			
 			model.addRow(new Object[] { sviStudenti.get(i).getId(),
 					sviStudenti.get(i).getIme() + sviStudenti.get(i).getPrezime(),
@@ -177,24 +178,39 @@ public class MainWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String izbor = comboBox.getSelectedItem().toString();
-				Session session = HibernateUtil.getSessionFactory()
-						.openSession();
+				Session session = HibernateUtil.getSessionFactory().openSession();
 				org.hibernate.Transaction t = session.beginTransaction();
 				// session.beginTransaction();
+				System.out.println(izbor);
 
-				if (izbor == "Index") {
+				if (izbor == "Indeks") {
+				
+					
 					String indeks = textField.getText();
 
-					String statement = "SELECT * FROM Student WHERE index="
-							+ Integer.parseInt(indeks);
-					org.hibernate.Query query = session.createQuery(statement);
-					ArrayList<Student> list = (ArrayList<Student>) query.list();
-					studenti = list;
-					t.commit();
+					//String statement = "SELECT * FROM Student WHERE indeks="
+							//+ Integer.parseInt(indeks);
+					
+					//Query query = session.createQuery("from Student where  = :id ");
+					//query.setParameter("id", indeks);
+					//List<?> list = query.list();
 
+					//Query query = session.createQuery(statement);
+					//ArrayList<Student> list = (ArrayList<Student>)query.list();
+					//java.util.List list=query.list();
+					
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if(sviStudenti.get(i).getIndeks()== Integer.parseInt(indeks))
+							studenti.add(sviStudenti.get(i));
+					}
+					System.out.println(studenti.size());
+					//studenti = list;
+		
+					
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+						model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
-						DefaultTableModel model = (DefaultTableModel) table
-								.getModel();
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
