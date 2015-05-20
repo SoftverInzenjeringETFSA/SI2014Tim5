@@ -6,7 +6,7 @@
     <class name="ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura" table="LITERATURA">
         <id name="id" type="long">
             <column name="ID" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="isbn" type="java.lang.String">
             <column name="ISBN" />

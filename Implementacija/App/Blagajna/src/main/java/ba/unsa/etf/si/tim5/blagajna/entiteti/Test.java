@@ -2,21 +2,21 @@ package ba.unsa.etf.si.tim5.blagajna.entiteti;
 import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 public class Test {
 
 	public static void main(String[] args) {
-		Literatura l = new Literatura(8, "xxx", "asd", "asd", 1, 42.3);
+		//Literatura l = new Literatura(8, "xxx", "asd", "asd", 1, 42.3);
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
-		
-		Dug d = new Dug(1, true, "asd", 12, 1, TipDuga.dugZaLiteraturu );
-		d.dodajDug(session);
+		Korisnik k = new Korisnik(1,"admin","admin","2311991170041","aef","062/772-669","aef",TipKorisnika.Administrator,"admin", "admin");
 		//l.dodajLiteraturu(session);
-		org.hibernate.Transaction t = session.beginTransaction();
+		//org.hibernate.Transaction t = session.beginTransaction();
+		k.dodajKorisnika(session);
 		//session.update(l);
-		t.commit();
+		//t.commit();
 		session.close();
 		
 		System.out.println("izmjenjeno");

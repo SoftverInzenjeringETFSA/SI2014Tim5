@@ -19,13 +19,14 @@ public class Korisnik implements java.io.Serializable{
 	private String telefon;
 	private String mail;
 	private TipKorisnika tipKorisnika;	
+	private String korisnickoIme;
 	private String lozinka;
 	
 	public Korisnik() {		
 	}
 	
 	public Korisnik(long id, String ime, String prezime, String jmbg, String adresa,
-			String telefon, String mail, TipKorisnika tipKorisnika, String lozinka) {
+			String telefon, String mail, TipKorisnika tipKorisnika, String korisnickoIme, String lozinka) {
 		super();
 		this.id = id;
 		this.ime = ime;
@@ -35,8 +36,20 @@ public class Korisnik implements java.io.Serializable{
 		this.telefon = telefon;
 		this.mail = mail;
 		this.tipKorisnika = tipKorisnika;		
+		this.korisnickoIme = korisnickoIme;
 		this.lozinka = lozinka;
 	}
+	
+	
+	
+	public String getKorisnickoIme() {
+		return korisnickoIme;
+	}
+
+	public void setKorisnickoIme(String korisnickoIme) {
+		this.korisnickoIme = korisnickoIme;
+	}
+
 	public String getLozinka() {
 		return lozinka;
 	}
