@@ -8,6 +8,7 @@ import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Rata;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 public class Dug implements java.io.Serializable {
 	/**
@@ -24,8 +25,6 @@ public class Dug implements java.io.Serializable {
 
 	public Dug() {
 	}
-	
-	
 
 	public Dug(long id, boolean jeLiIzmiren, String akademskaGodina,
 			double vrijednost, long studentId, TipDuga tipDuga) {
@@ -118,6 +117,27 @@ public class Dug implements java.io.Serializable {
 
 	}
 
+	public double dajVrijednostDuga() { 
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		int uplacena = 0;
+		ArrayList<Rata> l = (ArrayList<Rata>)session.createSQLQuery("SELECT * FROM Rata where dugid = "+ String.valueOf(this.id) + "and jeliuplacena = "+String.valueOf(uplacena)).addEntity(Rata.class).list();		
+		t.commit();	
+		session.close();
+		double dug = 0;
+		for(int i = 0; i<l.size(); i++) dug += l.get(i).getVrijednost();
+		return dug;
+		
+	}
+
+	public Student dajStudenta() {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();		
+		ArrayList<Student> l = (ArrayList<Student>)session.createSQLQuery("SELECT * FROM student where studentId = "+ String.valueOf(this.studentId)).addEntity(Student.class).list();		
+		t.commit();	
+		session.close();
+		return l.get(0);
+	}
 	private Date addDays(Date date, int days) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
