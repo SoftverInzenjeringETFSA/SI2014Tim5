@@ -215,7 +215,7 @@ public class Student implements java.io.Serializable {
 	public ArrayList<Dug> dajSveDugove(Session session) {
 		
 		org.hibernate.Transaction t = session.beginTransaction();
-		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where korisnikId = "+this.id+";").addEntity(Dug.class).list();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where studentId = "+this.id+";").addEntity(Dug.class).list();
 		t.commit();
 		return l;
 	}
