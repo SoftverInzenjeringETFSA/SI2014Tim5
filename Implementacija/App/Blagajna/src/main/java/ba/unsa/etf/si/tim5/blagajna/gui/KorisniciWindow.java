@@ -185,6 +185,7 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 					if(korisnici.get(i).getId()==idKorisnika){
 						UnosKorisnikaWindow window1= new UnosKorisnikaWindow(korisnici.get(i));
 						window1.frmUnosKorisnika.setVisible(true);
+						
 					}
 				}
 				
@@ -250,7 +251,7 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 		    	  
 		          
 		    	  korisnici.add(k);
-		    	  tmodel.addRow(new Object[] { k.getId(),k.getIme(), k.getPrezime(),k.getJmbg(),k.getAdresa(),k.getTelefon(),k.getTipKorisnika()});
+		    	  tmodel.addRow(new Object[] { k.getId(),k.getIme(), k.getPrezime(),k.getJmbg(),k.getAdresa(),k.getTelefon(),k.getMail(),k.getTipKorisnika()});
 		      }
 			}
 			catch (SQLException e) {
@@ -258,5 +259,8 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 				e.printStackTrace();
 			}
 	}
+	
+	
+	
 
 }

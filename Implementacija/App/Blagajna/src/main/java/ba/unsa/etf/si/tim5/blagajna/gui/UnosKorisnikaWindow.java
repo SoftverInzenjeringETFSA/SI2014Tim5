@@ -269,7 +269,7 @@ public class UnosKorisnikaWindow {
 				String mail = textField_3.getText();
 				String telefon = textField_4.getText();
 				String username = textField_6.getText();
-				String lozinka = "lozinka";
+				String lozinka = "admin";
 				TipKorisnika tip;
 
 				if(comboBox.getSelectedItem()=="Korisnik"){
@@ -287,6 +287,7 @@ public class UnosKorisnikaWindow {
 				korisnici.add(k);
 				session.close();	
 					
+				
 				    
 				}
 				
@@ -327,13 +328,13 @@ public class UnosKorisnikaWindow {
 					JOptionPane.showMessageDialog(frame,"Uredili ste korisnika "+ime+" "+prezime+"!");
 					
 					session.close();	
-						
 					    
 					}
 					
 					catch (Exception ex) {
 						JOptionPane.showMessageDialog(null,ex.getLocalizedMessage());
 				    }
+				
 			}
 		});
 		
