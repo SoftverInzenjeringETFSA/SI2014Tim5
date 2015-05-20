@@ -3,11 +3,12 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.EventQueue;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
-
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 
+
 import org.hibernate.Query;
+
 import javax.swing.JFrame;
 
 import java.awt.GridLayout;
@@ -35,6 +36,7 @@ import javax.swing.border.BevelBorder;
 
 import java.awt.Color;
 
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
 import java.awt.ScrollPane;
@@ -62,16 +64,17 @@ import org.hibernate.Session;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class MainWindow {
 
-	private JFrame frmBlagajna;
+	JFrame frmBlagajna;
 	private JTable table;
 	private JTextField textField;
 	ArrayList<Student> sviStudenti;
+	Korisnik user=new Korisnik();
+	boolean userExist=false;
 
 	public void ucitajSveStudente() {
 
@@ -118,10 +121,21 @@ public class MainWindow {
 	}
 
 	private static ArrayList<Student> studenti = new ArrayList<Student>();
-
+	
 	public MainWindow() {
 		initialize();
+	}
+	
+	public MainWindow(Korisnik k) {
+		
+		user=k;
+		initialize();
+		
+		
 		ucitajSveStudente();
+	
+		
+	
 	}
 
 	/**
@@ -161,8 +175,11 @@ public class MainWindow {
 		frmBlagajna.getContentPane().add(lblDo, "2, 4");
 
 		JLabel lblIme = new JLabel("{Ime}");
+		lblIme.setText(user.getIme());
 		frmBlagajna.getContentPane().add(lblIme, "3, 4");
-
+		//if(userExist==true)
+		//System.out.println(user.ge);
+		
 		JLabel label = new JLabel("Pretraga po:");
 		frmBlagajna.getContentPane().add(label, "3, 5, center, default");
 
@@ -453,6 +470,20 @@ public class MainWindow {
 		mnFile.add(separator_1);
 
 		JMenuItem mntmUplate = new JMenuItem("Promijeni lozinku");
+		mntmUplate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				PromjenaLozinkeWindow window = new PromjenaLozinkeWindow();
+					window.frmPromjenaLozinke.setVisible(true);
+			}
+		});
+		//mntmUplate.addMouseListener(new MouseAdapter() {
+			//@Override
+			//public void mouseClicked(MouseEvent e) {
+			//	PromjenaLozinkeWindow window = new PromjenaLozinkeWindow();
+			//	window.frmPromjenaLozinke.setVisible(true);
+			//}
+		//});
 		mnFile.add(mntmUplate);
 
 		JSeparator separator = new JSeparator();
