@@ -98,6 +98,11 @@ public class Korisnik implements java.io.Serializable{
 		
 	}
 	
+	public TipKorisnika ToTipKorisnika(String s){
+		if(s=="Korisnik") return TipKorisnika.values()[0];
+		else return TipKorisnika.values()[1];
+	}
+	
 	public long dodajKorisnika(Session session) {
 		org.hibernate.Transaction t = session.beginTransaction();
 		Long id = (Long)session.save(this);

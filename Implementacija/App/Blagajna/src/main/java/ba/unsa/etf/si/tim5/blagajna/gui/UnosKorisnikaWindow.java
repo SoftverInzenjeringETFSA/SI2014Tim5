@@ -20,6 +20,7 @@ import javax.swing.DefaultComboBoxModel;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
@@ -31,14 +32,21 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+import com.mysql.jdbc.Statement;
+import com.mysql.jdbc.log.Log;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UnosKorisnikaWindow {
 
-	private JFrame frmUnosKorisnika;
+	JFrame frmUnosKorisnika;
 	private static JTextField textField;
 	private static  JTextField textField_1;
 	private static JTextField textField_2;
@@ -51,6 +59,7 @@ public class UnosKorisnikaWindow {
 	private static ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>();
 	static Korisnik k=new Korisnik();
 	private static long id;
+	private Connection conn;
 	
 	static JButton btnUredi = new JButton("Uredi");
 	static JButton btnDodaj = new JButton("Dodaj");
@@ -69,6 +78,22 @@ public class UnosKorisnikaWindow {
 					e.printStackTrace();
 				}
 			}
+		});
+	}
+	
+	/*public static void main(ArrayList<Korisnik> _korisnici) {
+		korisnici=_korisnici;
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UnosKorisnikaWindow window = new UnosKorisnikaWindow();
+					window.frmUnosKorisnika.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
 		});
 	}
 	
@@ -93,15 +118,48 @@ public class UnosKorisnikaWindow {
 		
 		
 		
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
 	public UnosKorisnikaWindow() {
+			try {
+			OpenConnection();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		initialize();
-				
 	}
+		
+		public UnosKorisnikaWindow(Korisnik _k) {
+			k=_k;
+			try {
+				OpenConnection();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			initialize();
+					
+		}
+
+	private void OpenConnection() throws SQLException, ClassNotFoundException
+	{
+		String myDriver = "ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik"; //de me odvedi na klasu
+	    String myUrl = "jdbc:mysql://localhost/tim5"; //sto nece na online onda o.O cekk
+	    Class.forName(myDriver);
+	    conn = (Connection)DriverManager.getConnection(myUrl, "root", "");
+	}
+	
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -111,7 +169,7 @@ public class UnosKorisnikaWindow {
 		frmUnosKorisnika.setTitle("Unos korisnika");
 		frmUnosKorisnika.setResizable(false);
 		frmUnosKorisnika.setBounds(100, 100, 365, 328);
-		frmUnosKorisnika.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmUnosKorisnika.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmUnosKorisnika.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("70px"),
@@ -221,6 +279,11 @@ public class UnosKorisnikaWindow {
 				
 					long id = k.dodajKorisnika(session);
 					k.setId(id);
+					
+					dodajKorisnika(k);
+					
+					
+					
 					korisnici.add(k);
 					session.close();	
 					
@@ -314,4 +377,48 @@ public class UnosKorisnikaWindow {
 
 
 	}
+	
+	
+	 
+	  private void dodajKorisnika(Korisnik k)
+	  {
+	    try
+	    {
+	    	/*String query1="INSERT INTO tim5.korisnik (IME, PREZIME, JMBG, ADRESA, TELEFON, MAIL, TIPKORISNIKA)"
+	    			+" VALUES ("+k.getIme()+", "+k.getPrezime()+", "+k.getJmbg()+","+k.getAdresa()+","+k.getMail()+","+k.getTelefon()+","+k.getTipKorisnika()+")";
+	    	
+	    	 Statement st = (Statement)conn.createStatement();
+		      ResultSet rs = st.executeQuery(query1);*/
+	    	
+		      
+		      Statement st = (Statement) conn.createStatement();
+		      
+		      // note that i'm leaving "date_created" out of this insert statement
+		      st.executeUpdate("INSERT INTO korisnik (IME, PREZIME, JMBG, ADRESA, TELEFON, MAIL, TIPKORISNIKA)"
+	    			+" VALUES ("+k.getIme()+", "+k.getPrezime()+", "+k.getJmbg()+","+k.getAdresa()+","+k.getMail()+","+k.getTelefon()+","+k.getTipKorisnika()+")");
+		 
+		      conn.close();
+		      
+	    	/*String query = "INSERT INTO korisnik (ime, prezime,jmbg,adresa,telefon,email,tipkorisnika)VALUES"
+	    + " ("+k.getIme()+", "+k.getPrezime()+", "+k.getJmbg()+","+k.getAdresa()+","+k.getMail()+","+k.getTelefon()+","+k.getTipKorisnika()+")";
+	    	
+	    	PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(query);
+	    	Statement st = (Statement)conn.createStatement();
+	    	pstmt.executeUpdate();
+			 
+		      
+		      ResultSet rs = st.executeQuery(query);*/
+	 
+	      
+	    }
+	    catch (Exception e)
+	    {
+	      System.err.println("Got an exception!");
+	      System.err.println(e.getMessage());
+	    }
+	 
+	  
+	}
+	
+
 }
