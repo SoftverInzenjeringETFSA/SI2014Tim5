@@ -1,4 +1,5 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
+import java.awt.print.*;
 
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -64,8 +65,7 @@ public class DugWindow {
 	private Student student;
 	ArrayList<Dug> dugovi;
 	ArrayList<Rata> rate;
-
-	private String result = "";
+	private String textZaPrintanje="";
 	
 	/**
 	 * Launch the application.
@@ -241,38 +241,38 @@ public class DugWindow {
 		
 		btnPrintaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-									
+				if (table.getSelectedRow()==-1)
+					JOptionPane.showMessageDialog(null,"Odaberite ratu za koju želite isprintati potvrdu !","Message",JOptionPane.INFORMATION_MESSAGE);
+				else
+				{
+				DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+				Date date = new Date();
+				int red = table.getSelectedRow();
+				String dug = table.getValueAt(red, 1).toString();
+				String datum = table.getValueAt(red, 3).toString();
+				if (datum != "")
+				textZaPrintanje = "\n"+"\n"+ "International University of Sarajevo"+"\n" +
+						"Zagrebacka bb"+"\n" +
+						"+38733911911"+"\n" +"\n" +
+						"Ovaj dokument se izdaje kao potvrda da je student " + student.getIme() + " ("+ student.getImeRoditelja() + ") " +student.getPrezime() + " izmirio dug prema Univerzitetu u vrijednosti od "
+								+ dug + " na datum "+dateFormat.format(date)  + ". godine.\n\n\n\n\n\nPotpis studenta: ___________________ \n\nPotpis ovlaštenog lica: ___________________\n\n\n\n"+dateFormat.format(date);
+				else
+					textZaPrintanje = "\n"+"\n"+ "International University of Sarajevo"+"\n" +
+							"Zagrebacka bb"+"\n" +
+							"+38733911911"+"\n" +"\n" +
+							"Ovaj dokument se izdaje kao potvrda da student nije " + student.getIme() + " ("+ student.getImeRoditelja() + ") " +student.getPrezime() + " izmirio dug prema Univerzitetu u vrijednosti od "
+									+ dug+ ".\n\n\n\n\n\nPotpis studenta: ___________________ \n\nPotpis ovlaštenog lica: ___________________\n\n\n\n"+dateFormat.format(date);
+				Printer printer = new Printer();
+				printer.otvoriMeni();
+				}		
 			}
+			
 			});
 		
 		frmDugovanjaUplate.getContentPane().add(btnPrintaj, "3, 18, 7, 1, default, top");
 	}	
 		
-	/*	class btnPrintAction implements ActionListener, Printable{
-	         
-			  public int print(Graphics gx, PageFormat pf, int page) throws PrinterException {
-			             if (page>0){return NO_SUCH_PAGE;} 
-			             Graphics2D g = (Graphics2D)gx; 
-			             g.translate(pf.getImageableX(), pf.getImageableY()); 
-			             g.drawString ("Hello world", 100, 100); 
-			             return PAGE_EXISTS; 
-			         }
-			  
-			 public void actionPerformed(ActionEvent e) {
-			             PrinterJob job = PrinterJob.getPrinterJob(); 
-			             job.setPrintable(this); 
-			             if (job.printDialog() == true) { 
-			                 try {job.print();} catch (PrinterException ex){
-			                 }
-			             }
-			         }
-		  	}
-		
-		
-		
-		//frame.getContentPane().add(table, "2, 4, fill, fill");
-	}
-*/
+
 	private void popuniTabelu() {
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -316,7 +316,35 @@ public class DugWindow {
 		datum1 = datum1.substring(0, i);
 		return datum1;
 	}
-		
+	
+	public class Printer implements Printable {
+		 
+	    public int print(Graphics g, PageFormat pf, int page) throws
+	                                                        PrinterException {
+	        if (page > 0) { 
+	            return NO_SUCH_PAGE;
+	        }
+	        Graphics2D g2d = (Graphics2D)g;
+	        g2d.translate(pf.getImageableX(), pf.getImageableY());
+	        g.drawString(textZaPrintanje, 20, 25);
+	 
+	        return PAGE_EXISTS;
+	    }
+	 
+	    public void otvoriMeni() {
+	         PrinterJob job = PrinterJob.getPrinterJob();
+	         job.setPrintable(this);
+	         boolean ok = job.printDialog();
+	         if (ok) {
+	             try {
+	                  job.print();
+	             } catch (PrinterException ex) {
+	             
+	             }
+	         }
+	    }
+	 
+	} 
 }	// TODO Auto-generated method stub
 		
 
