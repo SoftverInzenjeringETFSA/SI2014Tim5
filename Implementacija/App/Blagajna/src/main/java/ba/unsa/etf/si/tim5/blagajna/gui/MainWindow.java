@@ -6,7 +6,8 @@ import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
-import javax.management.Query;
+
+import org.hibernate.Query;
 import javax.swing.JFrame;
 
 import java.awt.GridLayout;
@@ -88,7 +89,7 @@ public class MainWindow {
         
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (int i = 0; i < sviStudenti.size(); i++) {
-			System.out.println(sviStudenti.get(i).getIme());
+			
 			
 			model.addRow(new Object[] { sviStudenti.get(i).getId(),
 					sviStudenti.get(i).getIme() + sviStudenti.get(i).getPrezime(),
@@ -131,6 +132,8 @@ public class MainWindow {
 		frmBlagajna.setTitle("Blagajna\r\n");
 		frmBlagajna.setBounds(100, 100, 673, 466);
 		frmBlagajna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		final Session session = HibernateUtil.getSessionFactory().openSession();
+		org.hibernate.Transaction t = session.beginTransaction();
 		FormLayout formLayout = new FormLayout(
 				new ColumnSpec[] { FormFactory.UNRELATED_GAP_COLSPEC,
 						ColumnSpec.decode("75px:grow"),
@@ -177,24 +180,38 @@ public class MainWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String izbor = comboBox.getSelectedItem().toString();
-				Session session = HibernateUtil.getSessionFactory()
-						.openSession();
-				org.hibernate.Transaction t = session.beginTransaction();
+				
 				// session.beginTransaction();
-
-				if (izbor == "Index") {
+				//System.out.println(izbor);
+				studenti.clear();
+				if (izbor == "Indeks") {
+				
+					
 					String indeks = textField.getText();
 
-					String statement = "SELECT * FROM Student WHERE index="
-							+ Integer.parseInt(indeks);
-					org.hibernate.Query query = session.createQuery(statement);
-					ArrayList<Student> list = (ArrayList<Student>) query.list();
-					studenti = list;
-					t.commit();
+					//String statement = "SELECT * FROM Student WHERE indeks="
+							//+ Integer.parseInt(indeks);
+					
+					//Query query = session.createQuery("from Student where  = :id ");
+					//query.setParameter("id", indeks);
+					//List<?> list = query.list();
 
+					//Query query = session.createQuery(statement);
+					//ArrayList<Student> list = (ArrayList<Student>)query.list();
+					//java.util.List list=query.list();
+					
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if(sviStudenti.get(i).getIndeks()== Integer.parseInt(indeks))
+							studenti.add(sviStudenti.get(i));
+					}
+					//System.out.println(studenti.size());
+					//studenti = list;
+		
+					
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+						model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
-						DefaultTableModel model = (DefaultTableModel) table
-								.getModel();
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
@@ -213,14 +230,15 @@ public class MainWindow {
 				else if (izbor == "Ime") {
 					String ime = textField.getText();
 
-					String statement = "SELECT * FROM Student WHERE ime=" + ime;
-					org.hibernate.Query query = session.createQuery(statement);
-					ArrayList<Student> list = (ArrayList<Student>) query.list();
-					studenti = list;
-					t.commit();
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if(sviStudenti.get(i).getIme().contains(ime))
+							studenti.add(sviStudenti.get(i));
+					}
+					
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+						model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
-						DefaultTableModel model = (DefaultTableModel) table
-								.getModel();
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
@@ -234,16 +252,15 @@ public class MainWindow {
 				else if (izbor == "Dug za skolarinu") {
 					String dugSkolarina = textField.getText();
 
-					String statement = "SELECT * FROM Student WHERE troskoviSkolarine="
-							+ Double.parseDouble(dugSkolarina);
-					org.hibernate.Query query = session.createQuery(statement);
-					ArrayList<Student> list = (ArrayList<Student>) query.list();
-					studenti = list;
-					t.commit();
-
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if(sviStudenti.get(i).dajDugZaSkolarinu()==Double.parseDouble(dugSkolarina))
+							studenti.add(sviStudenti.get(i));
+					}
+					
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+					model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
-						DefaultTableModel model = (DefaultTableModel) table
-								.getModel();
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
@@ -259,16 +276,15 @@ public class MainWindow {
 				else if (izbor == "Dug za literaturu") {
 					String dugLiteratura = textField.getText();
 
-					String statement = "SELECT * FROM Student WHERE troskoviLiterature="
-							+ Double.parseDouble(dugLiteratura);
-					org.hibernate.Query query = session.createQuery(statement);
-					ArrayList<Student> list = (ArrayList<Student>) query.list();
-					studenti = list;
-					t.commit();
-
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if(sviStudenti.get(i).getTroskoviLiterature()==Double.parseDouble(dugLiteratura))
+							studenti.add(sviStudenti.get(i));
+					}
+					
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+					model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
-						DefaultTableModel model = (DefaultTableModel) table
-								.getModel();
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
@@ -279,7 +295,7 @@ public class MainWindow {
 					}
 
 				}
-				session.close();
+				
 			}
 		});
 
@@ -307,13 +323,77 @@ public class MainWindow {
 				"Dug za \u0161koralinu", "Dug za literaturu" }));
 
 		JButton btnObrisi = new JButton("Obrisi");
+		btnObrisi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(table.getSelectedRow()!=-1){
+					int indexSelektovani = table.getSelectedRow();
+					long idStudenta = (long) Integer.parseInt((table.getValueAt(
+							indexSelektovani, 0).toString()));
+					
+					Session session1 = HibernateUtil.getSessionFactory().openSession();
+
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if (sviStudenti.get(i).getId() == idStudenta) {
+
+							sviStudenti.get(i).obrisiStudenta(session1);
+							session1.close();
+							sviStudenti.remove(i);
+							
+							DefaultTableModel model = (DefaultTableModel) table
+									.getModel();
+							model.setRowCount(0);
+							for (int j = 0; j < sviStudenti.size(); j++) {
+								model.addRow(new Object[] {
+										sviStudenti.get(j).getId(),
+										sviStudenti.get(j).getIme()
+												+ sviStudenti.get(j).getPrezime(),
+										sviStudenti.get(j).getIndeks(),
+										sviStudenti.get(j).getTroskoviSkolarine(),
+										sviStudenti.get(j).getTroskoviLiterature() });
+							}
+
+						}
+					}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+						    
+						
+					}
+			}
+		});
 
 		JButton btnUredi = new JButton("Detalji/\r\nUredi");
+		btnUredi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow()!=-1){
+					int indexSelektovani = table.getSelectedRow();
+					long idStudenta = (long) Integer.parseInt((table.getValueAt(
+							indexSelektovani, 0).toString()));
+
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if (sviStudenti.get(i).getId() == idStudenta) {
+							UnosWindow window = new UnosWindow(sviStudenti.get(i));
+							window.frmUnosStudenta.setVisible(true);
+
+						}
+					}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+						    
+						
+					}
+			}
+		});
 
 		JButton button = new JButton("Uplate");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Student s = new Student();
+				
+				if(table.getSelectedRow()!=-1){
 				int indexSelektovani = table.getSelectedRow();
 				long idStudenta = (long) Integer.parseInt((table.getValueAt(
 						indexSelektovani, 0).toString()));
@@ -325,6 +405,12 @@ public class MainWindow {
 
 					}
 				}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+					    
+					
+				}
 
 				// DugWindow window = new DugWindow(s);
 				// window.frmDugovanjaUplate.setVisible(true);
@@ -333,6 +419,28 @@ public class MainWindow {
 		frmBlagajna.getContentPane().add(button, "3, 7");
 
 		JButton btnZaduiKnjigu = new JButton("Kupi literaturu");
+		btnZaduiKnjigu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow()!=-1){
+					int indexSelektovani = table.getSelectedRow();
+					long idStudenta = (long) Integer.parseInt((table.getValueAt(
+							indexSelektovani, 0).toString()));
+
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if (sviStudenti.get(i).getId() == idStudenta) {
+							KupiLiteraturuWindow window = new KupiLiteraturuWindow(sviStudenti.get(i));
+							window.frmKupovinaLiterature.setVisible(true);
+
+						}
+					}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+						    
+						
+					}
+			}
+		});
 		frmBlagajna.getContentPane()
 				.add(btnZaduiKnjigu, "4, 7, right, default");
 		frmBlagajna.getContentPane().add(btnUredi, "5, 7, center, default");

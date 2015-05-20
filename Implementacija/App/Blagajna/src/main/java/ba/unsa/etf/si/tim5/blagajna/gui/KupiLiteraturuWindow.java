@@ -4,7 +4,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Izracunaj;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Izvjestaj;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -18,22 +25,31 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
+
+import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class KupiLiteraturuWindow {
 
-	private JFrame frmKupovinaLiterature;
-	private Connection conn;
-	ArrayList<Literatura> Knjige;
+	JFrame frmKupovinaLiterature;	
+	private Student student;
+	ArrayList<Literatura> knjige;
 	JComboBox comboBox;
 	private JLabel lblisbn;
+	private JLabel lblnaziv;
+	private JLabel lblautor;
+	private JLabel lblkolicina;
+	private JLabel lblcijena;
+	private JLabel lblimeIPrezime;
 	/**
 	 * Launch the application.
 	 */
@@ -55,25 +71,14 @@ public class KupiLiteraturuWindow {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public KupiLiteraturuWindow(){
-		try {
-			OpenConnection();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+	public KupiLiteraturuWindow(Student s){
 		initialize();
+		this.student = s;
+		lblimeIPrezime.setText(s.getIme() + " " + s.getPrezime());
 	}
-
-	private void OpenConnection() throws SQLException, ClassNotFoundException
-	{
-		String myDriver = "ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura"; //de me odvedi na klasu
-	    String myUrl = "jdbc:mysql://localhost/tim5"; //sto nece na online onda o.O cekk
-	    Class.forName(myDriver);
-	    conn = (Connection)DriverManager.getConnection(myUrl, "root", "");
+	public KupiLiteraturuWindow(){		
+		initialize();
 	}
 	
 	
@@ -113,13 +118,19 @@ public class KupiLiteraturuWindow {
 		JLabel lblStudent = new JLabel("Student:");
 		frmKupovinaLiterature.getContentPane().add(lblStudent, "4, 4");
 		
-		JLabel lblimeIPrezime = new JLabel("{ime i prezime}");
+		lblimeIPrezime = new JLabel("{ime i prezime}");
 		frmKupovinaLiterature.getContentPane().add(lblimeIPrezime, "6, 4");
 		
 		JLabel lblIsbin = new JLabel("Odaberi:");
 		frmKupovinaLiterature.getContentPane().add(lblIsbin, "4, 8, right, default");
 		
 		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Literatura l = (Literatura)comboBox.getSelectedItem();
+				FillLabels(l);
+			}
+		});
 		frmKupovinaLiterature.getContentPane().add(comboBox, "6, 8, fill, default");
 		
 		JPanel panel = new JPanel();
@@ -149,76 +160,70 @@ public class KupiLiteraturuWindow {
 		JLabel lblIsbn = new JLabel("ISBN:");
 		panel.add(lblIsbn, "2, 4");
 		
-		JLabel lblisbn = new JLabel("{isbn}");
+		lblisbn = new JLabel("{isbn}");
 		panel.add(lblisbn, "4, 4");
 		
 		JLabel lblNaziv = new JLabel("Naziv:");
 		panel.add(lblNaziv, "2, 6");
 		
-		JLabel lblnaziv = new JLabel("{naziv}");
+		lblnaziv = new JLabel("{naziv}");
 		panel.add(lblnaziv, "4, 6");
 		
 		JLabel lblAutor = new JLabel("Autor:");
 		panel.add(lblAutor, "2, 8");
 		
-		JLabel lblautor = new JLabel("{autor}");
+		lblautor = new JLabel("{autor}");
 		panel.add(lblautor, "4, 8");
 		
 		JLabel lblCijena = new JLabel("Cijena:");
 		panel.add(lblCijena, "2, 10");
 		
-		JLabel lblcijena = new JLabel("{cijena}");
+		lblcijena = new JLabel("{cijena}");
 		panel.add(lblcijena, "4, 10");
 		
 		JLabel label = new JLabel("Koli\u010Dina:");
 		panel.add(label, "2, 12");
 		
-		JLabel label_1 = new JLabel("{kolicina}");
-		panel.add(label_1, "4, 12");
+		lblkolicina = new JLabel("{kolicina}");
+		panel.add(lblkolicina, "4, 12");
 		
 		JButton btnKupi = new JButton("Kupi");
 		btnKupi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {	
+				Literatura l = (Literatura)comboBox.getSelectedItem();
+				if(l.getKolicina() == 0) {
+					JOptionPane.showMessageDialog(null,"Odabrane knjige nema više! ","Problem",JOptionPane.INFORMATION_MESSAGE);
+					return;
+				}
+				String godina =  Izracunaj.getInstance().dajStudijskuGodinu();
+				Dug d = new Dug(69, false, godina,
+				l.getCijena(), student.getId(), TipDuga.dugZaLiteraturu);
+				Session session = HibernateUtil.getSessionFactory().openSession();
+				d.dodajDug(session);
+				session.close();
+				JOptionPane.showMessageDialog(null,"Literatura je zadužena!","OK",JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		frmKupovinaLiterature.getContentPane().add(btnKupi, "6, 12");
-		
-		Knjige = new ArrayList<Literatura>();
+				
 		FillCombo();
 		
 	}
 	
+	private void FillLabels(Literatura l) {
+		lblisbn.setText(l.getIsbn());
+		lblnaziv.setText(l.getNaziv());
+		lblautor.setText(l.getAutor());
+		lblkolicina.setText(String.valueOf(l.getKolicina()));
+		lblcijena.setText(String.valueOf(l.getCijena()));
+	}
 	
 	
 	private void FillCombo()
 	{
-		try {
-			String query = "SELECT * FROM Literatura";
-			 
-		      Statement st = (Statement)conn.createStatement();
-		      ResultSet rs = st.executeQuery(query);
-		      String  naziv;
-		      while (rs.next())
-		      {
-		        
-		    	  Literatura l = new Literatura();
-		    	  l.setNaziv(rs.getString("naziv"));
-		    	  l.setId(rs.getLong("id"));
-		    	  l.setAutor(rs.getString("autor"));
-		    	  l.setIsbn(rs.getString("isbn"));
-		    	  l.setKolicina(rs.getInt("kolicina"));
-		    	  l.setCijena(rs.getDouble("cijena"));
-		    	  
-		    
-		          
-		    	  Knjige.add(l);
-		    	  comboBox.addItem(l.getNaziv());
-		      }
-			}
-			catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		knjige = Dao.getInstance().dajSvuLiteraturu();
+		for(int i=0; i<knjige.size(); i++) {
+			comboBox.addItem(knjige.get(i));
+		}
 	}
 }

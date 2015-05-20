@@ -77,6 +77,10 @@ public class Literatura implements java.io.Serializable {
 		session.delete(this);
 		t.commit();		
 	}
-
+	
+	@Override
+	public String toString() {
+		return this.getNaziv();
+	}
 	
 }

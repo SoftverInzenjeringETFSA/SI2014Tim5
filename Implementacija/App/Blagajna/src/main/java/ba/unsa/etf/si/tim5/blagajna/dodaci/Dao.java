@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.hibernate.Session;
 
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
@@ -27,6 +28,24 @@ public class Dao {
 		Session session = HibernateUtil.getSessionFactory().openSession();		
 		org.hibernate.Transaction t = session.beginTransaction();
 		ArrayList<Student> l = (ArrayList<Student>)session.createSQLQuery("SELECT * FROM student").addEntity(Student.class).list();		
+		t.commit();	
+		session.close();
+		return l;
+	}
+	
+	public ArrayList<Dug> dajSveDugove() {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM Dug").addEntity(Dug.class).list();		
+		t.commit();	
+		session.close();
+		return l;
+	}
+	
+	public ArrayList<Dug> dajSveDugovePoTipu(TipDuga tip) {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM Dug where tipduga = "+tip).addEntity(Dug.class).list();		
 		t.commit();	
 		session.close();
 		return l;
