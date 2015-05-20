@@ -116,22 +116,21 @@ public class Korisnik implements java.io.Serializable{
 		else return TipKorisnika.values()[1];
 	}
 	
-	public long dodajKorisnika(Session session) {
+	public void dodajKorisnika(Session session) {
 		org.hibernate.Transaction t = session.beginTransaction();
 		Long id = (Long)session.save(this);
 		t.commit();
-		return id;
 	}
+	
 	public void obrisiKorisnika(Session session) {
 		org.hibernate.Transaction t = session.beginTransaction();
 		session.delete(this);
 		t.commit();	
 	}
 	
-	public long urediKorisnika(Session session) {
+	public void urediKorisnika(Session session) {
 		org.hibernate.Transaction t = session.beginTransaction();
 		session.update(this);
-		t.commit();
-		return id;		
+		t.commit();		
 	}	
 }

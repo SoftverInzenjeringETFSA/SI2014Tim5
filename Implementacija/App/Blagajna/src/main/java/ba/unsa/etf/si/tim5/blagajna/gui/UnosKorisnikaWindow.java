@@ -136,10 +136,12 @@ public class UnosKorisnikaWindow {
 			e.printStackTrace();
 		}
 		initialize();
+		btnUredi.setVisible(false);
 	}
 		
 		public UnosKorisnikaWindow(Korisnik _k) {
 			k=_k;
+			
 			try {
 				OpenConnection();
 			} catch (ClassNotFoundException e) {
@@ -150,6 +152,7 @@ public class UnosKorisnikaWindow {
 				e.printStackTrace();
 			}
 			initialize();
+			popuniPolja(k);
 					
 		}
 
@@ -279,7 +282,7 @@ public class UnosKorisnikaWindow {
 				Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa, telefon, mail, tip, username, lozinka);
 				
 				k.dodajKorisnika(session);
-				JOptionPane.showMessageDialog(frame,"Dodali ste novog korisnika!");
+				JOptionPane.showMessageDialog(frame,"Dodali ste novog korisnika "+ime+" "+prezime+"!");
 				
 				korisnici.add(k);
 				session.close();	
@@ -316,28 +319,21 @@ public class UnosKorisnikaWindow {
 				else tip=TipKorisnika.values()[1];
 							
 				
-				Session session = HibernateUtil.getSessionFactory().openSession();
-				
-					long id = k.urediKorisnika(session);
+				try {
+					Session session = HibernateUtil.getSessionFactory().openSession();
+					k = new Korisnik(k.getId(),ime, prezime, jmbg, adresa, telefon, mail, tip, username, "admin");
 					
-					for (int i = 0; i < korisnici.size(); i++) {
-						if(korisnici.get(i).getId()==id)
-						{
-						
-							korisnici.get(i).setAdresa(adresa);
-							korisnici.get(i).setId(id);
-							korisnici.get(i).setIme(ime);
-							korisnici.get(i).setJmbg(jmbg);
-							korisnici.get(i).setMail(mail);
-							korisnici.get(i).setPrezime(prezime);
-							korisnici.get(i).setTelefon(telefon);
-							korisnici.get(i).setTipKorisnika(tip);
-							
-						}
-						
+					k.urediKorisnika(session);
+					JOptionPane.showMessageDialog(frame,"Uredili ste korisnika "+ime+" "+prezime+"!");
+					
 					session.close();	
-				
-			}
+						
+					    
+					}
+					
+					catch (Exception ex) {
+						JOptionPane.showMessageDialog(null,ex.getLocalizedMessage());
+				    }
 			}
 		});
 		
@@ -352,69 +348,21 @@ public class UnosKorisnikaWindow {
 		frmUnosKorisnika.getContentPane().add(btnIzai, "7, 18, right, center");
 	}
 	
-	static void popuniPolja(long id,ArrayList<Korisnik> korisnici)
+	static void popuniPolja(Korisnik k)
 	{
-		Korisnik k1=new Korisnik();
-		for (int i = 0; i < korisnici.size(); i++) {
-			if(korisnici.get(i).getId()==id)
-			{
-			
-			k1=korisnici.get(i);
-			}
-		
+				
 			btnUredi.setVisible(true);
 			btnDodaj.setVisible(false);
-			textField.setText(k1.getIme());
-			textField_1.setText(k1.getPrezime());
-			textField_5.setText(k1.getJmbg());
-			textField_2.setText(k1.getAdresa());
-			textField_3.setText(k1.getMail());
-			textField_4.setText(k1.getTelefon());
+			textField.setText(k.getIme());
+			textField_1.setText(k.getPrezime());
+			textField_5.setText(k.getJmbg());
+			textField_2.setText(k.getAdresa());
+			textField_3.setText(k.getMail());
+			textField_4.setText(k.getTelefon());
 			}
 
 
 	}
-	
-	
-	 
-	 /* private void dodajKorisnikaBaza(Korisnik k)
-	  {
-	    try
-	    {
-	    	/*String query1="INSERT INTO tim5.korisnik (IME, PREZIME, JMBG, ADRESA, TELEFON, MAIL, TIPKORISNIKA)"
-	    			+" VALUES ("+k.getIme()+", "+k.getPrezime()+", "+k.getJmbg()+","+k.getAdresa()+","+k.getMail()+","+k.getTelefon()+","+k.getTipKorisnika()+")";
-	    	
-	    	 Statement st = (Statement)conn.createStatement();
-		      ResultSet rs = st.executeQuery(query1);
-	    	
-		      
-		      Statement st = (Statement) conn.createStatement();
-		      
-		      st.executeUpdate("INSERT INTO korisnik (IME, PREZIME, JMBG, ADRESA, TELEFON, MAIL, TIPKORISNIKA)"
-	    			+" VALUES ("+k.getIme()+", "+k.getPrezime()+", "+k.getJmbg()+","+k.getAdresa()+","+k.getMail()+","+k.getTelefon()+","+k.getTipKorisnika()+")");
-		      System.out.println("Uspjesno dodan korisnik!");
-		      conn.close();
-		      
-	    	/*String query = "INSERT INTO korisnik (ime, prezime,jmbg,adresa,telefon,email,tipkorisnika)VALUES"
-	    + " ("+k.getIme()+", "+k.getPrezime()+", "+k.getJmbg()+","+k.getAdresa()+","+k.getMail()+","+k.getTelefon()+","+k.getTipKorisnika()+")";
-	    	
-	    	PreparedStatement pstmt = (PreparedStatement) conn.prepareStatement(query);
-	    	Statement st = (Statement)conn.createStatement();
-	    	pstmt.executeUpdate();
-			 
-		      
-		      ResultSet rs = st.executeQuery(query);
-	 
-	      
-	    }
-	    catch (Exception e)
-	    {
-	      System.err.println("Got an exception!");
-	      System.err.println(e.getMessage());
-	    }
-	 
-	  
-	}*/
-	
+		
 
-}
+
