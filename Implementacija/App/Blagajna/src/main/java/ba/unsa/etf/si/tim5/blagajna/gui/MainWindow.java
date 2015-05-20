@@ -275,16 +275,15 @@ public class MainWindow {
 				else if (izbor == "Dug za literaturu") {
 					String dugLiteratura = textField.getText();
 
-					String statement = "SELECT * FROM Student WHERE troskoviLiterature="
-							+ Double.parseDouble(dugLiteratura);
-					org.hibernate.Query query = session.createQuery(statement);
-					ArrayList<Student> list = (ArrayList<Student>) query.list();
-					studenti = list;
-					t.commit();
-
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if(sviStudenti.get(i).getTroskoviLiterature()==Double.parseDouble(dugLiteratura))
+							studenti.add(sviStudenti.get(i));
+					}
+					
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+					model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
-						DefaultTableModel model = (DefaultTableModel) table
-								.getModel();
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
@@ -295,7 +294,7 @@ public class MainWindow {
 					}
 
 				}
-				session.close();
+				
 			}
 		});
 
