@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 
 public class KupiLiteraturuWindow {
 
-	private JFrame frmKupovinaLiterature;
+	JFrame frmKupovinaLiterature;
 	private Connection conn;
 	ArrayList<Literatura> Knjige;
 	JComboBox comboBox;
@@ -55,6 +56,10 @@ public class KupiLiteraturuWindow {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
+	
+	public KupiLiteraturuWindow(Student s){
+		initialize();
+	}
 	public KupiLiteraturuWindow(){
 		try {
 			OpenConnection();

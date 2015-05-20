@@ -132,6 +132,8 @@ public class MainWindow {
 		frmBlagajna.setTitle("Blagajna\r\n");
 		frmBlagajna.setBounds(100, 100, 673, 466);
 		frmBlagajna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		final Session session = HibernateUtil.getSessionFactory().openSession();
+		org.hibernate.Transaction t = session.beginTransaction();
 		FormLayout formLayout = new FormLayout(
 				new ColumnSpec[] { FormFactory.UNRELATED_GAP_COLSPEC,
 						ColumnSpec.decode("75px:grow"),
@@ -178,8 +180,7 @@ public class MainWindow {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String izbor = comboBox.getSelectedItem().toString();
-				Session session = HibernateUtil.getSessionFactory().openSession();
-				org.hibernate.Transaction t = session.beginTransaction();
+				
 				// session.beginTransaction();
 				//System.out.println(izbor);
 				studenti.clear();
@@ -322,13 +323,77 @@ public class MainWindow {
 				"Dug za \u0161koralinu", "Dug za literaturu" }));
 
 		JButton btnObrisi = new JButton("Obrisi");
+		btnObrisi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(table.getSelectedRow()!=-1){
+					int indexSelektovani = table.getSelectedRow();
+					long idStudenta = (long) Integer.parseInt((table.getValueAt(
+							indexSelektovani, 0).toString()));
+					
+					Session session1 = HibernateUtil.getSessionFactory().openSession();
+
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if (sviStudenti.get(i).getId() == idStudenta) {
+
+							sviStudenti.get(i).obrisiStudenta(session1);
+							session1.close();
+							sviStudenti.remove(i);
+							
+							DefaultTableModel model = (DefaultTableModel) table
+									.getModel();
+							model.setRowCount(0);
+							for (int j = 0; j < sviStudenti.size(); j++) {
+								model.addRow(new Object[] {
+										sviStudenti.get(j).getId(),
+										sviStudenti.get(j).getIme()
+												+ sviStudenti.get(j).getPrezime(),
+										sviStudenti.get(j).getIndeks(),
+										sviStudenti.get(j).getTroskoviSkolarine(),
+										sviStudenti.get(j).getTroskoviLiterature() });
+							}
+
+						}
+					}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+						    
+						
+					}
+			}
+		});
 
 		JButton btnUredi = new JButton("Detalji/\r\nUredi");
+		btnUredi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow()!=-1){
+					int indexSelektovani = table.getSelectedRow();
+					long idStudenta = (long) Integer.parseInt((table.getValueAt(
+							indexSelektovani, 0).toString()));
+
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if (sviStudenti.get(i).getId() == idStudenta) {
+							UnosWindow window = new UnosWindow(sviStudenti.get(i));
+							window.frmUnosStudenta.setVisible(true);
+
+						}
+					}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+						    
+						
+					}
+			}
+		});
 
 		JButton button = new JButton("Uplate");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Student s = new Student();
+				
+				if(table.getSelectedRow()!=-1){
 				int indexSelektovani = table.getSelectedRow();
 				long idStudenta = (long) Integer.parseInt((table.getValueAt(
 						indexSelektovani, 0).toString()));
@@ -340,6 +405,12 @@ public class MainWindow {
 
 					}
 				}
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+					    
+					
+				}
 
 				// DugWindow window = new DugWindow(s);
 				// window.frmDugovanjaUplate.setVisible(true);
@@ -348,6 +419,28 @@ public class MainWindow {
 		frmBlagajna.getContentPane().add(button, "3, 7");
 
 		JButton btnZaduiKnjigu = new JButton("Kupi literaturu");
+		btnZaduiKnjigu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow()!=-1){
+					int indexSelektovani = table.getSelectedRow();
+					long idStudenta = (long) Integer.parseInt((table.getValueAt(
+							indexSelektovani, 0).toString()));
+
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if (sviStudenti.get(i).getId() == idStudenta) {
+							KupiLiteraturuWindow window = new KupiLiteraturuWindow(sviStudenti.get(i));
+							window.frmKupovinaLiterature.setVisible(true);
+
+						}
+					}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+						    
+						
+					}
+			}
+		});
 		frmBlagajna.getContentPane()
 				.add(btnZaduiKnjigu, "4, 7, right, default");
 		frmBlagajna.getContentPane().add(btnUredi, "5, 7, center, default");

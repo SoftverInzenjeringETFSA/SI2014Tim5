@@ -49,7 +49,7 @@ import java.awt.event.ActionEvent;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 
 public class UnosWindow {	
-	private JFrame frmUnosStudenta;
+	JFrame frmUnosStudenta;
 	private JTextField tFieldIme;
 	private JTextField tFieldMjestoRodj;
 	private JTextField tFieldPrezime;
