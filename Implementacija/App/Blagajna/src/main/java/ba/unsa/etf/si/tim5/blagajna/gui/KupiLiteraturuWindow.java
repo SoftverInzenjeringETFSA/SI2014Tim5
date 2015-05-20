@@ -5,8 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Izracunaj;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Izvjestaj;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
@@ -34,6 +36,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class KupiLiteraturuWindow {
 
@@ -192,7 +195,8 @@ public class KupiLiteraturuWindow {
 					JOptionPane.showMessageDialog(null,"Odabrane knjige nema više! ","Problem",JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
-				Dug d = new Dug(69, false, "2014/2015",
+				String godina =  Izracunaj.getInstance().dajStudijskuGodinu();
+				Dug d = new Dug(69, false, godina,
 				l.getCijena(), student.getId(), TipDuga.dugZaLiteraturu);
 				Session session = HibernateUtil.getSessionFactory().openSession();
 				d.dodajDug(session);

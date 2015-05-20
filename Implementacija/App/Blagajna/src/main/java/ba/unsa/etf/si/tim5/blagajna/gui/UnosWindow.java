@@ -9,6 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Izracunaj;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
@@ -46,6 +47,7 @@ import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 
 public class UnosWindow {	
@@ -103,7 +105,7 @@ public class UnosWindow {
 		initialize();			
 	}	
 	
-	private ArrayList<Student> studenti = new ArrayList<Student>();
+	private ArrayList<Student> studenti;
 	private Student student;
 	public UnosWindow(ArrayList<Student> studenti) {
 		initialize();
@@ -115,6 +117,7 @@ public class UnosWindow {
 		this.btnUnesi.setText("Uredi");
 		this.chckbxNewCheckBox.setContentAreaFilled(true);
 		popuniPolja();
+		chckbxNewCheckBox.setVisible(false);
 	}	
 	
 	private void popuniPolja() {
@@ -363,10 +366,11 @@ public class UnosWindow {
 						s.setTroskoviSkolarine(cijena);
 						s.setPopust(popust);
 						Session session = HibernateUtil.getSessionFactory().openSession();
-						//String godina =  String.valueOf((new Date()).getYear()) + "/" + String.valueOf(Dug.addDays(new Date(), 366));
+											
+						String godina =  Izracunaj.getInstance().dajStudijskuGodinu();
 						if(chckbxNewCheckBox.isSelected()) {
 							long id = s.dodajStudenta(session);
-							Dug d = new Dug(1, false, "2014/2015",
+							Dug d = new Dug(1, false, godina,
 									s.dajDugZaSkolarinu(), s.getId(), TipDuga.dugZaSkolarinu);
 							d.dodajDug(session);
 							lblcijena.setText(String.valueOf(cijena));							
