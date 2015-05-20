@@ -181,7 +181,7 @@ public class MainWindow {
 				Session session = HibernateUtil.getSessionFactory().openSession();
 				org.hibernate.Transaction t = session.beginTransaction();
 				// session.beginTransaction();
-				System.out.println(izbor);
+				//System.out.println(izbor);
 
 				if (izbor == "Indeks") {
 				
@@ -203,7 +203,7 @@ public class MainWindow {
 						if(sviStudenti.get(i).getIndeks()== Integer.parseInt(indeks))
 							studenti.add(sviStudenti.get(i));
 					}
-					System.out.println(studenti.size());
+					//System.out.println(studenti.size());
 					//studenti = list;
 		
 					
@@ -229,14 +229,15 @@ public class MainWindow {
 				else if (izbor == "Ime") {
 					String ime = textField.getText();
 
-					String statement = "SELECT * FROM Student WHERE ime=" + ime;
-					org.hibernate.Query query = session.createQuery(statement);
-					ArrayList<Student> list = (ArrayList<Student>) query.list();
-					studenti = list;
-					t.commit();
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if(sviStudenti.get(i).getIme().contains(ime))
+							studenti.add(sviStudenti.get(i));
+					}
+					
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+						model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
-						DefaultTableModel model = (DefaultTableModel) table
-								.getModel();
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
