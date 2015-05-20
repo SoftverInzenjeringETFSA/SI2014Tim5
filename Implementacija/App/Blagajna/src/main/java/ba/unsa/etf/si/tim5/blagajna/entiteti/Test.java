@@ -12,11 +12,9 @@ public class Test {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		Korisnik k = new Korisnik(1,"admin","admin","2311991170041","aef","062/772-669","aef",TipKorisnika.Administrator,"admin", "admin");
-		//l.dodajLiteraturu(session);
-		//org.hibernate.Transaction t = session.beginTransaction();
+		
 		k.dodajKorisnika(session);
-		//session.update(l);
-		//t.commit();
+
 		session.close();
 		
 		System.out.println("izmjenjeno");
