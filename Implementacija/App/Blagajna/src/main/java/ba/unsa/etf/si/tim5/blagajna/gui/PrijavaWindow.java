@@ -2,12 +2,14 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+
 
 import java.awt.Color;
 
@@ -24,6 +26,8 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+
 import java.util.ArrayList;
 
 public class PrijavaWindow {
@@ -158,6 +162,11 @@ public class PrijavaWindow {
 		frmPrijava.getContentPane().add(btnPrijaviSe, "2, 8, 3, 1, right, top");
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
+		btnIzai.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmPrijava.dispatchEvent(new WindowEvent(frmPrijava, WindowEvent.WINDOW_CLOSING));
+			}
+		});
 		frmPrijava.getContentPane().add(btnIzai, "6, 8, fill, top");
 	}
 }
