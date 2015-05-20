@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
@@ -60,6 +61,7 @@ public class UnosKorisnikaWindow {
 	static Korisnik k=new Korisnik();
 	private static long id;
 	private Connection conn;
+	protected Component frame;
 	
 	static JButton btnUredi = new JButton("Uredi");
 	static JButton btnDodaj = new JButton("Dodaj");
@@ -271,21 +273,16 @@ public class UnosKorisnikaWindow {
 					tip=TipKorisnika.values()[0];
 				}
 				else tip=TipKorisnika.values()[1];
-			
-				Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa, telefon, mail, tip, username, lozinka);
 				
 				try {
 				Session session = HibernateUtil.getSessionFactory().openSession();
+				Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa, telefon, mail, tip, username, lozinka);
 				
-					long id = k.dodajKorisnika(session);
-					k.setId(id);
-					
-					dodajKorisnika(k);
-					
-					
-					
-					korisnici.add(k);
-					session.close();	
+				k.dodajKorisnika(session);
+				JOptionPane.showMessageDialog(frame,"Dodali ste novog korisnika!");
+				
+				korisnici.add(k);
+				session.close();	
 					
 				    
 				}
@@ -380,7 +377,7 @@ public class UnosKorisnikaWindow {
 	
 	
 	 
-	  private void dodajKorisnika(Korisnik k)
+	 /* private void dodajKorisnikaBaza(Korisnik k)
 	  {
 	    try
 	    {
@@ -388,12 +385,11 @@ public class UnosKorisnikaWindow {
 	    			+" VALUES ("+k.getIme()+", "+k.getPrezime()+", "+k.getJmbg()+","+k.getAdresa()+","+k.getMail()+","+k.getTelefon()+","+k.getTipKorisnika()+")";
 	    	
 	    	 Statement st = (Statement)conn.createStatement();
-		      ResultSet rs = st.executeQuery(query1);*/
+		      ResultSet rs = st.executeQuery(query1);
 	    	
 		      
 		      Statement st = (Statement) conn.createStatement();
 		      
-		      // note that i'm leaving "date_created" out of this insert statement
 		      st.executeUpdate("INSERT INTO korisnik (IME, PREZIME, JMBG, ADRESA, TELEFON, MAIL, TIPKORISNIKA)"
 	    			+" VALUES ("+k.getIme()+", "+k.getPrezime()+", "+k.getJmbg()+","+k.getAdresa()+","+k.getMail()+","+k.getTelefon()+","+k.getTipKorisnika()+")");
 		      System.out.println("Uspjesno dodan korisnik!");
@@ -407,7 +403,7 @@ public class UnosKorisnikaWindow {
 	    	pstmt.executeUpdate();
 			 
 		      
-		      ResultSet rs = st.executeQuery(query);*/
+		      ResultSet rs = st.executeQuery(query);
 	 
 	      
 	    }
@@ -418,7 +414,7 @@ public class UnosKorisnikaWindow {
 	    }
 	 
 	  
-	}
+	}*/
 	
 
 }
