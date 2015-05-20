@@ -165,16 +165,12 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 		JButton btnUredi = new JButton("Detalji/Uredi");
 		btnUredi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-<<<<<<< HEAD
-				Korisnik k = new Korisnik();
+
+			/*	Korisnik k = new Korisnik();
 				table.getSelectedRow();
-				
-=======
-				Korisnik k = new Korisnik(1,"dino","hurem","2311991170041","aef","062/772-669","aef",TipKorisnika.values()[0],"user", "lozinka");
->>>>>>> 01cfb3a24765cdd05eb7d875e1021c1ea5fe7680
 				korisnici.add(k);
 				UnosKorisnikaWindow window= new UnosKorisnikaWindow(k);
-				window.frmUnosKorisnika.setVisible(true); 
+				window.frmUnosKorisnika.setVisible(true); */
 			}
 		});
 		frmKorisnici.getContentPane().add(btnUredi, "4, 5, center, default");

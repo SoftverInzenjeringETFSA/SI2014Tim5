@@ -396,7 +396,7 @@ public class UnosKorisnikaWindow {
 		      // note that i'm leaving "date_created" out of this insert statement
 		      st.executeUpdate("INSERT INTO korisnik (IME, PREZIME, JMBG, ADRESA, TELEFON, MAIL, TIPKORISNIKA)"
 	    			+" VALUES ("+k.getIme()+", "+k.getPrezime()+", "+k.getJmbg()+","+k.getAdresa()+","+k.getMail()+","+k.getTelefon()+","+k.getTipKorisnika()+")");
-		 
+		      System.out.println("Uspjesno dodan korisnik!");
 		      conn.close();
 		      
 	    	/*String query = "INSERT INTO korisnik (ime, prezime,jmbg,adresa,telefon,email,tipkorisnika)VALUES"
