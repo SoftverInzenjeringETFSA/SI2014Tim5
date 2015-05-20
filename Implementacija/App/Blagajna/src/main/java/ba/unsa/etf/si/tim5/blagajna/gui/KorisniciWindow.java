@@ -142,6 +142,7 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 	   	    
 	    };
 	    
+	    table.getTableHeader().setReorderingAllowed(false);
 	        
 		table.setModel(tmodel);
 		table.setRowSelectionAllowed(true);		
@@ -161,27 +162,33 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//UnosKorisnikaWindow.main(korisnici);  ovo mi ne treba, jer radimo sa bazom direktno, ali eto
-				Korisnik k=new Korisnik();
-				UnosKorisnikaWindow window= new UnosKorisnikaWindow(k);
+				UnosKorisnikaWindow window= new UnosKorisnikaWindow();
 				window.frmUnosKorisnika.setVisible(true); 
 				
 			}
 		});
 		frmKorisnici.getContentPane().add(btnDodaj, "3, 5, center, default");
 		
+		
 		JButton btnUredi = new JButton("Detalji/Uredi");
 		btnUredi.addActionListener(new ActionListener() {
-			
-
 			public void actionPerformed(ActionEvent arg0) {
 				
 				
-			/*	Korisnik k = new Korisnik();
-				table.getSelectedRow();
-				korisnici.add(k);
-				UnosKorisnikaWindow window= new UnosKorisnikaWindow(k);
-				window.frmUnosKorisnika.setVisible(true); */
+				int indexSelektovani = table.getSelectedRow();
+				long idKorisnika = (long) Integer.parseInt((table.getValueAt(
+						indexSelektovani, 0).toString()));
+				
+				korisnici = Dao.getInstance().dajSveKorisnike();
+				
+				for(int i=0;i<korisnici.size();i++){
+					if(korisnici.get(i).getId()==idKorisnika){
+						UnosKorisnikaWindow window1= new UnosKorisnikaWindow(korisnici.get(i));
+						window1.frmUnosKorisnika.setVisible(true);
+					}
+				}
+				
+				
 			}
 		});
 		frmKorisnici.getContentPane().add(btnUredi, "4, 5, center, default");
@@ -201,7 +208,7 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 				for(int i=0;i<korisnici.size();i++){
 					if(korisnici.get(i).getId()==idKorisnika){
 					korisnici.get(i).obrisiKorisnika(session);
-					JOptionPane.showMessageDialog(frame,"Izbrisali ste korisnika"+korisnici.get(i).getIme()+" "+ korisnici.get(i).getPrezime()+"!");
+					JOptionPane.showMessageDialog(frame,"Izbrisali ste korisnika "+korisnici.get(i).getIme()+" "+ korisnici.get(i).getPrezime()+"!");
 					}
 				}
 				
