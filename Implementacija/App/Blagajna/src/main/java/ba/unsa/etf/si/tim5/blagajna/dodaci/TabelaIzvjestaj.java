@@ -7,7 +7,7 @@ public class TabelaIzvjestaj {
 	private String student;
 	private double Troskovi;
 	private double dug;
-	private MozePolagati mozePolagati; 
+	private String mozePolagati; 
 	
 	public TabelaIzvjestaj() {}
 
@@ -18,7 +18,7 @@ public class TabelaIzvjestaj {
 		this.student = student;
 		Troskovi = troskovi;
 		this.dug = dug;
-		this.mozePolagati = mozePolagati;
+		this.mozePolagati = mozePolagati.toString();
 	}
 
 	public int getIndeks() {
@@ -53,11 +53,11 @@ public class TabelaIzvjestaj {
 		this.dug = dug;
 	}
 
-	public MozePolagati getMozePolagati() {
+	public String getMozePolagati() {
 		return mozePolagati;
 	}
 
-	public void setMozePolagati(MozePolagati mozePolagati) {
+	public void setMozePolagati(String mozePolagati) {
 		this.mozePolagati = mozePolagati;
 	}
 	

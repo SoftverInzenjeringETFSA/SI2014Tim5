@@ -10,6 +10,10 @@ import java.awt.GridBagLayout;
 
 
 
+
+
+
+
 import javax.swing.JTextPane;
 
 import java.awt.GridBagConstraints;
@@ -29,6 +33,9 @@ import java.util.Vector;
 import net.sf.jasperreports.components.*;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports; 
+import net.sf.dynamicreports.report.builder.column.Columns;
+import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
+import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
 import net.sf.dynamicreports.report.exception.DRException;
 
 import javax.swing.*;
@@ -101,6 +108,30 @@ public class IzvjestajWindow {
 	 */
 	public IzvjestajWindow() {
 		initialize();
+		/*private int indeks;
+		private String student;
+		private double Troskovi;
+		private double dug;
+		private MozePolagati mozePolagati; */
+		TabelaIzvjestaj i1  = new TabelaIzvjestaj(16049, "Sabina Grošić", 1098.5, 200, MozePolagati.DA); 
+		TabelaIzvjestaj i2  = new TabelaIzvjestaj(16161, "Arnela Duzan", 200, 200, MozePolagati.DA);
+		TabelaIzvjestaj i3  = new TabelaIzvjestaj(16028, "Mesud Klisura", 1098.5, 200, MozePolagati.DA); 
+		TabelaIzvjestaj i4  = new TabelaIzvjestaj(16049, "Faris Dzafic", 1098.5, 200, MozePolagati.DA); 
+		ArrayList<TabelaIzvjestaj> r = new ArrayList<TabelaIzvjestaj>(); 
+		r.add(i1); 
+		r.add(i2); 
+		r.add(i3); 
+		r.add(i4); 
+
+		try {
+			GenerisiIzvjestaj(r);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public IzvjestajWindow(Korisnik k) {
@@ -108,12 +139,46 @@ public class IzvjestajWindow {
 		initialize();
 	}
 	
+		
 	public void GenerisiIzvjestaj(ArrayList<TabelaIzvjestaj> redovi) throws FileNotFoundException, DRException
 	{
 		//dynamic report
 		JasperReportBuilder report = DynamicReports.report(); 
 		
-		report.toPdf(new FileOutputStream(new File("c:/report.pdf"))); //promijeniti lokaciju
+		//add title
+		TextFieldBuilder<String> title1 = DynamicReports.cmp.text("International Techincal University"); 
+		report.title(title1); 
+		TextFieldBuilder<String> title2 = DynamicReports.cmp.text("Zmaja od Bosne bb, Kampus Univerziteta u Sarajevu, 71 000 Sarajevo"); 
+		report.title(title2); 
+		TextFieldBuilder<String> title3 = DynamicReports.cmp.text("Tel: ++387 33 250 700"); 
+		report.title(title3);
+		
+		Date d = new Date(); 
+		String s = d.toString(); 
+		
+		TextFieldBuilder<String> title4 = DynamicReports.cmp.text("Datum: " + s); 
+		report.title(title4); 
+		
+		
+		/*private int indeks;
+		private String student;
+		private double Troskovi;
+		private double dug;
+		private MozePolagati mozePolagati; */
+		
+		//add table
+		//add columns
+		TextColumnBuilder<Integer> indeksKolona = Columns.column("Indeks", "indeks", DynamicReports.type.integerType());
+		TextColumnBuilder<String> studentKolona = Columns.column("Ime i prezime", "student", DynamicReports.type.stringType());
+		TextColumnBuilder<Double> troskoviKolona = Columns.column("Vrijednost", "troskovi", DynamicReports.type.doubleType());
+		TextColumnBuilder<Double> dugKolona = Columns.column("Neplaćeni dug", "dug", DynamicReports.type.doubleType());
+		TextColumnBuilder<String> polazeKolona = Columns.column("Može polagati ispit", "mozePolagati", DynamicReports.type.stringType());
+
+		report.columns(indeksKolona, studentKolona, troskoviKolona, dugKolona, polazeKolona); 
+		report.setDataSource(redovi); 
+		
+		report.show(); 
+		//report.toPdf(new FileOutputStream(new File("c:/report.pdf"))); //promijeniti lokaciju
 		
 		
 	}
