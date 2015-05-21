@@ -33,6 +33,16 @@ public class Dao {
 		return l;
 	}
 	
+	public ArrayList<Dug> dajSveDugove(String querry) {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery(querry).addEntity(Dug.class).list();		
+		t.commit();	
+		session.close();
+		return l;
+	}
+	
+	
 	public ArrayList<Dug> dajSveDugove() {
 		Session session = HibernateUtil.getSessionFactory().openSession();		
 		org.hibernate.Transaction t = session.beginTransaction();
