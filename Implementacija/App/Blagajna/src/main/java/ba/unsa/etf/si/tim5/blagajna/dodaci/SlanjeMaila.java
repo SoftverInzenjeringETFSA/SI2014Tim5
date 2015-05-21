@@ -13,8 +13,8 @@ import javax.mail.internet.MimeMessage;
 public class SlanjeMaila {
 
 	private static SlanjeMaila instanca = null;
-	private String from = "faris.dzafic";
-	private String pass = "loveisgone";
+	private String from = "sitim52014";
+	private String pass = "2014tim5si";
 	
 	public static SlanjeMaila getInstance() {
 		if (instanca == null)
