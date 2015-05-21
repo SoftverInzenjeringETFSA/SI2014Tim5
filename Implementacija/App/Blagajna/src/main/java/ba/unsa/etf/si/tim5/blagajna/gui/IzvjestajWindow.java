@@ -237,100 +237,91 @@ public class IzvjestajWindow {
 		frmIzvjetaj.setBounds(100, 100, 557, 444);
 		frmIzvjetaj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmIzvjetaj.getContentPane().setLayout(
-				new FormLayout(new ColumnSpec[] { ColumnSpec.decode("29px"),
-						ColumnSpec.decode("81px"),
-						FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-						ColumnSpec.decode("102px"),
-						FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-						ColumnSpec.decode("37px"),
-						FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-						ColumnSpec.decode("103px"),
-						FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-						ColumnSpec.decode("37px"),
-						FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-						ColumnSpec.decode("32px"),
-						FormFactory.RELATED_GAP_COLSPEC,
-						ColumnSpec.decode("55px"), }, new RowSpec[] {
-						RowSpec.decode("30px"), RowSpec.decode("20px"),
-						FormFactory.LINE_GAP_ROWSPEC, RowSpec.decode("23px"),
-						FormFactory.LINE_GAP_ROWSPEC, RowSpec.decode("14px"),
-						FormFactory.LINE_GAP_ROWSPEC, RowSpec.decode("239px"),
-						RowSpec.decode("21px"), RowSpec.decode("23px"), }));
+				new FormLayout(new ColumnSpec[] {
+				ColumnSpec.decode("29px"),
+				ColumnSpec.decode("81px"),
+				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+				ColumnSpec.decode("102px"),
+				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+				ColumnSpec.decode("37px"),
+				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+				ColumnSpec.decode("103px"),
+				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+				ColumnSpec.decode("37px"),
+				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
+				ColumnSpec.decode("32px"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("55px"),},
+			new RowSpec[] {
+				RowSpec.decode("30px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("20px"),
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("23px"),
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("14px"),
+				FormFactory.LINE_GAP_ROWSPEC,
+				RowSpec.decode("239px"),
+				RowSpec.decode("21px"),
+				RowSpec.decode("23px"),}));
 
 		JLabel lblTipIzvjetaja = new JLabel("Tip izvje\u0161taja:");
 		frmIzvjetaj.getContentPane()
-				.add(lblTipIzvjetaja, "2, 2, right, center");
+				.add(lblTipIzvjetaja, "2, 4, right, center");
 
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(TipIzvjestaja.values()));
-		frmIzvjetaj.getContentPane().add(comboBox, "4, 2, fill, center");
-
-		JLabel lblMjesec = new JLabel("Mjesec:");
-		frmIzvjetaj.getContentPane().add(lblMjesec, "6, 2, right, center");
-
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(Mjesec.values()));
-		frmIzvjetaj.getContentPane().add(comboBox_1, "8, 2, fill, center");
-
-		JLabel lblPrikazIzvjetaja = new JLabel("Prikaz izvje\u0161taja:");
-		frmIzvjetaj.getContentPane().add(lblPrikazIzvjetaja,
-				"2, 6, 3, 1, center, center");
-
-		final JTextPane textPane = new JTextPane();
-		frmIzvjetaj.getContentPane().add(textPane, "2, 8, 13, 1, fill, fill");
-
-		JButton btnIzai = new JButton("Iza\u0111i");
-		frmIzvjetaj.getContentPane()
-				.add(btnIzai, "12, 10, 3, 1, right, center");
-
-		JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
-		btnGenerisi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			if((TipIzvjestaja)comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija) tipDuga = TipDuga.dugZaSkolarinu;
-			else tipDuga = TipDuga.dugZaLiteraturu;
-				ArrayList<Dug> dugovi = Dao.getInstance().dajSveDugove();
-				
-				ArrayList<TabelaIzvjestaj> redovi = new ArrayList<TabelaIzvjestaj>();
-				for(int i = 0; i<dugovi.size(); i++) {
-					Student s = dugovi.get(i).dajStudenta();					
-					double ukupanDug = dugovi.get(i).getVrijednost();
-					double dug = dugovi.get(i).dajVrijednostDuga();
+		frmIzvjetaj.getContentPane().add(comboBox, "4, 4, 4, 1, fill, center");
 										
-					TabelaIzvjestaj ti = new TabelaIzvjestaj(s.getIndeks(),
-							s.getIme() + " " + s.getPrezime(), ukupanDug, dug, dug == 0 ? MozePolagati.DA : MozePolagati.NE);
-					
-					redovi.add(ti);
-			}
-					//poziv funkcije za generisanje
-					try {
-						GenerisiIzvjestaj(redovi);
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (DRException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} 
-					
+												JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
+												btnGenerisi.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent e) {
+													if((TipIzvjestaja)comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija) tipDuga = TipDuga.dugZaSkolarinu;
+													else tipDuga = TipDuga.dugZaLiteraturu;
+														ArrayList<Dug> dugovi = Dao.getInstance().dajSveDugove();
+														
+														ArrayList<TabelaIzvjestaj> redovi = new ArrayList<TabelaIzvjestaj>();
+														for(int i = 0; i<dugovi.size(); i++) {
+															Student s = dugovi.get(i).dajStudenta();					
+															double ukupanDug = dugovi.get(i).getVrijednost();
+															double dug = dugovi.get(i).dajVrijednostDuga();
+																				
+															TabelaIzvjestaj ti = new TabelaIzvjestaj(s.getIndeks(),
+																	s.getIme() + " " + s.getPrezime(), ukupanDug, dug, dug == 0 ? MozePolagati.DA : MozePolagati.NE);
+															
+															redovi.add(ti);
+													}
+															//poziv funkcije za generisanje
+															try {
+																GenerisiIzvjestaj(redovi);
+															} catch (FileNotFoundException e1) {
+																// TODO Auto-generated catch block
+																e1.printStackTrace();
+															} catch (DRException e1) {
+																// TODO Auto-generated catch block
+																e1.printStackTrace();
+															} 
+															
+														
+													}
+												});
+												
+														frmIzvjetaj.getContentPane().add(btnGenerisi,
+																"2, 6, 7, 1, fill, center");
+												
+														JButton btnIzai = new JButton("Iza\u0111i");
+														frmIzvjetaj.getContentPane()
+																.add(btnIzai, "8, 11, right, center");
 				
-			}
-		});
-
-		frmIzvjetaj.getContentPane().add(btnGenerisi,
-				"2, 4, 13, 1, fill, center");
-
-		JButton btnNewButton = new JButton("Printaj");
-		frmIzvjetaj.getContentPane().add(btnNewButton, "2, 10, center, center");
-
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				DateFormat dateFormat = new SimpleDateFormat(
-						"yyyy/MM/dd HH:mm:ss");
-
-			}
-
-		});
+						btnIzai.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								if (e.getActionCommand().equals("Iza\u0111i")) {
+				
+									System.exit(0);
+								}
+							}
+						});
 		class btnPrintAction implements ActionListener, Printable {
 
 			public int print(Graphics gx, PageFormat pf, int page)
@@ -355,15 +346,6 @@ public class IzvjestajWindow {
 				}
 			}
 		}
-
-		btnIzai.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (e.getActionCommand().equals("Iza\u0111i")) {
-
-					System.exit(0);
-				}
-			}
-		});
 
 	}
 }
