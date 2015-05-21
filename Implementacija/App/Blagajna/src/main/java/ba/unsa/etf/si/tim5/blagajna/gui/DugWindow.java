@@ -1,6 +1,5 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.print.*;
-
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -24,12 +23,20 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
+import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
+import net.sf.dynamicreports.report.builder.DynamicReports;
+import net.sf.dynamicreports.report.builder.column.Columns;
+import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
+import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
+import net.sf.dynamicreports.report.exception.DRException;
+
 import org.hibernate.Session;
 
 import antlr.StringUtils;
 import ba.unsa.etf.si.tim5.blagajna.util.*;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.TabelaIzvjestaj;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
@@ -42,6 +49,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -240,34 +248,28 @@ public class DugWindow {
 		btnPrintaj = new JButton("Printaj potvrdu");
 		
 		btnPrintaj.addActionListener(new ActionListener() {
+		
+			
 			public void actionPerformed(ActionEvent e) {
-				if (table.getSelectedRow()==-1)
-					JOptionPane.showMessageDialog(null,"Odaberite ratu za koju želite isprintati potvrdu !","Message",JOptionPane.INFORMATION_MESSAGE);
+		 if (table.getSelectedRow()==-1)
+				JOptionPane.showMessageDialog(null,"Odaberite ratu za koju želite isprintati potvrdu !","Message",JOptionPane.INFORMATION_MESSAGE);
 				else
 				{
-				DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-				Date date = new Date();
 				int red = table.getSelectedRow();
 				String dug = table.getValueAt(red, 1).toString();
 				String datum = table.getValueAt(red, 3).toString();
-				if (datum != "")
-				textZaPrintanje = System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+ "International University of Sarajevo"+System.getProperty("lineSeparator") +
-						"Zagrebacka bb"+System.getProperty("lineSeparator") +
-						"+38733911911"+System.getProperty("lineSeparator") +System.getProperty("lineSeparator") +
-						"Ovaj dokument se izdaje kao potvrda da je student " + student.getIme() + " ("+ student.getImeRoditelja() + ") " +student.getPrezime() + " izmirio dug prema Univerzitetu u vrijednosti od "
-								+ dug + " na datum "+dateFormat.format(date)  + ". godine."+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")
-										+ "Potpis studenta: ___________________ " +System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+"Potpis ovlaštenog lica: ___________________"+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+dateFormat.format(date);
-				else
-					textZaPrintanje = System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+ "International University of Sarajevo"+System.getProperty("lineSeparator") +
-							"Zagrebacka bb"+System.getProperty("lineSeparator") +
-							"+38733911911"+System.getProperty("lineSeparator") +System.getProperty("lineSeparator") +
-							"Ovaj dokument se izdaje kao potvrda da student nije " + student.getIme() + " ("+ student.getImeRoditelja() + ") " +student.getPrezime() + " izmirio dug prema Univerzitetu u vrijednosti od "
-									+ dug+ System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")
-									+"Potpis studenta: ___________________ "+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+"Potpis ovlaštenog lica: ___________________"+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+dateFormat.format(date);
-				Printer printer = new Printer();
-				printer.otvoriMeni();
-				}		
-			}
+				
+				try
+				{
+				GenerisiIzvjestaj(student.getIme(), student.getPrezime(), student.getImeRoditelja(), dug, datum);
+				}
+				catch(Exception ex)
+				{
+					
+				}
+			
+				}
+		 }
 			
 			});
 		
@@ -313,11 +315,11 @@ public class DugWindow {
 
 	private String dajDatum(Date datum) {
 		if (datum == null) return "";
-		String datum1 = datum.toString();
-		int i = datum1.indexOf(' ');
-		datum1 = datum1.substring(0, i);
-		return datum1;
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		String s = dateFormat.format(datum).toString();
+		return s;
 	}
+	/*
 	
 	public class Printer implements Printable {
 		 
@@ -347,6 +349,53 @@ public class DugWindow {
 	    }
 	 
 	} 
+	*/
+	public void GenerisiIzvjestaj(String ime, String prezime, String imeRoditelja, String dug, String datum) throws FileNotFoundException, DRException
+	{
+		//dynamic report
+		JasperReportBuilder report = DynamicReports.report(); 
+		
+		//add title
+		TextFieldBuilder<String> title1 = DynamicReports.cmp.text("  International Technical University\n"); 
+		report.title(title1); 
+		
+		
+		TextFieldBuilder<String> title2 = DynamicReports.cmp.text("  Zmaja od Bosne bb, Kampus Univerziteta u Sarajevu, 71 000 Sarajevo\n"); 
+		report.title(title2); 
+		TextFieldBuilder<String> title3 = DynamicReports.cmp.text("  Tel: ++387 33 250 700\n\n\n\n"); 
+		report.title(title3);
+		
+		if (datum != "")
+		{
+			TextFieldBuilder<String> title4 =DynamicReports.cmp.text("   Ovaj dokument se izdaje kao potvrda da je student " + ime + " (" + imeRoditelja+ ") " + prezime + " izmirio ratu duga prema Univerzitetu u vrijednosti od "+dug+" na datum " + datum +".\n\n\n\n");
+			report.title(title4);
+		}
+		else
+		{
+			TextFieldBuilder<String> title4 =DynamicReports.cmp.text("   Ovaj dokument se izdaje kao potvrda da student " + ime + " (" + imeRoditelja+ ") " + prezime + " nije izmirio ratu duga Univerzitetu u vrijednosti od "+dug+".\n\n\n\n");
+			report.title(title4);
+		}
+		
+		
+		TextFieldBuilder<String> title5 =DynamicReports.cmp.text("Potpis ovlaštenog lica: ___________________ \n");
+		report.title(title5);
+		TextFieldBuilder<String> title6 =DynamicReports.cmp.text("Potpis studenta: ___________________ \n");
+		report.title(title6);
+		
+		
+		Date date = new Date();
+		String s = dajDatum(date);
+		TextFieldBuilder<String> title7 = DynamicReports.cmp.text("Datum: " + s); 
+		report.title(title7); 
+				
+		report.show(); 
+		//report.toPdf(new FileOutputStream(new File("c:/report.pdf"))); //promijeniti lokaciju
+		
+		
+	}
+	
+	
+	
 }	// TODO Auto-generated method stub
 		
 
