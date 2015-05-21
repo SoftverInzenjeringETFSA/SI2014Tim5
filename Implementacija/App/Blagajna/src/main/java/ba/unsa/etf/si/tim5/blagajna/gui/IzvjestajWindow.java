@@ -6,6 +6,10 @@ import javax.swing.JFrame;
 
 import java.awt.GridBagLayout;
 
+
+
+
+
 import javax.swing.JTextPane;
 
 import java.awt.GridBagConstraints;
@@ -22,6 +26,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import net.sf.jasperreports.components.*;
+import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
+import net.sf.dynamicreports.report.builder.DynamicReports; 
+import net.sf.dynamicreports.report.exception.DRException;
+
 import javax.swing.*;
 
 import java.awt.print.*;
@@ -30,6 +39,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Calendar;
 
 import javax.swing.JTextField;
@@ -94,6 +106,16 @@ public class IzvjestajWindow {
 	public IzvjestajWindow(Korisnik k) {
 		korisnik = k;
 		initialize();
+	}
+	
+	public void GenerisiIzvjestaj(ArrayList<TabelaIzvjestaj> redovi) throws FileNotFoundException, DRException
+	{
+		//dynamic report
+		JasperReportBuilder report = DynamicReports.report(); 
+		
+		report.toPdf(new FileOutputStream(new File("c:/report.pdf"))); //promijeniti lokaciju
+		
+		
 	}
 
 	// ----------------------
@@ -171,6 +193,15 @@ public class IzvjestajWindow {
 					redovi.add(ti);
 					
 					//poziv funkcije za generisanje
+					try {
+						GenerisiIzvjestaj(redovi);
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DRException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
 					
 				}
 			}
