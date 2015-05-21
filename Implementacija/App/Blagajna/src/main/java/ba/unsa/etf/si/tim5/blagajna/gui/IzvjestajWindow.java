@@ -6,14 +6,6 @@ import javax.swing.JFrame;
 
 import java.awt.GridBagLayout;
 
-
-
-
-
-
-
-
-
 import javax.swing.JTextPane;
 
 import java.awt.GridBagConstraints;
@@ -36,6 +28,10 @@ import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.column.Columns;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
+import net.sf.dynamicreports.report.builder.style.ReportStyleBuilder;
+import net.sf.dynamicreports.report.builder.style.SimpleStyleBuilder;
+import net.sf.dynamicreports.report.builder.style.StyleBuilder;
+import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.exception.DRException;
 
 import javax.swing.*;
@@ -84,6 +80,7 @@ import com.jgoodies.forms.layout.RowSpec;
 public class IzvjestajWindow {
 
 	JFrame frmIzvjetaj;
+	JComboBox comboBox;
 	static Korisnik korisnik;
 	private TipDuga tipDuga;
 	/**
@@ -145,18 +142,42 @@ public class IzvjestajWindow {
 		//dynamic report
 		JasperReportBuilder report = DynamicReports.report(); 
 		
+		//styles
+		StyleBuilder boldStyle = DynamicReports.stl.style().bold();
+		StyleBuilder totalStyle = DynamicReports.stl.style().bold().setBackgroundColor(Color.YELLOW).setHorizontalAlignment(HorizontalAlignment.CENTER);
+		StyleBuilder boldCentered = DynamicReports.stl.style(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER);
+		StyleBuilder columnHeaderStyle = DynamicReports.stl.style(boldCentered).setBorder(
+				DynamicReports.stl.pen1Point()
+				).setBackgroundColor(Color.PINK); 
+	
+		
 		//add title
-		TextFieldBuilder<String> title1 = DynamicReports.cmp.text("International Techincal University"); 
+		TextFieldBuilder<String> title1 = DynamicReports.cmp.text("{ Naziv fakulteta }").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
 		report.title(title1); 
-		TextFieldBuilder<String> title2 = DynamicReports.cmp.text("Zmaja od Bosne bb, Kampus Univerziteta u Sarajevu, 71 000 Sarajevo"); 
+		TextFieldBuilder<String> title2 = DynamicReports.cmp.text("{ Adresa fakulteta }").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
 		report.title(title2); 
-		TextFieldBuilder<String> title3 = DynamicReports.cmp.text("Tel: ++387 33 250 700"); 
+		TextFieldBuilder<String> title3 = DynamicReports.cmp.text("{ Kontakt info }\n\n\n").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
 		report.title(title3);
 		
-		Date d = new Date(); 
-		String s = d.toString(); 
+		if((TipIzvjestaja)comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija)
+		{
+			TextFieldBuilder<String> naziv = DynamicReports.cmp.text("Izvještaj o troškovima studija\n\n").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
+			report.title(naziv); 
+		}
+		else
+		{
+			TextFieldBuilder<String> naziv = DynamicReports.cmp.text("Izvještaj o troškovima za literaturu\n\n").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
+			report.title(naziv); 
 		
-		TextFieldBuilder<String> title4 = DynamicReports.cmp.text("Datum: " + s); 
+		}
+		TextFieldBuilder<String> potpis = DynamicReports.cmp.text("Potpis ovlaštenog:  _________________________\n").setHorizontalAlignment(HorizontalAlignment.LEFT); 
+		report.title(potpis);
+				
+		Date date = new Date(); 
+		SimpleDateFormat d = new SimpleDateFormat("dd.MM.yyyy   HH:mm");
+		String s = d.format(date); 
+		
+		TextFieldBuilder<String> title4 = DynamicReports.cmp.text("Datum i vrijeme: " + s + "\n\n\n").setHorizontalAlignment(HorizontalAlignment.LEFT); 
 		report.title(title4); 
 		
 		
@@ -170,12 +191,35 @@ public class IzvjestajWindow {
 		//add columns
 		TextColumnBuilder<Integer> indeksKolona = Columns.column("Indeks", "indeks", DynamicReports.type.integerType());
 		TextColumnBuilder<String> studentKolona = Columns.column("Ime i prezime", "student", DynamicReports.type.stringType());
-		TextColumnBuilder<Double> troskoviKolona = Columns.column("Vrijednost", "troskovi", DynamicReports.type.doubleType());
-		TextColumnBuilder<Double> dugKolona = Columns.column("Neplaćeni dug", "dug", DynamicReports.type.doubleType());
+		TextColumnBuilder<Double> troskoviKolona = Columns.column("Vrijednost (KM)", "troskovi", DynamicReports.type.doubleType());
+		TextColumnBuilder<Double> dugKolona = Columns.column("Neplaćeni dug (KM)", "dug", DynamicReports.type.doubleType());
 		TextColumnBuilder<String> polazeKolona = Columns.column("Može polagati ispit", "mozePolagati", DynamicReports.type.stringType());
-
-		report.columns(indeksKolona, studentKolona, troskoviKolona, dugKolona, polazeKolona); 
+        
+		//numeration of rows
+		TextColumnBuilder<Integer> rowNumColumn = Columns.reportRowNumberColumn("R.Broj").setFixedColumns(2).setHorizontalAlignment(HorizontalAlignment.CENTER);
+		
+		report.columns(rowNumColumn, indeksKolona, studentKolona, troskoviKolona, dugKolona, polazeKolona); 
+		
+		
+		//add title column style 
+		report.setColumnTitleStyle(columnHeaderStyle);
+		
+	   
+		//suma
+		report.subtotalsAtSummary(DynamicReports.sbt.sum(troskoviKolona).setStyle(totalStyle));
+		report.subtotalsAtSummary(DynamicReports.sbt.sum(dugKolona).setStyle(totalStyle));
+		
+		//add data source		
 		report.setDataSource(redovi); 
+		
+		//footer
+		report.pageFooter(DynamicReports.cmp.pageXofY().setStyle(boldCentered));
+		
+		//highlight rows
+		report.highlightDetailEvenRows(); 
+		
+		ReportStyleBuilder textStyle = DynamicReports.stl.style().setHorizontalAlignment(HorizontalAlignment.CENTER);
+		report.setTextStyle(textStyle); 
 		
 		report.show(); 
 		//report.toPdf(new FileOutputStream(new File("c:/report.pdf"))); //promijeniti lokaciju
@@ -217,7 +261,7 @@ public class IzvjestajWindow {
 		frmIzvjetaj.getContentPane()
 				.add(lblTipIzvjetaja, "2, 2, right, center");
 
-		final JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(TipIzvjestaja.values()));
 		frmIzvjetaj.getContentPane().add(comboBox, "4, 2, fill, center");
 
