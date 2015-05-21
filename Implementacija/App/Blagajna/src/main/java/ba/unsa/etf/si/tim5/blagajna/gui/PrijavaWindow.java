@@ -29,10 +29,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 
 import java.util.ArrayList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class PrijavaWindow {
 
-	private JFrame frmPrijava;
+	JFrame frmPrijava;
 	private JTextField textUser;
 	private JPasswordField textPass;
 	ArrayList<Korisnik> sviKorisnici=new ArrayList<Korisnik>();
@@ -110,6 +112,13 @@ public class PrijavaWindow {
 		frmPrijava.getContentPane().add(textPass, "4, 4, 3, 1, fill, top");
 		
 		JLabel lblZaboraviliSteLozinku = new JLabel("Zaboravili ste lozinku ?");
+		lblZaboraviliSteLozinku.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ZaboraviliLozinkuWindow window = new ZaboraviliLozinkuWindow();
+				window.frmPromjenaLozinke.setVisible(true);
+			}
+		});
 		lblZaboraviliSteLozinku.setForeground(Color.BLUE);
 		frmPrijava.getContentPane().add(lblZaboraviliSteLozinku, "4, 6, 3, 1, fill, top");
 		

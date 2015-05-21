@@ -3,7 +3,13 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.EventQueue;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
+
+
+
+
+
 
 
 
@@ -45,6 +51,8 @@ import javax.swing.JPanel;
 
 import java.awt.FlowLayout;
 import java.awt.List;
+import java.awt.Toolkit;
+import java.awt.Window;
 
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
@@ -58,6 +66,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
+import javax.swing.SwingUtilities;
 
 import org.hibernate.Session;
 
@@ -65,6 +74,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class MainWindow {
@@ -490,31 +500,97 @@ public class MainWindow {
 		mnFile.add(separator);
 
 		JMenuItem mntmNapusti = new JMenuItem("Napusti");
+		mntmNapusti.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				//PrijavaWindow window = new PrijavaWindow();
+				//window.frmPrijava.setVisible(true);
+				//Window window1 = SwingUtilities.getWindowAncestor(frmBlagajna);
+				//PrijavaWindow window = new PrijavaWindow();
+				frmBlagajna.dispose();
+				PrijavaWindow window = new PrijavaWindow();
+				window.frmPrijava.setVisible(true);
+				//window1.setVisible( false );
+				
+				//WindowEvent winClosingEvent = new WindowEvent(frmBlagajna, WindowEvent.WINDOW_CLOSING);
+				//Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+				
+				//frmBlagajna.dispatchEvent(new WindowEvent(frmBlagajna, WindowEvent.WINDOW_CLOSING));
+				
+			}
+		});
+		mntmNapusti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		mnFile.add(mntmNapusti);
 
 		JMenu mnUredi = new JMenu("Uredi");
 		menuBar.add(mnUredi);
 
 		JMenuItem mntmUrediUposlenike = new JMenuItem("Uredi korisnike");
-		mntmUrediUposlenike.setVisible(false);
+		mntmUrediUposlenike.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				KorisniciWindow window = new KorisniciWindow();
+				window.frmKorisnici.setVisible(true);
+			}
+		});
+		
+		mntmUrediUposlenike.setVisible(true);
+		//if(user.getTipKorisnika().equals(TipKorisnika.Administrator))mntmUrediUposlenike.setVisible(true);
 		mnUredi.add(mntmUrediUposlenike);
 
 		JMenuItem mntmLiteratura = new JMenuItem("Uredi literaturu");
+		mntmLiteratura.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				LiteraturaWindow window = new LiteraturaWindow();
+				window.frmUnosDugaZa.setVisible(true);
+			}
+		});
 		mnUredi.add(mntmLiteratura);
 
 		JMenu mnDodaj = new JMenu("Dodaj");
 		menuBar.add(mnDodaj);
 
 		JMenuItem mntmDodajStudenta = new JMenuItem("Dodaj studenta");
+		mntmDodajStudenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UnosWindow window = new UnosWindow();
+				window.frmUnosStudenta.setVisible(true);
+				
+			}
+		});
 		mnDodaj.add(mntmDodajStudenta);
 
 		JMenuItem mntmDodajKorisnika = new JMenuItem("Dodaj korisnika");
+		mntmDodajKorisnika.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UnosKorisnikaWindow window=new UnosKorisnikaWindow();
+				window.frmUnosKorisnika.setVisible(true);
+			}
+		});
 		mnDodaj.add(mntmDodajKorisnika);
 
 		JMenuItem mntmDodajLiteraturu = new JMenuItem("Dodaj literaturu");
+		mntmDodajLiteraturu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LiteraturaWindow window = new LiteraturaWindow();
+				window.frmUnosDugaZa.setVisible(true);
+			}
+		});
 		mnDodaj.add(mntmDodajLiteraturu);
 
 		JMenu mnIzvjetaj = new JMenu("Izvje\u0161taj");
+		mnIzvjetaj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				IzvjestajWindow window = new IzvjestajWindow();
+				window.frmIzvjetaj.setVisible(true);
+			}
+		});
 		menuBar.add(mnIzvjetaj);
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 	}

@@ -48,7 +48,7 @@ import java.util.ArrayList;
 
 public class LiteraturaWindow {
 
-	private JFrame frmUnosDugaZa;
+	JFrame frmUnosDugaZa;
 	private JTable table;
 	private JLabel lblPrikazLiterature;
 	private JPanel panel;

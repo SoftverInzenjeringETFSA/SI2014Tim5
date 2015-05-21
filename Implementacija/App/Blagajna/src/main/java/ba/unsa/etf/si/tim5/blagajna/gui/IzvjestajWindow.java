@@ -64,7 +64,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 public class IzvjestajWindow {
 
-	private JFrame frmIzvjetaj;
+	JFrame frmIzvjetaj;
 	static Korisnik korisnik;
 	private TipDuga tipDuga;
 	/**
