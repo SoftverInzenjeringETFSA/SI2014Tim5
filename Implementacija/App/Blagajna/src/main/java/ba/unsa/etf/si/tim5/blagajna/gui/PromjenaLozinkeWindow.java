@@ -30,7 +30,7 @@ import org.hibernate.Session;
 
 public class PromjenaLozinkeWindow {
 
-	private JFrame frmPromjenaLozinke;
+	JFrame frmPromjenaLozinke;
 	private JPasswordField StaraLozinkaTB;
 	private JPasswordField NovaLozinkaTB;
 	private JPasswordField PotvrdiNovuLozinkuTB;
@@ -63,8 +63,8 @@ public class PromjenaLozinkeWindow {
 	
 	public PromjenaLozinkeWindow()
 	{
-		ArrayList<Korisnik> korisnici = Dao.getInstance().dajSveKorisnike();
-		korisnik = korisnici.get(1);
+		//ArrayList<Korisnik> korisnici = Dao.getInstance().dajSveKorisnike();
+		//korisnik = korisnici.get(1);
 		initialize();
 	}
 

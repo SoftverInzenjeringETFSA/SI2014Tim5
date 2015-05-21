@@ -6,6 +6,14 @@ import javax.swing.JFrame;
 
 import java.awt.GridBagLayout;
 
+
+
+
+
+
+
+
+
 import javax.swing.JTextPane;
 
 import java.awt.GridBagConstraints;
@@ -22,6 +30,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import net.sf.jasperreports.components.*;
+import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
+import net.sf.dynamicreports.report.builder.DynamicReports; 
+import net.sf.dynamicreports.report.builder.column.Columns;
+import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
+import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
+import net.sf.dynamicreports.report.exception.DRException;
+
 import javax.swing.*;
 
 import java.awt.print.*;
@@ -30,6 +46,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Calendar;
 
 import javax.swing.JTextField;
@@ -64,7 +83,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 public class IzvjestajWindow {
 
-	private JFrame frmIzvjetaj;
+	JFrame frmIzvjetaj;
 	static Korisnik korisnik;
 	private TipDuga tipDuga;
 	/**
@@ -89,11 +108,79 @@ public class IzvjestajWindow {
 	 */
 	public IzvjestajWindow() {
 		initialize();
+		/*private int indeks;
+		private String student;
+		private double Troskovi;
+		private double dug;
+		private MozePolagati mozePolagati; */
+//		TabelaIzvjestaj i1  = new TabelaIzvjestaj(16049, "Sabina Grošić", 1098.5, 200, MozePolagati.DA); 
+//		TabelaIzvjestaj i2  = new TabelaIzvjestaj(16161, "Arnela Duzan", 200, 200, MozePolagati.DA);
+//		TabelaIzvjestaj i3  = new TabelaIzvjestaj(16028, "Mesud Klisura", 1098.5, 200, MozePolagati.DA); 
+//		TabelaIzvjestaj i4  = new TabelaIzvjestaj(16049, "Faris Dzafic", 1098.5, 200, MozePolagati.DA); 
+//		ArrayList<TabelaIzvjestaj> r = new ArrayList<TabelaIzvjestaj>(); 
+//		r.add(i1); 
+//		r.add(i2); 
+//		r.add(i3); 
+//		r.add(i4); 
+//
+//		try {
+//			GenerisiIzvjestaj(r);
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (DRException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	public IzvjestajWindow(Korisnik k) {
 		korisnik = k;
 		initialize();
+	}
+	
+		
+	public void GenerisiIzvjestaj(ArrayList<TabelaIzvjestaj> redovi) throws FileNotFoundException, DRException
+	{
+		//dynamic report
+		JasperReportBuilder report = DynamicReports.report(); 
+		
+		//add title
+		TextFieldBuilder<String> title1 = DynamicReports.cmp.text("International Techincal University"); 
+		report.title(title1); 
+		TextFieldBuilder<String> title2 = DynamicReports.cmp.text("Zmaja od Bosne bb, Kampus Univerziteta u Sarajevu, 71 000 Sarajevo"); 
+		report.title(title2); 
+		TextFieldBuilder<String> title3 = DynamicReports.cmp.text("Tel: ++387 33 250 700"); 
+		report.title(title3);
+		
+		Date d = new Date(); 
+		String s = d.toString(); 
+		
+		TextFieldBuilder<String> title4 = DynamicReports.cmp.text("Datum: " + s); 
+		report.title(title4); 
+		
+		
+		/*private int indeks;
+		private String student;
+		private double Troskovi;
+		private double dug;
+		private MozePolagati mozePolagati; */
+		
+		//add table
+		//add columns
+		TextColumnBuilder<Integer> indeksKolona = Columns.column("Indeks", "indeks", DynamicReports.type.integerType());
+		TextColumnBuilder<String> studentKolona = Columns.column("Ime i prezime", "student", DynamicReports.type.stringType());
+		TextColumnBuilder<Double> troskoviKolona = Columns.column("Vrijednost", "troskovi", DynamicReports.type.doubleType());
+		TextColumnBuilder<Double> dugKolona = Columns.column("Neplaćeni dug", "dug", DynamicReports.type.doubleType());
+		TextColumnBuilder<String> polazeKolona = Columns.column("Može polagati ispit", "mozePolagati", DynamicReports.type.stringType());
+
+		report.columns(indeksKolona, studentKolona, troskoviKolona, dugKolona, polazeKolona); 
+		report.setDataSource(redovi); 
+		
+		report.show(); 
+		//report.toPdf(new FileOutputStream(new File("c:/report.pdf"))); //promijeniti lokaciju
+		
+		
 	}
 
 	// ----------------------
@@ -157,22 +244,31 @@ public class IzvjestajWindow {
 			public void actionPerformed(ActionEvent e) {
 			if((TipIzvjestaja)comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija) tipDuga = TipDuga.dugZaSkolarinu;
 			else tipDuga = TipDuga.dugZaLiteraturu;
-				ArrayList<Dug> dugovi = Dao.getInstance().dajSveDugovePoTipu(tipDuga);
+				ArrayList<Dug> dugovi = Dao.getInstance().dajSveDugove();
+				
 				ArrayList<TabelaIzvjestaj> redovi = new ArrayList<TabelaIzvjestaj>();
 				for(int i = 0; i<dugovi.size(); i++) {
-					Student s = dugovi.get(i).dajStudenta();
-					
+					Student s = dugovi.get(i).dajStudenta();					
 					double ukupanDug = dugovi.get(i).getVrijednost();
 					double dug = dugovi.get(i).dajVrijednostDuga();
-					
+										
 					TabelaIzvjestaj ti = new TabelaIzvjestaj(s.getIndeks(),
 							s.getIme() + " " + s.getPrezime(), ukupanDug, dug, dug == 0 ? MozePolagati.DA : MozePolagati.NE);
 					
 					redovi.add(ti);
-					
+			}
 					//poziv funkcije za generisanje
+					try {
+						GenerisiIzvjestaj(redovi);
+					} catch (FileNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (DRException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
 					
-				}
+				
 			}
 		});
 

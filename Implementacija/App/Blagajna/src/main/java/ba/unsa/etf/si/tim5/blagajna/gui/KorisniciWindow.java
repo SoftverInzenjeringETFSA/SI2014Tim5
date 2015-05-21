@@ -52,7 +52,7 @@ import java.util.ArrayList;
 
 public class KorisniciWindow {
 
-	private JFrame frmKorisnici;	
+	JFrame frmKorisnici;	
 	private JTable table;
 	private Connection conn;
 	protected Component frame;
@@ -78,18 +78,27 @@ public class KorisniciWindow {
 	/**
 	 * Create the application.
 	 */
-	public KorisniciWindow() {
-		try {
-		OpenConnection();
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	
+	public KorisniciWindow()
+	{
+		initialize();
 	}
-	initialize();
-}
+	
+	//Azra je zakomentarisala ovaj konstruktor da se zna :D da testiram mainWindow,
+	//jer ova forma ne radi kako treba trenutno. Feel free to uncomment :D
+	
+	//public KorisniciWindow() {
+	//	try {
+	//	OpenConnection();
+	//} catch (ClassNotFoundException e) {
+	//	// TODO Auto-generated catch block
+	//	e.printStackTrace();
+	//} catch (SQLException e) {
+	//	// TODO Auto-generated catch block
+	//	e.printStackTrace();
+	//}
+	//initialize();
+//}
 
 private void OpenConnection() throws SQLException, ClassNotFoundException
 {

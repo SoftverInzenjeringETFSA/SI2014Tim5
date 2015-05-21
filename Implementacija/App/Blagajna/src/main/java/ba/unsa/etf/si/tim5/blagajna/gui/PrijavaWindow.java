@@ -2,23 +2,45 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+
+
 import java.awt.Color;
+
 import javax.swing.JButton;
+
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
+
+import java.util.ArrayList;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class PrijavaWindow {
 
-	private JFrame frmPrijava;
+	JFrame frmPrijava;
 	private JTextField textUser;
 	private JPasswordField textPass;
+	ArrayList<Korisnik> sviKorisnici=new ArrayList<Korisnik>();
+	Korisnik logovaniKorisnik=new Korisnik();
+	
+	
 
 	/**
 	 * Launch the application.
@@ -35,13 +57,21 @@ public class PrijavaWindow {
 			}
 		});
 	}
+	
+	public void ucitajSveKorisnike(){
+		sviKorisnici= Dao.getInstance().dajSveKorisnike();
+	}
 
 	/**
 	 * Create the application.
 	 */
 	public PrijavaWindow() {
 		initialize();
+		ucitajSveKorisnike();
+		//System.out.println(sviKorisnici.get(0).getKorisnickoIme());
 	}
+	
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -82,13 +112,70 @@ public class PrijavaWindow {
 		frmPrijava.getContentPane().add(textPass, "4, 4, 3, 1, fill, top");
 		
 		JLabel lblZaboraviliSteLozinku = new JLabel("Zaboravili ste lozinku ?");
+		lblZaboraviliSteLozinku.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ZaboraviliLozinkuWindow window = new ZaboraviliLozinkuWindow();
+				window.frmPromjenaLozinke.setVisible(true);
+			}
+		});
 		lblZaboraviliSteLozinku.setForeground(Color.BLUE);
 		frmPrijava.getContentPane().add(lblZaboraviliSteLozinku, "4, 6, 3, 1, fill, top");
 		
 		JButton btnPrijaviSe = new JButton("Prijavi se");
+		btnPrijaviSe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				logovaniKorisnik.setKorisnickoIme("");
+				String username=textUser.getText();
+				char[] password=textPass.getPassword();
+				
+				String passString = new String(password);
+				boolean user=false;
+						
+			
+				
+				for(int i=0;i<sviKorisnici.size();i++)
+				{	
+					if(sviKorisnici.get(i).getKorisnickoIme().equals(username))
+					{   //System.out.println(password);
+						//logovaniKorisnik.setKorisnickoIme(username);
+						user=true;
+						if(sviKorisnici.get(i).getLozinka().equals(passString))
+						{
+							
+							
+							logovaniKorisnik=sviKorisnici.get(i);
+							MainWindow window = new MainWindow(logovaniKorisnik);
+							window.frmBlagajna.setVisible(true);
+							
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "Password je netačan, pokušajte ponovo!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+							textPass.setText("");
+						}
+						break;	
+					}
+				}
+				
+				if(user==false)
+				{	//System.out.println(logovaniKorisnik.getKorisnickoIme()+"los");
+					
+					JOptionPane.showMessageDialog(null, "Username je netačan, pokušajte ponovo!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+					textPass.setText("");
+					textUser.setText("");
+				}
+				
+			}
+		});
 		frmPrijava.getContentPane().add(btnPrijaviSe, "2, 8, 3, 1, right, top");
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
+		btnIzai.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmPrijava.dispatchEvent(new WindowEvent(frmPrijava, WindowEvent.WINDOW_CLOSING));
+			}
+		});
 		frmPrijava.getContentPane().add(btnIzai, "6, 8, fill, top");
 	}
 }

@@ -12,10 +12,12 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ZaboraviliLozinkuWindow {
 
-	private JFrame frmPromjenaLozinke;
+	JFrame frmPromjenaLozinke;
 	private JTextField textField;
 
 	/**
@@ -94,6 +96,11 @@ public class ZaboraviliLozinkuWindow {
 		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Po\u0161alji novu lozinku");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String email=textField.getText();
+			}
+		});
 		frmPromjenaLozinke.getContentPane().add(btnNewButton, "6, 6, 11, 1");
 		
 		JLabel lblNewLabel = new JLabel("Napomena: Une\u0161eni mail mora biti onaj sa kojim ste prijavljeni na sistem.");

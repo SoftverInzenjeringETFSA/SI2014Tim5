@@ -3,6 +3,7 @@ import java.util.Date;
 
 import org.hibernate.Session;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
@@ -19,7 +20,8 @@ public class Test {
 //
 //		session.close();
 //		
-		System.out.println(String.valueOf(new Date().getYear()));
+		String[] m = {"faris.dzafic@outlook.com"};
+		SlanjeMaila.getInstance().sendFromGMail(m, "Test", "Test");	
 		System.out.println("izmjenjeno");
 	}
 }
