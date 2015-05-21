@@ -113,25 +113,25 @@ public class IzvjestajWindow {
 		private double Troskovi;
 		private double dug;
 		private MozePolagati mozePolagati; */
-		TabelaIzvjestaj i1  = new TabelaIzvjestaj(16049, "Sabina Grošić", 1098.5, 200, MozePolagati.DA); 
-		TabelaIzvjestaj i2  = new TabelaIzvjestaj(16161, "Arnela Duzan", 200, 200, MozePolagati.DA);
-		TabelaIzvjestaj i3  = new TabelaIzvjestaj(16028, "Mesud Klisura", 1098.5, 200, MozePolagati.DA); 
-		TabelaIzvjestaj i4  = new TabelaIzvjestaj(16049, "Faris Dzafic", 1098.5, 200, MozePolagati.DA); 
-		ArrayList<TabelaIzvjestaj> r = new ArrayList<TabelaIzvjestaj>(); 
-		r.add(i1); 
-		r.add(i2); 
-		r.add(i3); 
-		r.add(i4); 
-
-		try {
-			GenerisiIzvjestaj(r);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (DRException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		TabelaIzvjestaj i1  = new TabelaIzvjestaj(16049, "Sabina Grošić", 1098.5, 200, MozePolagati.DA); 
+//		TabelaIzvjestaj i2  = new TabelaIzvjestaj(16161, "Arnela Duzan", 200, 200, MozePolagati.DA);
+//		TabelaIzvjestaj i3  = new TabelaIzvjestaj(16028, "Mesud Klisura", 1098.5, 200, MozePolagati.DA); 
+//		TabelaIzvjestaj i4  = new TabelaIzvjestaj(16049, "Faris Dzafic", 1098.5, 200, MozePolagati.DA); 
+//		ArrayList<TabelaIzvjestaj> r = new ArrayList<TabelaIzvjestaj>(); 
+//		r.add(i1); 
+//		r.add(i2); 
+//		r.add(i3); 
+//		r.add(i4); 
+//
+//		try {
+//			GenerisiIzvjestaj(r);
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (DRException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	public IzvjestajWindow(Korisnik k) {
@@ -244,19 +244,19 @@ public class IzvjestajWindow {
 			public void actionPerformed(ActionEvent e) {
 			if((TipIzvjestaja)comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija) tipDuga = TipDuga.dugZaSkolarinu;
 			else tipDuga = TipDuga.dugZaLiteraturu;
-				ArrayList<Dug> dugovi = Dao.getInstance().dajSveDugovePoTipu(tipDuga);
+				ArrayList<Dug> dugovi = Dao.getInstance().dajSveDugove();
+				
 				ArrayList<TabelaIzvjestaj> redovi = new ArrayList<TabelaIzvjestaj>();
 				for(int i = 0; i<dugovi.size(); i++) {
-					Student s = dugovi.get(i).dajStudenta();
-					
+					Student s = dugovi.get(i).dajStudenta();					
 					double ukupanDug = dugovi.get(i).getVrijednost();
 					double dug = dugovi.get(i).dajVrijednostDuga();
-					
+										
 					TabelaIzvjestaj ti = new TabelaIzvjestaj(s.getIndeks(),
 							s.getIme() + " " + s.getPrezime(), ukupanDug, dug, dug == 0 ? MozePolagati.DA : MozePolagati.NE);
 					
 					redovi.add(ti);
-					
+			}
 					//poziv funkcije za generisanje
 					try {
 						GenerisiIzvjestaj(redovi);
@@ -268,7 +268,7 @@ public class IzvjestajWindow {
 						e1.printStackTrace();
 					} 
 					
-				}
+				
 			}
 		});
 

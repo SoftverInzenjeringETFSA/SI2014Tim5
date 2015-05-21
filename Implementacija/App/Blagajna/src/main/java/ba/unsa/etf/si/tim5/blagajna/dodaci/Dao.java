@@ -55,7 +55,7 @@ public class Dao {
 	public ArrayList<Dug> dajSveDugovePoTipu(TipDuga tip) {
 		Session session = HibernateUtil.getSessionFactory().openSession();		
 		org.hibernate.Transaction t = session.beginTransaction();
-		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM Dug where tipduga = "+tip).addEntity(Dug.class).list();		
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM Dug where tipduga = "+tip + ";").addEntity(Dug.class).list();		
 		t.commit();	
 		session.close();
 		return l;

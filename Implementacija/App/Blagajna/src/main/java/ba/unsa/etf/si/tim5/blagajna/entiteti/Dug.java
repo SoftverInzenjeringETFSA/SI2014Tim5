@@ -121,11 +121,11 @@ public class Dug implements java.io.Serializable {
 		Session session = HibernateUtil.getSessionFactory().openSession();		
 		org.hibernate.Transaction t = session.beginTransaction();
 		int uplacena = 0;
-		ArrayList<Rata> l = (ArrayList<Rata>)session.createSQLQuery("SELECT * FROM Rata where dugid = "+ String.valueOf(this.id) + "and jeliuplacena = "+String.valueOf(uplacena)).addEntity(Rata.class).list();		
+		ArrayList<Rata> l = (ArrayList<Rata>)session.createSQLQuery("SELECT * FROM Rata where dugid = " + String.valueOf(this.id) + ";").addEntity(Rata.class).list();		
 		t.commit();	
 		session.close();
 		double dug = 0;
-		for(int i = 0; i<l.size(); i++) dug += l.get(i).getVrijednost();
+		for(int i = 0; i<l.size(); i++) if(l.get(i).getDatumRazduzenja() == null) dug += l.get(i).getVrijednost();
 		return dug;
 		
 	}
@@ -133,7 +133,7 @@ public class Dug implements java.io.Serializable {
 	public Student dajStudenta() {
 		Session session = HibernateUtil.getSessionFactory().openSession();		
 		org.hibernate.Transaction t = session.beginTransaction();		
-		ArrayList<Student> l = (ArrayList<Student>)session.createSQLQuery("SELECT * FROM student where studentId = "+ String.valueOf(this.studentId)).addEntity(Student.class).list();		
+		ArrayList<Student> l = (ArrayList<Student>)session.createSQLQuery("SELECT * FROM student where id = "+ String.valueOf(this.studentId) + ";").addEntity(Student.class).list();		
 		t.commit();	
 		session.close();
 		return l.get(0);
