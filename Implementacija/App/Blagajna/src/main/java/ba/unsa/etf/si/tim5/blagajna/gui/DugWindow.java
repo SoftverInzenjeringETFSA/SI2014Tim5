@@ -251,17 +251,19 @@ public class DugWindow {
 				String dug = table.getValueAt(red, 1).toString();
 				String datum = table.getValueAt(red, 3).toString();
 				if (datum != "")
-				textZaPrintanje = "\n"+"\n"+ "International University of Sarajevo"+"\n" +
-						"Zagrebacka bb"+"\n" +
-						"+38733911911"+"\n" +"\n" +
+				textZaPrintanje = System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+ "International University of Sarajevo"+System.getProperty("lineSeparator") +
+						"Zagrebacka bb"+System.getProperty("lineSeparator") +
+						"+38733911911"+System.getProperty("lineSeparator") +System.getProperty("lineSeparator") +
 						"Ovaj dokument se izdaje kao potvrda da je student " + student.getIme() + " ("+ student.getImeRoditelja() + ") " +student.getPrezime() + " izmirio dug prema Univerzitetu u vrijednosti od "
-								+ dug + " na datum "+dateFormat.format(date)  + ". godine.\n\n\n\n\n\nPotpis studenta: ___________________ \n\nPotpis ovlaštenog lica: ___________________\n\n\n\n"+dateFormat.format(date);
+								+ dug + " na datum "+dateFormat.format(date)  + ". godine."+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")
+										+ "Potpis studenta: ___________________ " +System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+"Potpis ovlaštenog lica: ___________________"+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+dateFormat.format(date);
 				else
-					textZaPrintanje = "\n"+"\n"+ "International University of Sarajevo"+"\n" +
-							"Zagrebacka bb"+"\n" +
-							"+38733911911"+"\n" +"\n" +
+					textZaPrintanje = System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+ "International University of Sarajevo"+System.getProperty("lineSeparator") +
+							"Zagrebacka bb"+System.getProperty("lineSeparator") +
+							"+38733911911"+System.getProperty("lineSeparator") +System.getProperty("lineSeparator") +
 							"Ovaj dokument se izdaje kao potvrda da student nije " + student.getIme() + " ("+ student.getImeRoditelja() + ") " +student.getPrezime() + " izmirio dug prema Univerzitetu u vrijednosti od "
-									+ dug+ ".\n\n\n\n\n\nPotpis studenta: ___________________ \n\nPotpis ovlaštenog lica: ___________________\n\n\n\n"+dateFormat.format(date);
+									+ dug+ System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")
+									+"Potpis studenta: ___________________ "+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+"Potpis ovlaštenog lica: ___________________"+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+System.getProperty("lineSeparator")+dateFormat.format(date);
 				Printer printer = new Printer();
 				printer.otvoriMeni();
 				}		
