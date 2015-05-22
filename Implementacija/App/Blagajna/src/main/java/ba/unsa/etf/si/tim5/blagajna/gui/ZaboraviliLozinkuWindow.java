@@ -3,22 +3,34 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class ZaboraviliLozinkuWindow {
 
 	JFrame frmPromjenaLozinke;
 	private JTextField textField;
+	ArrayList<Korisnik> sviKorisnici=new ArrayList<Korisnik>();
+	Korisnik logovaniKorisnik;
 
 	/**
 	 * Launch the application.
@@ -35,12 +47,17 @@ public class ZaboraviliLozinkuWindow {
 			}
 		});
 	}
+	
+	public void ucitajSveKorisnike(){
+		sviKorisnici= Dao.getInstance().dajSveKorisnike();
+	}
 
 	/**
 	 * Create the application.
 	 */
 	public ZaboraviliLozinkuWindow() {
 		initialize();
+		
 	}
 
 	/**
@@ -98,7 +115,31 @@ public class ZaboraviliLozinkuWindow {
 		JButton btnNewButton = new JButton("Po\u0161alji novu lozinku");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ucitajSveKorisnike();
 				String email=textField.getText();
+				int a=Utility.getInstance().generisiPassword();
+				
+				boolean dobarEmail=false;
+				
+				for(int i=0;i<sviKorisnici.size();i++)
+				{
+					if(sviKorisnici.get(i).getMail().equals(email))
+					{   
+						System.out.println("dobar");
+						dobarEmail=true;
+						String[] m = {email};
+						SlanjeMaila.getInstance().sendFromGMail(m, "Promjena lozinke", "Vaša nova lozinka je: "+ String.valueOf(a));	
+						break;
+					}
+					
+				}
+				
+				if(dobarEmail==false)
+				{
+					JOptionPane.showMessageDialog(null, "Email je netačan, pokušajte ponovo!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
+					textField.setText("");
+					
+				}
 			}
 		});
 		frmPromjenaLozinke.getContentPane().add(btnNewButton, "6, 6, 11, 1");

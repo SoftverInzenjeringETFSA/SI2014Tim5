@@ -2,6 +2,7 @@ package ba.unsa.etf.si.tim5.blagajna.dodaci;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 
 //pomocna singleton klasa za smještanje raznih pomocnih funkcija
@@ -38,5 +39,11 @@ public class Utility {
 					+ "/"
 					+ String.valueOf(this.addDays(new Date(), 366).getYear() + 1900);
 		return godina;
+	}
+	
+	public int generisiPassword(){
+		Random r = new Random( System.currentTimeMillis() );
+	    return 10000 + r.nextInt(20000);
+	
 	}
 }
