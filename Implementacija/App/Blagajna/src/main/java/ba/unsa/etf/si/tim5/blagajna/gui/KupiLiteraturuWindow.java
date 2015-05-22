@@ -204,7 +204,16 @@ public class KupiLiteraturuWindow {
 				JOptionPane.showMessageDialog(null,"Literatura je zadužena!","OK",JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
-		frmKupovinaLiterature.getContentPane().add(btnKupi, "6, 12");
+		frmKupovinaLiterature.getContentPane().add(btnKupi, "4, 12");
+		
+		JButton btnIzai = new JButton("Izađi");
+		btnIzai.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmKupovinaLiterature.setVisible(false); //you can't see me!
+				frmKupovinaLiterature.dispose();
+			}
+		});
+		frmKupovinaLiterature.getContentPane().add(btnIzai, "6, 12, right, default");
 				
 		FillCombo();
 		

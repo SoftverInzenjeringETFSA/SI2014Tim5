@@ -342,7 +342,7 @@ public class UnosKorisnikaWindow {
 		
 		JButton btnIzai = new JButton("Iza\u0111i");
 		btnIzai.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {			
 				frmUnosKorisnika.dispose();
 			}
 		});

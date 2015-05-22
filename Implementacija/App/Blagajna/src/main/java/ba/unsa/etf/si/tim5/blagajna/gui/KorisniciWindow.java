@@ -57,7 +57,7 @@ public class KorisniciWindow {
 	private Connection conn;
 	protected Component frame;
 	
-	private ArrayList<Korisnik> korisnici = new ArrayList<Korisnik>();
+	private ArrayList<Korisnik> korisnici;
 	private Korisnik k;
 	/**
 	 * Launch the application.
@@ -240,31 +240,13 @@ private void OpenConnection() throws SQLException, ClassNotFoundException
 	private void FillTable(DefaultTableModel tmodel)
 	{
 		try {
-			String query = "SELECT * FROM korisnik";
-			 
-		      Statement st = (Statement)conn.createStatement();
-		      ResultSet rs = st.executeQuery(query);
-		      
-		      while (rs.next())
-		      {
-		        
-		    	  Korisnik k = new Korisnik();
-		    	  k.setId(rs.getLong("id"));
-		    	  k.setIme(rs.getString("ime"));
-		    	  k.setPrezime(rs.getString("prezime"));
-		    	  k.setJmbg(rs.getString("jmbg"));
-		    	  k.setAdresa(rs.getString("adresa"));
-		    	  k.setTelefon(rs.getString("telefon"));
-		    	  k.setMail(rs.getString("mail"));
-		    	  k.setTipKorisnika(ToTipKorisnika(rs.getString("tipkorisnika")));
-		    	  
-		          
-		    	  korisnici.add(k);
+			 korisnici = Dao.getInstance().dajSveKorisnike();
+			  for(int i=0; i<korisnici.size(); i++){
+				  k = korisnici.get(i);
 		    	  tmodel.addRow(new Object[] { k.getId(),k.getIme(), k.getPrezime(),k.getJmbg(),k.getAdresa(),k.getTelefon(),k.getMail(),k.getTipKorisnika()});
 		      }
 			}
-			catch (SQLException e) {
-				// TODO Auto-generated catch block
+			catch (Exception e) {				// 
 				e.printStackTrace();
 			}
 	}

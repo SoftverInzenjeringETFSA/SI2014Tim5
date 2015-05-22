@@ -393,6 +393,12 @@ public class UnosWindow {
 				frmUnosStudenta.getContentPane().add(btnUnesi, "2, 6, fill, top");
 				
 				btnNewButton_1 = new JButton("Iza\u0111i");
+				btnNewButton_1.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						frmUnosStudenta.setVisible(false); //you can't see me!
+						frmUnosStudenta.dispose();
+					}
+				});
 				frmUnosStudenta.getContentPane().add(btnNewButton_1, "4, 6, right, top");
 	}
 

@@ -103,6 +103,7 @@ public class LiteraturaWindow {
 	}
 
 	private ArrayList<Literatura> literatura = new ArrayList<Literatura>();
+	private JButton btnIzai;
 
 	public LiteraturaWindow(ArrayList<Literatura> literatura) {
 		initialize();
@@ -115,7 +116,7 @@ public class LiteraturaWindow {
 	private void initialize() {
 		frmUnosDugaZa = new JFrame();
 		frmUnosDugaZa.setTitle("Literatura");
-		frmUnosDugaZa.setBounds(100, 100, 467, 511);
+		frmUnosDugaZa.setBounds(100, 100, 467, 544);
 		frmUnosDugaZa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmUnosDugaZa.getContentPane().setLayout(
 				new FormLayout(new ColumnSpec[] {
@@ -158,7 +159,7 @@ public class LiteraturaWindow {
 	    	public boolean isCellEditable(int row, int column){return false;}
 	   	    
 	    };
-	    
+	    table.setModel(tmodel);
 	    table.getTableHeader().setReorderingAllowed(false);
 		table.setModel(new DefaultTableModel(new Object[][] { }, new String[] { "Id", "ISBN",
 				"Naziv", "Autor", "Koli\u010Dina", "Cijena" }));
@@ -275,6 +276,15 @@ public class LiteraturaWindow {
 			}
 		});
 		panel.add(btnUnesi, "4, 16");
+		
+		btnIzai = new JButton("Izađi");
+		btnIzai.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmUnosDugaZa.setVisible(false); //you can't see me!
+				frmUnosDugaZa.dispose();
+			}
+		});
+		frmUnosDugaZa.getContentPane().add(btnIzai, "6, 16, right, default");
 	}
 
 	public ArrayList<Literatura> getLiteratura() {

@@ -341,10 +341,8 @@ public class IzvjestajWindow {
 
 		btnIzai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (e.getActionCommand().equals("Iza\u0111i")) {
-
-					System.exit(0);
-				}
+				frmIzvjetaj.setVisible(false); //you can't see me!
+				frmIzvjetaj.dispose();
 			}
 		});
 		class btnPrintAction implements ActionListener, Printable {
