@@ -87,5 +87,13 @@ public class Dao {
 		return l;
 	}
 	
+	public Korisnik dajKorisnikaPoId(long id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		Korisnik l = (Korisnik)session.get(Korisnik.class, id);		
+		t.commit();	
+		session.close();
+		return l;
+	}
 	
 }
