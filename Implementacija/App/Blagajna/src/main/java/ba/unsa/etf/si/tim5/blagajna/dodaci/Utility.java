@@ -1,5 +1,6 @@
 package ba.unsa.etf.si.tim5.blagajna.dodaci;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -42,8 +43,12 @@ public class Utility {
 	}
 	
 	public int generisiPassword(){
+		//ArrayList<char> slova=
+		char[] slova={'a','b','c','d','e','f','g','h','j','k'};
 		Random r = new Random( System.currentTimeMillis() );
-	    return 10000 + r.nextInt(20000);
+		int s = new Random().nextInt(slova.length);
+		char random = (slova[s]);
+	    return 10000000 + r.nextInt(20000)+s;
 	
 	}
 }

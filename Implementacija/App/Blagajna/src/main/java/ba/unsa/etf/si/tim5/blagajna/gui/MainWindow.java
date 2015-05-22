@@ -85,6 +85,7 @@ public class MainWindow {
 	ArrayList<Student> sviStudenti;
 	Korisnik user=new Korisnik();
 	boolean userExist=false;
+	TipKorisnika tip;
 
 	public void ucitajSveStudente() {
 
@@ -113,6 +114,9 @@ public class MainWindow {
 		}
 
 	}
+	
+	
+	
 
 	/**
 	 * Create the application.
@@ -134,11 +138,13 @@ public class MainWindow {
 	
 	public MainWindow() {
 		initialize();
+		ucitajSveStudente();
 	}
 	
 	public MainWindow(Korisnik k) {
 		
 		user=k;
+		tip=k.getTipKorisnika();
 		initialize();
 		
 		
@@ -211,6 +217,15 @@ public class MainWindow {
 				// session.beginTransaction();
 				//System.out.println(izbor);
 				studenti.clear();
+				
+				if ( textField.getText() == null || textField.getText().isEmpty()){
+					
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+				    model.setRowCount(0);
+					ucitajSveStudente();
+					return;
+				}
+				
 				if (izbor == "Indeks") {
 				
 					
@@ -253,6 +268,8 @@ public class MainWindow {
 
 					// table.add()
 				}
+				
+			
 
 				else if (izbor == "Ime") {
 					String ime = textField.getText();
@@ -390,8 +407,10 @@ public class MainWindow {
 					}
 			}
 		});
-
+        
+		
 		JButton btnUredi = new JButton("Detalji/\r\nUredi");
+		//if(tip.equals(TipKorisnika.Korisnik))btnUredi.setVisible(false);
 		btnUredi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow()!=-1){
@@ -594,5 +613,7 @@ public class MainWindow {
 		menuBar.add(mnIzvjetaj);
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 	}
+	
+	
 
 }

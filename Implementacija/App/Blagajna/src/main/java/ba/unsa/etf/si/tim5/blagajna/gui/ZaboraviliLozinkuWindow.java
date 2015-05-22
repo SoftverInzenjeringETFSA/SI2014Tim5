@@ -129,6 +129,8 @@ public class ZaboraviliLozinkuWindow {
 						dobarEmail=true;
 						String[] m = {email};
 						SlanjeMaila.getInstance().sendFromGMail(m, "Promjena lozinke", "Vaša nova lozinka je: "+ String.valueOf(a));	
+						JOptionPane.showMessageDialog(null, "Vaša lozinka je poslana, provjerite inbox vašeg e-mail-a!", "InfoBox: " + "Uspješno slanje maila.", JOptionPane.INFORMATION_MESSAGE);
+						textField.setText("");
 						break;
 					}
 					
