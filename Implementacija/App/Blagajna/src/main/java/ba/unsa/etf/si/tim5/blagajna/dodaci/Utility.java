@@ -5,16 +5,16 @@ import java.util.Date;
 
 
 //pomocna singleton klasa za smještanje raznih pomocnih funkcija
-public class Izracunaj {
-	private static Izracunaj instanca = null;
+public class Utility {
+	private static Utility instanca = null;
 
-	public static Izracunaj getInstance() {
+	public static Utility getInstance() {
 		if (instanca == null)
-			instanca = new Izracunaj();
+			instanca = new Utility();
 		return instanca;
 	}
 
-	public Izracunaj() {
+	public Utility() {
 
 	}
 	

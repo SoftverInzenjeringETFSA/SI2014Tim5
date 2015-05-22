@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Izracunaj;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
@@ -368,7 +368,7 @@ public class UnosWindow {
 						s.setPopust(popust);
 						Session session = HibernateUtil.getSessionFactory().openSession();
 											
-						String godina =  Izracunaj.getInstance().dajStudijskuGodinu();
+						String godina =  Utility.getInstance().dajStudijskuGodinu();
 						if(chckbxNewCheckBox.isSelected()) {
 							JOptionPane.showMessageDialog(null, "Student je dodan!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 							long id = s.dodajStudenta(session);

@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Izracunaj;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Izvjestaj;
@@ -195,7 +195,7 @@ public class KupiLiteraturuWindow {
 					JOptionPane.showMessageDialog(null,"Odabrane knjige nema više! ","Problem",JOptionPane.INFORMATION_MESSAGE);
 					return;
 				}
-				String godina =  Izracunaj.getInstance().dajStudijskuGodinu();
+				String godina =  Utility.getInstance().dajStudijskuGodinu();
 				Dug d = new Dug(69, false, godina,
 				l.getCijena(), student.getId(), TipDuga.dugZaLiteraturu);
 				Session session = HibernateUtil.getSessionFactory().openSession();
