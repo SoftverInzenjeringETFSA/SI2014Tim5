@@ -8,7 +8,6 @@ import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Izvjestaj;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
