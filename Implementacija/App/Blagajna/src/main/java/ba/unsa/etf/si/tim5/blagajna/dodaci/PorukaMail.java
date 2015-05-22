@@ -1,5 +1,7 @@
 package ba.unsa.etf.si.tim5.blagajna.dodaci;
 
+
+//pomocna klasa za smještanje onih kojim se treba uputiti mail za dug
 public class PorukaMail {
 	private String naslov;
 	private String poruka;

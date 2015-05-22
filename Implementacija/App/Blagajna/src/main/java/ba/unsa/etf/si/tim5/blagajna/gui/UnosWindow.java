@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
@@ -369,6 +370,7 @@ public class UnosWindow {
 											
 						String godina =  Izracunaj.getInstance().dajStudijskuGodinu();
 						if(chckbxNewCheckBox.isSelected()) {
+							JOptionPane.showMessageDialog(null, "Student je dodan!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 							long id = s.dodajStudenta(session);
 							Dug d = new Dug(1, false, godina,
 									s.dajDugZaSkolarinu(), s.getId(), TipDuga.dugZaSkolarinu);
@@ -378,6 +380,7 @@ public class UnosWindow {
 							studenti.add(s);						
 						}
 						else {
+							JOptionPane.showMessageDialog(null, "Student je uređen!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 							s.urediStudenta(session);
 							Dug d = new Dug(1, false, "2014/2015",
 									s.dajUkupniDug(), s.getId(), TipDuga.dugZaSkolarinu);

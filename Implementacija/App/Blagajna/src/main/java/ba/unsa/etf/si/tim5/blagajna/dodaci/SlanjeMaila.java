@@ -10,6 +10,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import com.itextpdf.text.log.Logger;
 public class SlanjeMaila {
 
 	private static SlanjeMaila instanca = null;
@@ -61,9 +62,9 @@ public class SlanjeMaila {
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
 		} catch (AddressException ae) {
-			ae.printStackTrace();
+			ae.printStackTrace();			
 		} catch (MessagingException me) {
-			me.printStackTrace();
+			me.printStackTrace();			
 		}
 	}
 }

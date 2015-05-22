@@ -3,6 +3,8 @@ package ba.unsa.etf.si.tim5.blagajna.dodaci;
 import java.util.Calendar;
 import java.util.Date;
 
+
+//pomocna singleton klasa za smještanje raznih pomocnih funkcija
 public class Izracunaj {
 	private static Izracunaj instanca = null;
 

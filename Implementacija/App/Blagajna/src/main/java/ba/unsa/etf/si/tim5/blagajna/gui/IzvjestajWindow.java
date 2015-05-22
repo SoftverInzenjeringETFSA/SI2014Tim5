@@ -24,7 +24,7 @@ import java.util.Vector;
 
 import net.sf.jasperreports.components.*;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
-import net.sf.dynamicreports.report.builder.DynamicReports; 
+import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.column.Columns;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
@@ -83,6 +83,7 @@ public class IzvjestajWindow {
 	JComboBox comboBox;
 	static Korisnik korisnik;
 	private TipDuga tipDuga;
+
 	/**
 	 * Launch the application.
 	 */
@@ -105,126 +106,152 @@ public class IzvjestajWindow {
 	 */
 	public IzvjestajWindow() {
 		initialize();
-		/*private int indeks;
-		private String student;
-		private double Troskovi;
-		private double dug;
-		private MozePolagati mozePolagati; */
-//		TabelaIzvjestaj i1  = new TabelaIzvjestaj(16049, "Sabina Grošić", 1098.5, 200, MozePolagati.DA); 
-//		TabelaIzvjestaj i2  = new TabelaIzvjestaj(16161, "Arnela Duzan", 200, 200, MozePolagati.DA);
-//		TabelaIzvjestaj i3  = new TabelaIzvjestaj(16028, "Mesud Klisura", 1098.5, 200, MozePolagati.DA); 
-//		TabelaIzvjestaj i4  = new TabelaIzvjestaj(16049, "Faris Dzafic", 1098.5, 200, MozePolagati.DA); 
-//		ArrayList<TabelaIzvjestaj> r = new ArrayList<TabelaIzvjestaj>(); 
-//		r.add(i1); 
-//		r.add(i2); 
-//		r.add(i3); 
-//		r.add(i4); 
-//
-//		try {
-//			GenerisiIzvjestaj(r);
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (DRException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		/*
+		 * private int indeks; private String student; private double Troskovi;
+		 * private double dug; private MozePolagati mozePolagati;
+		 */
+		// TabelaIzvjestaj i1 = new TabelaIzvjestaj(16049, "Sabina Grošić",
+		// 1098.5, 200, MozePolagati.DA);
+		// TabelaIzvjestaj i2 = new TabelaIzvjestaj(16161, "Arnela Duzan", 200,
+		// 200, MozePolagati.DA);
+		// TabelaIzvjestaj i3 = new TabelaIzvjestaj(16028, "Mesud Klisura",
+		// 1098.5, 200, MozePolagati.DA);
+		// TabelaIzvjestaj i4 = new TabelaIzvjestaj(16049, "Faris Dzafic",
+		// 1098.5, 200, MozePolagati.DA);
+		// ArrayList<TabelaIzvjestaj> r = new ArrayList<TabelaIzvjestaj>();
+		// r.add(i1);
+		// r.add(i2);
+		// r.add(i3);
+		// r.add(i4);
+		//
+		// try {
+		// GenerisiIzvjestaj(r);
+		// } catch (FileNotFoundException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// } catch (DRException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 	}
 
 	public IzvjestajWindow(Korisnik k) {
 		korisnik = k;
 		initialize();
 	}
-	
-		
-	public void GenerisiIzvjestaj(ArrayList<TabelaIzvjestaj> redovi) throws FileNotFoundException, DRException
-	{
-		//dynamic report
-		JasperReportBuilder report = DynamicReports.report(); 
-		
-		//styles
+
+	public void GenerisiIzvjestaj(ArrayList<TabelaIzvjestaj> redovi)
+			throws FileNotFoundException, DRException {
+		// dynamic report
+		JasperReportBuilder report = DynamicReports.report();
+
+		// styles
 		StyleBuilder boldStyle = DynamicReports.stl.style().bold();
-		StyleBuilder totalStyle = DynamicReports.stl.style().bold().setBackgroundColor(Color.YELLOW).setHorizontalAlignment(HorizontalAlignment.CENTER);
-		StyleBuilder boldCentered = DynamicReports.stl.style(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER);
-		StyleBuilder columnHeaderStyle = DynamicReports.stl.style(boldCentered).setBorder(
-				DynamicReports.stl.pen1Point()
-				).setBackgroundColor(Color.PINK); 
-	
-		
-		//add title
-		TextFieldBuilder<String> title1 = DynamicReports.cmp.text("{ Naziv fakulteta }").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
-		report.title(title1); 
-		TextFieldBuilder<String> title2 = DynamicReports.cmp.text("{ Adresa fakulteta }").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
-		report.title(title2); 
-		TextFieldBuilder<String> title3 = DynamicReports.cmp.text("{ Kontakt info }\n\n\n").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
+		StyleBuilder totalStyle = DynamicReports.stl.style().bold()
+				.setBackgroundColor(Color.YELLOW)
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
+		StyleBuilder boldCentered = DynamicReports.stl.style(boldStyle)
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
+		StyleBuilder columnHeaderStyle = DynamicReports.stl.style(boldCentered)
+				.setBorder(DynamicReports.stl.pen1Point())
+				.setBackgroundColor(Color.PINK);
+
+		// add title
+		TextFieldBuilder<String> title1 = DynamicReports.cmp
+				.text("{ Naziv fakulteta }").setStyle(boldStyle)
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
+		report.title(title1);
+		TextFieldBuilder<String> title2 = DynamicReports.cmp
+				.text("{ Adresa fakulteta }").setStyle(boldStyle)
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
+		report.title(title2);
+		TextFieldBuilder<String> title3 = DynamicReports.cmp
+				.text("{ Kontakt info }\n\n\n").setStyle(boldStyle)
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
 		report.title(title3);
-		
-		if((TipIzvjestaja)comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija)
-		{
-			TextFieldBuilder<String> naziv = DynamicReports.cmp.text("Izvještaj o troškovima studija\n\n").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
-			report.title(naziv); 
+
+		if ((TipIzvjestaja) comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija) {
+			TextFieldBuilder<String> naziv = DynamicReports.cmp
+					.text("Izvještaj o troškovima studija\n\n")
+					.setStyle(boldStyle)
+					.setHorizontalAlignment(HorizontalAlignment.CENTER);
+			report.title(naziv);
+		} else {
+			TextFieldBuilder<String> naziv = DynamicReports.cmp
+					.text("Izvještaj o troškovima za literaturu\n\n")
+					.setStyle(boldStyle)
+					.setHorizontalAlignment(HorizontalAlignment.CENTER);
+			report.title(naziv);
+
 		}
-		else
-		{
-			TextFieldBuilder<String> naziv = DynamicReports.cmp.text("Izvještaj o troškovima za literaturu\n\n").setStyle(boldStyle).setHorizontalAlignment(HorizontalAlignment.CENTER); 
-			report.title(naziv); 
-		
-		}
-		TextFieldBuilder<String> potpis = DynamicReports.cmp.text("Potpis ovlaštenog:  _________________________\n").setHorizontalAlignment(HorizontalAlignment.LEFT); 
+		TextFieldBuilder<String> potpis = DynamicReports.cmp.text(
+				"Potpis ovlaštenog:  _________________________\n")
+				.setHorizontalAlignment(HorizontalAlignment.LEFT);
 		report.title(potpis);
-				
-		Date date = new Date(); 
+
+		Date date = new Date();
 		SimpleDateFormat d = new SimpleDateFormat("dd.MM.yyyy   HH:mm");
-		String s = d.format(date); 
-		
-		TextFieldBuilder<String> title4 = DynamicReports.cmp.text("Datum i vrijeme: " + s + "\n\n\n").setHorizontalAlignment(HorizontalAlignment.LEFT); 
-		report.title(title4); 
-		
-		
-		/*private int indeks;
-		private String student;
-		private double Troskovi;
-		private double dug;
-		private MozePolagati mozePolagati; */
-		
-		//add table
-		//add columns
-		TextColumnBuilder<Integer> indeksKolona = Columns.column("Indeks", "indeks", DynamicReports.type.integerType());
-		TextColumnBuilder<String> studentKolona = Columns.column("Ime i prezime", "student", DynamicReports.type.stringType());
-		TextColumnBuilder<Double> troskoviKolona = Columns.column("Vrijednost (KM)", "troskovi", DynamicReports.type.doubleType());
-		TextColumnBuilder<Double> dugKolona = Columns.column("Neplaćeni dug (KM)", "dug", DynamicReports.type.doubleType());
-		TextColumnBuilder<String> polazeKolona = Columns.column("Može polagati ispit", "mozePolagati", DynamicReports.type.stringType());
-        
-		//numeration of rows
-		TextColumnBuilder<Integer> rowNumColumn = Columns.reportRowNumberColumn("R.Broj").setFixedColumns(2).setHorizontalAlignment(HorizontalAlignment.CENTER);
-		
-		report.columns(rowNumColumn, indeksKolona, studentKolona, troskoviKolona, dugKolona, polazeKolona); 
-		
-		
-		//add title column style 
+		String s = d.format(date);
+
+		TextFieldBuilder<String> title4 = DynamicReports.cmp.text(
+				"Datum i vrijeme: " + s + "\n\n\n").setHorizontalAlignment(
+				HorizontalAlignment.LEFT);
+		report.title(title4);
+
+		/*
+		 * private int indeks; private String student; private double Troskovi;
+		 * private double dug; private MozePolagati mozePolagati;
+		 */
+
+		// add table
+		// add columns
+		TextColumnBuilder<String> indeksKolona = Columns.column("Indeks",
+				"indeks", DynamicReports.type.stringType());
+		TextColumnBuilder<String> studentKolona = Columns.column(
+				"Ime i prezime", "student", DynamicReports.type.stringType());
+		TextColumnBuilder<Double> troskoviKolona = Columns
+				.column("Vrijednost (KM)", "troskovi",
+						DynamicReports.type.doubleType());
+		TextColumnBuilder<Double> dugKolona = Columns.column(
+				"Neplaćeni dug (KM)", "dug", DynamicReports.type.doubleType());
+		TextColumnBuilder<String> polazeKolona = Columns.column(
+				"Može polagati ispit", "mozePolagati",
+				DynamicReports.type.stringType());
+
+		// numeration of rows
+		TextColumnBuilder<Integer> rowNumColumn = Columns
+				.reportRowNumberColumn("R.Broj").setFixedColumns(2)
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
+
+		report.columns(rowNumColumn, indeksKolona, studentKolona,
+				troskoviKolona, dugKolona, polazeKolona);
+
+		// add title column style
 		report.setColumnTitleStyle(columnHeaderStyle);
-		
-	   
-		//suma
-		report.subtotalsAtSummary(DynamicReports.sbt.sum(troskoviKolona).setStyle(totalStyle));
-		report.subtotalsAtSummary(DynamicReports.sbt.sum(dugKolona).setStyle(totalStyle));
-		
-		//add data source		
-		report.setDataSource(redovi); 
-		
-		//footer
+
+		// suma
+		report.subtotalsAtSummary(DynamicReports.sbt.sum(troskoviKolona)
+				.setStyle(totalStyle));
+		report.subtotalsAtSummary(DynamicReports.sbt.sum(dugKolona).setStyle(
+				totalStyle));
+
+		// add data source
+		report.setDataSource(redovi);
+
+		// footer
 		report.pageFooter(DynamicReports.cmp.pageXofY().setStyle(boldCentered));
-		
-		//highlight rows
-		report.highlightDetailEvenRows(); 
-		
-		ReportStyleBuilder textStyle = DynamicReports.stl.style().setHorizontalAlignment(HorizontalAlignment.CENTER);
-		report.setTextStyle(textStyle); 
-		
-		report.show(); 
-		//report.toPdf(new FileOutputStream(new File("c:/report.pdf"))); //promijeniti lokaciju
-		
-		
+
+		// highlight rows
+		report.highlightDetailEvenRows();
+
+		ReportStyleBuilder textStyle = DynamicReports.stl.style()
+				.setHorizontalAlignment(HorizontalAlignment.CENTER);
+		report.setTextStyle(textStyle);
+
+		report.show();
+		// report.toPdf(new FileOutputStream(new File("c:/report.pdf")));
+		// //promijeniti lokaciju
+
 	}
 
 	// ----------------------
@@ -234,7 +261,7 @@ public class IzvjestajWindow {
 	private void initialize() {
 		frmIzvjetaj = new JFrame();
 		frmIzvjetaj.setTitle("Izvje\u0161taj");
-		frmIzvjetaj.setBounds(100, 100, 557, 444);
+		frmIzvjetaj.setBounds(100, 100, 311, 195);
 		frmIzvjetaj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmIzvjetaj.getContentPane().setLayout(
 				new FormLayout(new ColumnSpec[] {
@@ -245,13 +272,7 @@ public class IzvjestajWindow {
 				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
 				ColumnSpec.decode("37px"),
 				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("103px"),
-				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("37px"),
-				FormFactory.LABEL_COMPONENT_GAP_COLSPEC,
-				ColumnSpec.decode("32px"),
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("55px"),},
+				ColumnSpec.decode("37px"),},
 			new RowSpec[] {
 				RowSpec.decode("30px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -261,8 +282,6 @@ public class IzvjestajWindow {
 				RowSpec.decode("23px"),
 				FormFactory.LINE_GAP_ROWSPEC,
 				RowSpec.decode("14px"),
-				FormFactory.LINE_GAP_ROWSPEC,
-				RowSpec.decode("239px"),
 				RowSpec.decode("21px"),
 				RowSpec.decode("23px"),}));
 
@@ -272,56 +291,62 @@ public class IzvjestajWindow {
 
 		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(TipIzvjestaja.values()));
-		frmIzvjetaj.getContentPane().add(comboBox, "4, 4, 4, 1, fill, center");
-										
-												JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
-												btnGenerisi.addActionListener(new ActionListener() {
-													public void actionPerformed(ActionEvent e) {
-													if((TipIzvjestaja)comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija) tipDuga = TipDuga.dugZaSkolarinu;
-													else tipDuga = TipDuga.dugZaLiteraturu;
-														ArrayList<Dug> dugovi = Dao.getInstance().dajSveDugove();
-														
-														ArrayList<TabelaIzvjestaj> redovi = new ArrayList<TabelaIzvjestaj>();
-														for(int i = 0; i<dugovi.size(); i++) {
-															Student s = dugovi.get(i).dajStudenta();					
-															double ukupanDug = dugovi.get(i).getVrijednost();
-															double dug = dugovi.get(i).dajVrijednostDuga();
-																				
-															TabelaIzvjestaj ti = new TabelaIzvjestaj(s.getIndeks(),
-																	s.getIme() + " " + s.getPrezime(), ukupanDug, dug, dug == 0 ? MozePolagati.DA : MozePolagati.NE);
-															
-															redovi.add(ti);
-													}
-															//poziv funkcije za generisanje
-															try {
-																GenerisiIzvjestaj(redovi);
-															} catch (FileNotFoundException e1) {
-																// TODO Auto-generated catch block
-																e1.printStackTrace();
-															} catch (DRException e1) {
-																// TODO Auto-generated catch block
-																e1.printStackTrace();
-															} 
-															
-														
-													}
-												});
-												
-														frmIzvjetaj.getContentPane().add(btnGenerisi,
-																"2, 6, 7, 1, fill, center");
-												
-														JButton btnIzai = new JButton("Iza\u0111i");
-														frmIzvjetaj.getContentPane()
-																.add(btnIzai, "8, 11, right, center");
+		frmIzvjetaj.getContentPane().add(comboBox, "4, 4, 3, 1, fill, center");
+
+		JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
+		btnGenerisi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				
-						btnIzai.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								if (e.getActionCommand().equals("Iza\u0111i")) {
+				//izbor selektovanog tipa izcjestaja
+				if ((TipIzvjestaja) comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija)
+					tipDuga = TipDuga.dugZaSkolarinu;
+				else
+					tipDuga = TipDuga.dugZaLiteraturu;
 				
-									System.exit(0);
-								}
-							}
-						});
+				//dobavaljanje svih
+				ArrayList<Dug> dugovi = Dao.getInstance().dajSveDugove();				
+
+				ArrayList<TabelaIzvjestaj> redovi = new ArrayList<TabelaIzvjestaj>();
+				for (int i = 0; i < dugovi.size(); i++) {
+					if(dugovi.get(i).getTipDuga() != tipDuga) continue;
+					Student s = dugovi.get(i).dajStudenta();
+					double ukupanDug = dugovi.get(i).getVrijednost();
+					double dug = dugovi.get(i).dajVrijednostDuga();
+
+					TabelaIzvjestaj ti = new TabelaIzvjestaj(s.getIndeks(), s
+							.getIme() + " " + s.getPrezime(), ukupanDug, dug,
+							dug == 0 ? MozePolagati.DA : MozePolagati.NE);
+
+					redovi.add(ti);
+				}
+				// poziv funkcije za generisanje
+				try {
+					GenerisiIzvjestaj(redovi);
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (DRException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
+		});
+
+		frmIzvjetaj.getContentPane().add(btnGenerisi,
+				"2, 6, 5, 1, fill, center");
+				
+						JButton btnIzai = new JButton("Iza\u0111i");
+						frmIzvjetaj.getContentPane().add(btnIzai, "4, 9, 3, 1, right, center");
+
+		btnIzai.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getActionCommand().equals("Iza\u0111i")) {
+
+					System.exit(0);
+				}
+			}
+		});
 		class btnPrintAction implements ActionListener, Printable {
 
 			public int print(Graphics gx, PageFormat pf, int page)

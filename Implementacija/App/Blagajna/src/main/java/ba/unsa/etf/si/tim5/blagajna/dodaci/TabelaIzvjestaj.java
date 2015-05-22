@@ -3,7 +3,7 @@ package ba.unsa.etf.si.tim5.blagajna.dodaci;
 
 
 public class TabelaIzvjestaj {
-	private int indeks;
+	private String indeks;
 	private String student;
 	private double Troskovi;
 	private double dug;
@@ -14,18 +14,18 @@ public class TabelaIzvjestaj {
 	public TabelaIzvjestaj(int indeks, String student, double troskovi,
 			double dug, MozePolagati mozePolagati) {
 		super();
-		this.indeks = indeks;
+		this.indeks = String.valueOf(indeks);
 		this.student = student;
 		Troskovi = troskovi;
 		this.dug = dug;
 		this.mozePolagati = mozePolagati.toString();
 	}
 
-	public int getIndeks() {
+	public String getIndeks() {
 		return indeks;
 	}
 
-	public void setIndeks(int indeks) {
+	public void setIndeks(String indeks) {
 		this.indeks = indeks;
 	}
 

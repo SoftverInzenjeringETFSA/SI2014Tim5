@@ -133,9 +133,9 @@ public class PrijavaWindow {
 				boolean user=false;
 						
 			
-				
+				//System.out.println(sviKorisnici.size());
 				for(int i=0;i<sviKorisnici.size();i++)
-				{	
+				{						
 					if(sviKorisnici.get(i).getKorisnickoIme().equals(username))
 					{   //System.out.println(password);
 						//logovaniKorisnik.setKorisnickoIme(username);
