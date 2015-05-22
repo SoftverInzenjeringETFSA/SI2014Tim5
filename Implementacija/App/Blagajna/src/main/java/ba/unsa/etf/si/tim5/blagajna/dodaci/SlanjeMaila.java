@@ -10,9 +10,10 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import com.itextpdf.text.log.Logger;
-public class SlanjeMaila {
+import org.apache.log4j.Logger;
 
+public class SlanjeMaila {
+	final static Logger logger = Logger.getLogger(SlanjeMaila.class);
 	private static SlanjeMaila instanca = null;
 	private String from = "sitim52014";
 	private String pass = "2014tim5si";
@@ -62,9 +63,12 @@ public class SlanjeMaila {
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
 		} catch (AddressException ae) {
-			ae.printStackTrace();			
+			ae.printStackTrace();
+			logger.error("Greška kod slanja maila! " + ae.getMessage() , ae);
+
 		} catch (MessagingException me) {
-			me.printStackTrace();			
+			me.printStackTrace();		
+			logger.error("Greška kod slanja maila! " + me.getMessage() , me);
 		}
 	}
 }
