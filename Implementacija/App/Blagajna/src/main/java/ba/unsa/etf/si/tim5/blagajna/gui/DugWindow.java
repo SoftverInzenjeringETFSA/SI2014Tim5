@@ -1,5 +1,7 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.print.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,7 +20,9 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.mysql.jdbc.Statement;
 
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -94,7 +98,7 @@ public class DugWindow {
 	public DugWindow()
 	{
 		ArrayList<Student> studenti = Dao.getInstance().dajSveStudente();
-		student = studenti.get(9);
+		student = studenti.get(1);
 		initialize();
 	}
 	
@@ -103,7 +107,6 @@ public class DugWindow {
 	 */
 	public DugWindow(Student s) {
 		student = s;
-		
 		initialize();
 	}
 
@@ -174,9 +177,34 @@ public class DugWindow {
 		});
 		
 		
+		
+		
 		frmDugovanjaUplate.getContentPane().add(StudijskaGodinaCB, "9, 4, fill, default");
 		
 		table = new JTable();
+	
+		
+	
+	    table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+	        @Override
+	        public Component getTableCellRendererComponent(JTable table,
+	                Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+
+	            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+	            if (hasFocus) setBackground(Color.DARK_GRAY);
+	            
+	            String datum = (String)table.getModel().getValueAt(row, 3);
+	            if (datum == "") {
+	                setBackground(Color.RED);
+	            }   
+	            else 
+	            {
+	            	setBackground(Color.WHITE);
+	            }
+	            return this;
+	        }   
+	    });
+	    
 		
 		final DefaultTableModel model = new DefaultTableModel(new Object[][] {
 		},
@@ -193,18 +221,14 @@ public class DugWindow {
 		table.getColumnModel().getColumn(0).setMinWidth(7);
 		table.getColumnModel().getColumn(2).setMinWidth(18);
 		table.getColumnModel().getColumn(3).setMinWidth(18);
-		JScrollPane TabelaDugova = new JScrollPane(table);
-		frmDugovanjaUplate.getContentPane().add(TabelaDugova, "3, 8, 7, 1, fill, fill");
+		JScrollPane TabelaDugova = new JScrollPane(table);	frmDugovanjaUplate.getContentPane().add(TabelaDugova, "3, 8, 7, 1, fill, fill");
 		
 		popuniTabelu();
-		
-
 		
 		lblUkupanDug = new JLabel("Ukupan dug:");
 		frmDugovanjaUplate.getContentPane().add(lblUkupanDug, "7, 12");
 	
 		double ukupanDugD = student.dajUkupniDug();
-		
 		int ukupanDugI = (int)ukupanDugD;
 		String s = Integer.toString(ukupanDugI);
 		
@@ -214,14 +238,13 @@ public class DugWindow {
 		
 		btnUplati = new JButton("Uplati");
 		btnUplati.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			if (table.getSelectedRow() == -1)
+			public void actionPerformed(ActionEvent e) {			
+				if (table.getSelectedRow() == -1)
 				JOptionPane.showMessageDialog(null,"Odaberite ratu koju želite da uplatite !","Message",JOptionPane.INFORMATION_MESSAGE);
 			else
-			{
-				
+			{		
 				int red = table.getSelectedRow();
-			int id = Integer.parseInt(table.getValueAt(red, 0).toString());
+				int id = Integer.parseInt(table.getValueAt(red, 0).toString());
 		
 			for (int i =0;i<rate.size();i++)
 				if (rate.get(i).getId()==id)
@@ -232,12 +255,23 @@ public class DugWindow {
 					rate.get(i).setDatumRazduzenja(new Date());
 					rate.get(i).urediRatu(session);
 					session.close();
+				
+					for (int j = 0;j<dugovi.size();j++)
+						if (dugovi.get(j).getId()==rate.get(i).getDugId())
+						{
+							Session session1 = HibernateUtil.getSessionFactory().openSession();
+							dugovi.get(j).setVrijednost(dugovi.get(j).getVrijednost()-rate.get(i).getVrijednost());
+							if (dugovi.get(j).getVrijednost()<1) dugovi.get(j).setJeLiIzmiren(true);
+							dugovi.get(j).urediDug(session1);
+							session1.close();	
+						}
+					
+					
 					popuniTabelu();
 				}
 				else
 				{
 					JOptionPane.showMessageDialog(null,"Rata je vec uplacena !","Message",JOptionPane.INFORMATION_MESSAGE);
-					
 				}
 			}
 			}
@@ -267,11 +301,9 @@ public class DugWindow {
 				{
 					
 				}
-			
 				}
 		 }
-			
-			});
+	});
 		
 		frmDugovanjaUplate.getContentPane().add(btnPrintaj, "3, 18, 7, 1, default, top");
 	}	
@@ -303,13 +335,20 @@ public class DugWindow {
 				
 				datum2 = dajDatum(rate.get(j).getDatumRazduzenja());
 				datum3 = dajDatum(rate.get(j).getRokUplate());
+				String tipDuga;
+				tipDuga = dugovi.get(i).getTipDuga().toString();
+				if (tipDuga.equals("dugZaSkolarinu")) tipDuga = "Dug za školarinu";
+				else tipDuga = "Dug za literaturu";
+				model.addRow(new Object[] {rate.get(j).getId() , (int)rate.get(j).getVrijednost(), datum1, datum2, datum3, tipDuga });
 				
-				model.addRow(new Object[] {rate.get(j).getId() , (int)rate.get(j).getVrijednost(), datum1, datum2, datum3, dugovi.get(i).getTipDuga() });
+				
 			}
 		}
 			
 		}
 		session.close();
+		
+		
 	}
 		// TODO Auto-generated method stub
 
@@ -319,37 +358,7 @@ public class DugWindow {
 		String s = dateFormat.format(datum).toString();
 		return s;
 	}
-	/*
 	
-	public class Printer implements Printable {
-		 
-	    public int print(Graphics g, PageFormat pf, int page) throws
-	                                                        PrinterException {
-	        if (page > 0) { 
-	            return NO_SUCH_PAGE;
-	        }
-	        Graphics2D g2d = (Graphics2D)g;
-	        g2d.translate(pf.getImageableX(), pf.getImageableY());
-	        g.drawString(textZaPrintanje, 20, 25);
-	 
-	        return PAGE_EXISTS;
-	    }
-	 
-	    public void otvoriMeni() {
-	         PrinterJob job = PrinterJob.getPrinterJob();
-	         job.setPrintable(this);
-	         boolean ok = job.printDialog();
-	         if (ok) {
-	             try {
-	                  job.print();
-	             } catch (PrinterException ex) {
-	             
-	             }
-	         }
-	    }
-	 
-	} 
-	*/
 	public void GenerisiIzvjestaj(String ime, String prezime, String imeRoditelja, String dug, String datum) throws FileNotFoundException, DRException
 	{
 		//dynamic report
@@ -367,19 +376,19 @@ public class DugWindow {
 		
 		if (datum != "")
 		{
-			TextFieldBuilder<String> title4 =DynamicReports.cmp.text("   Ovaj dokument se izdaje kao potvrda da je student " + ime + " (" + imeRoditelja+ ") " + prezime + " izmirio ratu duga prema Univerzitetu u vrijednosti od "+dug+" na datum " + datum +".\n\n\n\n");
+			TextFieldBuilder<String> title4 =DynamicReports.cmp.text("   Ovaj dokument se izdaje kao potvrda da je student " + ime + " (" + imeRoditelja+ ") " + prezime + " izmirio/la ratu duga prema Univerzitetu u vrijednosti od "+dug+" KM na datum " + datum +".\n\n\n\n");
 			report.title(title4);
 		}
 		else
 		{
-			TextFieldBuilder<String> title4 =DynamicReports.cmp.text("   Ovaj dokument se izdaje kao potvrda da student " + ime + " (" + imeRoditelja+ ") " + prezime + " nije izmirio ratu duga Univerzitetu u vrijednosti od "+dug+".\n\n\n\n");
+			TextFieldBuilder<String> title4 =DynamicReports.cmp.text("   Ovaj dokument se izdaje kao potvrda da student " + ime + " (" + imeRoditelja+ ") " + prezime + " nije izmirio/la ratu duga Univerzitetu u vrijednosti od "+dug+" KM.\n\n\n\n");
 			report.title(title4);
 		}
 		
 		
 		TextFieldBuilder<String> title5 =DynamicReports.cmp.text("Potpis ovlaštenog lica: ___________________ \n");
 		report.title(title5);
-		TextFieldBuilder<String> title6 =DynamicReports.cmp.text("Potpis studenta: ___________________ \n");
+		TextFieldBuilder<String> title6 =DynamicReports.cmp.text("Potpis studenta:        ___________________ \n");
 		report.title(title6);
 		
 		
@@ -389,13 +398,10 @@ public class DugWindow {
 		report.title(title7); 
 				
 		report.show(); 
-		//report.toPdf(new FileOutputStream(new File("c:/report.pdf"))); //promijeniti lokaciju
 		
 		
 	}
-	
-	
-	
+
 }	// TODO Auto-generated method stub
 		
 
