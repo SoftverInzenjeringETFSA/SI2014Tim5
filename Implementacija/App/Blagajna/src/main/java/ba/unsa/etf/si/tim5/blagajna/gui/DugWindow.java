@@ -182,15 +182,13 @@ public class DugWindow {
 		frmDugovanjaUplate.getContentPane().add(StudijskaGodinaCB, "9, 4, fill, default");
 		
 		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		table.setRowSelectionAllowed(false);
-		
+		table.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+		table.setRowSelectionAllowed(true);
 		
 	    table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 	        @Override
 	        public Component getTableCellRendererComponent(JTable table,
 	                Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-
 	            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
 	            if (hasFocus) setBackground(Color.DARK_GRAY);
 	            
@@ -206,8 +204,7 @@ public class DugWindow {
 	        }   
 	    });
 	    
-	    table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-		table.setRowSelectionAllowed(true);
+
 		final DefaultTableModel model = new DefaultTableModel(new Object[][] {
 		},
 		new String[] {
@@ -222,11 +219,16 @@ public class DugWindow {
 	   	    
 	    };
 	    
-	    table.setModel(model);
-		
-		table.getColumnModel().getColumn(0).setMinWidth(7);
-		table.getColumnModel().getColumn(2).setMinWidth(18);
-		table.getColumnModel().getColumn(3).setMinWidth(18);
+	    table.setModel(new DefaultTableModel(
+	    	new Object[][] {
+	    	},
+	    	new String[] {
+	    		"Id", "Dug", "Datum zadu\u017Eenja", "Datum razdu\u017Eenja", "Rok za uplatu", "Tip duga"
+	    	}
+	    ));
+	    table.getColumnModel().getColumn(0).setMinWidth(7);
+	    table.getColumnModel().getColumn(2).setMinWidth(18);
+	    table.getColumnModel().getColumn(3).setMinWidth(18);
 		JScrollPane TabelaDugova = new JScrollPane(table);	frmDugovanjaUplate.getContentPane().add(TabelaDugova, "3, 8, 7, 1, fill, fill");
 		
 		popuniTabelu();
