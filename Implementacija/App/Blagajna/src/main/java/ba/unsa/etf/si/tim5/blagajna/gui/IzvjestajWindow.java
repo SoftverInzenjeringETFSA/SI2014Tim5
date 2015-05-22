@@ -2,6 +2,7 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 
 import java.awt.GridBagLayout;
@@ -62,6 +63,7 @@ import org.hibernate.Session;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Mjesec;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.MozePolagati;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TabelaIzvjestaj;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipIzvjestaja;
@@ -76,9 +78,10 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
-
+import org.apache.log4j.Logger;
 public class IzvjestajWindow {
 
+	final static Logger logger = Logger.getLogger(SlanjeMaila.class);
 	JFrame frmIzvjetaj;
 	JComboBox comboBox;
 	static Korisnik korisnik;
@@ -96,6 +99,7 @@ public class IzvjestajWindow {
 					window.frmIzvjetaj.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error("Greška pri otvaranju forme za izvještaj! " + e.getMessage() , e);
 				}
 			}
 		});
@@ -325,8 +329,9 @@ public class IzvjestajWindow {
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+					logger.error("Greška pri generisanju izvještaja! " + e1.getMessage() , e1);
 				} catch (DRException e1) {
-					// TODO Auto-generated catch block
+					logger.error("Greška pri generisanju izvještaja! " + e1.getMessage() , e1);
 					e1.printStackTrace();
 				}
 
@@ -345,30 +350,6 @@ public class IzvjestajWindow {
 				frmIzvjetaj.dispose();
 			}
 		});
-		class btnPrintAction implements ActionListener, Printable {
-
-			public int print(Graphics gx, PageFormat pf, int page)
-					throws PrinterException {
-				if (page > 0) {
-					return NO_SUCH_PAGE;
-				}
-				Graphics2D g = (Graphics2D) gx;
-				g.translate(pf.getImageableX(), pf.getImageableY());
-				g.drawString("Hello world", 100, 100);
-				return PAGE_EXISTS;
-			}
-
-			public void actionPerformed(ActionEvent e) {
-				PrinterJob job = PrinterJob.getPrinterJob();
-				job.setPrintable(this);
-				if (job.printDialog() == true) {
-					try {
-						job.print();
-					} catch (PrinterException ex) {
-					}
-				}
-			}
-		}
 
 	}
 }
