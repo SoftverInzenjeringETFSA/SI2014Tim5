@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 import java.awt.BorderLayout;
 
@@ -76,8 +77,7 @@ public class DugWindow {
 	private JButton btnPrintaj;
 	private Student student;
 	ArrayList<Dug> dugovi;
-	ArrayList<Rata> rate;
-	private String textZaPrintanje="";
+	ArrayList<Rata> rate;	
 	
 	/**
 	 * Launch the application.
@@ -182,9 +182,10 @@ public class DugWindow {
 		frmDugovanjaUplate.getContentPane().add(StudijskaGodinaCB, "9, 4, fill, default");
 		
 		table = new JTable();
-	
+		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		table.setRowSelectionAllowed(false);
 		
-	
+		
 	    table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 	        @Override
 	        public Component getTableCellRendererComponent(JTable table,
@@ -205,18 +206,23 @@ public class DugWindow {
 	        }   
 	    });
 	    
-		
+	    table.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+		table.setRowSelectionAllowed(true);
 		final DefaultTableModel model = new DefaultTableModel(new Object[][] {
 		},
 		new String[] {
 			"Id", "Dug", "Datum zadu\u017Eenja", "Datum razdu\u017Eenja", "Rok za uplatu", "Tip duga"
 		}) {
-	    	public boolean isCellEditable(int row, int column){return false;}
+	    	/**
+			 * 
+			 */
+			private static final long serialVersionUID = 8947897896919412127L;
+
+			public boolean isCellEditable(int row, int column){return false;}
 	   	    
 	    };
 	    
 	    table.setModel(model);
-
 		
 		table.getColumnModel().getColumn(0).setMinWidth(7);
 		table.getColumnModel().getColumn(2).setMinWidth(18);
