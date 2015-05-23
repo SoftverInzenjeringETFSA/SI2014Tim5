@@ -106,10 +106,6 @@ public class Korisnik implements java.io.Serializable{
 	public void setTipKorisnika(TipKorisnika tipKorisnika) {
 		this.tipKorisnika = tipKorisnika;
 	}
-
-	public void registrujIzvjestaj(Izvjestaj izvjestaj) {
-		
-	}
 	
 	public TipKorisnika ToTipKorisnika(String s){
 		if(s=="Korisnik") return TipKorisnika.values()[0];

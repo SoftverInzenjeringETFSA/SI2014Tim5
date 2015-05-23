@@ -34,7 +34,7 @@ import java.awt.event.MouseEvent;
 
 public class PrijavaWindow {
 
-	JFrame frmPrijava;
+	public JFrame frmPrijava;
 	private JTextField textUser;
 	private JPasswordField textPass;
 	ArrayList<Korisnik> sviKorisnici=new ArrayList<Korisnik>();

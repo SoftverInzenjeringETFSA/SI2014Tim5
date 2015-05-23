@@ -11,7 +11,6 @@
   <property name="hibernate.hbm2ddl.auto">update</property>
   <mapping resource="ba/unsa/etf/si/tim5/blagajna/entiteti/Literatura.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/tim5/blagajna/entiteti/Dug.hbm.xml"/>
-  <mapping resource="ba/unsa/etf/si/tim5/blagajna/entiteti/Izvjestaj.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/tim5/blagajna/entiteti/Korisnik.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/tim5/blagajna/entiteti/Rata.hbm.xml"/>
   <mapping resource="ba/unsa/etf/si/tim5/blagajna/entiteti/Student.hbm.xml"/>

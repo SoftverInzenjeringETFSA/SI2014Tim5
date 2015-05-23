@@ -90,7 +90,7 @@ public class UnosKorisnikaWindow {
 	 */
 	public UnosKorisnikaWindow() {
 		initialize();
-		
+		btnUredi.setVisible(false);
 	}
 
 	public UnosKorisnikaWindow(Korisnik _k, JTable tabela, int selektovani) {

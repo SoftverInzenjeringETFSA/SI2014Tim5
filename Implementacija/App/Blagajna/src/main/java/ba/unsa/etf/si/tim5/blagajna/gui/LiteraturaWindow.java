@@ -155,14 +155,20 @@ public class LiteraturaWindow {
 		frmUnosDugaZa.getContentPane().add(lblPrikazLiterature, "4, 4");
 
 		table = new JTable();
-		final DefaultTableModel tmodel = new DefaultTableModel() {
-	    	public boolean isCellEditable(int row, int column){return false;}
+		final DefaultTableModel tmodel = new DefaultTableModel(new Object[][] { }, new String[] { "Id", "ISBN",
+				"Naziv", "Autor", "Koli\u010Dina", "Cijena" }) {
+	    	/**
+					 * 
+					 */
+					private static final long serialVersionUID = -3390677526490666016L;
+
+			public boolean isCellEditable(int row, int column){return false;}
 	   	    
 	    };
 	    table.setModel(tmodel);
 	    table.getTableHeader().setReorderingAllowed(false);
-		table.setModel(new DefaultTableModel(new Object[][] { }, new String[] { "Id", "ISBN",
-				"Naziv", "Autor", "Koli\u010Dina", "Cijena" }));
+		//table.setModel(new DefaultTableModel(new Object[][] { }, new String[] { "Id", "ISBN",
+		//		"Naziv", "Autor", "Koli\u010Dina", "Cijena" }));
 		// frmUnosDugaZa.getContentPane().add(table, "4, 4, fill, fill");
 
 		JScrollPane scrollPane = new JScrollPane(table);
