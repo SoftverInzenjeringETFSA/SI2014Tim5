@@ -39,8 +39,8 @@ public class PrijavaWindow {
 	public JFrame frmPrijava;
 	private JTextField textUser;
 	private JPasswordField textPass;
-	ArrayList<Korisnik> sviKorisnici=new ArrayList<Korisnik>();
-	Korisnik logovaniKorisnik=new Korisnik();
+	ArrayList<Korisnik> sviKorisnici;
+	Korisnik logovaniKorisnik = new Korisnik();
 	
 	
 
@@ -132,8 +132,8 @@ public class PrijavaWindow {
 				char[] password=textPass.getPassword();
 				
 				String passString = new String(password);
-				boolean isPassCorrect=Validacija.getInstance().passwordValidation(passString);
-				if (!isPassCorrect)return;
+//				boolean isPassCorrect=Validacija.getInstance().passwordValidation(passString);
+//				if (!isPassCorrect)return;
 				
 				
 				boolean user=false;
@@ -153,7 +153,8 @@ public class PrijavaWindow {
 							logovaniKorisnik=sviKorisnici.get(i);
 							MainWindow window = new MainWindow(logovaniKorisnik);
 							window.frmBlagajna.setVisible(true);
-							
+							frmPrijava.setVisible(false);
+							frmPrijava.dispose();
 						}
 						else
 						{
