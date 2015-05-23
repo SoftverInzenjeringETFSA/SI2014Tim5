@@ -21,6 +21,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
@@ -223,10 +224,17 @@ public class UnosKorisnikaWindow {
 				String telefon = textField_4.getText();
 				String username = textField_6.getText();
 				String lozinka = "admin";
+				boolean pomocna;
+				
+				
 				TipKorisnika tip = (TipKorisnika) comboBox.getSelectedItem();
+				
 				try {
 					Session session = HibernateUtil.getSessionFactory()
 							.openSession();
+					
+					/*pomocna=Validacija.jmbgValidation(jmbg);
+					if(!pomocna) throw new IllegalArgumentException("Unesite validan format JMBG-a!");*/
 					Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa,
 							telefon, mail, tip, username, lozinka);
 
@@ -235,20 +243,22 @@ public class UnosKorisnikaWindow {
 							"Dodali ste novog korisnika " + ime + " " + prezime
 									+ "!");
 
-					//korisnici.add(k);
 					
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
 							k.getPrezime(), k.getJmbg(), k.getAdresa(),
 							k.getTelefon(), k.getMail(), k.getTipKorisnika() });
 					session.close();
-
+					
 				}
-
+				
+				
 				catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,
 							ex.getLocalizedMessage());
+					
 				}
+				
 
 			}
 		});
