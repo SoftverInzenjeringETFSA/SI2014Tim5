@@ -137,8 +137,10 @@ public class MainWindow {
 	private static ArrayList<Student> studenti = new ArrayList<Student>();
 	
 	public MainWindow() {
+		tip=TipKorisnika.Korisnik;
 		initialize();
 		ucitajSveStudente();
+		
 	}
 	
 	public MainWindow(Korisnik k) {
@@ -367,6 +369,7 @@ public class MainWindow {
 				"Dug za \u0161koralinu", "Dug za literaturu" }));
 
 		JButton btnObrisi = new JButton("Obrisi");
+		if(tip.equals(TipKorisnika.Korisnik))btnObrisi.setVisible(false);
 		btnObrisi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -410,7 +413,7 @@ public class MainWindow {
         
 		
 		JButton btnUredi = new JButton("Detalji/\r\nUredi");
-		//if(tip.equals(TipKorisnika.Korisnik))btnUredi.setVisible(false);
+		if(tip.equals(TipKorisnika.Korisnik))btnUredi.setVisible(false);
 		btnUredi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(table.getSelectedRow()!=-1){
@@ -550,6 +553,9 @@ public class MainWindow {
 		menuBar.add(mnUredi);
 
 		JMenuItem mntmUrediUposlenike = new JMenuItem("Uredi korisnike");
+		mntmUrediUposlenike.setVisible(true);
+		if(tip.equals(TipKorisnika.Korisnik))mntmUrediUposlenike.setVisible(false);
+		
 		mntmUrediUposlenike.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -558,11 +564,12 @@ public class MainWindow {
 			}
 		});
 		
-		mntmUrediUposlenike.setVisible(true);
-		//if(user.getTipKorisnika().equals(TipKorisnika.Administrator))mntmUrediUposlenike.setVisible(true);
+		
+		
 		mnUredi.add(mntmUrediUposlenike);
 
 		JMenuItem mntmLiteratura = new JMenuItem("Uredi literaturu");
+		
 		mntmLiteratura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -586,6 +593,7 @@ public class MainWindow {
 		mnDodaj.add(mntmDodajStudenta);
 
 		JMenuItem mntmDodajKorisnika = new JMenuItem("Dodaj korisnika");
+		if(tip.equals(TipKorisnika.Korisnik))mntmDodajKorisnika.setVisible(false);
 		mntmDodajKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UnosKorisnikaWindow window=new UnosKorisnikaWindow();
@@ -604,6 +612,7 @@ public class MainWindow {
 		mnDodaj.add(mntmDodajLiteraturu);
 
 		JMenu mnIzvjetaj = new JMenu("Izvje\u0161taj");
+		if(tip.equals(TipKorisnika.Korisnik))mnIzvjetaj.setVisible(false);
 		mnIzvjetaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				IzvjestajWindow window = new IzvjestajWindow();
