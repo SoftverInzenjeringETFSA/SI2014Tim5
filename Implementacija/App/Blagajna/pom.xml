@@ -79,7 +79,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<mainClass>ba.unsa.etf.si.tim5.blagajna.App</mainClass>
+							<mainClass>ba.unsa.etf.si.tim5.blagajna.gui.Prijava</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
