@@ -3,6 +3,7 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.EventQueue;
 
 
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
@@ -11,11 +12,13 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
 
+
 import java.awt.Color;
 
 import javax.swing.JButton;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
@@ -27,7 +30,6 @@ import com.jgoodies.forms.layout.RowSpec;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
-
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -130,6 +132,10 @@ public class PrijavaWindow {
 				char[] password=textPass.getPassword();
 				
 				String passString = new String(password);
+				boolean isPassCorrect=Validacija.getInstance().passwordValidation(passString);
+				if (!isPassCorrect)return;
+				
+				
 				boolean user=false;
 						
 			
