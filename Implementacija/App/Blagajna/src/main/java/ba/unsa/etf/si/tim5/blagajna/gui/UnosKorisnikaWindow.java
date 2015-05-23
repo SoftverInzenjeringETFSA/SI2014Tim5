@@ -235,12 +235,13 @@ public class UnosKorisnikaWindow {
 							"Dodali ste novog korisnika " + ime + " " + prezime
 									+ "!");
 
-					korisnici.add(k);
-					session.close();
+					//korisnici.add(k);
+					
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
 							k.getPrezime(), k.getJmbg(), k.getAdresa(),
 							k.getTelefon(), k.getMail(), k.getTipKorisnika() });
+					session.close();
 
 				}
 
