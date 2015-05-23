@@ -17,7 +17,7 @@ public class Korisnik implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 791360639196831629L;
-	private static long id;
+	private long id;
 	private String ime;
 	private String prezime;
 	private String jmbg;
@@ -34,7 +34,7 @@ public class Korisnik implements java.io.Serializable{
 	public Korisnik(long id, String ime, String prezime, String jmbg, String adresa,
 			String telefon, String mail, TipKorisnika tipKorisnika, String korisnickoIme, String lozinka) {
 		super();
-		this.id = id;
+		this.setId(id);
 		if(!validirajIsto(jmbg,telefon,mail,korisnickoIme)) throw new IllegalArgumentException();
 		this.setIme(ime); 
 		this.setPrezime(prezime);
@@ -43,7 +43,7 @@ public class Korisnik implements java.io.Serializable{
 		this.setMail(mail);
 		this.setTelefon(telefon);
 		this.setTipKorisnika(tipKorisnika);		
-		this.korisnickoIme = korisnickoIme;
+		this.setKorisnickoIme(korisnickoIme);
 		this.setLozinka(lozinka);
 		
 	}
@@ -55,7 +55,7 @@ public class Korisnik implements java.io.Serializable{
 	}
 
 	public void setKorisnickoIme(String korisnickoIme) {
-		if(ime.equals("")) 
+		if(korisnickoIme.equals("")) 
 		{
 			 throw new IllegalArgumentException("Niste unijeli korisnicko ime!");
 		}
