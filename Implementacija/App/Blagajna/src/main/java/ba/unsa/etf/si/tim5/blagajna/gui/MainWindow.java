@@ -4,7 +4,9 @@ import java.awt.EventQueue;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.UpozorenjeZaDug;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
+
 
 
 
@@ -149,7 +151,8 @@ public class MainWindow {
 		tip=k.getTipKorisnika();
 		initialize();
 		
-		
+		UpozorenjeZaDug dug=new UpozorenjeZaDug();
+		dug.posaljiMail();
 		ucitajSveStudente();
 	
 		
