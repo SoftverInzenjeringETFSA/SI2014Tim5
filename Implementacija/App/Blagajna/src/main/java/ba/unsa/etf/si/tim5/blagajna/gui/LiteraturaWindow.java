@@ -92,7 +92,7 @@ public class LiteraturaWindow {
 	
 	private void inicijalizirajTabelu() {
 		ArrayList<Literatura> l = Dao.getInstance().dajSvuLiteraturu();			
-		
+		literatura = l;
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
 		for(int i = 0; i<l.size(); i++)
@@ -107,7 +107,7 @@ public class LiteraturaWindow {
 
 	}
 
-	private ArrayList<Literatura> literatura = new ArrayList<Literatura>();
+	private ArrayList<Literatura> literatura;
 	private JButton btnIzai;
 
 	public LiteraturaWindow(ArrayList<Literatura> literatura) {
