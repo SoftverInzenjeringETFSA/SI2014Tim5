@@ -65,7 +65,7 @@ public class UnosKorisnikaWindow {
 	private JTable tabela;
 	protected Component frame;
 	private int selektovani;
-
+	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
 	static JButton btnUredi = new JButton("Uredi");
 	static JButton btnDodaj = new JButton("Dodaj");
 
@@ -238,11 +238,10 @@ public class UnosKorisnikaWindow {
 							telefon, mail, tip, username, lozinka);
 					
 					k.dodajKorisnika(session);
-					//logger.info("Dodan korisnik " + k.getIme() + " " + k.getPrezime()+".");
 					JOptionPane.showMessageDialog(frame,
 							"Dodali ste novog korisnika " + ime + " " + prezime
-									+ "!");
-
+									+ ".");
+					logger.info("Dodali ste novog korisnika " + k.getIme() + " " + k.getPrezime()+".");
 					session.close();
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
@@ -256,6 +255,8 @@ public class UnosKorisnikaWindow {
 				catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,
 							ex.getLocalizedMessage());
+					ex.printStackTrace();
+					logger.error("Greška kod dodavanja novog korisnika! " + ex.getMessage() , ex);
 					
 				}
 				
@@ -288,7 +289,7 @@ public class UnosKorisnikaWindow {
 					JOptionPane.showMessageDialog(frame,
 							"Uredili ste korisnika " + ime + " " + prezime
 									+ "!");
-					//logger.info("Uredili ste korisnika " + k.getIme() + " " + k.getPrezime()+".");
+					logger.info("Uredili ste korisnika " + k.getIme() + " " + k.getPrezime()+".");
 					session.close();
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
 					tmodel.setValueAt(k.getId(), selektovani, 0);
@@ -305,6 +306,7 @@ public class UnosKorisnikaWindow {
 				catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,
 							ex.getLocalizedMessage());
+					logger.error("Greška kod uredjivanja novog korisnika! " + ex.getMessage() , ex);
 				}
 
 			}
