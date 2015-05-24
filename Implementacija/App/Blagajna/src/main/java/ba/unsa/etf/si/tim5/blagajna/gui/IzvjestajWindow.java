@@ -5,23 +5,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-import java.awt.GridBagLayout;
-
-import javax.swing.JTextPane;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Vector;
 
 import net.sf.jasperreports.components.*;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
@@ -30,7 +16,6 @@ import net.sf.dynamicreports.report.builder.column.Columns;
 import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
 import net.sf.dynamicreports.report.builder.style.ReportStyleBuilder;
-import net.sf.dynamicreports.report.builder.style.SimpleStyleBuilder;
 import net.sf.dynamicreports.report.builder.style.StyleBuilder;
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.exception.DRException;
@@ -39,39 +24,25 @@ import javax.swing.*;
 
 import java.awt.print.*;
 import java.text.SimpleDateFormat;
-import java.text.DateFormat;
 import java.util.Date;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.Calendar;
 
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JOptionPane;
 //----------------------
-import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 
-import org.hibernate.Session;
-
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Mjesec;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.MozePolagati;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TabelaIzvjestaj;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipIzvjestaja;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
-import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -80,7 +51,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import org.apache.log4j.Logger;
 public class IzvjestajWindow {
 
-	final static Logger logger = Logger.getLogger(SlanjeMaila.class);
+	private static final Logger logger = Logger.getLogger(SlanjeMaila.class);
 	JFrame frmIzvjetaj;
 	JComboBox comboBox;
 	static Korisnik korisnik;
@@ -98,7 +69,8 @@ public class IzvjestajWindow {
 					window.frmIzvjetaj.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error("Greška pri otvaranju forme za izvještaj! " + e.getMessage() , e);
+					
+					logger.error(e.getMessage() , e);
 				}
 			}
 		});
@@ -109,38 +81,12 @@ public class IzvjestajWindow {
 	 */
 	public IzvjestajWindow() {
 		initialize();
-		/*
-		 * private int indeks; private String student; private double Troskovi;
-		 * private double dug; private MozePolagati mozePolagati;
-		 */
-		// TabelaIzvjestaj i1 = new TabelaIzvjestaj(16049, "Sabina Grošić",
-		// 1098.5, 200, MozePolagati.DA);
-		// TabelaIzvjestaj i2 = new TabelaIzvjestaj(16161, "Arnela Duzan", 200,
-		// 200, MozePolagati.DA);
-		// TabelaIzvjestaj i3 = new TabelaIzvjestaj(16028, "Mesud Klisura",
-		// 1098.5, 200, MozePolagati.DA);
-		// TabelaIzvjestaj i4 = new TabelaIzvjestaj(16049, "Faris Dzafic",
-		// 1098.5, 200, MozePolagati.DA);
-		// ArrayList<TabelaIzvjestaj> r = new ArrayList<TabelaIzvjestaj>();
-		// r.add(i1);
-		// r.add(i2);
-		// r.add(i3);
-		// r.add(i4);
-		//
-		// try {
-		// GenerisiIzvjestaj(r);
-		// } catch (FileNotFoundException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// } catch (DRException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
 	}
 
 	public IzvjestajWindow(Korisnik k) {
-		korisnik = k;
+		
 		initialize();
+		korisnik = k;
 	}
 
 	public void GenerisiIzvjestaj(ArrayList<TabelaIzvjestaj> redovi)
@@ -201,13 +147,6 @@ public class IzvjestajWindow {
 				HorizontalAlignment.LEFT);
 		report.title(title4);
 
-		/*
-		 * private int indeks; private String student; private double Troskovi;
-		 * private double dug; private MozePolagati mozePolagati;
-		 */
-
-		// add table
-		// add columns
 		TextColumnBuilder<String> indeksKolona = Columns.column("Indeks",
 				"indeks", DynamicReports.type.stringType());
 		TextColumnBuilder<String> studentKolona = Columns.column(
@@ -252,9 +191,7 @@ public class IzvjestajWindow {
 		report.setTextStyle(textStyle);
 
 		report.show();
-		// report.toPdf(new FileOutputStream(new File("c:/report.pdf")));
-		// //promijeniti lokaciju
-
+	
 	}
 
 	// ----------------------
@@ -298,6 +235,8 @@ public class IzvjestajWindow {
 
 		JButton btnGenerisi = new JButton("Generi\u0161i izvje\u0161taj");
 		btnGenerisi.addActionListener(new ActionListener() {
+			//@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				//izbor selektovanog tipa izcjestaja
@@ -328,10 +267,11 @@ public class IzvjestajWindow {
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-					logger.error("Greška pri generisanju izvještaja! " + e1.getMessage() , e1);
+					logger.error(e1.getMessage() , e1);
 				} catch (DRException e1) {
-					logger.error("Greška pri generisanju izvještaja! " + e1.getMessage() , e1);
+					
 					e1.printStackTrace();
+					logger.error(e1.getMessage() , e1);
 				}
 
 			}
@@ -344,6 +284,7 @@ public class IzvjestajWindow {
 						frmIzvjetaj.getContentPane().add(btnIzai, "4, 9, 3, 1, right, center");
 
 		btnIzai.addActionListener(new ActionListener() {
+			//@Override
 			public void actionPerformed(ActionEvent e) {
 				frmIzvjetaj.setVisible(false); //you can't see me!
 				frmIzvjetaj.dispose();
