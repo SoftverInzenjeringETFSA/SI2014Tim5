@@ -127,7 +127,7 @@ public class PrijavaWindow {
 		JButton btnPrijaviSe = new JButton("Prijavi se");
 		btnPrijaviSe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				logovaniKorisnik.setKorisnickoIme("");
+				//logovaniKorisnik.setKorisnickoIme("");
 				String username=textUser.getText();
 				char[] password=textPass.getPassword();
 				
