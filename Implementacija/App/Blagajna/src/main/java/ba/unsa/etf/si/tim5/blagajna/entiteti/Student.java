@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.table.DefaultTableModel;
 
-import org.hamcrest.Matcher;
 import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
@@ -174,20 +173,9 @@ public class Student implements java.io.Serializable {
 		return opcina;
 	}
 
-	public void setOpcina(String opcina) {
-		if(opcina.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli adresu!");
-		}
-		if (!Validacija.getInstance().validirajTekst(opcina))
-        {
-            throw new IllegalArgumentException("Neispravno unesena opcina!");
-        }
-        else
-        {
+	public void setOpcina(String opcina) {	
         	this.opcina = opcina;
-        }
-		
+
 	}
 
 	public String getTelefon() {
@@ -261,10 +249,6 @@ public class Student implements java.io.Serializable {
 		{
 			 throw new IllegalArgumentException("Niste unijeli mjesto rodjenja!");
 		}
-		if (!Validacija.getInstance().validirajTekst(mjestoRodjenja))
-        {
-            throw new IllegalArgumentException("Neispravno uneseno mjesto rodjenja!");
-        }
         else
         {
         	this.mjestoRodjenja = mjestoRodjenja;
@@ -276,19 +260,8 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setOpcinaRodjenja(String opcinaRodjenja) {
-		if(opcinaRodjenja.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli opcinu rodjenja!");
-		}
-		if (!Validacija.getInstance().validirajTekst(opcinaRodjenja))
-        {
-            throw new IllegalArgumentException("Neispravno unesena opcina rodjenja!");
-        }
-        else
-        {
+
         	this.opcinaRodjenja = opcinaRodjenja;
-        }
-		
 	}
 
 	public String getDrzavaRodjenja() {
@@ -296,18 +269,8 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setDrzavaRodjenja(String drzavaRodjenja) {
-		if(drzavaRodjenja.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli drzavu rodjenja!");
-		}
-		if (!Validacija.getInstance().validirajTekst(drzavaRodjenja))
-        {
-            throw new IllegalArgumentException("Neispravno unesena drzava rodjenja!");
-        }
-        else
-        {
+		
         	this.drzavaRodjenja = drzavaRodjenja;
-        }
 	}
 
 	public double getPopust() {
@@ -387,12 +350,12 @@ public class Student implements java.io.Serializable {
 		
 		return dug;
 	}
-	public Boolean validirajTekst(String tekst) {
-		if (tekst.length() > 30) return false;
-		else if(tekst.length() <2) return false;
-		Pattern pattern = Pattern.compile("^[A-Z|Č|Ć|Ž|Š|Đ]{1}[a-z|č|ć|ž|š|đ ]{2,}$");
-		java.util.regex.Matcher matcher = pattern.matcher(tekst);
-		if (matcher.matches())	return true;
-		else return false;
-	}
+//	public Boolean validirajTekst(String tekst) {
+//		if (tekst.length() > 30) return false;
+//		else if(tekst.length() <2) return false;
+//		Pattern pattern = Pattern.compile("^[A-Z|Č|Ć|Ž|Š|Đ]{1}[a-z|č|ć|ž|š|đ ]{2,}$");
+//		Matcher matcher = pattern.matcher(tekst);
+//		if (matcher.matches())	return true;
+//		else return false;
+//	}
 }
