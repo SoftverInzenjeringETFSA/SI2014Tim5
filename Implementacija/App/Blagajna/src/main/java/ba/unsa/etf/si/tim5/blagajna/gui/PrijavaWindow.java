@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 
 
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
@@ -56,6 +57,7 @@ public class PrijavaWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					PrijavaWindow window = new PrijavaWindow();
 					window.frmPrijava.setVisible(true);
 				} catch (Exception e) {
@@ -159,6 +161,7 @@ public class PrijavaWindow {
 							logovaniKorisnik=sviKorisnici.get(i);
 							MainWindow window = new MainWindow(logovaniKorisnik);
 							window.frmBlagajna.setVisible(true);
+							logger.info("Prijavljen korisnik" + logovaniKorisnik.getKorisnickoIme() );
 							frmPrijava.setVisible(false);
 							frmPrijava.dispose();
 						}
