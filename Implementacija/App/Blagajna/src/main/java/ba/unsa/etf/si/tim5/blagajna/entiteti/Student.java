@@ -6,6 +6,8 @@ import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
+
 public class Student implements java.io.Serializable {
 	/**
 	 * 
