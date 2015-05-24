@@ -214,28 +214,19 @@ public class UnosKorisnikaWindow {
 				String mail = textField_3.getText();
 				String telefon = textField_4.getText();
 				String username = textField_6.getText();
-<<<<<<< HEAD
+
 				String lozinka = "admin";
 				//boolean pomocna;
 				
-=======
-				String lozinka = "admin";			
->>>>>>> 8cb09ec5f555e347ad79535662d0ba04e7bb5c5c
 				
 				TipKorisnika tip = (TipKorisnika) comboBox.getSelectedItem();
 				
 				try {
 					Session session = HibernateUtil.getSessionFactory()
 							.openSession();
-					
-<<<<<<< HEAD
+				
 					
 					 k = new Korisnik(1, ime, prezime, jmbg, adresa,
-=======
-					//if(!Validacija.getInstance().validirajIsto(jmbg, telefon, mail, username)) throw new IllegalArgumentException();
-					//else {
-					Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa,
->>>>>>> 8cb09ec5f555e347ad79535662d0ba04e7bb5c5c
 							telefon, mail, tip, username, lozinka);
 					
 					k.dodajKorisnika(session);

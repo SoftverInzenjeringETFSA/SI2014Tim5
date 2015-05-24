@@ -30,6 +30,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -267,7 +268,8 @@ public class LiteraturaWindow {
 				String autor = tFieldAutor.getText();
 				int kolicina = Integer.parseInt(tFieldKolicina.getText());
 				double cijena = Double.parseDouble(tFieldCijena.getText());
-
+				
+			
 				Literatura l = new Literatura(69, isbn, naziv, autor, kolicina,cijena);
 
 				Session session = HibernateUtil.getSessionFactory().openSession();
@@ -282,7 +284,7 @@ public class LiteraturaWindow {
 						l.getNaziv(), l.getAutor(), l.getKolicina(),
 						l.getCijena() });
 				logger.info("Dodana literatura" + l.getId()+ " , " + l.getNaziv());
-				
+		
 			}
 		});
 		panel.add(btnUnesi, "4, 16");
