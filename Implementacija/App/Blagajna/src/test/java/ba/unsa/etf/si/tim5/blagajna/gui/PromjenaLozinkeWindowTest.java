@@ -1,84 +1,25 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import static org.junit.Assert.*;
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 import org.junit.Test;
 
-public class PromjenaLozinkeWindowTest {
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
+
+public class PromjenaLozinkeWindowTest extends TestCase {
 
 	@Test
-	public void testMain() {
-		fail("Not yet implemented"); // TODO
+	public void testPassTrue() {
+		String pass = "!aaA123gf44";
+		Assert.assertEquals(true, Validacija.getInstance().passwordValidation(pass));
+	
 	}
-
-	@Test
-	public void testPromjenaLozinkeWindowKorisnik() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testPromjenaLozinkeWindow() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testObject() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testGetClass() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testEquals() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testClone() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testNotify() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testNotifyAll() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWaitLong() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWaitLongInt() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWait() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testFinalize() {
-		fail("Not yet implemented"); // TODO
+	public void testPassFalse() {
+		String pass = "!aaaaaaaa1";
+		Assert.assertEquals(false, Validacija.getInstance().passwordValidation(pass));
+	
 	}
 
 }

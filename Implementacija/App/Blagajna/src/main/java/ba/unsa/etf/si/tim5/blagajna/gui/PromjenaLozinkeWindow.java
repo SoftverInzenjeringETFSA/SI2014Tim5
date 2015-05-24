@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -20,6 +21,7 @@ import javax.swing.JPasswordField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -62,7 +64,10 @@ public class PromjenaLozinkeWindow {
 	}
 	
 	public PromjenaLozinkeWindow()
-	{
+	{	
+		ArrayList<Korisnik> korisnici = Dao.getInstance().dajSveKorisnike();
+		korisnik = korisnici.get(0);
+	
 		initialize();
 	}
 
