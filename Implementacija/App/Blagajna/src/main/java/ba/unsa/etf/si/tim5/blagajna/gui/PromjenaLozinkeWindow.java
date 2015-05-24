@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -16,13 +15,11 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -63,14 +60,9 @@ public class PromjenaLozinkeWindow {
 	
 	public PromjenaLozinkeWindow()
 	{
-		//ArrayList<Korisnik> korisnici = Dao.getInstance().dajSveKorisnike();
-		//korisnik = korisnici.get(1);
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmPromjenaLozinke = new JFrame();
 		frmPromjenaLozinke.setTitle("Promjena lozinke");
@@ -147,8 +139,7 @@ public class PromjenaLozinkeWindow {
 				StaraLozinkaTB.setText("");
 				NovaLozinkaTB.setText("");
 				PotvrdiNovuLozinkuTB.setText("");
-				frmPromjenaLozinke.setVisible(false);
-				
+				frmPromjenaLozinke.setVisible(false);	
 			}
 			}
 		});

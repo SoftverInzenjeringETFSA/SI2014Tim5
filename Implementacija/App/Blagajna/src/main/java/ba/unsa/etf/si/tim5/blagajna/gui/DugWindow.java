@@ -1,10 +1,9 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
+
 import java.awt.print.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -12,13 +11,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import java.awt.BorderLayout;
-
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
-import com.mysql.jdbc.Statement;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -26,41 +22,27 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.column.Columns;
-import net.sf.dynamicreports.report.builder.column.TextColumnBuilder;
 import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
 import net.sf.dynamicreports.report.exception.DRException;
 
 import org.hibernate.Session;
 
-import antlr.StringUtils;
 import ba.unsa.etf.si.tim5.blagajna.util.*;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.TabelaIzvjestaj;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Rata;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.FileNotFoundException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class DugWindow {
@@ -187,9 +169,12 @@ public class DugWindow {
 		
 	    table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 	        @Override
+	        
 	        public Component getTableCellRendererComponent(JTable table,
 	                Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-	            super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+	            
+	        	super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+	            
 	            if (hasFocus) setBackground(Color.DARK_GRAY);
 	            
 	            String datum = (String)table.getModel().getValueAt(row, 3);
@@ -405,11 +390,8 @@ public class DugWindow {
 		TextFieldBuilder<String> title7 = DynamicReports.cmp.text("Datum: " + s); 
 		report.title(title7); 
 				
-		report.show(); 
-		
-		
+		report.show(); 		
 	}
-
 }	// TODO Auto-generated method stub
 		
 
