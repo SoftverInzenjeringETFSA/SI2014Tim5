@@ -14,13 +14,6 @@ public class LiteraturaTest extends TestCase {
 			//l =  new Literatura(100, "010AAA","Naziv literature", "AUtor lit", 21, 20.00);
 			
 	}
-	public void testLiteratura() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	public void testLiteraturaLongStringStringStringIntDouble() {
-		fail("Not yet implemented"); // TODO
-	}
 	@Test
 	public void testGetId() {
 		long id_n;
@@ -108,28 +101,6 @@ public class LiteraturaTest extends TestCase {
 			
 			Assert.fail("Test fail - setKolicina");
 		}
-	}
-	@Test
-	public void testGetCijena() {
-		//double cost;
-		//cost= l.getCijena();
-		//Assert.assertEquals(20.00,cost);
-	}
-	@Test
-	public void testSetCijena() {
-		fail("Not yet implemented"); // TODO
-	}
-	@Test
-	public void testDodajLiteraturu() {
-		fail("Not yet implemented"); // TODO
-	}
-	@Test
-	public void testObrisiLiteraturu() {
-		fail("Not yet implemented"); // TODO
-	}
-	@Test
-	public void testToString() {
-		fail("Not yet implemented"); // TODO
 	}
 
 }

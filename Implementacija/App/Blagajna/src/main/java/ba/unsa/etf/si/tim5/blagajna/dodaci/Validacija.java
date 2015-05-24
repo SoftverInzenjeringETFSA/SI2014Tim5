@@ -1,6 +1,11 @@
 package ba.unsa.etf.si.tim5.blagajna.dodaci;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 
 public class Validacija {
 
@@ -38,7 +43,7 @@ public class Validacija {
 		return m.matches();
 	}
 
-	public static boolean jmbgValidation(String jmbgTemp) {
+	/*public static boolean jmbgValidation(String jmbgTemp) {
 		if (jmbgTemp.length() == 13) {
 			int[] danaUmjesecu = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30,
 					31 };
@@ -100,6 +105,13 @@ public class Validacija {
 				return false;
 		} else
 			return false;
+	}*/
+	
+	public boolean validirajJmbg(String jmbg) {
+		Pattern pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])[0-9]{9}$"); 
+		Matcher matcher = pattern.matcher(jmbg);
+	    if (matcher.matches()) return true;
+	    else return false;
 	}
 
 	public boolean isbnValidation(String isbn) {
@@ -128,5 +140,72 @@ public class Validacija {
 		} catch (NumberFormatException nfe) {
 			return false;
 		}
+	}
+	
+	
+	
+	
+	
+	public Boolean validirajUsername(String t) {
+		if (t.length()<4 ) return false;
+		if (t.length() > 35) return false;
+		return true;
+	}
+	
+	
+	public Boolean validirajTelefon(String t)
+	{
+		Pattern pattern = Pattern.compile("\\d{3}/\\d{3}-\\d{3}");
+	    Matcher matcher = pattern.matcher(t);
+	    if (matcher.matches()) return true;
+	    else return false;
+	}
+	
+	public Boolean validirajAdresu(String t) {
+		if (t.length() > 44) return false;
+		if (t.length() < 4 ) return false;
+		return true;
+	}
+	
+	public Boolean validirajMail(String t)
+	{
+		if (t.length() > 35) return false;
+		Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+					+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+		Matcher matcher = pattern.matcher(t);
+		if (matcher.matches()) return true;
+		else return false;
+	}
+	
+	public Boolean validirajIme(String ime) {
+		if (ime.length() > 30) return false;
+		else if(ime.length() <2) return false;
+		Pattern pattern = Pattern.compile("^[A-Z|Č|Ć|Ž|Š|Đ]{1}[a-z|č|ć|ž|š|đ]{2,}$");
+		Matcher matcher = pattern.matcher(ime);
+		if (matcher.matches())	return true;
+		else return false;
+	}
+	
+	
+	
+	public Boolean validirajIsto(String jmbg,String telefon,String mail,String username) {
+		
+		ArrayList<Korisnik>korisnici= Dao.getInstance().dajSveKorisnike();
+		for(int i=0;i<korisnici.size();i++)
+		{
+			if(username==korisnici.get(i).getKorisnickoIme()){
+				throw new IllegalArgumentException("Korisnicko ime vec postoji!");
+			}	
+			if(jmbg==korisnici.get(i).getJmbg()){ 
+				throw new IllegalArgumentException("JMBG vec postoji!");
+			}
+			if(telefon==korisnici.get(i).getTelefon()){
+				throw new IllegalArgumentException("Telefon vec postoji!");
+			}
+			if(mail==korisnici.get(i).getMail()){
+				throw new IllegalArgumentException("Mail vec postoji!");
+			}
+		}
+		return true;
 	}
 }

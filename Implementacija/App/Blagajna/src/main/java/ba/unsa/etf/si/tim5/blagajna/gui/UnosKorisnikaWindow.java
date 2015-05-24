@@ -31,7 +31,7 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
-
+import org.apache.log4j.Logger;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
@@ -65,7 +65,7 @@ public class UnosKorisnikaWindow {
 	private JTable tabela;
 	protected Component frame;
 	private int selektovani;
-
+	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
 	static JButton btnUredi = new JButton("Uredi");
 	static JButton btnDodaj = new JButton("Dodaj");
 
@@ -233,16 +233,15 @@ public class UnosKorisnikaWindow {
 					Session session = HibernateUtil.getSessionFactory()
 							.openSession();
 					
-					/*pomocna=Validacija.jmbgValidation(jmbg);
-					if(!pomocna) throw new IllegalArgumentException("Unesite validan format JMBG-a!");*/
+					
 					Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa,
 							telefon, mail, tip, username, lozinka);
-
+					
 					k.dodajKorisnika(session);
 					JOptionPane.showMessageDialog(frame,
 							"Dodali ste novog korisnika " + ime + " " + prezime
-									+ "!");
-
+									+ ".");
+					logger.info("Dodali ste novog korisnika " + k.getIme() + " " + k.getPrezime()+".");
 					session.close();
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
@@ -256,6 +255,8 @@ public class UnosKorisnikaWindow {
 				catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,
 							ex.getLocalizedMessage());
+					ex.printStackTrace();
+					logger.error("Greška kod dodavanja novog korisnika! " + ex.getMessage() , ex);
 					
 				}
 				
@@ -280,14 +281,15 @@ public class UnosKorisnikaWindow {
 				try {
 					Session session = HibernateUtil.getSessionFactory()
 							.openSession();
+					if(!Validacija.getInstance().validirajIsto(jmbg,telefon,mail,username)) throw new IllegalArgumentException();
 					k = new Korisnik(k.getId(), ime, prezime, jmbg, adresa,
 							telefon, mail, tip, username, "admin");
-
+					
 					k.urediKorisnika(session);
 					JOptionPane.showMessageDialog(frame,
 							"Uredili ste korisnika " + ime + " " + prezime
 									+ "!");
-
+					logger.info("Uredili ste korisnika " + k.getIme() + " " + k.getPrezime()+".");
 					session.close();
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
 					tmodel.setValueAt(k.getId(), selektovani, 0);
@@ -304,6 +306,7 @@ public class UnosKorisnikaWindow {
 				catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,
 							ex.getLocalizedMessage());
+					logger.error("Greška kod uredjivanja novog korisnika! " + ex.getMessage() , ex);
 				}
 
 			}
@@ -321,7 +324,7 @@ public class UnosKorisnikaWindow {
 		frmUnosKorisnika.getContentPane().add(btnIzai, "7, 18, right, center");
 	}
 
-	private void popuniPolja(Korisnik k) {
+	protected static void popuniPolja(Korisnik k) {
 
 		btnUredi.setVisible(true);
 		btnDodaj.setVisible(false);

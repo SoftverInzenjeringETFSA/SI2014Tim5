@@ -40,6 +40,7 @@ import javax.transaction.HeuristicRollbackException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
@@ -47,7 +48,9 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class LiteraturaWindow {
-
+	
+	final static Logger logger = Logger.getLogger(LiteraturaWindow.class);
+	
 	JFrame frmUnosDugaZa;
 	private JTable table;
 	private JLabel lblPrikazLiterature;
@@ -76,6 +79,7 @@ public class LiteraturaWindow {
 					window.frmUnosDugaZa.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error("Greška pri otvaranju forme za unos literature! " + e.getMessage() , e);
 				}
 			}
 		});
@@ -266,7 +270,6 @@ public class LiteraturaWindow {
 
 				Literatura l = new Literatura(69, isbn, naziv, autor, kolicina,cijena);
 
-				
 				Session session = HibernateUtil.getSessionFactory().openSession();
 
 				long id = l.dodajLiteraturu(session); //svoj id dobije tek nakon smjestanja u bazu
@@ -278,7 +281,8 @@ public class LiteraturaWindow {
 				model.addRow(new Object[] { l.getId(), l.getIsbn(),
 						l.getNaziv(), l.getAutor(), l.getKolicina(),
 						l.getCijena() });
-
+				logger.info("Dodana literatura" + l.getId()+ " , " + l.getNaziv());
+				
 			}
 		});
 		panel.add(btnUnesi, "4, 16");

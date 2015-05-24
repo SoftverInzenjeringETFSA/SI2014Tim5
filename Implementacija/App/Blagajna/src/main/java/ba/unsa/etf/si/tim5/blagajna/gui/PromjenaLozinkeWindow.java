@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -20,12 +21,13 @@ import javax.swing.JPasswordField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-
+import org.apache.log4j.Logger;
 public class PromjenaLozinkeWindow {
 	final static Logger logger = Logger.getLogger(PromjenaLozinkeWindow.class);
 	
@@ -62,7 +64,10 @@ public class PromjenaLozinkeWindow {
 	}
 	
 	public PromjenaLozinkeWindow()
-	{
+	{	
+		ArrayList<Korisnik> korisnici = Dao.getInstance().dajSveKorisnike();
+		korisnik = korisnici.get(0);
+	
 		initialize();
 	}
 
@@ -116,14 +121,12 @@ public class PromjenaLozinkeWindow {
 			char[] pass1, pass2, pass3;
 			pass1 = StaraLozinkaTB.getPassword();
 			pass2 = NovaLozinkaTB.getPassword();
-			pass3 = PotvrdiNovuLozinkuTB.getPassword();
-			
+			pass3 = PotvrdiNovuLozinkuTB.getPassword();		
 			String s1, s2, s3;
 			s1 = new String(pass1);
 			s2 = new String(pass2);
 			s3 = new String(pass3);
 
-			
 			if (!s1.equals(korisnik.getLozinka()))
 				JOptionPane.showMessageDialog(null,"Stara lozinka nije tacna !","Error",JOptionPane.WARNING_MESSAGE);		
 			else if (!Validacija.getInstance().passwordValidation(s2))
@@ -143,7 +146,7 @@ public class PromjenaLozinkeWindow {
 				NovaLozinkaTB.setText("");
 				PotvrdiNovuLozinkuTB.setText("");
 				frmPromjenaLozinke.setVisible(false);	
-			}
+			}    
 			}
 		});
 		frmPromjenaLozinke.getContentPane().add(btnPromijeni, "6, 10");

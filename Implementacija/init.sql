@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2015 at 01:24 AM
+-- Generation Time: May 24, 2015 at 06:48 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -16,14 +16,13 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
+--
+-- Database: `tim5`
+--
 CREATE SCHEMA IF NOT EXISTS `tim5` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 CREATE USER 'EtfSI2014'@'localhost' IDENTIFIED BY '2014SIEtf';
 grant all on tim5.* to 'EtfSI2014'@'localhost';
 USE `tim5` ;
---
--- Database: `tim5`
---
-
 -- --------------------------------------------------------
 
 --
@@ -40,30 +39,17 @@ CREATE TABLE IF NOT EXISTS `dug` (
   `studentId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `student_id_fk` (`studentId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `dug`
 --
 
 INSERT INTO `dug` (`id`, `JELIIZMIREN`, `AKADEMSKAGODINA`, `VRIJEDNOST`, `TIPDUGA`, `literaturaId`, `studentId`) VALUES
-(5, b'0', '2014/2015', 18490512.795399997, 'dugZaSkolarinu', 0, 10),
-(6, b'0', '2014/2015', 81, 'dugZaSkolarinu', 0, 11);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `izvjestaj`
---
-
-CREATE TABLE IF NOT EXISTS `izvjestaj` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `DATUM` datetime DEFAULT NULL,
-  `SADRZAJ` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `korisnikId` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `korisnik_id_fk` (`korisnikId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+(1, b'0', '2014/2015', 1800, 'dugZaSkolarinu', 0, 12),
+(2, b'1', '2014/2015', 0, 'dugZaSkolarinu', 0, 13),
+(3, b'0', '2014/2015', 1500, 'dugZaSkolarinu', 0, 14),
+(4, b'0', '2014/2015', 50, 'dugZaLiteraturu', 0, 14);
 
 -- --------------------------------------------------------
 
@@ -90,8 +76,7 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
 --
 
 INSERT INTO `korisnik` (`id`, `IME`, `PREZIME`, `JMBG`, `ADRESA`, `TELEFON`, `MAIL`, `TIPKORISNIKA`, `KORISNICKOIME`, `LOZINKA`) VALUES
-(1, 'dino', 'hurem', '2311991170041', 'aef', '062/772-669', 'aef', 'Administrator', 'user', 'lozinka'),
-(2, 'admin', 'admin', '2311991170041', 'aef', '062/772-669', 'aef', 'Administrator', 'admin', 'admin');
+(1, 'Faris', 'Džafić', '0906992174152', 'Visoko', '062/961-960', 'faris.dzafic@outlook.com', 'Administrator', 'fdzafic', 'Admin123');
 
 -- --------------------------------------------------------
 
@@ -107,20 +92,16 @@ CREATE TABLE IF NOT EXISTS `literatura` (
   `KOLICINA` int(11) DEFAULT NULL,
   `CIJENA` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `literatura`
 --
 
 INSERT INTO `literatura` (`id`, `ISBN`, `NAZIV`, `AUTOR`, `KOLICINA`, `CIJENA`) VALUES
-(2, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
-(3, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
-(4, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
-(5, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
-(6, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
-(7, 'asdq1', 'Sabinine zgode i nezgode', 'Sabina', 1212, 123.1),
-(10, '123fasdfsd', 'Dzenanine zgode i nezgode', 'Dzenana', 12, 69);
+(11, 'ISBN 978-0-300-14424-6', 'Pinokio', 'Neki lik', 10, 15),
+(12, 'ISBN 978-0-300-14424-6', 'Lesi se vraca kuci', 'Neki lik', 10, 20),
+(13, 'ISBN 978-0-300-14424-6', 'Severinine zgode i nezgode', 'Neki lik', 20, 50);
 
 -- --------------------------------------------------------
 
@@ -138,17 +119,29 @@ CREATE TABLE IF NOT EXISTS `rata` (
   `dugId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `dug_id_fk` (`dugId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `rata`
 --
 
 INSERT INTO `rata` (`id`, `VRIJEDNOST`, `JELIUPLACENA`, `DATUMZADUZENJA`, `DATUMRAZDUZENJA`, `ROKUPLATE`, `dugId`) VALUES
-(9, 20.25, b'0', '2015-05-20 01:12:38', NULL, '2015-08-18 01:12:38', 6),
-(10, 20.25, b'0', '2015-05-20 01:12:38', NULL, '2015-08-18 01:12:38', 6),
-(11, 20.25, b'0', '2015-05-20 01:12:38', NULL, '2015-08-18 01:12:38', 6),
-(12, 20.25, b'0', '2015-05-20 01:12:38', NULL, '2015-08-18 01:12:38', 6);
+(1, 450, b'0', '2015-05-24 18:17:40', NULL, '2015-08-22 18:17:40', 1),
+(2, 450, b'0', '2015-05-24 18:17:40', NULL, '2015-08-22 18:17:40', 1),
+(3, 450, b'0', '2015-05-24 18:17:40', NULL, '2015-08-22 18:17:40', 1),
+(4, 450, b'0', '2015-05-24 18:17:40', NULL, '2015-08-22 18:17:40', 1),
+(5, 500, b'1', '2015-05-24 18:18:16', '2015-05-24 18:39:09', '2015-08-22 18:18:16', 2),
+(6, 500, b'1', '2015-05-24 18:18:16', '2015-05-24 18:39:11', '2015-08-22 18:18:16', 2),
+(7, 500, b'1', '2015-05-24 18:18:16', '2015-05-24 18:39:13', '2015-08-22 18:18:16', 2),
+(8, 500, b'1', '2015-05-24 18:18:16', '2015-05-24 18:39:14', '2015-08-22 18:18:16', 2),
+(9, 500, b'0', '2015-05-24 18:18:45', NULL, '2015-08-22 18:18:45', 3),
+(10, 500, b'0', '2015-05-24 18:18:45', NULL, '2015-08-22 18:18:45', 3),
+(11, 500, b'1', '2015-05-24 18:18:45', '2015-05-24 18:32:23', '2015-08-22 18:18:45', 3),
+(12, 500, b'0', '2015-05-24 18:18:45', NULL, '2015-08-22 18:18:45', 3),
+(13, 12.5, b'0', '2015-05-24 18:35:55', NULL, '2015-08-22 18:35:55', 4),
+(14, 12.5, b'0', '2015-05-24 18:35:55', NULL, '2015-08-22 18:35:55', 4),
+(15, 12.5, b'0', '2015-05-24 18:35:55', NULL, '2015-08-22 18:35:55', 4),
+(16, 12.5, b'0', '2015-05-24 18:35:55', NULL, '2015-08-22 18:35:55', 4);
 
 -- --------------------------------------------------------
 
@@ -176,24 +169,16 @@ CREATE TABLE IF NOT EXISTS `student` (
   `GODINASTUDIJA` int(11) DEFAULT NULL,
   `DUGID` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `student`
 --
 
 INSERT INTO `student` (`id`, `IME`, `PREZIME`, `JMBG`, `MAIL`, `ADRESA`, `OPCINA`, `TELEFON`, `INDEKS`, `TROSKOVISKOLARINE`, `TROSKOVILITERATURE`, `IMERODITELJA`, `MJESTORODJENJA`, `OPCINARODJENJA`, `DRZAVARODJENJA`, `POPUST`, `GODINASTUDIJA`, `DUGID`) VALUES
-(1, 'ttttt', '', '', '', '', '', '', 1111, 900, 0, '', '', '', '', 10, 0, 0),
-(2, 'Azra', 'Jarebicaa', 'fsdfsdfe', 'sdfsdfsd', 'fdsfsd', 'fdsfsdfsd', 'fsdfsdffs', 112123, 12, 0, 'sdffsdf', 'asdadas', 'asdffsd', 'fsdfsd', 0, 0, 0),
-(3, 'Amra', 'Dautbegovic', 'fsdfsdfe', 'sdfsdfsd', 'fdsfsd', 'fdsfsdfsd', 'fsdfsdffs', 112123, 12, 0, 'sdffsdf', 'asdadas', 'asdffsd', 'fsdfsd', 0, 0, 0),
-(4, 'Lazar', 'xxxxx', 'xxxxx', 'xxxxx', 'xxxxx', 'xxxxx', 'xxxxx', 12341, 12345, 0, 'xxxxx', 'xxxxx', 'xxxxx', 'xxxxx', 20, 0, 0),
-(5, 'cccca', 'cccca', '', '', '', '', 'cccca', 123, 11111, 0, 'cccca', 'cccca', 'cccca', 'cccca', 11, 0, 0),
-(6, 'aaaa', 'aaaa', '', '', '', '', '', 123, 123, 0, 'aaaa', '', '', '', 1211, 0, 0),
-(7, 'asdasdas', '', '', '', '', '', '', 121111, 61.41, 0, '', '', '', '', 11, 0, 0),
-(8, 'asdasd', '', '', '', '', '', '', 123, 109.47, 0, '', '', '', '', 11, 0, 0),
-(9, 'Azra2', '', '', '', '', '', '', 69, 106.8, 0, '', '', '', '', 11, 0, 0),
-(10, 'lalalala', 'lalalal', '', '', '', '', '', 9999, -151053.94, 0, '', '', '', '', 12341, 0, 0),
-(11, 'Faris', 'Dzafic', '', '', '', '', '', 12121, 90, 0, '', 'Visoko', '', '', 10, 0, 0);
+(12, 'Amra', 'Dautbegović', '0906992174152', 'amra@amra.com', 'Sarajevo', 'Centar', '066/878-999', 12345, 1800, 0, 'Roditelj', 'Sarajevo', 'Centar', 'BiH', 0, 0, 0),
+(13, 'Azra', 'Jarebica', '0906992174152', 'azra@azra.com', 'Sarajevo', 'Centar', '066/878-999', 54321, 2000, 0, 'Roditelj', 'Sarajevo', 'Centar', 'BiH', 0, 0, 0),
+(14, 'Dino', 'Hurem', '0906992174152', 'dino@dino.com', 'Sarajevo', 'Centar', '066/878-999', 54321, 2000, 0, 'Roditelj', 'Sarajevo', 'Centar', 'BiH', 0, 0, 0);
 
 --
 -- Constraints for dumped tables
@@ -206,16 +191,15 @@ ALTER TABLE `dug`
   ADD CONSTRAINT `student_id_fk` FOREIGN KEY (`studentId`) REFERENCES `student` (`id`);
 
 --
--- Constraints for table `izvjestaj`
---
-ALTER TABLE `izvjestaj`
-  ADD CONSTRAINT `korisnik_id_fk` FOREIGN KEY (`korisnikId`) REFERENCES `korisnik` (`id`);
-
---
 -- Constraints for table `rata`
 --
 ALTER TABLE `rata`
   ADD CONSTRAINT `dug_id_fk` FOREIGN KEY (`dugId`) REFERENCES `dug` (`id`);
+  
+ALTER TABLE `tim5`.`korisnik` 
+ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+ADD UNIQUE INDEX `KORISNICKOIME_UNIQUE` (`KORISNICKOIME` ASC);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

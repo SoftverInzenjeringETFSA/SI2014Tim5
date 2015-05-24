@@ -41,6 +41,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
+import org.apache.log4j.Logger;
 
 import java.awt.Insets;
 import java.awt.event.ActionListener;
@@ -56,7 +57,7 @@ public class KorisniciWindow {
 	private JTable table;
 	private Connection conn;
 	protected Component frame;
-
+	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
 	private ArrayList<Korisnik> korisnici;
 	private Korisnik k;
 
@@ -168,7 +169,7 @@ public class KorisniciWindow {
 		btnObrisi.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-
+				try{
 				int indexSelektovani = table.getSelectedRow();
 				long idKorisnika = (long) Integer.parseInt((table.getValueAt(
 						indexSelektovani, 0).toString()));
@@ -180,11 +181,16 @@ public class KorisniciWindow {
 				k.obrisiKorisnika(session);
 				korisnici.remove(k);
 				JOptionPane.showMessageDialog(frame, "Izbrisali ste korisnika "
-						+ k.getIme() + " " + k.getPrezime() + "!");
-
+						+ k.getIme() + " " + k.getPrezime() + ".");
+				logger.info("Izbrisali ste korisnika " + k.getIme() + " " + k.getPrezime()+".");
 				session.close();
 				((DefaultTableModel) table.getModel())
 						.removeRow(indexSelektovani);
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+					logger.error("Greška kod brisanja korisnika "+ k.getIme() + " " + k.getPrezime() + "." + ex.getMessage() , ex);
+				}
 			}
 		});
 		frmKorisnici.getContentPane().add(btnObrisi, "5, 5, center, default");
@@ -203,6 +209,7 @@ public class KorisniciWindow {
 			}
 		} catch (Exception e) { //
 			e.printStackTrace();
+			logger.error("Greška kod popunjavanja tabele! " + e.getMessage() , e);
 		}
 	}
 

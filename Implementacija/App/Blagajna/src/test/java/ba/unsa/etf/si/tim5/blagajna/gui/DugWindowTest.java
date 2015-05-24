@@ -1,89 +1,33 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
-
+import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 import org.junit.Test;
 
-public class DugWindowTest {
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
+public class DugWindowTest extends DugWindow {
 	@Test
-	public void testMain() {
-		fail("Not yet implemented"); // TODO
+	public void testDajDatum()
+	{
+		Date d = new Date();
+		d.setDate(12);
+		d.setMonth(4);
+		d.setYear(2014);
+		String s = dajDatum(d);
+		Assert.assertEquals("12.04.2014", s);	
 	}
 
-	@Test
-	public void testDugWindow() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testDugWindowStudent() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testGenerisiIzvjestaj() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testObject() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testGetClass() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testEquals() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testClone() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testNotify() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testNotifyAll() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWaitLong() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWaitLongInt() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWait() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testFinalize() {
-		fail("Not yet implemented"); // TODO
-	}
-
+	
+	
 }

@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
@@ -38,7 +39,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class KupiLiteraturuWindow {
-
+	final static Logger logger = Logger.getLogger(KupiLiteraturuWindow.class);
+	
 	JFrame frmKupovinaLiterature;	
 	private Student student;
 	ArrayList<Literatura> knjige;
@@ -54,12 +56,14 @@ public class KupiLiteraturuWindow {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			//@Override
 			public void run() {
 				try {
 					KupiLiteraturuWindow window = new KupiLiteraturuWindow();
 					window.frmKupovinaLiterature.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error("Greška pri otvaranju forme za kupovinu literature! " + e.getMessage() , e);
 				}
 			}
 		});
@@ -124,7 +128,9 @@ public class KupiLiteraturuWindow {
 		frmKupovinaLiterature.getContentPane().add(lblIsbin, "4, 8, right, default");
 		
 		comboBox = new JComboBox();
+	
 		comboBox.addActionListener(new ActionListener() {
+			//@Override
 			public void actionPerformed(ActionEvent e) {
 				Literatura l = (Literatura)comboBox.getSelectedItem();
 				FillLabels(l);
@@ -201,6 +207,8 @@ public class KupiLiteraturuWindow {
 				d.dodajDug(session);
 				session.close();
 				JOptionPane.showMessageDialog(null,"Literatura je zadužena!","OK",JOptionPane.INFORMATION_MESSAGE);
+				
+				logger.info("Zaduzena literatura" + l.getId()+ " , " + l.getNaziv());
 			}
 		});
 		frmKupovinaLiterature.getContentPane().add(btnKupi, "4, 12");
