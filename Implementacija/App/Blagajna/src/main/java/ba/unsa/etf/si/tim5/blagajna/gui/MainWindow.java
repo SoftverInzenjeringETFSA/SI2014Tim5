@@ -116,8 +116,8 @@ public class MainWindow {
 			model.addRow(new Object[] { sviStudenti.get(i).getId(),
 					sviStudenti.get(i).getIme() +" "+ sviStudenti.get(i).getPrezime(),
 					sviStudenti.get(i).getIndeks(),
-					sviStudenti.get(i).getTroskoviSkolarine(),
-					sviStudenti.get(i).getTroskoviLiterature() }
+					sviStudenti.get(i).dajNeisplaceneDugoveSkolarina(),
+					sviStudenti.get(i).dajNeisplaceneDugoveLiteratura() }
 					);
 		}
 
@@ -276,7 +276,7 @@ public class MainWindow {
 										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
-								studenti.get(i).getTroskoviLiterature() });
+								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
 					}
 
 					// Student dbStudent = (Student)session.get(Student.class,
@@ -305,7 +305,7 @@ public class MainWindow {
 										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
-								studenti.get(i).getTroskoviLiterature() });
+								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
 					}
 				}
 
@@ -313,7 +313,7 @@ public class MainWindow {
 					String dugSkolarina = textField.getText();
 
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if(Math.abs(sviStudenti.get(i).dajDugZaSkolarinu())==Math.abs(Double.parseDouble(dugSkolarina)))
+						if(Math.abs(sviStudenti.get(i).dajNeisplaceneDugoveSkolarina())==Math.abs(Double.parseDouble(dugSkolarina)))
 							studenti.add(sviStudenti.get(i));
 					}
 					
@@ -327,7 +327,7 @@ public class MainWindow {
 										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
-								studenti.get(i).getTroskoviLiterature() });
+								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
 					}
 					// String s = table.getValueAt(1, 1).toString();
 					// JOptionPane.showMessageDialog(null,s,"Message",JOptionPane.INFORMATION_MESSAGE);
@@ -337,7 +337,7 @@ public class MainWindow {
 					String dugLiteratura = textField.getText();
 
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if(Math.abs(sviStudenti.get(i).getTroskoviLiterature())==Math.abs(Double.parseDouble(dugLiteratura)))
+						if(Math.abs(sviStudenti.get(i).dajNeisplaceneDugoveLiteratura())==Math.abs(Double.parseDouble(dugLiteratura)))
 							studenti.add(sviStudenti.get(i));
 					}
 					
@@ -351,7 +351,7 @@ public class MainWindow {
 										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
-								studenti.get(i).getTroskoviLiterature() });
+								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
 					}
 
 				}
@@ -434,7 +434,7 @@ public class MainWindow {
 												+" "+ sviStudenti.get(j).getPrezime(),
 										sviStudenti.get(j).getIndeks(),
 										sviStudenti.get(j).getTroskoviSkolarine(),
-										sviStudenti.get(j).getTroskoviLiterature() });
+										sviStudenti.get(j).dajNeisplaceneDugoveLiteratura() });
 							}
 
 						}
