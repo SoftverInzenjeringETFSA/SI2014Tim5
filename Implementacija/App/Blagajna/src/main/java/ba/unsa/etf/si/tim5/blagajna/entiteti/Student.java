@@ -6,6 +6,8 @@ import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
+
 public class Student implements java.io.Serializable {
 	/**
 	 * 
@@ -38,22 +40,22 @@ public class Student implements java.io.Serializable {
 			String mjestoRodjenja, String opcinaRodjenja,
 			String drzavaRodjenja, double popust, int godinaStudija) {
 		super();
-		this.id = id;
-		this.ime = ime;
-		this.prezime = prezime;
-		this.jmbg = jmbg;
-		this.mail = mail;
-		this.adresa = adresa;
-		this.opcina = opcina;
-		this.telefon = telefon;
-		this.indeks = indeks;
-		this.troskoviSkolarine = troskoviSkolarine;
-		this.imeRoditelja = imeRoditelja;
-		this.mjestoRodjenja = mjestoRodjenja;
-		this.opcinaRodjenja = opcinaRodjenja;
-		this.drzavaRodjenja = drzavaRodjenja;
-		this.popust = popust;
-		this.godinaStudija = godinaStudija;		
+		this.setId(id);
+		this.setIme(ime);
+		this.setPrezime(prezime);
+		this.setJmbg(jmbg);
+		this.setMail(mail);
+		this.setAdresa(adresa);
+		this.setOpcina(opcina);
+		this.setTelefon(telefon);
+		this.setIndeks(indeks);
+		this.setTroskoviSkolarine(troskoviSkolarine);
+		this.setImeRoditelja(imeRoditelja);
+		this.setMjestoRodjenja(mjestoRodjenja);
+		this.setOpcinaRodjenja(opcinaRodjenja);
+		this.setDrzavaRodjenja(drzavaRodjenja);
+		this.setPopust(popust);
+		this.setGodinaStudija(godinaStudija);	
 	}
 
 	public Student() {
@@ -81,7 +83,15 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setIme(String ime) {
-		this.ime = ime;
+		if(ime.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli ime!");
+		}
+		if(!Validacija.getInstance().validirajIme(ime))throw new IllegalArgumentException("Neispravan format unesenog imena!");
+		else {
+			this.ime = ime;
+			}
+		
 	}
 
 	public String getPrezime() {
@@ -89,7 +99,14 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setPrezime(String prezime) {
-		this.prezime = prezime;
+		if(prezime.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli prezime!");
+		}
+		if(!Validacija.getInstance().validirajIme(prezime))throw new IllegalArgumentException("Neispravan format unesenog prezimena!");
+		else {
+			this.prezime = prezime;
+			}
 	}
 
 	public String getJmbg() {
@@ -97,7 +114,19 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setJmbg(String jmbg) {
-		this.jmbg = jmbg;
+		if(jmbg.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli JMBG!");
+		}
+		
+		if(!Validacija.getInstance().validirajJmbg(jmbg))
+		{
+			 throw new IllegalArgumentException("Format JMBG-a nije validan!");
+		}
+		
+		else {
+			this.jmbg = jmbg;
+		}
 	}
 
 	public String getMail() {
@@ -105,7 +134,18 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setMail(String mail) {
-		this.mail = mail;
+		if(mail.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli mail!");
+		}
+		if (!Validacija.getInstance().validirajMail(mail))
+        {
+            throw new IllegalArgumentException("Neispravno unesen mail! Primjer je: mail1@example.com");
+        }
+        else
+        {
+        	this.mail = mail;
+        }
 	}
 
 	public String getAdresa() {
@@ -113,7 +153,18 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setAdresa(String adresa) {
-		this.adresa = adresa;
+		if(adresa.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli adresu!");
+		}
+		if (!Validacija.getInstance().validirajAdresu(adresa))
+        {
+            throw new IllegalArgumentException("Neispravno unesena adresa!");
+        }
+        else
+        {
+        	this.adresa = adresa;
+        }
 	}
 
 	public String getOpcina() {
@@ -121,7 +172,19 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setOpcina(String opcina) {
-		this.opcina = opcina;
+		if(opcina.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli adresu!");
+		}
+		if (!Validacija.getInstance().validirajTekst(opcina))
+        {
+            throw new IllegalArgumentException("Neispravno unesena opcina!");
+        }
+        else
+        {
+        	this.opcina = opcina;
+        }
+		
 	}
 
 	public String getTelefon() {
@@ -129,7 +192,18 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setTelefon(String telefon) {
-		this.telefon = telefon;
+		if(telefon.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli telefon!");
+		}
+		if (!Validacija.getInstance().validirajTelefon(telefon))
+        {
+            throw new IllegalArgumentException("Neispravno unesen telefon! Podrzani format je XXX/XXX-XXX.");
+        }
+        else
+        {
+        	this.telefon = telefon;
+        }
 	}
 
 	public int getIndeks() {
@@ -161,7 +235,18 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setImeRoditelja(String imeRoditelja) {
-		this.imeRoditelja = imeRoditelja;
+		if(imeRoditelja.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli ime roditelja!");
+		}
+		if (!Validacija.getInstance().validirajIme(imeRoditelja))
+        {
+            throw new IllegalArgumentException("Neispravno uneseno ime roditelja!");
+        }
+        else
+        {
+        	this.imeRoditelja = imeRoditelja;
+        }
 	}
 
 	public String getMjestoRodjenja() {
@@ -169,7 +254,18 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setMjestoRodjenja(String mjestoRodjenja) {
-		this.mjestoRodjenja = mjestoRodjenja;
+		if(mjestoRodjenja.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli mjesto rodjenja!");
+		}
+		if (!Validacija.getInstance().validirajTekst(mjestoRodjenja))
+        {
+            throw new IllegalArgumentException("Neispravno uneseno mjesto rodjenja!");
+        }
+        else
+        {
+        	this.mjestoRodjenja = mjestoRodjenja;
+        }
 	}
 
 	public String getOpcinaRodjenja() {
@@ -177,7 +273,19 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setOpcinaRodjenja(String opcinaRodjenja) {
-		this.opcinaRodjenja = opcinaRodjenja;
+		if(opcinaRodjenja.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli opcinu rodjenja!");
+		}
+		if (!Validacija.getInstance().validirajTekst(opcinaRodjenja))
+        {
+            throw new IllegalArgumentException("Neispravno unesena opcina rodjenja!");
+        }
+        else
+        {
+        	this.opcinaRodjenja = opcinaRodjenja;
+        }
+		
 	}
 
 	public String getDrzavaRodjenja() {
@@ -185,7 +293,18 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setDrzavaRodjenja(String drzavaRodjenja) {
-		this.drzavaRodjenja = drzavaRodjenja;
+		if(drzavaRodjenja.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli drzavu rodjenja!");
+		}
+		if (!Validacija.getInstance().validirajTekst(drzavaRodjenja))
+        {
+            throw new IllegalArgumentException("Neispravno unesena drzava rodjenja!");
+        }
+        else
+        {
+        	this.drzavaRodjenja = drzavaRodjenja;
+        }
 	}
 
 	public double getPopust() {

@@ -3,6 +3,8 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.EventQueue;
 
 
+
+
 import javax.swing.JFrame;
 
 import java.awt.event.ActionEvent;
@@ -23,8 +25,11 @@ import javax.swing.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 import java.awt.*;
 import java.io.FileNotFoundException;
+
+
 
 //----------------------
 import javax.swing.DefaultComboBoxModel;
@@ -43,7 +48,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 public class IzvjestajWindow {
 
 	private static final Logger logger = Logger.getLogger(SlanjeMaila.class);
@@ -65,7 +72,9 @@ public class IzvjestajWindow {
 				} catch (Exception e) {
 					e.printStackTrace();
 					
-					logger.error(e.getMessage() , e);
+					//logger.error(e.getMessage() , e);
+					//logger.log(Level.SEVERE, e.getMessage(),e);
+					logger.log(Priority.ERROR, e.getMessage(), e);
 				}
 			}
 		});

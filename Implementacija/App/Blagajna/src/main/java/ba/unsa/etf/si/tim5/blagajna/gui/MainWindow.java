@@ -117,7 +117,7 @@ public class MainWindow {
 			
 			
 			model.addRow(new Object[] { sviStudenti.get(i).getId(),
-					sviStudenti.get(i).getIme() + sviStudenti.get(i).getPrezime(),
+					sviStudenti.get(i).getIme() +" "+ sviStudenti.get(i).getPrezime(),
 					sviStudenti.get(i).getIndeks(),
 					sviStudenti.get(i).getTroskoviSkolarine(),
 					sviStudenti.get(i).getTroskoviLiterature() }
@@ -276,7 +276,7 @@ public class MainWindow {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
-										+ studenti.get(i).getPrezime(),
+										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
 								studenti.get(i).getTroskoviLiterature() });
@@ -305,7 +305,7 @@ public class MainWindow {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
-										+ studenti.get(i).getPrezime(),
+										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
 								studenti.get(i).getTroskoviLiterature() });
@@ -327,7 +327,7 @@ public class MainWindow {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
-										+ studenti.get(i).getPrezime(),
+										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
 								studenti.get(i).getTroskoviLiterature() });
@@ -351,7 +351,7 @@ public class MainWindow {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
 								studenti.get(i).getIme()
-										+ studenti.get(i).getPrezime(),
+										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
 								studenti.get(i).getTroskoviLiterature() });
@@ -447,7 +447,7 @@ public class MainWindow {
 								model.addRow(new Object[] {
 										sviStudenti.get(j).getId(),
 										sviStudenti.get(j).getIme()
-												+ sviStudenti.get(j).getPrezime(),
+												+" "+ sviStudenti.get(j).getPrezime(),
 										sviStudenti.get(j).getIndeks(),
 										sviStudenti.get(j).getTroskoviSkolarine(),
 										sviStudenti.get(j).getTroskoviLiterature() });
