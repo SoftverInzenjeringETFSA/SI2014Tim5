@@ -14,12 +14,12 @@ import org.junit.Test;
 
 public class RataTest extends TestCase {
 
-	Date d1 = New Date();
+	Date d1 = new Date();
+	Date d2 = new Date();
+	Date d3 = new Date();
 	
-	Rata rata = new Rata(15, 250, true, "31-10-2014"., "25-11-2014", "01-12-2014", 6);
-	
+	Rata rata = new Rata(15, 250, true, d1, d2, d3, 6);
 
-	
 	@Test
 	public void testRata() {
 		try
@@ -37,78 +37,81 @@ public class RataTest extends TestCase {
 		{
 			Assert.fail("Test fail - init rata");	
 		}
-
 	}
 
 	@Test
 	public void testGetDugId() {
-		Assert.assertEquals(5, rata.getDugId());
+		Assert.assertEquals(6, rata.getDugId());
 	}
 
 	@Test
 	public void testSetDugId() {
-		fail("Not yet implemented"); // TODO
+		rata.setDugId(5);
+		Assert.assertNotEquals(6, rata.getDugId());
 	}
 
 	@Test
 	public void testGetId() {
-		
-		fail("Not yet implemented"); // TODO
+		Assert.assertNotEquals(15, rata.getDugId());
+	
 	}
 
 	@Test
-	public void testSetId() {
-		fail("Not yet implemented"); // TODO
-	}
+	public void testSetId() { // TODO
+		rata.setId(12);
+		Assert.assertNotEquals(15, rata.getDugId());
+
+}
 
 	@Test
 	public void testGetVrijednost() {
-		fail("Not yet implemented"); // TODO
+		Assert.assertNotEquals(201, rata.getVrijednost());
 	}
 
 	@Test
 	public void testSetVrijednost() {
-		fail("Not yet implemented"); // TODO
+		rata.setVrijednost(1500);
+		Assert.assertNotEquals(200, rata.getVrijednost());
 	}
 
-	@Test
-	public void testIsJeLiUplacena() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testSetJeLiUplacena() {
-		fail("Not yet implemented"); // TODO
-	}
 
 	@Test
 	public void testGetDatumZaduzenja() {
-		fail("Not yet implemented"); // TODO
+		Date d = rata.getDatumZaduzenja();
+		Assert.assertEquals(d, rata.getDatumZaduzenja());
 	}
 
 	@Test
 	public void testSetDatumZaduzenja() {
-		fail("Not yet implemented"); // TODO
+		Date d = rata.getDatumZaduzenja();
+		rata.setDatumZaduzenja(new Date());
+		Assert.assertNotEquals(d, rata.getDatumZaduzenja());
 	}
 
 	@Test
 	public void testGetDatumRazduzenja() {
-		fail("Not yet implemented"); // TODO
+		Date d = rata.getDatumRazduzenja();
+		Assert.assertEquals(d, rata.getDatumRazduzenja());
 	}
 
 	@Test
 	public void testSetDatumRazduzenja() {
-		fail("Not yet implemented"); // TODO
-	}
+		Date d = rata.getDatumRazduzenja();
+		rata.setDatumRazduzenja(new Date());
+		Assert.assertNotEquals(d, rata.getDatumRazduzenja());
+}
 
 	@Test
 	public void testGetRokUplate() {
-		fail("Not yet implemented"); // TODO
-	}
+		Date d = rata.getRokUplate();
+		Assert.assertEquals(d, rata.getRokUplate());
+		}
 
 	@Test
 	public void testSetRokUplate() {
-		fail("Not yet implemented"); // TODO
+		Date d = rata.getRokUplate();
+		rata.setRokUplate(new Date());
+		Assert.assertNotEquals(d, rata.getRokUplate());
 	}
 
 	@Test
@@ -121,64 +124,5 @@ public class RataTest extends TestCase {
 		fail("Not yet implemented"); // TODO
 	}
 
-	@Test
-	public void testObject() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testGetClass() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testEquals() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testClone() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testNotify() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testNotifyAll() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWaitLong() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWaitLongInt() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWait() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testFinalize() {
-		fail("Not yet implemented"); // TODO
-	}
 
 }
