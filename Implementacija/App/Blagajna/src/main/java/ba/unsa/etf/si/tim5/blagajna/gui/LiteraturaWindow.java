@@ -89,6 +89,8 @@ public class LiteraturaWindow {
 	/**
 	 * Create the application.
 	 */
+	private ArrayList<Literatura> literatura;
+	private JButton btnIzai;
 	
 	private void inicijalizirajTabelu() {
 		ArrayList<Literatura> l = Dao.getInstance().dajSvuLiteraturu();			
@@ -107,8 +109,7 @@ public class LiteraturaWindow {
 
 	}
 
-	private ArrayList<Literatura> literatura;
-	private JButton btnIzai;
+
 
 	public LiteraturaWindow(ArrayList<Literatura> literatura) {
 		initialize();

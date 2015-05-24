@@ -118,8 +118,7 @@ public class Validacija {
 		if (isbn == null) {
 			return false;
 		}
-		isbn = isbn.replaceAll("-", "");
-
+		isbn = isbn.replaceAll("-", "");		
 		if (isbn.length() != 13) {
 			return false;
 		}

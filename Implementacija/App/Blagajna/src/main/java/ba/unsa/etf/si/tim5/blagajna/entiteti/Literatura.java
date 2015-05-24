@@ -32,6 +32,7 @@ public class Literatura implements java.io.Serializable {
 		this.autor = autor;
 		this.kolicina = kolicina;
 		this.cijena = cijena;
+		this.naziv = naziv;
 	}
 	
 	public long getId() {
@@ -63,41 +64,16 @@ public class Literatura implements java.io.Serializable {
 		return naziv;
 	}
 	
-	public void setNaziv(String naziv) {
-		if(naziv.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli naziv knjige!");
-		}
-		
-		if(!Validacija.getInstance().validirajIme(naziv))
-		{
-			 throw new IllegalArgumentException("Naziv knjige nije validan!");
-		}
-		else {
-			
+	public void setNaziv(String naziv) {		
 			this.naziv = naziv;
-		}		
-	
-		
+
 	}
 	public String getAutor() {
 		return autor;
 	}
 	public void setAutor(String autor) {
-		if(autor.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli autora knjige!");
-		}
 		
-		if(!Validacija.getInstance().validirajIme(autor))
-		{
-			 throw new IllegalArgumentException("Polje autor nije validno!");
-		}
-		else {
-			
-			this.autor = autor;
-		}		
-		
+			this.autor = autor;		
 		
 	}
 	public int getKolicina() {
