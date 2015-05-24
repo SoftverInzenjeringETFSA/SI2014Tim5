@@ -17,6 +17,7 @@ import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 
 
+
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
@@ -94,6 +95,8 @@ public class MainWindow {
 	Korisnik user=new Korisnik();
 	boolean userExist=false;
 	TipKorisnika tip;
+	
+	int counter=0;
 
 	public void ucitajSveStudente() {
 
@@ -146,7 +149,7 @@ public class MainWindow {
 	private static ArrayList<Student> studenti = new ArrayList<Student>();
 	
 	public MainWindow() {
-		tip=TipKorisnika.Korisnik;
+		tip=TipKorisnika.Administrator;
 		initialize();
 		ucitajSveStudente();
 		
@@ -378,28 +381,41 @@ public class MainWindow {
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setRowSelectionAllowed(true);
 		
+		
+		
 		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 	        @Override
 	        
+	       
 	        public Component getTableCellRendererComponent(JTable table,
 	                Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-	            
+	        	setBackground(Color.WHITE);
+	        	
 	        	super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+	            setBackground(Color.WHITE);
+	           
+	            //if (hasFocus)setBackground(Color.DARK_GRAY);
+	            double dugSkolarina = (Double)table.getModel().getValueAt(row, 3);
+	            double dugLiteratura = (Double)table.getModel().getValueAt(row, 4);
+	            String  ime=(String)table.getModel().getValueAt(row, 1);
 	            
-	            if (hasFocus) setBackground(Color.DARK_GRAY);
+	            //double id=(Double)table.getModel().getValueAt(row, 1);
+	           
 	            
 	           
-	            for (int i=0;i<sviStudenti.size();i++)
-	            {
-	            	if(sviStudenti.get(i).dajUkupniDug()!= 0 )
-	            		setBackground(Color.RED);
-	            	else setBackground(Color.WHITE);
-	            }
-	           
+	            if(dugSkolarina !=0 || dugLiteratura!=0 && !ime.isEmpty())
+	            	{setBackground(Color.RED);}
+	            	
+	            
+	            else {setBackground(Color.WHITE); }
+	            
+	            
+	          
 	            return this;
 	        }   
 	    });
 		scrollPane.setViewportView(table);
+		
 		table.setModel(new DefaultTableModel(new Object[][] {
 
 		}, new String[] { "ID", "Ime i Prezime", "Indeks",
@@ -653,11 +669,20 @@ public class MainWindow {
 		if(tip.equals(TipKorisnika.Korisnik))mnIzvjetaj.setVisible(false);
 		mnIzvjetaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		menuBar.add(mnIzvjetaj);
+		
+		JMenuItem mntmKreirajIzvjetaj = new JMenuItem("Kreiraj Izvještaj");
+		if(tip.equals(TipKorisnika.Korisnik))mntmKreirajIzvjetaj.setVisible(false);
+		mntmKreirajIzvjetaj.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				IzvjestajWindow window = new IzvjestajWindow();
 				window.frmIzvjetaj.setVisible(true);
 			}
 		});
-		menuBar.add(mnIzvjetaj);
+		mnIzvjetaj.add(mntmKreirajIzvjetaj);
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 	}
 	
