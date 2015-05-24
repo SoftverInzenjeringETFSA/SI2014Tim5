@@ -30,6 +30,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -267,9 +268,14 @@ public class LiteraturaWindow {
 				String autor = tFieldAutor.getText();
 				int kolicina = Integer.parseInt(tFieldKolicina.getText());
 				double cijena = Double.parseDouble(tFieldCijena.getText());
-
-				Literatura l = new Literatura(69, isbn, naziv, autor, kolicina,cijena);
-
+				Literatura l;
+				try {
+				 l = new Literatura(69, isbn, naziv, autor, kolicina,cijena);
+				}catch(IllegalArgumentException iae) {
+					JOptionPane.showMessageDialog(null,"ISBN nije validan! ","Problem",JOptionPane.INFORMATION_MESSAGE);
+					logger.error("ISBN nije valjan kod unosa!", iae );
+					return;
+				}
 				Session session = HibernateUtil.getSessionFactory().openSession();
 
 				long id = l.dodajLiteraturu(session); //svoj id dobije tek nakon smjestanja u bazu
