@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 public class Student implements java.io.Serializable {
 	/**
@@ -40,22 +40,22 @@ public class Student implements java.io.Serializable {
 			String mjestoRodjenja, String opcinaRodjenja,
 			String drzavaRodjenja, double popust, int godinaStudija) {
 		super();
-		this.setId(id);
-		this.setIme(ime);
-		this.setPrezime(prezime);
-		this.setJmbg(jmbg);
-		this.setMail(mail);
-		this.setAdresa(adresa);
-		this.setOpcina(opcina);
-		this.setTelefon(telefon);
-		this.setIndeks(indeks);
-		this.setTroskoviSkolarine(troskoviSkolarine);
-		this.setImeRoditelja(imeRoditelja);
-		this.setMjestoRodjenja(mjestoRodjenja);
-		this.setOpcinaRodjenja(opcinaRodjenja);
-		this.setDrzavaRodjenja(drzavaRodjenja);
-		this.setPopust(popust);
-		this.setGodinaStudija(godinaStudija);	
+		this.id = id;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.jmbg = jmbg;
+		this.mail = mail;
+		this.adresa = adresa;
+		this.opcina = opcina;
+		this.telefon = telefon;
+		this.indeks = indeks;
+		this.troskoviSkolarine = troskoviSkolarine;
+		this.imeRoditelja = imeRoditelja;
+		this.mjestoRodjenja = mjestoRodjenja;
+		this.opcinaRodjenja = opcinaRodjenja;
+		this.drzavaRodjenja = drzavaRodjenja;
+		this.popust = popust;
+		this.godinaStudija = godinaStudija;		
 	}
 
 	public Student() {
@@ -83,15 +83,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setIme(String ime) {
-		if(ime.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli ime!");
-		}
-		if(!Validacija.getInstance().validirajIme(ime))throw new IllegalArgumentException("Neispravan format unesenog imena!");
-		else {
-			this.ime = ime;
-			}
-		
+		this.ime = ime;
 	}
 
 	public String getPrezime() {
@@ -99,14 +91,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setPrezime(String prezime) {
-		if(prezime.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli prezime!");
-		}
-		if(!Validacija.getInstance().validirajIme(prezime))throw new IllegalArgumentException("Neispravan format unesenog prezimena!");
-		else {
-			this.prezime = prezime;
-			}
+		this.prezime = prezime;
 	}
 
 	public String getJmbg() {
@@ -114,19 +99,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setJmbg(String jmbg) {
-		if(jmbg.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli JMBG!");
-		}
-		
-		if(!Validacija.getInstance().validirajJmbg(jmbg))
-		{
-			 throw new IllegalArgumentException("Format JMBG-a nije validan!");
-		}
-		
-		else {
-			this.jmbg = jmbg;
-		}
+		this.jmbg = jmbg;
 	}
 
 	public String getMail() {
@@ -134,18 +107,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setMail(String mail) {
-		if(mail.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli mail!");
-		}
-		if (!Validacija.getInstance().validirajMail(mail))
-        {
-            throw new IllegalArgumentException("Neispravno unesen mail! Primjer je: mail1@example.com");
-        }
-        else
-        {
-        	this.mail = mail;
-        }
+		this.mail = mail;
 	}
 
 	public String getAdresa() {
@@ -153,18 +115,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setAdresa(String adresa) {
-		if(adresa.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli adresu!");
-		}
-		if (!Validacija.getInstance().validirajAdresu(adresa))
-        {
-            throw new IllegalArgumentException("Neispravno unesena adresa!");
-        }
-        else
-        {
-        	this.adresa = adresa;
-        }
+		this.adresa = adresa;
 	}
 
 	public String getOpcina() {
@@ -172,19 +123,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setOpcina(String opcina) {
-		if(opcina.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli adresu!");
-		}
-		if (!Validacija.getInstance().validirajTekst(opcina))
-        {
-            throw new IllegalArgumentException("Neispravno unesena opcina!");
-        }
-        else
-        {
-        	this.opcina = opcina;
-        }
-		
+		this.opcina = opcina;
 	}
 
 	public String getTelefon() {
@@ -192,18 +131,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setTelefon(String telefon) {
-		if(telefon.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli telefon!");
-		}
-		if (!Validacija.getInstance().validirajTelefon(telefon))
-        {
-            throw new IllegalArgumentException("Neispravno unesen telefon! Podrzani format je XXX/XXX-XXX.");
-        }
-        else
-        {
-        	this.telefon = telefon;
-        }
+		this.telefon = telefon;
 	}
 
 	public int getIndeks() {
@@ -235,18 +163,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setImeRoditelja(String imeRoditelja) {
-		if(imeRoditelja.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli ime roditelja!");
-		}
-		if (!Validacija.getInstance().validirajIme(imeRoditelja))
-        {
-            throw new IllegalArgumentException("Neispravno uneseno ime roditelja!");
-        }
-        else
-        {
-        	this.imeRoditelja = imeRoditelja;
-        }
+		this.imeRoditelja = imeRoditelja;
 	}
 
 	public String getMjestoRodjenja() {
@@ -254,18 +171,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setMjestoRodjenja(String mjestoRodjenja) {
-		if(mjestoRodjenja.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli mjesto rodjenja!");
-		}
-		if (!Validacija.getInstance().validirajTekst(mjestoRodjenja))
-        {
-            throw new IllegalArgumentException("Neispravno uneseno mjesto rodjenja!");
-        }
-        else
-        {
-        	this.mjestoRodjenja = mjestoRodjenja;
-        }
+		this.mjestoRodjenja = mjestoRodjenja;
 	}
 
 	public String getOpcinaRodjenja() {
@@ -273,19 +179,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setOpcinaRodjenja(String opcinaRodjenja) {
-		if(opcinaRodjenja.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli opcinu rodjenja!");
-		}
-		if (!Validacija.getInstance().validirajTekst(opcinaRodjenja))
-        {
-            throw new IllegalArgumentException("Neispravno unesena opcina rodjenja!");
-        }
-        else
-        {
-        	this.opcinaRodjenja = opcinaRodjenja;
-        }
-		
+		this.opcinaRodjenja = opcinaRodjenja;
 	}
 
 	public String getDrzavaRodjenja() {
@@ -293,18 +187,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setDrzavaRodjenja(String drzavaRodjenja) {
-		if(drzavaRodjenja.equals("")) 
-		{
-			 throw new IllegalArgumentException("Niste unijeli drzavu rodjenja!");
-		}
-		if (!Validacija.getInstance().validirajTekst(drzavaRodjenja))
-        {
-            throw new IllegalArgumentException("Neispravno unesena drzava rodjenja!");
-        }
-        else
-        {
-        	this.drzavaRodjenja = drzavaRodjenja;
-        }
+		this.drzavaRodjenja = drzavaRodjenja;
 	}
 
 	public double getPopust() {
@@ -330,7 +213,29 @@ public class Student implements java.io.Serializable {
 	public double dajDugZaSkolarinu() {
 		return troskoviSkolarine - troskoviSkolarine * popust / 100;
 	}
+	public double dajNeisplaceneDugoveLiteratura() {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where tipDuga = 'dugZaLiteraturu' and jeLiIzmiren = 0 and studentId = " + this.id).addEntity(Dug.class).list();		
+		t.commit();	
+		session.close();
+		double dug = 0;
+		for(int i = 0; i<l.size(); i++) dug += l.get(i).dajVrijednostDuga();
+		
+		return dug;
+	}
 	
+	public double dajNeisplaceneDugoveSkolarina() {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where tipDuga = 'dugZaSkolarinu' and jeLiIzmiren = 0 and studentId = " + this.id).addEntity(Dug.class).list();		
+		t.commit();	
+		session.close();
+		double dug = 0;
+		for(int i = 0; i<l.size(); i++) dug += l.get(i).dajVrijednostDuga();
+		
+		return dug;
+	}
 	public ArrayList<Dug> dajSveDugove(Session session) {
 		
 		org.hibernate.Transaction t = session.beginTransaction();

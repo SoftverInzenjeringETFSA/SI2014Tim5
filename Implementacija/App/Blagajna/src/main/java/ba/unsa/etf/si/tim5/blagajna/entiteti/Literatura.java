@@ -28,7 +28,7 @@ public class Literatura implements java.io.Serializable {
 		super();
 		this.id = id;
 		this.isbn = isbn;
-		this.naziv = naziv;
+		this.setIsbn(isbn);;
 		this.autor = autor;
 		this.kolicina = kolicina;
 		this.cijena = cijena;
