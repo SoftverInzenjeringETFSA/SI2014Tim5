@@ -16,6 +16,7 @@ import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 
 
+
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
@@ -40,6 +41,7 @@ import javax.swing.JList;
 import java.awt.Choice;
 
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.border.BevelBorder;
@@ -53,6 +55,7 @@ import java.awt.ScrollPane;
 
 import javax.swing.JPanel;
 
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.List;
 import java.awt.Toolkit;
@@ -310,7 +313,7 @@ public class MainWindow {
 					String dugSkolarina = textField.getText();
 
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if(sviStudenti.get(i).dajDugZaSkolarinu()==Double.parseDouble(dugSkolarina))
+						if(Math.abs(sviStudenti.get(i).dajDugZaSkolarinu())==Math.abs(Double.parseDouble(dugSkolarina)))
 							studenti.add(sviStudenti.get(i));
 					}
 					
@@ -334,7 +337,7 @@ public class MainWindow {
 					String dugLiteratura = textField.getText();
 
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if(sviStudenti.get(i).getTroskoviLiterature()==Double.parseDouble(dugLiteratura))
+						if(Math.abs(sviStudenti.get(i).getTroskoviLiterature())==Math.abs(Double.parseDouble(dugLiteratura)))
 							studenti.add(sviStudenti.get(i));
 					}
 					
@@ -368,11 +371,34 @@ public class MainWindow {
 		frmBlagajna.getContentPane().add(btnPretrai, "6, 5");
 
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.getViewport().setBackground(Color.red);
 		frmBlagajna.getContentPane().add(scrollPane, "2, 6, 7, 1");
 
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setRowSelectionAllowed(true);
+		
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+	        @Override
+	        
+	        public Component getTableCellRendererComponent(JTable table,
+	                Object value, boolean isSelected, boolean hasFocus, int row, int col) {
+	            
+	        	super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
+	            
+	            if (hasFocus) setBackground(Color.DARK_GRAY);
+	            
+	           
+	            for (int i=0;i<sviStudenti.size();i++)
+	            {
+	            	if(sviStudenti.get(i).dajUkupniDug()!= 0 )
+	            		setBackground(Color.RED);
+	            	else setBackground(Color.WHITE);
+	            }
+	           
+	            return this;
+	        }   
+	    });
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(new Object[][] {
 
