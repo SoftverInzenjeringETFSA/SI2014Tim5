@@ -79,7 +79,7 @@ public class LiteraturaWindow {
 					window.frmUnosDugaZa.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error("Greška pri otvaranju forme za unos literature! " + e.getMessage() , e);
+					logger.error(e.getMessage() , e);
 				}
 			}
 		});
