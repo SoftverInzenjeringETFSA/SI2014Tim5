@@ -268,13 +268,9 @@ public class LiteraturaWindow {
 				String autor = tFieldAutor.getText();
 				int kolicina = Integer.parseInt(tFieldKolicina.getText());
 				double cijena = Double.parseDouble(tFieldCijena.getText());
-<<<<<<< HEAD
-				
 			
-				Literatura l = new Literatura(69, isbn, naziv, autor, kolicina,cijena);
-
-=======
 				Literatura l;
+
 				try {
 				 l = new Literatura(69, isbn, naziv, autor, kolicina,cijena);
 				}catch(IllegalArgumentException iae) {
@@ -282,7 +278,6 @@ public class LiteraturaWindow {
 					logger.error("ISBN nije valjan kod unosa!", iae );
 					return;
 				}
->>>>>>> 78194a6177fc6fcc99d9fcdfad91f3fc98ea4e35
 				Session session = HibernateUtil.getSessionFactory().openSession();
 
 				long id = l.dodajLiteraturu(session); //svoj id dobije tek nakon smjestanja u bazu
