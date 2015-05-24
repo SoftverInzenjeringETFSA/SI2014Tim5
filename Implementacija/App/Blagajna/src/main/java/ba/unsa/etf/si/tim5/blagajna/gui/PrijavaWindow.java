@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 
 
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
@@ -13,9 +14,12 @@ import javax.swing.JPasswordField;
 
 
 
+
 import java.awt.Color;
 
 import javax.swing.JButton;
+
+import org.apache.log4j.Logger;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
@@ -35,6 +39,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class PrijavaWindow {
+	final static Logger logger=Logger.getLogger(PrijavaWindow.class);
 
 	public JFrame frmPrijava;
 	private JTextField textUser;
@@ -55,6 +60,7 @@ public class PrijavaWindow {
 					window.frmPrijava.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error("Greška pri otvaranju forme za prijavu!" + e.getMessage(), e);
 				}
 			}
 		});
