@@ -2,6 +2,10 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import static org.junit.Assert.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.junit.Test;
 
 public class DugWindowTest {
@@ -17,73 +21,18 @@ public class DugWindowTest {
 	}
 
 	@Test
-	public void testDugWindowStudent() {
-		fail("Not yet implemented"); // TODO
+	public void testDajDatum()
+	{
+		Date datum = new Date();
+		
+		
 	}
-
-	@Test
-	public void testGenerisiIzvjestaj() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testObject() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testGetClass() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testHashCode() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testEquals() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testClone() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testToString() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testNotify() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testNotifyAll() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWaitLong() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWaitLongInt() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testWait() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testFinalize() {
-		fail("Not yet implemented"); // TODO
-	}
+	
+	/*	private String dajDatum(Date datum) {
+		if (datum == null) return "";
+		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		String s = dateFormat.format(datum).toString();
+		return s;
+*/
 
 }

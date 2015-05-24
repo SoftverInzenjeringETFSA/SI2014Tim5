@@ -116,14 +116,12 @@ public class PromjenaLozinkeWindow {
 			char[] pass1, pass2, pass3;
 			pass1 = StaraLozinkaTB.getPassword();
 			pass2 = NovaLozinkaTB.getPassword();
-			pass3 = PotvrdiNovuLozinkuTB.getPassword();
-			
+			pass3 = PotvrdiNovuLozinkuTB.getPassword();		
 			String s1, s2, s3;
 			s1 = new String(pass1);
 			s2 = new String(pass2);
 			s3 = new String(pass3);
 
-			
 			if (!s1.equals(korisnik.getLozinka()))
 				JOptionPane.showMessageDialog(null,"Stara lozinka nije tacna !","Error",JOptionPane.WARNING_MESSAGE);		
 			else if (!Validacija.getInstance().passwordValidation(s2))
@@ -143,7 +141,7 @@ public class PromjenaLozinkeWindow {
 				NovaLozinkaTB.setText("");
 				PotvrdiNovuLozinkuTB.setText("");
 				frmPromjenaLozinke.setVisible(false);	
-			}
+			}    
 			}
 		});
 		frmPromjenaLozinke.getContentPane().add(btnPromijeni, "6, 10");

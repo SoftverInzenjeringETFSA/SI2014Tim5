@@ -67,6 +67,7 @@ public class DugWindow {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -209,9 +210,10 @@ public class DugWindow {
 			 * 
 			 */
 			private static final long serialVersionUID = 8947897896919412127L;
-
-			public boolean isCellEditable(int row, int column){return false;}
-	   	    
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
 	    };
 	    
 	    table.setModel(new DefaultTableModel(
@@ -227,18 +229,13 @@ public class DugWindow {
 		JScrollPane TabelaDugova = new JScrollPane(table);	frmDugovanjaUplate.getContentPane().add(TabelaDugova, "3, 8, 7, 1, fill, fill");
 		
 		popuniTabelu();
-		
 		lblUkupanDug = new JLabel("Ukupan dug:");
 		frmDugovanjaUplate.getContentPane().add(lblUkupanDug, "7, 12");
-	
 		double ukupanDugD = student.dajUkupniDug();
 		int ukupanDugI = (int)ukupanDugD;
 		String s = Integer.toString(ukupanDugI);
-		
 		lblDug = new JLabel(s);
-		
 		frmDugovanjaUplate.getContentPane().add(lblDug, "9, 12");
-		
 		btnUplati = new JButton("Uplati");
 		btnUplati.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {			
@@ -258,7 +255,6 @@ public class DugWindow {
 					rate.get(i).setDatumRazduzenja(new Date());
 					rate.get(i).urediRatu(session);
 					session.close();
-				
 					for (int j = 0;j<dugovi.size();j++)
 						if (dugovi.get(j).getId()==rate.get(i).getDugId())
 						{
@@ -268,8 +264,6 @@ public class DugWindow {
 							dugovi.get(j).urediDug(session1);
 							session1.close();	
 						}
-					
-					
 					popuniTabelu();
 				}
 				else
@@ -300,32 +294,31 @@ public class DugWindow {
 				{
 				GenerisiIzvjestaj(student.getIme(), student.getPrezime(), student.getImeRoditelja(), dug, datum);
 				}
-				catch(Exception ex)
-				{
-					
+				catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+					logger.error("Greška pri generisanju fajla za printanje! " + e1.getMessage() , e1);
+				} 
+				catch (DRException e1) {
+					logger.error("Greška pri generisanju izvještaja za printanje! " + e1.getMessage() , e1);
+					e1.printStackTrace();
 				}
+					
+				
 				}
 		 }
 	});
-		
 		frmDugovanjaUplate.getContentPane().add(btnPrintaj, "3, 18, 7, 1, default, top");
 	}	
 		
 
 	private void popuniTabelu() {
-		
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		
 		dugovi = student.dajSveDugove(session);
-		
 		String s = "";
 		s = (String)StudijskaGodinaCB.getSelectedItem();
-		
 		DefaultTableModel model= (DefaultTableModel)table.getModel();
-		
-		
 		model.setRowCount(0);
-		
 		for (int i =0;i<dugovi.size();i++)
 		{		
 			if (dugovi.get(i).getAkademskaGodina().toString().equals(s))
@@ -343,15 +336,10 @@ public class DugWindow {
 				if (tipDuga.equals("dugZaSkolarinu")) tipDuga = "Dug za školarinu";
 				else tipDuga = "Dug za literaturu";
 				model.addRow(new Object[] {rate.get(j).getId() , (int)rate.get(j).getVrijednost(), datum1, datum2, datum3, tipDuga });
-				
-				
 			}
 		}
-			
 		}
 		session.close();
-		
-		
 	}
 		// TODO Auto-generated method stub
 
@@ -366,16 +354,13 @@ public class DugWindow {
 	{
 		//dynamic report
 		JasperReportBuilder report = DynamicReports.report(); 
-		
 		//add title
 		TextFieldBuilder<String> title1 = DynamicReports.cmp.text("  International Technical University\n"); 
 		report.title(title1); 
-				
 		TextFieldBuilder<String> title2 = DynamicReports.cmp.text("  Zmaja od Bosne bb, Kampus Univerziteta u Sarajevu, 71 000 Sarajevo\n"); 
 		report.title(title2); 
 		TextFieldBuilder<String> title3 = DynamicReports.cmp.text("  Tel: ++387 33 250 700\n\n\n\n"); 
 		report.title(title3);
-		
 		if (datum != "")
 		{
 			TextFieldBuilder<String> title4 =DynamicReports.cmp.text("   Ovaj dokument se izdaje kao potvrda da je student " + ime + " (" + imeRoditelja+ ") " + prezime + " izmirio/la ratu duga prema Univerzitetu u vrijednosti od "+dug+" KM na datum " + datum +".\n\n\n\n");
@@ -386,17 +371,14 @@ public class DugWindow {
 			TextFieldBuilder<String> title4 =DynamicReports.cmp.text("   Ovaj dokument se izdaje kao potvrda da student " + ime + " (" + imeRoditelja+ ") " + prezime + " nije izmirio/la ratu duga Univerzitetu u vrijednosti od "+dug+" KM.\n\n\n\n");
 			report.title(title4);
 		}
-		
 		TextFieldBuilder<String> title5 =DynamicReports.cmp.text("Potpis ovlaštenog lica: ___________________ \n");
 		report.title(title5);
 		TextFieldBuilder<String> title6 =DynamicReports.cmp.text("Potpis studenta:        ___________________ \n");
 		report.title(title6);
-				
 		Date date = new Date();
 		String s = dajDatum(date);
 		TextFieldBuilder<String> title7 = DynamicReports.cmp.text("Datum: " + s); 
-		report.title(title7); 
-				
+		report.title(title7); 		
 		report.show(); 		
 	}
 }	// TODO Auto-generated method stub
