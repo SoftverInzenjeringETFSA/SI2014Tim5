@@ -56,7 +56,7 @@ public class KupiLiteraturuWindow {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			@Override
+			//@Override
 			public void run() {
 				try {
 					KupiLiteraturuWindow window = new KupiLiteraturuWindow();
@@ -130,7 +130,7 @@ public class KupiLiteraturuWindow {
 		comboBox = new JComboBox();
 	
 		comboBox.addActionListener(new ActionListener() {
-			@Override
+			//@Override
 			public void actionPerformed(ActionEvent e) {
 				Literatura l = (Literatura)comboBox.getSelectedItem();
 				FillLabels(l);
