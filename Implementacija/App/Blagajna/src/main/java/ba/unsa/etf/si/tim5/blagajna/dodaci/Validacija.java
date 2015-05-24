@@ -118,8 +118,7 @@ public class Validacija {
 		if (isbn == null) {
 			return false;
 		}
-		isbn = isbn.replaceAll("-", "");
-
+		isbn = isbn.replaceAll("-", "");		
 		if (isbn.length() != 13) {
 			return false;
 		}
@@ -208,4 +207,16 @@ public class Validacija {
 		}
 		return true;
 	}
+	
+	
+	public Boolean validirajTekst(String tekst) {
+		if (tekst.length() > 30) return false;
+		else if(tekst.length() <2) return false;
+		Pattern pattern = Pattern.compile("^[A-Z|Č|Ć|Ž|Š|Đ]{1}[a-z|č|ć|ž|š|đ ]{2,}$");
+		Matcher matcher = pattern.matcher(tekst);
+		if (matcher.matches())	return true;
+		else return false;
+	}
+	
+	
 }

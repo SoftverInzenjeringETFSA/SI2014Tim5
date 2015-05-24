@@ -1,106 +1,139 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-public class LiteraturaTest extends TestCase {
+
+
+public class LiteraturaTest extends Literatura {
 	
-	Literatura l =  new Literatura(100, "010AAA","Naziv literature", "AUtor lit", 21, 20.00);
+	long id = 1;
+	String isbn = "ISBN 978-0-300-14424-6";
+	String naziv = "Prokleta avlija";
+	String autor = "Ivo Andric";
+	int kolicina = 2;
+	double cijena = 100;
 	
-	@Before
-	public void TestnePostavke () {
-		
-			//l =  new Literatura(100, "010AAA","Naziv literature", "AUtor lit", 21, 20.00);
-			
-	}
+	Literatura l = new Literatura(id, isbn, naziv, autor, kolicina, cijena); 
+	
 	@Test
 	public void testGetId() {
-		long id_n;
-		id_n=l.getId();
-		Assert.assertEquals(100, id_n);
+		long id1;
+		id1=l.getId(); 
+		Assert.assertEquals(1, id1);
 	}
+	
 	@Test
-	public void testSetId() {
-		try {
-			
-			l.setId(101);
-			
-			Assert.assertEquals(101, l.getId());
-		} 
-		
-		catch (Exception e) {
-			
-			Assert.fail("Test fail - setId");
-		}
+	public void testGetIsbn(){
+		String isbn1; 
+		isbn1 = l.getIsbn(); 
+		Assert.assertEquals("ISBN 978-0-300-14424-6", isbn1);
 	}
+	
+	@Test 
+	public void testGetNaziv(){
+		String naziv1; 
+		naziv1 = l.getNaziv(); 
+		Assert.assertEquals("Prokleta avlija", naziv1);
+	}
+	
+	@Test 
+	public void testGetAutor(){
+		String autor1; 
+		autor1 = l.getAutor(); 
+		Assert.assertEquals("Ivo Andric", autor1);
+	}
+	
 	@Test
-	public void testGetIsbn() {
-		String isbn_n;
-		isbn_n = l.getIsbn();
-		Assert.assertEquals("010AAA", isbn_n);
+	public void testGetKolicina(){
+		int kolicina1; 
+		kolicina1 = l.getKolicina(); 
+		Assert.assertEquals(2, kolicina1);
 	}
-	@Test
-	public void testSetIsbn() {
-		try {			
-			l.setIsbn("010AAA");			
-			Assert.assertEquals("010AAA", l.getIsbn());
-		} 		
-		catch (Exception e) {
-			
-			Assert.fail("Test fail - setIsbn");
-		}
-	}
-	@Test
-	public void testGetNaziv() {
-		String naziv_n;
-		naziv_n = l.getNaziv();
-		Assert.assertEquals("Naziv literature", naziv_n);
-	}
-	@Test
-	public void testSetNaziv() {
-		try {			
-			l.setNaziv("Naziv literature");			
-			Assert.assertEquals("Naziv literature", l.getNaziv());
-		} 		
-		catch (Exception e) {
-			
-			Assert.fail("Test fail - setNaziv");
-		}
-	}
-	@Test
-	public void testGetAutor() {
-		String autor_n;
-		autor_n = l.getAutor();
-		Assert.assertEquals("AUtor lit", autor_n);
-	}
-	@Test
-	public void testSetAutor() {
-		try {			
-			l.setAutor("AUtor lit");			
-			Assert.assertEquals("AUtor lit", l.getAutor());
-		} 		
-		catch (Exception e) {
-			
-			Assert.fail("Test fail - setAutor");
-		}
-	}
-	@Test
-	public void testGetKolicina() {
-		int kol;
-		kol = l.getKolicina();
-		Assert.assertEquals(21, kol);
-	}
-	@Test
-	public void testSetKolicina() {
-		try {			
-			l.setKolicina(21);			
-			Assert.assertEquals(21, l.getKolicina());
-		} 		
-		catch (Exception e) {
-			
-			Assert.fail("Test fail - setKolicina");
-		}
-	}
+	
+	
 
+    @Test
+   	public void testSetIsbn() {
+   		try {
+   			
+   			l.setIsbn("ISBN 978-0-300-14424-6");
+   			
+   			Assert.assertEquals("ISBN 978-0-300-14424-6" , l.getIsbn());
+   		} 
+   		
+   		catch (Exception e) {
+   			
+   			Assert.fail("Test failed - getIsbn");
+   		}
+   	}
+	
+    @Test
+   	public void testSetNaziv() {
+   		try {
+   			
+   			l.setNaziv("Prokleta avlija"); 
+   			
+   			Assert.assertEquals("Prokleta avlija" , l.getNaziv());
+   		} 
+   		
+   		catch (Exception e) {
+   			
+   			Assert.fail("Test failed - getNaziv");
+   		}
+   	}
+    
+    @Test 
+    public void testSetAutor(){
+    	
+    	try {
+   			
+   			l.setAutor("Ivo Andric");
+   			
+   			Assert.assertEquals("Ivo Andric" , l.getAutor());
+   		} 
+   		
+   		catch (Exception e) {
+   			
+   			Assert.fail("Test failed - getAutor");
+   		}
+    	
+    }
+    
+    @Test 
+    public void testSetKolicina(){
+    	
+    	try {
+   			
+   			l.setKolicina(2);
+   			
+   			Assert.assertEquals(2 , l.getKolicina());
+   		} 
+   		
+   		catch (Exception e) {
+   			
+   			Assert.fail("Test failed - getKolicina");
+   		}
+    }
+    
+    
+    @Test 
+    public void testSetId(){
+    	
+    	try {
+   			
+   			l.setId(1); 
+   			
+   			Assert.assertEquals(1 , l.getId());
+   		} 
+   		
+   		catch (Exception e) {
+   			
+   			Assert.fail("Test failed - getId");
+   		}
+    }
+    
+    
 }

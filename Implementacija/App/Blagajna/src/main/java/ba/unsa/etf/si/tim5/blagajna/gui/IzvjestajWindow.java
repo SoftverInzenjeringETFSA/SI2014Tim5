@@ -3,13 +3,14 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 import java.awt.EventQueue;
 
 
+
+
 import javax.swing.JFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import net.sf.jasperreports.components.*;
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
 import net.sf.dynamicreports.report.builder.column.Columns;
@@ -22,14 +23,13 @@ import net.sf.dynamicreports.report.exception.DRException;
 
 import javax.swing.*;
 
-import java.awt.print.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
+
 
 //----------------------
 import javax.swing.DefaultComboBoxModel;
@@ -48,10 +48,12 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
+
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 public class IzvjestajWindow {
 
-	private static final Logger logger = Logger.getLogger(SlanjeMaila.class);
+	final static Logger logger = Logger.getLogger(SlanjeMaila.class);
 	JFrame frmIzvjetaj;
 	JComboBox comboBox;
 	static Korisnik korisnik;

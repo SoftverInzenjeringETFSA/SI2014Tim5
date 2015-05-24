@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 
 
 public class Literatura implements java.io.Serializable {
@@ -27,10 +28,11 @@ public class Literatura implements java.io.Serializable {
 		super();
 		this.id = id;
 		this.isbn = isbn;
-		this.naziv = naziv;
+		this.setIsbn(isbn);;
 		this.autor = autor;
 		this.kolicina = kolicina;
 		this.cijena = cijena;
+		this.naziv = naziv;
 	}
 	
 	public long getId() {
@@ -43,19 +45,36 @@ public class Literatura implements java.io.Serializable {
 		return isbn;
 	}
 	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+		if(isbn.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli ISBN!");
+		}
+		
+		if(!Validacija.getInstance().isbnValidation(isbn))
+		{
+			 throw new IllegalArgumentException("Format ISBN-a nije validan!");
+		}
+		else {
+			
+			this.isbn = isbn;
+		}		
+		
 	}
 	public String getNaziv() {
 		return naziv;
 	}
-	public void setNaziv(String naziv) {
-		this.naziv = naziv;
+	
+	public void setNaziv(String naziv) {		
+			this.naziv = naziv;
+
 	}
 	public String getAutor() {
 		return autor;
 	}
 	public void setAutor(String autor) {
-		this.autor = autor;
+		
+			this.autor = autor;		
+		
 	}
 	public int getKolicina() {
 		return kolicina;

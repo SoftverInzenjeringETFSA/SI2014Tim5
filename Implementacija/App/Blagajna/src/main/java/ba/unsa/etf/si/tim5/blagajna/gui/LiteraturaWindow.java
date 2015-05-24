@@ -30,6 +30,7 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
 import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -79,7 +80,7 @@ public class LiteraturaWindow {
 					window.frmUnosDugaZa.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error("Greška pri otvaranju forme za unos literature! " + e.getMessage() , e);
+					logger.error(e.getMessage() , e);
 				}
 			}
 		});
@@ -88,10 +89,12 @@ public class LiteraturaWindow {
 	/**
 	 * Create the application.
 	 */
+	private ArrayList<Literatura> literatura;
+	private JButton btnIzai;
 	
 	private void inicijalizirajTabelu() {
 		ArrayList<Literatura> l = Dao.getInstance().dajSvuLiteraturu();			
-		
+		literatura = l;
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
 		for(int i = 0; i<l.size(); i++)
@@ -106,8 +109,7 @@ public class LiteraturaWindow {
 
 	}
 
-	private ArrayList<Literatura> literatura = new ArrayList<Literatura>();
-	private JButton btnIzai;
+
 
 	public LiteraturaWindow(ArrayList<Literatura> literatura) {
 		initialize();
@@ -266,10 +268,22 @@ public class LiteraturaWindow {
 				String naziv = tFieldNaziv.getText();
 				String autor = tFieldAutor.getText();
 				int kolicina = Integer.parseInt(tFieldKolicina.getText());
+<<<<<<< HEAD
 				double cijena = Double.parseDouble(tFieldCijena.getText());
+			
+=======
+				double cijena = Double.parseDouble(tFieldCijena.getText());			
 
-				Literatura l = new Literatura(69, isbn, naziv, autor, kolicina,cijena);
+>>>>>>> 6c8a17cc29bc178e59c936eff93d4501d9dd740b
+				Literatura l;
 
+				try {
+				 l = new Literatura(69, isbn, naziv, autor, kolicina,cijena);
+				}catch(IllegalArgumentException iae) {
+					JOptionPane.showMessageDialog(null,"ISBN nije validan! ","Problem",JOptionPane.INFORMATION_MESSAGE);
+					logger.error("ISBN nije valjan kod unosa!", iae );
+					return;
+				}
 				Session session = HibernateUtil.getSessionFactory().openSession();
 
 				long id = l.dodajLiteraturu(session); //svoj id dobije tek nakon smjestanja u bazu
@@ -282,7 +296,7 @@ public class LiteraturaWindow {
 						l.getNaziv(), l.getAutor(), l.getKolicina(),
 						l.getCijena() });
 				logger.info("Dodana literatura" + l.getId()+ " , " + l.getNaziv());
-				
+		
 			}
 		});
 		panel.add(btnUnesi, "4, 16");

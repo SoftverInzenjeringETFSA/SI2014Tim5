@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 public class Test {
@@ -20,8 +21,10 @@ public class Test {
 //
 //		session.close();
 //		
-		String[] m = {"faris.dzafic@outlook.com"};
-		SlanjeMaila.getInstance().sendFromGMail(m, "Test", "Test");	
+//		String[] m = {"faris.dzafic@outlook.com"};
+//		SlanjeMaila.getInstance().sendFromGMail(m, "Test", "Test");	
+		
+		if(Validacija.getInstance().isbnValidation("978-3-16-148410-0")) 
 		System.out.println("izmjenjeno");
 	}
 }

@@ -2,18 +2,11 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.EventQueue;
 
-import javax.persistence.Table;
 import javax.swing.JFrame;
-
-import java.awt.GridBagLayout;
-
 import javax.swing.JLabel;
 
 import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
-import javax.swing.ComboBoxEditor;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -23,8 +16,6 @@ import javax.swing.DefaultComboBoxModel;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import javax.swing.JButton;
@@ -32,25 +23,21 @@ import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 import org.apache.log4j.Logger;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
-import com.mysql.jdbc.log.Log;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UnosKorisnikaWindow {
-
+	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
+	
 	JFrame frmUnosKorisnika;
+	
 	private static JTextField textField;
 	private static JTextField textField_1;
 	private static JTextField textField_2;
@@ -61,11 +48,10 @@ public class UnosKorisnikaWindow {
 
 	private ArrayList<Korisnik> korisnici;
 	private Korisnik k;
-	private long id;
+//	private long id;
 	private JTable tabela;
 	protected Component frame;
 	private int selektovani;
-	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
 	static JButton btnUredi = new JButton("Uredi");
 	static JButton btnDodaj = new JButton("Dodaj");
 
@@ -74,6 +60,8 @@ public class UnosKorisnikaWindow {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			//@Override
+			
 			public void run() {
 				try {
 					UnosKorisnikaWindow window = new UnosKorisnikaWindow();
@@ -81,6 +69,8 @@ public class UnosKorisnikaWindow {
 					btnUredi.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error(e.getMessage(), e);
+					//logger.error("Greška pri otvaranju forme za unos korisnika! " + e.getMessage() , e);
 				}
 			}
 		});
@@ -214,6 +204,7 @@ public class UnosKorisnikaWindow {
 				"4, 16, 4, 1, fill, center");
 
 		btnDodaj.addActionListener(new ActionListener() {
+			//@Override
 			public void actionPerformed(ActionEvent e) {
 
 				String ime = textField.getText();
@@ -223,8 +214,9 @@ public class UnosKorisnikaWindow {
 				String mail = textField_3.getText();
 				String telefon = textField_4.getText();
 				String username = textField_6.getText();
+
 				String lozinka = "admin";
-				boolean pomocna;
+				//boolean pomocna;
 				
 				
 				TipKorisnika tip = (TipKorisnika) comboBox.getSelectedItem();
@@ -232,9 +224,9 @@ public class UnosKorisnikaWindow {
 				try {
 					Session session = HibernateUtil.getSessionFactory()
 							.openSession();
+				
 					
-					
-					Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa,
+					 k = new Korisnik(1, ime, prezime, jmbg, adresa,
 							telefon, mail, tip, username, lozinka);
 					
 					k.dodajKorisnika(session);
@@ -247,7 +239,7 @@ public class UnosKorisnikaWindow {
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
 							k.getPrezime(), k.getJmbg(), k.getAdresa(),
 							k.getTelefon(), k.getMail(), k.getTipKorisnika() });
-					
+				//	}
 					
 				}
 				
@@ -317,6 +309,7 @@ public class UnosKorisnikaWindow {
 
 		JButton btnIzai = new JButton("Iza\u0111i");
 		btnIzai.addActionListener(new ActionListener() {
+			//@Override
 			public void actionPerformed(ActionEvent arg0) {
 				frmUnosKorisnika.dispose();
 			}

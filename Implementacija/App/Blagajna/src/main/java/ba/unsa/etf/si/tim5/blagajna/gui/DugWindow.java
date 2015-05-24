@@ -77,6 +77,7 @@ public class DugWindow {
 				} catch (Exception e) {
 					e.printStackTrace();
 					logger.error("Greška pri otvaranju forme za dugove! " + e.getMessage() , e);
+					
 				}
 			}
 		});
