@@ -92,6 +92,8 @@ public class DugWindow {
 		catch(Exception e) 
 		{ 
 			e.printStackTrace();
+
+			logger.error("Greška - DugWindow() " + e.getMessage() , e);
 		}
 	}
 	
@@ -164,6 +166,8 @@ public class DugWindow {
 
 		
 		StudijskaGodinaCB.addActionListener(new ActionListener() {
+			//@Override
+			
 			public void actionPerformed(ActionEvent e) {
 				popuniTabelu();
 			}
@@ -202,14 +206,13 @@ public class DugWindow {
 	    
 
 		final DefaultTableModel model = new DefaultTableModel(new Object[][] {
-		},
-		new String[] {
+		}, new String[] {
 			"Id", "Dug", "Datum zadu\u017Eenja", "Datum razdu\u017Eenja", "Rok za uplatu", "Tip duga"
-		}) {
-	    	/**
-			 * 
-			 */
+		}) 
+		{
+
 			private static final long serialVersionUID = 8947897896919412127L;
+			@Override
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;
@@ -238,6 +241,8 @@ public class DugWindow {
 		frmDugovanjaUplate.getContentPane().add(lblDug, "9, 12");
 		btnUplati = new JButton("Uplati");
 		btnUplati.addActionListener(new ActionListener() {
+			//@Override
+			
 			public void actionPerformed(ActionEvent e) {			
 				if (table.getSelectedRow() == -1)
 				JOptionPane.showMessageDialog(null,"Odaberite ratu koju želite da uplatite !","Message",JOptionPane.INFORMATION_MESSAGE);
@@ -300,8 +305,9 @@ public class DugWindow {
 					logger.error("Greška pri generisanju fajla za printanje! " + e1.getMessage() , e1);
 				} 
 				catch (DRException e1) {
-					logger.error("Greška pri generisanju izvještaja za printanje! " + e1.getMessage() , e1);
+					
 					e1.printStackTrace();
+					logger.error("Greška pri generisanju izvještaja za printanje! " + e1.getMessage() , e1);
 				}
 					
 				
