@@ -76,7 +76,8 @@ public class DugWindow {
 					window.frmDugovanjaUplate.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error(e.getMessage() , e);
+					logger.error("Greška pri otvaranju forme za dugove! " + e.getMessage() , e);
+					
 				}
 			}
 		});
@@ -93,7 +94,7 @@ public class DugWindow {
 		{ 
 			e.printStackTrace();
 
-			logger.error(e.getMessage() , e);
+			logger.error("Greška - DugWindow() " + e.getMessage() , e);
 		}
 	}
 	
@@ -302,12 +303,12 @@ public class DugWindow {
 				catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-					logger.error(e1.getMessage() , e1);
+					logger.error("Greška pri generisanju fajla za printanje! " + e1.getMessage() , e1);
 				} 
 				catch (DRException e1) {
 					
 					e1.printStackTrace();
-					logger.error(e1.getMessage() , e1);
+					logger.error("Greška pri generisanju izvještaja za printanje! " + e1.getMessage() , e1);
 				}
 					
 				
