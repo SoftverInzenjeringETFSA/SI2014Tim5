@@ -53,7 +53,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 public class IzvjestajWindow {
 
-	private static final Logger logger = Logger.getLogger(SlanjeMaila.class);
+	final static Logger logger = Logger.getLogger(SlanjeMaila.class);
 	JFrame frmIzvjetaj;
 	JComboBox comboBox;
 	static Korisnik korisnik;
@@ -72,9 +72,7 @@ public class IzvjestajWindow {
 				} catch (Exception e) {
 					e.printStackTrace();
 					
-					//logger.error(e.getMessage() , e);
-					//logger.log(Level.SEVERE, e.getMessage(),e);
-					logger.log(Priority.ERROR, e.getMessage(), e);
+					logger.error(e.getMessage() , e);
 				}
 			}
 		});
