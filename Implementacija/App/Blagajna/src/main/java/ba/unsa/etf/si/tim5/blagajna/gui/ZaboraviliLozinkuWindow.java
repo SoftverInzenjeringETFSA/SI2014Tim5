@@ -20,13 +20,15 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
+import org.apache.log4j.Logger;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class ZaboraviliLozinkuWindow {
-
+	final static Logger logger=Logger.getLogger(ZaboraviliLozinkuWindow.class);
 	JFrame frmPromjenaLozinke;
 	private JTextField textField;
 	ArrayList<Korisnik> sviKorisnici=new ArrayList<Korisnik>();
@@ -43,6 +45,7 @@ public class ZaboraviliLozinkuWindow {
 					window.frmPromjenaLozinke.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error("Greška pri otvaranju glavne forme!" + e.getMessage(), e);
 				}
 			}
 		});

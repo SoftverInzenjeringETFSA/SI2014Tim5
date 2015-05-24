@@ -15,6 +15,8 @@ import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 
 
+
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
 import javax.swing.JFrame;
@@ -80,6 +82,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class MainWindow {
+	final static Logger logger=Logger.getLogger(MainWindow.class);
 
 	JFrame frmBlagajna;
 	private JTable table;
@@ -131,6 +134,7 @@ public class MainWindow {
 					window.frmBlagajna.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error("Greška pri otvaranju glavne forme!" + e.getMessage(), e);
 				}
 			}
 		});
@@ -212,13 +216,17 @@ public class MainWindow {
 		textField = new JTextField();
 		frmBlagajna.getContentPane().add(textField, "5, 5");
 		textField.setColumns(10);
-
+		//JScrollPane scrollPane = new JScrollPane();
 		JButton btnPretrai = new JButton("Pretra\u017Ei");
 		btnPretrai.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String izbor = comboBox.getSelectedItem().toString();
 				
+				//table.setOpaque(false);
+				//scrollPane.getViewport().setBackground(Color.red);
+				//table.setBackground(Color.red);
+				//table.setFillsViewportHeight(true);
 				// session.beginTransaction();
 				//System.out.println(izbor);
 				studenti.clear();
@@ -441,6 +449,7 @@ public class MainWindow {
 		});
 
 		JButton button = new JButton("Uplate");
+		
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Student s = new Student();
@@ -554,7 +563,7 @@ public class MainWindow {
 
 		JMenu mnUredi = new JMenu("Uredi");
 		menuBar.add(mnUredi);
-
+		
 		JMenuItem mntmUrediUposlenike = new JMenuItem("Uredi korisnike");
 		mntmUrediUposlenike.setVisible(true);
 		if(tip.equals(TipKorisnika.Korisnik))mntmUrediUposlenike.setVisible(false);
