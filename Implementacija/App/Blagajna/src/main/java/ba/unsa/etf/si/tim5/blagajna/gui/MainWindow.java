@@ -117,7 +117,7 @@ public class MainWindow {
 			
 			
 			model.addRow(new Object[] { sviStudenti.get(i).getId(),
-					sviStudenti.get(i).getIme() + sviStudenti.get(i).getPrezime(),
+					sviStudenti.get(i).getIme() +" "+ sviStudenti.get(i).getPrezime(),
 					sviStudenti.get(i).getIndeks(),
 					sviStudenti.get(i).getTroskoviSkolarine(),
 					sviStudenti.get(i).getTroskoviLiterature() }
@@ -275,7 +275,7 @@ public class MainWindow {
 					for (int i = 0; i < studenti.size(); i++) {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
-								studenti.get(i).getIme()
+								studenti.get(i).getIme()+" "
 										+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
@@ -304,7 +304,7 @@ public class MainWindow {
 					for (int i = 0; i < studenti.size(); i++) {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
-								studenti.get(i).getIme()
+								studenti.get(i).getIme()+" "
 										+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
@@ -326,7 +326,7 @@ public class MainWindow {
 					for (int i = 0; i < studenti.size(); i++) {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
-								studenti.get(i).getIme()
+								studenti.get(i).getIme()+" "
 										+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
@@ -350,7 +350,7 @@ public class MainWindow {
 					for (int i = 0; i < studenti.size(); i++) {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
-								studenti.get(i).getIme()
+								studenti.get(i).getIme()+" "
 										+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
 								studenti.get(i).getTroskoviSkolarine(),
@@ -389,10 +389,10 @@ public class MainWindow {
 	       
 	        public Component getTableCellRendererComponent(JTable table,
 	                Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-	        	setBackground(Color.WHITE);
+	        	//setBackground(Color.WHITE);
 	        	
 	        	super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-	            setBackground(Color.WHITE);
+	            //setBackground(Color.WHITE);
 	           
 	            //if (hasFocus)setBackground(Color.DARK_GRAY);
 	            double dugSkolarina = (Double)table.getModel().getValueAt(row, 3);
@@ -446,7 +446,7 @@ public class MainWindow {
 							for (int j = 0; j < sviStudenti.size(); j++) {
 								model.addRow(new Object[] {
 										sviStudenti.get(j).getId(),
-										sviStudenti.get(j).getIme()
+										sviStudenti.get(j).getIme()+" "
 												+ sviStudenti.get(j).getPrezime(),
 										sviStudenti.get(j).getIndeks(),
 										sviStudenti.get(j).getTroskoviSkolarine(),
