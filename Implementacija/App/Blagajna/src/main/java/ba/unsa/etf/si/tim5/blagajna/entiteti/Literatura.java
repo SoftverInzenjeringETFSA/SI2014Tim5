@@ -1,13 +1,18 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
+
+import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 
 
 public class Literatura implements java.io.Serializable {
 	/**
 	 * 
 	 */
+	//final static Logger logger = Logger.getLogger(Literatura.class);
+	
 	private static final long serialVersionUID = -5006244416455980668L;
 	private long id;
 	private String isbn;
