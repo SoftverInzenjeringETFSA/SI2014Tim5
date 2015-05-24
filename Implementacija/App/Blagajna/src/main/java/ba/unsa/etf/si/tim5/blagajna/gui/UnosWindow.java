@@ -45,6 +45,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
 import org.hibernate.Session;
+import org.apache.log4j.Logger;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -82,7 +83,7 @@ public class UnosWindow {
 	private JTextField tFieldMail;
 	private JLabel lblUkupniTrokovi;
 	private JLabel lblcijena;
-
+	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
 	/**
 	 * Launch the application.
 	 */
@@ -360,6 +361,8 @@ public class UnosWindow {
 						double troskovi = Double.parseDouble(tFieldTroskovi.getText());
 						double popust =  Double.parseDouble(tFieldPopust.getText());
 						double cijena  = troskovi - (troskovi * popust /100);
+						
+						try {
 						Student s = new Student(1, ime, prezime, jmbg,
 								mail, adresaPreb, opcinaPreb, telefon,
 								indeks, troskovi, roditelj, mjestoRodj, opcinaRodj,
@@ -387,7 +390,15 @@ public class UnosWindow {
 							d.dodajDug(session);
 						}
 						
-						session.close();						
+						session.close();	
+						}
+						catch (Exception ex)
+						{
+							JOptionPane.showMessageDialog(null,
+									ex.getLocalizedMessage());
+							//ex.printStackTrace();
+							logger.error("Greška kod dodavanja novog studenta! " + ex.getMessage() , ex);
+						}
 					
 				}});
 				frmUnosStudenta.getContentPane().add(btnUnesi, "2, 6, fill, top");
