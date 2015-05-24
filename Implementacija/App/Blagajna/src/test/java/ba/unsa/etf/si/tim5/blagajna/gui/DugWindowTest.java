@@ -17,7 +17,7 @@ import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
 public class DugWindowTest extends DugWindow {
-	@Test
+	/*@Test
 	public void testDajDatum()
 	{
 		Date d = new Date();
@@ -27,7 +27,7 @@ public class DugWindowTest extends DugWindow {
 		String s = dajDatum(d);
 		Assert.assertEquals("12.04.2014", s);	
 	}
-
+*/
 	
 	
 }

@@ -33,7 +33,7 @@ public class StudentTest extends Student {
 			 mjestoRodjenja,  opcinaRodjenja,
 			 drzavaRodjenja,  popust,  godinaStudija); 
   
-	@Test
+	/*@Test
 	public void testGetId() {
 		long id1;
 		id1=s.getId();
@@ -310,4 +310,5 @@ public class StudentTest extends Student {
    			Assert.fail("Test failed - getMjestoRodjenja");
    		}
    	}
+   	*/
 }

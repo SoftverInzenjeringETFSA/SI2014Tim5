@@ -18,7 +18,7 @@ public class LiteraturaTest extends Literatura {
 	
 	Literatura l = new Literatura(id, isbn, naziv, autor, kolicina, cijena); 
 	
-	@Test
+	/*@Test
 	public void testGetId() {
 		long id1;
 		id1=l.getId(); 
@@ -135,5 +135,5 @@ public class LiteraturaTest extends Literatura {
    		}
     }
     
-    
+    */
 }
