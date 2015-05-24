@@ -30,6 +30,7 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.hibernate.Session;
 
 import java.awt.event.ActionListener;
@@ -64,6 +65,7 @@ public class KupiLiteraturuWindow {
 				} catch (Exception e) {
 					e.printStackTrace();
 					logger.error("Greška pri otvaranju forme za kupovinu literature! " + e.getMessage() , e);
+					//logger.log(Priority.ERROR, e.getMessage(), e);
 				}
 			}
 		});
