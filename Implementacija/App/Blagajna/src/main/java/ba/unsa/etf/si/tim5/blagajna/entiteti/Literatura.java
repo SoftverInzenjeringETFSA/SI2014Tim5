@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 
 
 public class Literatura implements java.io.Serializable {
@@ -43,19 +44,61 @@ public class Literatura implements java.io.Serializable {
 		return isbn;
 	}
 	public void setIsbn(String isbn) {
-		this.isbn = isbn;
+		if(isbn.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli ISBN!");
+		}
+		
+		if(!Validacija.getInstance().isbnValidation(isbn))
+		{
+			 throw new IllegalArgumentException("Format ISBN-a nije validan!");
+		}
+		else {
+			
+			this.isbn = isbn;
+		}		
+		
 	}
 	public String getNaziv() {
 		return naziv;
 	}
+	
 	public void setNaziv(String naziv) {
-		this.naziv = naziv;
+		if(naziv.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli naziv knjige!");
+		}
+		
+		if(!Validacija.getInstance().validirajIme(naziv))
+		{
+			 throw new IllegalArgumentException("Naziv knjige nije validan!");
+		}
+		else {
+			
+			this.naziv = naziv;
+		}		
+	
+		
 	}
 	public String getAutor() {
 		return autor;
 	}
 	public void setAutor(String autor) {
-		this.autor = autor;
+		if(autor.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli autora knjige!");
+		}
+		
+		if(!Validacija.getInstance().validirajIme(autor))
+		{
+			 throw new IllegalArgumentException("Polje autor nije validno!");
+		}
+		else {
+			
+			this.autor = autor;
+		}		
+		
+		
 	}
 	public int getKolicina() {
 		return kolicina;
