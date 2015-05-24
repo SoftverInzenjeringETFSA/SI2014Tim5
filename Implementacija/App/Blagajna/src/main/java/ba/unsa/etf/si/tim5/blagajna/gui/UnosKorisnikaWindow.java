@@ -69,8 +69,7 @@ public class UnosKorisnikaWindow {
 					btnUredi.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
-					logger.error(e.getMessage(), e);
-					//logger.error("Greška pri otvaranju forme za unos korisnika! " + e.getMessage() , e);
+					logger.info(e.getMessage());
 				}
 			}
 		});
@@ -216,7 +215,6 @@ public class UnosKorisnikaWindow {
 				String username = textField_6.getText();
 
 				String lozinka = "admin";
-				//boolean pomocna;
 				
 				
 				TipKorisnika tip = (TipKorisnika) comboBox.getSelectedItem();
@@ -239,7 +237,6 @@ public class UnosKorisnikaWindow {
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
 							k.getPrezime(), k.getJmbg(), k.getAdresa(),
 							k.getTelefon(), k.getMail(), k.getTipKorisnika() });
-				//	}
 					
 				}
 				

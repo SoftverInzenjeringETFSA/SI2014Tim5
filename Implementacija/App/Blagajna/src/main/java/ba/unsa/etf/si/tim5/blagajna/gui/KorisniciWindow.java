@@ -72,6 +72,7 @@ public class KorisniciWindow {
 					window.frmKorisnici.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.info(e.getMessage());
 				}
 			}
 		});
