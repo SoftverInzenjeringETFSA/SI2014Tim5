@@ -43,7 +43,7 @@ public class Validacija {
 		return m.matches();
 	}
 
-	public static boolean jmbgValidation(String jmbgTemp) {
+	/*public static boolean jmbgValidation(String jmbgTemp) {
 		if (jmbgTemp.length() == 13) {
 			int[] danaUmjesecu = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30,
 					31 };
@@ -105,6 +105,13 @@ public class Validacija {
 				return false;
 		} else
 			return false;
+	}*/
+	
+	public boolean validirajJmbg(String jmbg) {
+		Pattern pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[012])[0-9]{9}$"); 
+		Matcher matcher = pattern.matcher(jmbg);
+	    if (matcher.matches()) return true;
+	    else return false;
 	}
 
 	public boolean isbnValidation(String isbn) {

@@ -126,7 +126,7 @@ public class Korisnik implements java.io.Serializable{
 			 throw new IllegalArgumentException("Niste unijeli JMBG!");
 		}
 		
-		if(jmbg.length()!=13)
+		if(!Validacija.getInstance().validirajJmbg(jmbg))
 		{
 			 throw new IllegalArgumentException("Format JMBG-a nije validan!");
 		}
