@@ -211,7 +211,29 @@ public class Student implements java.io.Serializable {
 	public double dajDugZaSkolarinu() {
 		return troskoviSkolarine - troskoviSkolarine * popust / 100;
 	}
+	public double dajNeisplaceneDugoveLiteratura() {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where tipDuga = 'dugZaLiteraturu' and jeLiIzmiren = 0 and studentId = " + this.id).addEntity(Dug.class).list();		
+		t.commit();	
+		session.close();
+		double dug = 0;
+		for(int i = 0; i<l.size(); i++) dug += l.get(i).dajVrijednostDuga();
+		
+		return dug;
+	}
 	
+	public double dajNeisplaceneDugoveSkolarina() {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where tipDuga = 'dugZaSkolarinu' and jeLiIzmiren = 0 and studentId = " + this.id).addEntity(Dug.class).list();		
+		t.commit();	
+		session.close();
+		double dug = 0;
+		for(int i = 0; i<l.size(); i++) dug += l.get(i).dajVrijednostDuga();
+		
+		return dug;
+	}
 	public ArrayList<Dug> dajSveDugove(Session session) {
 		
 		org.hibernate.Transaction t = session.beginTransaction();
