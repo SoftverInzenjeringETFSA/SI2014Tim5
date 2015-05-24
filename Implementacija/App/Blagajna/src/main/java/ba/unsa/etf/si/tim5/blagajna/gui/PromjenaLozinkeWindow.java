@@ -23,10 +23,12 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 public class PromjenaLozinkeWindow {
-
+	final static Logger logger = Logger.getLogger(PromjenaLozinkeWindow.class);
+	
 	JFrame frmPromjenaLozinke;
 	private JPasswordField StaraLozinkaTB;
 	private JPasswordField NovaLozinkaTB;
@@ -45,6 +47,7 @@ public class PromjenaLozinkeWindow {
 					window.frmPromjenaLozinke.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error("Greška pri otvaranju forme za promjenu lozinke! " + e.getMessage() , e);
 				}
 			}
 		});

@@ -29,10 +29,12 @@ import net.sf.dynamicreports.report.builder.column.Columns;
 import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
 import net.sf.dynamicreports.report.exception.DRException;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.util.*;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Rata;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
@@ -46,7 +48,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DugWindow {
-		
+	final static Logger logger = Logger.getLogger(DugWindow.class);
+	
 	JFrame frmDugovanjaUplate;
 	private JTable table;
 	private JLabel lblStudent;
@@ -72,6 +75,7 @@ public class DugWindow {
 					window.frmDugovanjaUplate.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					logger.error("Greška pri otvaranju forme za dugove! " + e.getMessage() , e);
 				}
 			}
 		});
@@ -79,9 +83,15 @@ public class DugWindow {
 	
 	public DugWindow()
 	{
+		try {
 		ArrayList<Student> studenti = Dao.getInstance().dajSveStudente();
 		student = studenti.get(1);
 		initialize();
+		}
+		catch(Exception e) 
+		{ 
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -360,8 +370,7 @@ public class DugWindow {
 		//add title
 		TextFieldBuilder<String> title1 = DynamicReports.cmp.text("  International Technical University\n"); 
 		report.title(title1); 
-		
-		
+				
 		TextFieldBuilder<String> title2 = DynamicReports.cmp.text("  Zmaja od Bosne bb, Kampus Univerziteta u Sarajevu, 71 000 Sarajevo\n"); 
 		report.title(title2); 
 		TextFieldBuilder<String> title3 = DynamicReports.cmp.text("  Tel: ++387 33 250 700\n\n\n\n"); 
@@ -378,13 +387,11 @@ public class DugWindow {
 			report.title(title4);
 		}
 		
-		
 		TextFieldBuilder<String> title5 =DynamicReports.cmp.text("Potpis ovlaštenog lica: ___________________ \n");
 		report.title(title5);
 		TextFieldBuilder<String> title6 =DynamicReports.cmp.text("Potpis studenta:        ___________________ \n");
 		report.title(title6);
-		
-		
+				
 		Date date = new Date();
 		String s = dajDatum(date);
 		TextFieldBuilder<String> title7 = DynamicReports.cmp.text("Datum: " + s); 
