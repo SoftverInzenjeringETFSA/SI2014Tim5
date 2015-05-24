@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
-
+import org.apache.log4j.Logger;
 public class PromjenaLozinkeWindow {
 	final static Logger logger = Logger.getLogger(PromjenaLozinkeWindow.class);
 	

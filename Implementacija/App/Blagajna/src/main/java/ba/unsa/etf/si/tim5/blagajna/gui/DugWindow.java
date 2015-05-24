@@ -46,7 +46,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
+import org.apache.log4j.Logger;
 public class DugWindow {
 	final static Logger logger = Logger.getLogger(DugWindow.class);
 	
@@ -343,7 +343,7 @@ public class DugWindow {
 	}
 		// TODO Auto-generated method stub
 
-	private String dajDatum(Date datum) {
+	protected String dajDatum(Date datum) {
 		if (datum == null) return "";
 		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		String s = dateFormat.format(datum).toString();

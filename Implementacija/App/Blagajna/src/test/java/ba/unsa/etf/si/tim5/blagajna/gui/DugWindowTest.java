@@ -1,5 +1,5 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
-
+import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
 
 import java.text.DateFormat;
@@ -16,18 +16,7 @@ import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
-public class DugWindowTest extends TestCase {
-
-	@Test
-	public void testMain() {
-			fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testDugWindow() {
-		fail("Not yet implemented"); // TODO
-	}
-
+public class DugWindowTest extends DugWindow {
 	@Test
 	public void testDajDatum()
 	{
@@ -35,16 +24,10 @@ public class DugWindowTest extends TestCase {
 		d.setDate(12);
 		d.setMonth(4);
 		d.setYear(2014);
-	DugWindow.	
-		
-		
+		String s = dajDatum(d);
+		Assert.assertEquals("12.04.2014", s);	
 	}
-	
-	/*	private String dajDatum(Date datum) {
-		if (datum == null) return "";
-		DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-		String s = dateFormat.format(datum).toString();
-		return s;
-*/
 
+	
+	
 }
