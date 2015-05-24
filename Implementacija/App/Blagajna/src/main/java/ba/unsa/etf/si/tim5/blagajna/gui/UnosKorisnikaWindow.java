@@ -31,7 +31,7 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
-
+import org.apache.log4j.Logger;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
@@ -233,12 +233,12 @@ public class UnosKorisnikaWindow {
 					Session session = HibernateUtil.getSessionFactory()
 							.openSession();
 					
-					/*pomocna=Validacija.jmbgValidation(jmbg);
-					if(!pomocna) throw new IllegalArgumentException("Unesite validan format JMBG-a!");*/
+					
 					Korisnik k = new Korisnik(1, ime, prezime, jmbg, adresa,
 							telefon, mail, tip, username, lozinka);
-
+					
 					k.dodajKorisnika(session);
+					//logger.info("Dodan korisnik " + k.getIme() + " " + k.getPrezime()+".");
 					JOptionPane.showMessageDialog(frame,
 							"Dodali ste novog korisnika " + ime + " " + prezime
 									+ "!");
@@ -280,14 +280,15 @@ public class UnosKorisnikaWindow {
 				try {
 					Session session = HibernateUtil.getSessionFactory()
 							.openSession();
+					if(!Validacija.getInstance().validirajIsto(jmbg,telefon,mail,username)) throw new IllegalArgumentException();
 					k = new Korisnik(k.getId(), ime, prezime, jmbg, adresa,
 							telefon, mail, tip, username, "admin");
-
+					
 					k.urediKorisnika(session);
 					JOptionPane.showMessageDialog(frame,
 							"Uredili ste korisnika " + ime + " " + prezime
 									+ "!");
-
+					//logger.info("Uredili ste korisnika " + k.getIme() + " " + k.getPrezime()+".");
 					session.close();
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
 					tmodel.setValueAt(k.getId(), selektovani, 0);
@@ -321,7 +322,7 @@ public class UnosKorisnikaWindow {
 		frmUnosKorisnika.getContentPane().add(btnIzai, "7, 18, right, center");
 	}
 
-	private void popuniPolja(Korisnik k) {
+	protected static void popuniPolja(Korisnik k) {
 
 		btnUredi.setVisible(true);
 		btnDodaj.setVisible(false);
