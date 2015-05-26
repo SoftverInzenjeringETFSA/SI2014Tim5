@@ -204,9 +204,10 @@ public class KupiLiteraturuWindow {
 				}
 				String godina =  Utility.getInstance().dajStudijskuGodinu();
 				Dug d = new Dug(69, false, godina,
-				l.getCijena(), student.getId(), TipDuga.dugZaLiteraturu);
+				l.getCijena(), student.getId(), TipDuga.dugZaLiteraturu);				
 				Session session = HibernateUtil.getSessionFactory().openSession();
 				d.dodajDug(session);
+				student.setTroskoviLiterature(student.getTroskoviLiterature() + l.getCijena());
 				session.close();
 				JOptionPane.showMessageDialog(null,"Literatura je zadužena!","OK",JOptionPane.INFORMATION_MESSAGE);
 				

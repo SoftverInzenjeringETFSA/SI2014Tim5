@@ -254,8 +254,15 @@ public class IzvjestajWindow {
 				for (int i = 0; i < dugovi.size(); i++) {
 					if(dugovi.get(i).getTipDuga() != tipDuga) continue;
 					Student s = dugovi.get(i).dajStudenta();
-					double ukupanDug = dugovi.get(i).getVrijednost();
-					double dug = dugovi.get(i).dajVrijednostDuga();
+					double ukupanDug;
+					double dug;
+					if ((TipIzvjestaja) comboBox.getSelectedItem() == TipIzvjestaja.TroskoviStudija) {
+						ukupanDug = s.getTroskoviSkolarine();
+						dug = s.dajNeisplaceneDugoveSkolarina();
+					} else {
+						ukupanDug = s.getTroskoviLiterature();
+						dug = s.dajNeisplaceneDugoveLiteratura();
+					}
 
 					TabelaIzvjestaj ti = new TabelaIzvjestaj(s.getIndeks(), s
 							.getIme() + " " + s.getPrezime(), ukupanDug, dug,

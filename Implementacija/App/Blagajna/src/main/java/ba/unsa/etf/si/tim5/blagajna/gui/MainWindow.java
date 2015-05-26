@@ -651,13 +651,17 @@ public class MainWindow {
 
 		JMenu mnIzvjetaj = new JMenu("Izvje\u0161taj");
 		if(tip.equals(TipKorisnika.Korisnik))mnIzvjetaj.setVisible(false);
-		mnIzvjetaj.addActionListener(new ActionListener() {
+
+		menuBar.add(mnIzvjetaj);
+		
+		JMenuItem mntmKreirajIzvjetaj = new JMenuItem("Kreiraj izvještaj");
+		mntmKreirajIzvjetaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IzvjestajWindow window = new IzvjestajWindow();
+				IzvjestajWindow window = new IzvjestajWindow(user);
 				window.frmIzvjetaj.setVisible(true);
 			}
-		});
-		menuBar.add(mnIzvjetaj);
+		});		
+		mnIzvjetaj.add(mntmKreirajIzvjetaj);
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 	}
 	
