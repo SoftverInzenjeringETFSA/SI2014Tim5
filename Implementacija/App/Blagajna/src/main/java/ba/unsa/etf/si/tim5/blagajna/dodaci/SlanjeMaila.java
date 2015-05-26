@@ -63,11 +63,11 @@ public class SlanjeMaila {
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
 		} catch (AddressException ae) {
-			ae.printStackTrace();
+			//ae.printStackTrace();
 			logger.error("Greška kod slanja maila! " + ae.getMessage() , ae);
 
 		} catch (MessagingException me) {
-			me.printStackTrace();		
+			//me.printStackTrace();		
 			logger.error("Greška kod slanja maila! " + me.getMessage() , me);
 		}
 	}
