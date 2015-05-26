@@ -76,7 +76,9 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
 --
 
 INSERT INTO `korisnik` (`id`, `IME`, `PREZIME`, `JMBG`, `ADRESA`, `TELEFON`, `MAIL`, `TIPKORISNIKA`, `KORISNICKOIME`, `LOZINKA`) VALUES
-(1, 'Faris', 'Džafić', '0906992174152', 'Visoko', '062/961-960', 'faris.dzafic@outlook.com', 'Administrator', 'fdzafic', 'Admin123');
+(1, 'Faris', 'Džafić', '0906992174152', 'Visoko', '062/961-960', 'faris.dzafic@outlook.com', 'Korisnik', 'fdzafic', 'Admin123');
+INSERT INTO `korisnik` (`id`, `IME`, `PREZIME`, `JMBG`, `ADRESA`, `TELEFON`, `MAIL`, `TIPKORISNIKA`, `KORISNICKOIME`, `LOZINKA`) VALUES
+(1, 'Admin', 'Admin', '0906992174152', 'Admin', '063/961-960', 'sitim52014@gmail.com', 'Administrator', 'Admin', 'Admin123');
 
 -- --------------------------------------------------------
 
