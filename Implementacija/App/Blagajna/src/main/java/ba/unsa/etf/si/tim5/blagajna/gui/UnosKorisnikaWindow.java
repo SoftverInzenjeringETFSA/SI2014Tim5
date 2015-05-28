@@ -34,17 +34,17 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class UnosKorisnikaWindow {
-	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
+	
 	
 	JFrame frmUnosKorisnika;
 	
-	private static JTextField textField;
-	private static JTextField textField_1;
-	private static JTextField textField_2;
-	private static JTextField textField_3;
-	private static JTextField textField_4;
-	private static JTextField textField_5;
-	private static JTextField textField_6;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
 
 	private ArrayList<Korisnik> korisnici;
 	private Korisnik k;
@@ -54,7 +54,7 @@ public class UnosKorisnikaWindow {
 	private int selektovani;
 	static JButton btnUredi = new JButton("Uredi");
 	static JButton btnDodaj = new JButton("Dodaj");
-
+	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
 	/**
 	 * Launch the application.
 	 */
@@ -314,16 +314,16 @@ public class UnosKorisnikaWindow {
 		frmUnosKorisnika.getContentPane().add(btnIzai, "7, 18, right, center");
 	}
 
-	protected static void popuniPolja(Korisnik k) {
+	private void popuniPolja(Korisnik k) {
 
 		btnUredi.setVisible(true);
 		btnDodaj.setVisible(false);
-		textField.setText(k.getIme());
-		textField_1.setText(k.getPrezime());
-		textField_5.setText(k.getJmbg());
-		textField_2.setText(k.getAdresa());
-		textField_3.setText(k.getMail());
-		textField_4.setText(k.getTelefon());
+		this.textField.setText(k.getIme());
+		this.textField_1.setText(k.getPrezime());
+		this.textField_5.setText(k.getJmbg());
+		this.textField_2.setText(k.getAdresa());
+		this.textField_3.setText(k.getMail());
+		this.textField_4.setText(k.getTelefon());
 	}
 
 }
