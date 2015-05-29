@@ -403,7 +403,7 @@ public class MainWindow {
 		table.setModel(new DefaultTableModel(new Object[][] {
 
 		}, new String[] { "ID", "Ime i Prezime", "Indeks",
-				"Dug za \u0161koralinu", "Dug za literaturu" }));
+				"Dug za \u0161kolarinu", "Dug za literaturu" }));
 
 		JButton btnObrisi = new JButton("Obrisi");
 		if(tip.equals(TipKorisnika.Korisnik))btnObrisi.setVisible(false);

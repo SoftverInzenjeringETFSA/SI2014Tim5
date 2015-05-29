@@ -47,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import org.apache.log4j.Logger;
+import javax.swing.JTextField;
 public class DugWindow {
 	final static Logger logger = Logger.getLogger(DugWindow.class);
 	
@@ -87,7 +88,7 @@ public class DugWindow {
 	{
 		try {
 		ArrayList<Student> studenti = Dao.getInstance().dajSveStudente();
-		student = studenti.get(1);
+		student = studenti.get(0);
 		initialize();
 		}
 		catch(Exception e) 
@@ -220,31 +221,29 @@ public class DugWindow {
 			}
 	    };
 	    
-	    table.setModel(new DefaultTableModel(
-	    	new Object[][] {
-	    	},
-	    	new String[] {
-	    		"Id", "Dug", "Datum zadu\u017Eenja", "Datum razdu\u017Eenja", "Rok za uplatu", "Tip duga"
-	    	}
-	    ));
+	    table.setModel(model);
 	    table.getColumnModel().getColumn(0).setMinWidth(7);
 	    table.getColumnModel().getColumn(2).setMinWidth(18);
 	    table.getColumnModel().getColumn(3).setMinWidth(18);
 		JScrollPane TabelaDugova = new JScrollPane(table);	frmDugovanjaUplate.getContentPane().add(TabelaDugova, "3, 8, 7, 1, fill, fill");
 		
 		popuniTabelu();
+		
+		
 		lblUkupanDug = new JLabel("Ukupan dug:");
 		frmDugovanjaUplate.getContentPane().add(lblUkupanDug, "7, 12");
-		double ukupanDugD = student.dajUkupniDug();
-		int ukupanDugI = (int)ukupanDugD;
-		String s = Integer.toString(ukupanDugI);
-		lblDug = new JLabel(s);
+		
+		Double dd = student.dajNeisplaceneDugoveSkolarina()+student.dajNeisplaceneDugoveLiteratura();
+		String ds = dd+"";
+		lblDug = new JLabel(ds);
+		
+		
 		frmDugovanjaUplate.getContentPane().add(lblDug, "9, 12");
 		btnUplati = new JButton("Uplati");
 		btnUplati.addActionListener(new ActionListener() {
 			//@Override
 			
-			public void actionPerformed(ActionEvent e) {			
+			public void actionPerformed(ActionEvent e) {	
 				if (table.getSelectedRow() == -1)
 				JOptionPane.showMessageDialog(null,"Odaberite ratu koju želite da uplatite !","Message",JOptionPane.INFORMATION_MESSAGE);
 			else
@@ -270,6 +269,10 @@ public class DugWindow {
 							dugovi.get(j).urediDug(session1);
 							session1.close();	
 						}
+					
+					Double dd = student.dajNeisplaceneDugoveSkolarina()+student.dajNeisplaceneDugoveLiteratura();
+					String ds = dd+"";
+					lblDug.setText(ds); 
 					popuniTabelu();
 				}
 				else
@@ -278,6 +281,7 @@ public class DugWindow {
 				}
 			}
 			}
+			
 		});
 		
 		frmDugovanjaUplate.getContentPane().add(btnUplati, "3, 14, 7, 1");
@@ -320,8 +324,10 @@ public class DugWindow {
 		
 
 	private void popuniTabelu() {
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		dugovi = student.dajSveDugove(session);
+			
 		String s = "";
 		s = (String)StudijskaGodinaCB.getSelectedItem();
 		DefaultTableModel model= (DefaultTableModel)table.getModel();
@@ -346,7 +352,11 @@ public class DugWindow {
 			}
 		}
 		}
+		
 		session.close();
+
+		
+		
 	}
 		// TODO Auto-generated method stub
 

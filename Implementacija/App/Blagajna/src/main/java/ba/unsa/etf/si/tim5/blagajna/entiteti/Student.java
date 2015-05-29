@@ -291,6 +291,19 @@ public class Student implements java.io.Serializable {
 
 	public double dajUkupniDug() {
 		return dajDugZaSkolarinu() + troskoviLiterature;
+
+	}
+
+	public double dajUkupanDug(Session session)
+	{
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where studentId = "+this.id+" and jeliizmiren = 0;").addEntity(Dug.class).list();
+		t.commit();
+		double suma = 0;
+		for (int i =0;i<l.size();i++)
+			suma+=l.get(i).getVrijednost();
+		return suma;
+		
 	}
 	
 	public double dajDugZaSkolarinu() {
