@@ -213,7 +213,7 @@ public class MainWindow {
 
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] { "Indeks",
-				"Ime", "Dug za skolarinu", "Dug za literaturu" }));
+				"Ime", "Dug za školarinu", "Dug za literaturu" }));
 		frmBlagajna.getContentPane().add(comboBox, "4, 5");
 
 		textField = new JTextField();
