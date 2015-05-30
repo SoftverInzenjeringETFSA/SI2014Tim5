@@ -168,7 +168,7 @@ public class KorisniciWindow {
 				JOptionPane.showMessageDialog(frame,
 						"Odaberite korisnika za izmjenu prvo.",
 					    "Odaberite korisnika",
-					    JOptionPane.WARNING_MESSAGE);
+					    JOptionPane.ERROR_MESSAGE);
 			}
 
 			}
@@ -210,7 +210,7 @@ public class KorisniciWindow {
 					JOptionPane.showMessageDialog(frame,
 							"Odaberite korisnika za brisanje prvo.",
 						    "Odaberite korisnika",
-						    JOptionPane.WARNING_MESSAGE);
+						    JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

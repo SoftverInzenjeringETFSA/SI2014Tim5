@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 import org.apache.log4j.Logger;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -229,7 +230,7 @@ public class UnosKorisnikaWindow {
 					
 					k.dodajKorisnika(session);
 					JOptionPane.showMessageDialog(frame,
-							"Dodali ste novog korisnika " + ime + " " + prezime
+							"Dodali ste novog korisnika " + k.getIme() + " " + k.getIme()
 									+ ".",
 									"Korisnik dodan",
 									JOptionPane.PLAIN_MESSAGE);
@@ -242,7 +243,15 @@ public class UnosKorisnikaWindow {
 					
 				}
 				
-				
+				catch(ConstraintViolationException ex)
+				{
+					JOptionPane.showMessageDialog(frame,
+							"Uneseno korisničko ime već postoji.",
+							"Postojeće korisničko ime",
+							JOptionPane.ERROR_MESSAGE);
+					ex.printStackTrace();
+					logger.error("Greška kod dodavanja novog korisnika! " + ex.getMessage() , ex);
+				}
 				catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,
 							ex.getLocalizedMessage());
