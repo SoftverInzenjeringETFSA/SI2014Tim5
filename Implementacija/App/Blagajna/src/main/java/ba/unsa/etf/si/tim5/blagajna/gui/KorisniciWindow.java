@@ -152,8 +152,9 @@ public class KorisniciWindow {
 		JButton btnUredi = new JButton("Detalji/Uredi");
 		btnUredi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				
 				int indexSelektovani = table.getSelectedRow();
+			if(table.getSelectedRowCount()!=0){
 				long idKorisnika = (long) Integer.parseInt((table.getValueAt(
 						indexSelektovani, 0).toString()));
 
@@ -161,15 +162,24 @@ public class KorisniciWindow {
 
 				UnosKorisnikaWindow window1 = new UnosKorisnikaWindow(k, table, indexSelektovani);
 				window1.frmUnosKorisnika.setVisible(true);
+			}
+			else 
+			{
+				JOptionPane.showMessageDialog(frame,
+						"Odaberite korisnika za izmjenu prvo.",
+					    "Odaberite korisnika",
+					    JOptionPane.WARNING_MESSAGE);
+			}
 
 			}
 		});
 		frmKorisnici.getContentPane().add(btnUredi, "4, 5, center, default");
 
-		JButton btnObrisi = new JButton("Obrisi");
+		JButton btnObrisi = new JButton("Obriši");
 		btnObrisi.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
+				if(table.getSelectedRowCount()!=0){
 				try{
 				int indexSelektovani = table.getSelectedRow();
 				long idKorisnika = (long) Integer.parseInt((table.getValueAt(
@@ -182,7 +192,9 @@ public class KorisniciWindow {
 				k.obrisiKorisnika(session);
 				korisnici.remove(k);
 				JOptionPane.showMessageDialog(frame, "Izbrisali ste korisnika "
-						+ k.getIme() + " " + k.getPrezime() + ".");
+						+ k.getIme() + " " + k.getPrezime() + ".",
+						"Korisnik izbrisan",
+					    JOptionPane.PLAIN_MESSAGE);
 				logger.info("Izbrisali ste korisnika " + k.getIme() + " " + k.getPrezime()+".");
 				session.close();
 				((DefaultTableModel) table.getModel())
@@ -191,6 +203,14 @@ public class KorisniciWindow {
 				catch(Exception ex){
 					ex.printStackTrace();
 					logger.error("Greška kod brisanja korisnika "+ k.getIme() + " " + k.getPrezime() + "." + ex.getMessage() , ex);
+				}
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame,
+							"Odaberite korisnika za brisanje prvo.",
+						    "Odaberite korisnika",
+						    JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});

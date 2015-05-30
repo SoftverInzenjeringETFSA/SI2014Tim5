@@ -176,13 +176,16 @@ public class Validacija {
 		else return false;
 	}
 	
+	///^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u
+	//^[A-Z|Č|Ć|Ž|Š|Đ]{1}[a-z|č|ć|ž|š|đ ]{2,}$
+	
 	public Boolean validirajIme(String ime) {
 		if (ime.length() > 30) return false;
-		else if(ime.length() <2) return false;
-		Pattern pattern = Pattern.compile("^[A-Z|Č|Ć|Ž|Š|Đ]{1}[a-z|č|ć|ž|š|đ]{2,}$");
+		if(ime.length() <2) return false;
+		Pattern pattern = Pattern.compile("^[a-zA-Z\u0161\u0111\u010D\u0107\u017E\u0160\u0110\u010C\u0106\u017D-]+$");
 		Matcher matcher = pattern.matcher(ime);
 		if (matcher.matches())	return true;
-		else return false;
+		return false;
 	}
 	
 	

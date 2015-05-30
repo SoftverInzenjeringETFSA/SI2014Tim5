@@ -105,8 +105,8 @@ public class UnosKorisnikaWindow {
 	 */
 	private void initialize() {
 		frmUnosKorisnika = new JFrame();
-		frmUnosKorisnika.setTitle("Unos korisnika");
 		frmUnosKorisnika.setResizable(false);
+		frmUnosKorisnika.setTitle("Unos korisnika");
 		frmUnosKorisnika.setBounds(100, 100, 365, 328);
 		frmUnosKorisnika.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmUnosKorisnika.getContentPane().setLayout(
@@ -230,7 +230,9 @@ public class UnosKorisnikaWindow {
 					k.dodajKorisnika(session);
 					JOptionPane.showMessageDialog(frame,
 							"Dodali ste novog korisnika " + ime + " " + prezime
-									+ ".");
+									+ ".",
+									"Korisnik dodan",
+									JOptionPane.PLAIN_MESSAGE);
 					logger.info("Dodali ste novog korisnika " + k.getIme() + " " + k.getPrezime()+".");
 					session.close();
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
@@ -270,14 +272,16 @@ public class UnosKorisnikaWindow {
 				try {
 					Session session = HibernateUtil.getSessionFactory()
 							.openSession();
-					if(!Validacija.getInstance().validirajIsto(jmbg,telefon,mail,username)) throw new IllegalArgumentException();
+					//if(!Validacija.getInstance().validirajIsto(jmbg,telefon,mail,username)) throw new IllegalArgumentException();
 					k = new Korisnik(k.getId(), ime, prezime, jmbg, adresa,
 							telefon, mail, tip, username, "admin");
 					
 					k.urediKorisnika(session);
 					JOptionPane.showMessageDialog(frame,
-							"Uredili ste korisnika " + ime + " " + prezime
-									+ "!");
+							"Uredili ste korisnika " + k.getIme() + " " + k.getPrezime()
+									+ ".",
+									"Korisnik uređen",
+									JOptionPane.PLAIN_MESSAGE);
 					logger.info("Uredili ste korisnika " + k.getIme() + " " + k.getPrezime()+".");
 					session.close();
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
@@ -324,6 +328,7 @@ public class UnosKorisnikaWindow {
 		this.textField_2.setText(k.getAdresa());
 		this.textField_3.setText(k.getMail());
 		this.textField_4.setText(k.getTelefon());
+		this.textField_6.setText(k.getKorisnickoIme());
 	}
 
 }
