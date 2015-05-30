@@ -229,29 +229,42 @@ public class UnosKorisnikaWindow {
 							telefon, mail, tip, username, lozinka);
 					
 					k.dodajKorisnika(session);
+					
 					JOptionPane.showMessageDialog(frame,
 							"Dodali ste novog korisnika " + k.getIme() + " " + k.getPrezime()
 									+ ".",
 									"Korisnik dodan",
 									JOptionPane.PLAIN_MESSAGE);
 					logger.info("Dodali ste novog korisnika " + k.getIme() + " " + k.getPrezime()+".");
+					
+					textField.setText("");
+					textField_1.setText("");
+					textField_2.setText("");
+					textField_3.setText("");
+					textField_4.setText("");
+					textField_5.setText("");
+					textField_6.setText("");
+					comboBox.setSelectedIndex(0);
+					
 					session.close();
 					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
 							k.getPrezime(), k.getJmbg(), k.getAdresa(),
 							k.getTelefon(), k.getMail(), k.getTipKorisnika() });
 					
+					
 				}
 				
 				catch(ConstraintViolationException ex)
 				{
 					JOptionPane.showMessageDialog(frame,
-							"Uneseno korisničko ime već postoji.",
-							"Postojeće korisničko ime",
+							"Uneseni korisnik već postoji.",
+							"Postojeći korisnik",
 							JOptionPane.ERROR_MESSAGE);
 					ex.printStackTrace();
 					logger.error("Greška kod dodavanja novog korisnika! " + ex.getMessage() , ex);
 				}
+								
 				catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,
 							ex.getLocalizedMessage());
@@ -260,6 +273,9 @@ public class UnosKorisnikaWindow {
 					
 				}
 				
+				
+				
+	
 
 			}
 		});
@@ -305,13 +321,26 @@ public class UnosKorisnikaWindow {
 
 				}
 
+				catch(ConstraintViolationException ex)
+				{
+					JOptionPane.showMessageDialog(frame,
+							"Uneseni korisnik već postoji.",
+							"Postojeći korisnik",
+							JOptionPane.ERROR_MESSAGE);
+					ex.printStackTrace();
+					logger.error("Greška kod dodavanja novog korisnika! " + ex.getMessage() , ex);
+				}
+				
 				catch (Exception ex) {
 					JOptionPane.showMessageDialog(null,
 							ex.getLocalizedMessage());
 					logger.error("Greška kod uredjivanja novog korisnika! " + ex.getMessage() , ex);
 				}
+				
+				
 
 			}
+			
 		});
 
 		frmUnosKorisnika.getContentPane()
