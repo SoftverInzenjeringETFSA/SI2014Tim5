@@ -75,7 +75,7 @@ public class PromjenaLozinkeWindow {
 		frmPromjenaLozinke = new JFrame();
 		frmPromjenaLozinke.setTitle("Promjena lozinke");
 		frmPromjenaLozinke.setBounds(100, 100, 450, 182);
-		frmPromjenaLozinke.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPromjenaLozinke.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmPromjenaLozinke.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,

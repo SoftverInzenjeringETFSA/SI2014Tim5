@@ -173,7 +173,7 @@ public class MainWindow {
 		frmBlagajna = new JFrame();
 		frmBlagajna.setTitle("Blagajna\r\n");
 		frmBlagajna.setBounds(100, 100, 673, 466);
-		frmBlagajna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmBlagajna.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		final Session session = HibernateUtil.getSessionFactory().openSession();
 		org.hibernate.Transaction t = session.beginTransaction();
 		FormLayout formLayout = new FormLayout(
