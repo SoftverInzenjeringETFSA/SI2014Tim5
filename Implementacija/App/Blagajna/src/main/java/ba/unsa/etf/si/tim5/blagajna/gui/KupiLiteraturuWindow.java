@@ -94,7 +94,7 @@ public class KupiLiteraturuWindow {
 		frmKupovinaLiterature = new JFrame();
 		frmKupovinaLiterature.setTitle("Kupovina literature");
 		frmKupovinaLiterature.setBounds(100, 100, 450, 353);
-		frmKupovinaLiterature.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmKupovinaLiterature.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmKupovinaLiterature.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,

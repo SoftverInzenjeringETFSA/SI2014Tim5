@@ -43,10 +43,13 @@ import javax.transaction.SystemException;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class LiteraturaWindow {
 	
@@ -121,6 +124,12 @@ public class LiteraturaWindow {
 	 */
 	private void initialize() {
 		frmUnosDugaZa = new JFrame();
+		frmUnosDugaZa.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frmUnosDugaZa.dispose();
+			}
+		});
 		frmUnosDugaZa.setTitle("Literatura");
 		frmUnosDugaZa.setBounds(100, 100, 467, 544);
 		frmUnosDugaZa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -277,6 +286,12 @@ public class LiteraturaWindow {
 				}catch(IllegalArgumentException iae) {
 					JOptionPane.showMessageDialog(null,"ISBN nije validan! ","Problem",JOptionPane.INFORMATION_MESSAGE);
 					logger.error("ISBN nije valjan kod unosa!", iae );
+					l = null;
+					return;
+				}catch(ConstraintViolationException cve) {
+					JOptionPane.showMessageDialog(null,"Knjiga sa tim ISBN-om je već unesena! Ako želite unijeti nove primjerke, prvo obrišite postojeću. ","Problem",JOptionPane.INFORMATION_MESSAGE);
+					logger.error("Pokušaj unosa već postojeće literature", cve );
+					l = null;
 					return;
 				}
 				Session session = HibernateUtil.getSessionFactory().openSession();
@@ -291,6 +306,8 @@ public class LiteraturaWindow {
 						l.getNaziv(), l.getAutor(), l.getKolicina(),
 						l.getCijena() });
 				logger.info("Dodana literatura" + l.getId()+ " , " + l.getNaziv());
+				JOptionPane.showMessageDialog(null,"Literatura je dodana!","Message",JOptionPane.INFORMATION_MESSAGE);				
+				ocistiPoljaZaUnos();
 		
 			}
 		});
@@ -304,6 +321,14 @@ public class LiteraturaWindow {
 			}
 		});
 		frmUnosDugaZa.getContentPane().add(btnIzai, "6, 16, right, default");
+	}
+	
+	private void ocistiPoljaZaUnos() {
+		tFieldIsbn.setText("");
+		tFieldNaziv.setText("");
+		tFieldAutor.setText("");
+		tFieldKolicina.setText("");
+		tFieldCijena.setText("");
 	}
 
 	public ArrayList<Literatura> getLiteratura() {

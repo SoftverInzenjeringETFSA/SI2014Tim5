@@ -191,7 +191,6 @@ public class IzvjestajWindow {
 		ReportStyleBuilder textStyle = DynamicReports.stl.style()
 				.setHorizontalAlignment(HorizontalAlignment.CENTER);
 		report.setTextStyle(textStyle);
-
 		report.show();
 	
 	}
@@ -204,7 +203,7 @@ public class IzvjestajWindow {
 		frmIzvjetaj = new JFrame();
 		frmIzvjetaj.setTitle("Izvje\u0161taj");
 		frmIzvjetaj.setBounds(100, 100, 311, 195);
-		frmIzvjetaj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmIzvjetaj.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmIzvjetaj.getContentPane().setLayout(
 				new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("29px"),
