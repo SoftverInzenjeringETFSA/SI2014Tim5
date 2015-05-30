@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2015 at 06:48 PM
+-- Generation Time: May 30, 2015 at 03:53 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,17 +39,20 @@ CREATE TABLE IF NOT EXISTS `dug` (
   `studentId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `student_id_fk` (`studentId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `dug`
 --
 
 INSERT INTO `dug` (`id`, `JELIIZMIREN`, `AKADEMSKAGODINA`, `VRIJEDNOST`, `TIPDUGA`, `literaturaId`, `studentId`) VALUES
-(1, b'0', '2014/2015', 1800, 'dugZaSkolarinu', 0, 12),
-(2, b'1', '2014/2015', 0, 'dugZaSkolarinu', 0, 13),
-(3, b'0', '2014/2015', 1500, 'dugZaSkolarinu', 0, 14),
-(4, b'0', '2014/2015', 50, 'dugZaLiteraturu', 0, 14);
+(5, b'0', '2014/2015', 18000, 'dugZaSkolarinu', 0, 15),
+(7, b'0', '2014/2015', 1620, 'dugZaSkolarinu', 0, 18),
+(8, b'0', '2014/2015', 735, 'dugZaSkolarinu', 0, 1),
+(9, b'0', '2014/2015', 4500, 'dugZaSkolarinu', 0, 20),
+(10, b'0', '2014/2015', 1500, 'dugZaSkolarinu', 0, 23),
+(11, b'0', '2014/2015', 50, 'dugZaLiteraturu', 0, 23),
+(12, b'0', '2014/2015', 12.5, 'dugZaLiteraturu', 0, 23);
 
 -- --------------------------------------------------------
 
@@ -59,25 +62,27 @@ INSERT INTO `dug` (`id`, `JELIIZMIREN`, `AKADEMSKAGODINA`, `VRIJEDNOST`, `TIPDUG
 
 CREATE TABLE IF NOT EXISTS `korisnik` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `IME` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `PREZIME` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `JMBG` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `ADRESA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `TELEFON` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `MAIL` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `TIPKORISNIKA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `KORISNICKOIME` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `LOZINKA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+  `IME` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `PREZIME` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `JMBG` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `ADRESA` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `TELEFON` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `MAIL` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `TIPKORISNIKA` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `KORISNICKOIME` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `LOZINKA` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `KORISNICKOIME_UNIQUE` (`KORISNICKOIME`),
+  UNIQUE KEY `JMBG_UNIQUE` (`JMBG`)
+) ENGINE=InnoDB  DEFAULT CHARSET=ucs2 COLLATE=ucs2_slovenian_ci AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `korisnik`
 --
 
 INSERT INTO `korisnik` (`id`, `IME`, `PREZIME`, `JMBG`, `ADRESA`, `TELEFON`, `MAIL`, `TIPKORISNIKA`, `KORISNICKOIME`, `LOZINKA`) VALUES
-(1, 'Faris', 'Džafić', '0906992174152', 'Visoko', '062/961-960', 'faris.dzafic@outlook.com', 'Korisnik', 'fdzafic', 'Admin123');
-INSERT INTO `korisnik` (`id`, `IME`, `PREZIME`, `JMBG`, `ADRESA`, `TELEFON`, `MAIL`, `TIPKORISNIKA`, `KORISNICKOIME`, `LOZINKA`) VALUES
+(1, 'Faris', 'Džafić', '0611993176507', 'Visoko', '062/961-960', 'faris.dzafic@outlook.com', 'Korisnik', 'fdzafic', 'Admin123'),
 (2, 'Admin', 'Admin', '0906992174152', 'Admin', '063/961-960', 'sitim52014@gmail.com', 'Administrator', 'Admin', 'Admin123');
 
 -- --------------------------------------------------------
@@ -88,22 +93,21 @@ INSERT INTO `korisnik` (`id`, `IME`, `PREZIME`, `JMBG`, `ADRESA`, `TELEFON`, `MA
 
 CREATE TABLE IF NOT EXISTS `literatura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ISBN` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `NAZIV` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `AUTOR` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `ISBN` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `NAZIV` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `AUTOR` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `KOLICINA` int(11) DEFAULT NULL,
   `CIJENA` double DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=14 ;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ISBN_UNIQUE` (`ISBN`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci AUTO_INCREMENT=17 ;
 
 --
 -- Dumping data for table `literatura`
 --
 
 INSERT INTO `literatura` (`id`, `ISBN`, `NAZIV`, `AUTOR`, `KOLICINA`, `CIJENA`) VALUES
-(11, 'ISBN 978-0-300-14424-6', 'Pinokio', 'Neki lik', 10, 15),
-(12, 'ISBN 978-0-300-14424-6', 'Lesi se vraca kuci', 'Neki lik', 10, 20),
-(13, 'ISBN 978-0-300-14424-6', 'Severinine zgode i nezgode', 'Neki lik', 20, 50);
+(13, '978-3-16-148410-0', 'Severinine zgode i nezgode', 'Neki lik', 20, 50);
 
 -- --------------------------------------------------------
 
@@ -121,29 +125,41 @@ CREATE TABLE IF NOT EXISTS `rata` (
   `dugId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `dug_id_fk` (`dugId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=49 ;
 
 --
 -- Dumping data for table `rata`
 --
 
 INSERT INTO `rata` (`id`, `VRIJEDNOST`, `JELIUPLACENA`, `DATUMZADUZENJA`, `DATUMRAZDUZENJA`, `ROKUPLATE`, `dugId`) VALUES
-(1, 450, b'0', '2015-05-24 18:17:40', NULL, '2015-08-22 18:17:40', 1),
-(2, 450, b'0', '2015-05-24 18:17:40', NULL, '2015-08-22 18:17:40', 1),
-(3, 450, b'0', '2015-05-24 18:17:40', NULL, '2015-08-22 18:17:40', 1),
-(4, 450, b'0', '2015-05-24 18:17:40', NULL, '2015-08-22 18:17:40', 1),
-(5, 500, b'1', '2015-05-24 18:18:16', '2015-05-24 18:39:09', '2015-08-22 18:18:16', 2),
-(6, 500, b'1', '2015-05-24 18:18:16', '2015-05-24 18:39:11', '2015-08-22 18:18:16', 2),
-(7, 500, b'1', '2015-05-24 18:18:16', '2015-05-24 18:39:13', '2015-08-22 18:18:16', 2),
-(8, 500, b'1', '2015-05-24 18:18:16', '2015-05-24 18:39:14', '2015-08-22 18:18:16', 2),
-(9, 500, b'0', '2015-05-24 18:18:45', NULL, '2015-08-22 18:18:45', 3),
-(10, 500, b'0', '2015-05-24 18:18:45', NULL, '2015-08-22 18:18:45', 3),
-(11, 500, b'1', '2015-05-24 18:18:45', '2015-05-24 18:32:23', '2015-08-22 18:18:45', 3),
-(12, 500, b'0', '2015-05-24 18:18:45', NULL, '2015-08-22 18:18:45', 3),
-(13, 12.5, b'0', '2015-05-24 18:35:55', NULL, '2015-08-22 18:35:55', 4),
-(14, 12.5, b'0', '2015-05-24 18:35:55', NULL, '2015-08-22 18:35:55', 4),
-(15, 12.5, b'0', '2015-05-24 18:35:55', NULL, '2015-08-22 18:35:55', 4),
-(16, 12.5, b'0', '2015-05-24 18:35:55', NULL, '2015-08-22 18:35:55', 4);
+(17, 4500, b'0', '2015-05-30 14:33:50', NULL, '2015-08-28 14:33:50', 5),
+(18, 4500, b'0', '2015-05-30 14:33:50', NULL, '2015-08-28 14:33:50', 5),
+(19, 4500, b'0', '2015-05-30 14:33:50', NULL, '2015-08-28 14:33:50', 5),
+(20, 4500, b'0', '2015-05-30 14:33:50', NULL, '2015-08-28 14:33:50', 5),
+(25, 405, b'0', '2015-05-30 15:13:43', NULL, '2015-08-28 15:13:43', 7),
+(26, 405, b'0', '2015-05-30 15:13:43', NULL, '2015-08-28 15:13:43', 7),
+(27, 405, b'0', '2015-05-30 15:13:43', NULL, '2015-08-28 15:13:43', 7),
+(28, 405, b'0', '2015-05-30 15:13:43', NULL, '2015-08-28 15:13:43', 7),
+(29, 245, b'0', '2015-05-30 15:25:32', NULL, '2015-08-28 15:25:32', 8),
+(30, 245, b'0', '2015-05-30 15:25:32', NULL, '2015-08-28 15:25:32', 8),
+(31, 245, b'0', '2015-05-30 15:25:32', NULL, '2015-08-28 15:25:32', 8),
+(32, 245, b'1', '2015-05-30 15:25:32', '2015-05-30 15:29:12', '2015-08-28 15:25:32', 8),
+(33, 1125, b'0', '2015-05-30 15:42:58', NULL, '2015-08-28 15:42:58', 9),
+(34, 1125, b'0', '2015-05-30 15:42:58', NULL, '2015-08-28 15:42:58', 9),
+(35, 1125, b'0', '2015-05-30 15:42:58', NULL, '2015-08-28 15:42:58', 9),
+(36, 1125, b'0', '2015-05-30 15:42:58', NULL, '2015-08-28 15:42:58', 9),
+(37, 375, b'0', '2015-05-30 15:48:17', NULL, '2015-08-28 15:48:17', 10),
+(38, 375, b'0', '2015-05-30 15:48:17', NULL, '2015-08-28 15:48:17', 10),
+(39, 375, b'0', '2015-05-30 15:48:17', NULL, '2015-08-28 15:48:17', 10),
+(40, 375, b'0', '2015-05-30 15:48:17', NULL, '2015-08-28 15:48:17', 10),
+(41, 12.5, b'0', '2015-05-30 15:48:36', NULL, '2015-08-28 15:48:36', 11),
+(42, 12.5, b'0', '2015-05-30 15:48:36', NULL, '2015-08-28 15:48:36', 11),
+(43, 12.5, b'0', '2015-05-30 15:48:36', NULL, '2015-08-28 15:48:36', 11),
+(44, 12.5, b'0', '2015-05-30 15:48:36', NULL, '2015-08-28 15:48:36', 11),
+(45, 12.5, b'1', '2015-05-30 15:48:40', '2015-05-30 15:50:13', '2015-08-28 15:48:40', 12),
+(46, 12.5, b'0', '2015-05-30 15:48:40', NULL, '2015-08-28 15:48:40', 12),
+(47, 12.5, b'1', '2015-05-30 15:48:40', '2015-05-30 15:49:56', '2015-08-28 15:48:40', 12),
+(48, 12.5, b'1', '2015-05-30 15:48:40', '2015-05-30 15:49:59', '2015-08-28 15:48:40', 12);
 
 -- --------------------------------------------------------
 
@@ -153,34 +169,37 @@ INSERT INTO `rata` (`id`, `VRIJEDNOST`, `JELIUPLACENA`, `DATUMZADUZENJA`, `DATUM
 
 CREATE TABLE IF NOT EXISTS `student` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `IME` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `PREZIME` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `JMBG` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `MAIL` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `ADRESA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `OPCINA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `TELEFON` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `IME` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `PREZIME` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `JMBG` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `MAIL` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `ADRESA` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `OPCINA` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `TELEFON` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `INDEKS` int(11) DEFAULT NULL,
   `TROSKOVISKOLARINE` double DEFAULT NULL,
   `TROSKOVILITERATURE` double DEFAULT NULL,
-  `IMERODITELJA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `MJESTORODJENJA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `OPCINARODJENJA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `DRZAVARODJENJA` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `IMERODITELJA` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `MJESTORODJENJA` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `OPCINARODJENJA` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `DRZAVARODJENJA` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `POPUST` double DEFAULT NULL,
-  `GODINASTUDIJA` int(11) DEFAULT NULL,
-  `DUGID` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=15 ;
+  `GODINASTUDIJA` varchar(255) COLLATE utf8_slovenian_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `JMBG_UNIQUE` (`JMBG`),
+  UNIQUE KEY `INDEKS_UNIQUE` (`INDEKS`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci AUTO_INCREMENT=24 ;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`id`, `IME`, `PREZIME`, `JMBG`, `MAIL`, `ADRESA`, `OPCINA`, `TELEFON`, `INDEKS`, `TROSKOVISKOLARINE`, `TROSKOVILITERATURE`, `IMERODITELJA`, `MJESTORODJENJA`, `OPCINARODJENJA`, `DRZAVARODJENJA`, `POPUST`, `GODINASTUDIJA`, `DUGID`) VALUES
-(12, 'Amra', 'Dautbegović', '0906992174152', 'amra@amra.com', 'Sarajevo', 'Centar', '066/878-999', 12345, 1800, 0, 'Roditelj', 'Sarajevo', 'Centar', 'BiH', 0, 0, 0),
-(13, 'Azra', 'Jarebica', '0906992174152', 'azra@azra.com', 'Sarajevo', 'Centar', '066/878-999', 54321, 2000, 0, 'Roditelj', 'Sarajevo', 'Centar', 'BiH', 0, 0, 0),
-(14, 'Dino', 'Hurem', '0906992174152', 'dino@dino.com', 'Sarajevo', 'Centar', '066/878-999', 54321, 2000, 0, 'Roditelj', 'Sarajevo', 'Centar', 'BiH', 0, 0, 0);
+INSERT INTO `student` (`id`, `IME`, `PREZIME`, `JMBG`, `MAIL`, `ADRESA`, `OPCINA`, `TELEFON`, `INDEKS`, `TROSKOVISKOLARINE`, `TROSKOVILITERATURE`, `IMERODITELJA`, `MJESTORODJENJA`, `OPCINARODJENJA`, `DRZAVARODJENJA`, `POPUST`, `GODINASTUDIJA`) VALUES
+(1, 'Šaban', 'Šabanović', '0906993174156', 'saban@saban.com', 'Šaban', 'Šaban', '062/454-969', 45698, 1400, 0, 'Šaban', 'Šaban', 'Šaban', 'Šaban', 30, NULL),
+(15, 'Faris', 'Džafić', '0906992174152', 'fdzafic1@etf.unsa.ba', 'Visoko', 'Visoko', '062/961-960', 15987, 18000, 0, 'Romeo', 'Visoko', 'Visoko', 'Bosna i Hercegovina', 0, NULL),
+(18, 'Sabina', 'Grošić', '0906992174153', 'sgrosic1@etf.unsa.ba', 'Grošić', 'Grošić', '062/456-969', 12345, 1800, 0, 'Grošić', 'Bihać', 'Grošić', 'Grošić', 10, NULL),
+(20, 'Faris', 'Faris', '0906993174158', 'asd@asd.com', 'Faris', 'Faris', '066/987-987', 15647, 9000, 0, 'Faris', 'Faris', 'Faris', 'Faris', 50, 'Prva_BSC'),
+(23, 'Testić', 'Testić', '0905992174152', 'test@test.com', 'Testić', 'Testić', '011/111-111', 55555, 3000, 0, 'Testić', 'Testić', 'Testić', 'Testić', 50, 'Prva_BSC');
 
 --
 -- Constraints for dumped tables
@@ -197,11 +216,6 @@ ALTER TABLE `dug`
 --
 ALTER TABLE `rata`
   ADD CONSTRAINT `dug_id_fk` FOREIGN KEY (`dugId`) REFERENCES `dug` (`id`);
-  
-ALTER TABLE `tim5`.`korisnik` 
-ADD UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-ADD UNIQUE INDEX `KORISNICKOIME_UNIQUE` (`KORISNICKOIME` ASC);
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

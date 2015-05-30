@@ -362,45 +362,50 @@ public class UnosWindow {
 						double troskovi = Double.parseDouble(tFieldTroskovi.getText());
 						double popust =  Double.parseDouble(tFieldPopust.getText());
 						double cijena  = troskovi - (troskovi * popust /100);
-						
+						Student s;
 						try {
-						Student s = new Student(1, ime, prezime, jmbg,
+						s = new Student(1, ime, prezime, jmbg,
 								mail, adresaPreb, opcinaPreb, telefon,
 								indeks, troskovi, roditelj, mjestoRodj, opcinaRodj,
 							    drzava, popust, godinaUpisa);
 						s.setTroskoviSkolarine(cijena);
 						s.setPopust(popust);
+						}catch(IllegalArgumentException ex) {
+							JOptionPane.showMessageDialog(null, "Problem:"+ ex.getMessage(), "InfoBox", JOptionPane.INFORMATION_MESSAGE);							//
+							logger.error("Greška kod dodavanja novog studenta! " + ex.getMessage() , ex);
+							return;
+						}
+						
+						try {
+							
 						Session session = HibernateUtil.getSessionFactory().openSession();
 											
 						String godina =  Utility.getInstance().dajStudijskuGodinu();
 						if(chckbxNewCheckBox.isSelected()) {							
 							long id = s.dodajStudenta(session);
+							JOptionPane.showMessageDialog(null, "Student je dodan!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 							Dug d = new Dug(1, false, godina,
 									s.dajDugZaSkolarinu(), s.getId(), TipDuga.dugZaSkolarinu);
 							d.dodajDug(session);
 							lblcijena.setText(String.valueOf(cijena));							
 							s.setId(id);
-							studenti.add(s);
-							JOptionPane.showMessageDialog(null, "Student je dodan!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
+							studenti.add(s);							
 						}
 						else {							
 							s.urediStudenta(session);
+							JOptionPane.showMessageDialog(null, "Student je uređen!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 							Dug d = new Dug(1, false, "2014/2015",
 									s.dajUkupniDug(), s.getId(), TipDuga.dugZaSkolarinu);
-							d.dodajDug(session);
-							JOptionPane.showMessageDialog(null, "Student je uređen!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
+							d.dodajDug(session);							
 						}
 						
 						session.close();	
 						}catch(ConstraintViolationException cve) {
-							JOptionPane.showMessageDialog(null,"Korisnik sa tim indeksom ili jbmg-om već postoji u sistemu ! Nije moguć unos" +  cve.getConstraintName(),"Problem",JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(null, cve.getConstraintName(),"Problem",JOptionPane.INFORMATION_MESSAGE);
 							logger.error("Pokušaj unosa već postojeće literature", cve );	
 							return;
-						} catch (Exception ex)
-						{
-							JOptionPane.showMessageDialog(null, ex.getMessage());
-							//ex.printStackTrace();
-							logger.error("Greška kod dodavanja novog studenta! " + ex.getMessage() , ex);
+						} catch (Exception ex) {
+							return;
 						}
 					
 				}});
