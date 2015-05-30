@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2015 at 03:53 PM
+-- Generation Time: May 30, 2015 at 05:19 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `dug` (
   `studentId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `student_id_fk` (`studentId`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=15 ;
 
 --
 -- Dumping data for table `dug`
@@ -74,7 +74,9 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `KORISNICKOIME_UNIQUE` (`KORISNICKOIME`),
-  UNIQUE KEY `JMBG_UNIQUE` (`JMBG`)
+  UNIQUE KEY `JMBG_UNIQUE` (`JMBG`),
+  UNIQUE KEY `TELEFON_UNIQUE` (`TELEFON`),
+  UNIQUE KEY `MAIL_UNIQUE` (`MAIL`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=ucs2 COLLATE=ucs2_slovenian_ci AUTO_INCREMENT=4 ;
 
 --
@@ -187,7 +189,9 @@ CREATE TABLE IF NOT EXISTS `student` (
   `GODINASTUDIJA` varchar(255) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `JMBG_UNIQUE` (`JMBG`),
-  UNIQUE KEY `INDEKS_UNIQUE` (`INDEKS`)
+  UNIQUE KEY `INDEKS_UNIQUE` (`INDEKS`),
+  UNIQUE KEY `TELEFON_UNIQUE` (`TELEFON`),
+  UNIQUE KEY `MAIL_UNIQUE` (`MAIL`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci AUTO_INCREMENT=24 ;
 
 --
@@ -199,7 +203,7 @@ INSERT INTO `student` (`id`, `IME`, `PREZIME`, `JMBG`, `MAIL`, `ADRESA`, `OPCINA
 (15, 'Faris', 'Džafić', '0906992174152', 'fdzafic1@etf.unsa.ba', 'Visoko', 'Visoko', '062/961-960', 15987, 18000, 0, 'Romeo', 'Visoko', 'Visoko', 'Bosna i Hercegovina', 0, NULL),
 (18, 'Sabina', 'Grošić', '0906992174153', 'sgrosic1@etf.unsa.ba', 'Grošić', 'Grošić', '062/456-969', 12345, 1800, 0, 'Grošić', 'Bihać', 'Grošić', 'Grošić', 10, NULL),
 (20, 'Faris', 'Faris', '0906993174158', 'asd@asd.com', 'Faris', 'Faris', '066/987-987', 15647, 9000, 0, 'Faris', 'Faris', 'Faris', 'Faris', 50, 'Prva_BSC'),
-(23, 'Testić', 'Testić', '0905992174152', 'test@test.com', 'Testić', 'Testić', '011/111-111', 55555, 3000, 0, 'Testić', 'Testić', 'Testić', 'Testić', 50, 'Prva_BSC');
+(23, 'TestićNovi', 'Testić', '0905992174152', 'test@test.com', 'Testić', 'Testić', '011/111-111', 55555, 375, 0, 'Testić', 'Testić', 'Testić', 'Testić', 50, 'Prva_BSC');
 
 --
 -- Constraints for dumped tables
