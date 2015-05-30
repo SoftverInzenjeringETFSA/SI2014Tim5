@@ -230,7 +230,7 @@ public class UnosKorisnikaWindow {
 					
 					k.dodajKorisnika(session);
 					JOptionPane.showMessageDialog(frame,
-							"Dodali ste novog korisnika " + k.getIme() + " " + k.getIme()
+							"Dodali ste novog korisnika " + k.getIme() + " " + k.getPrezime()
 									+ ".",
 									"Korisnik dodan",
 									JOptionPane.PLAIN_MESSAGE);
