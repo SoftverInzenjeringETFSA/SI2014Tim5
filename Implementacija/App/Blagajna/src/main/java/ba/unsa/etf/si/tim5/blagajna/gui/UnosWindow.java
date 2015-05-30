@@ -45,6 +45,7 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 
 import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 import org.apache.log4j.Logger;
 
 import java.awt.event.ActionListener;
@@ -148,7 +149,7 @@ public class UnosWindow {
 		frmUnosStudenta.setTitle("Unos studenta");
 		frmUnosStudenta.setResizable(false);
 		frmUnosStudenta.setBounds(100, 100, 779, 407);
-		frmUnosStudenta.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmUnosStudenta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			frmUnosStudenta.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 					FormFactory.RELATED_GAP_COLSPEC,
 					ColumnSpec.decode("326px"),
@@ -163,7 +164,7 @@ public class UnosWindow {
 					RowSpec.decode("23px"),}));
 			
 			panel = new JPanel();
-			panel.setBorder(BorderFactory.createTitledBorder("Li�ni podaci"));
+			panel.setBorder(BorderFactory.createTitledBorder("Lični podaci"));
 			frmUnosStudenta.getContentPane().add(panel, "2, 2, 3, 1, fill, fill");
 			panel.setLayout(new FormLayout(new ColumnSpec[] {
 					FormFactory.RELATED_GAP_COLSPEC,
@@ -372,30 +373,32 @@ public class UnosWindow {
 						Session session = HibernateUtil.getSessionFactory().openSession();
 											
 						String godina =  Utility.getInstance().dajStudijskuGodinu();
-						if(chckbxNewCheckBox.isSelected()) {
-							JOptionPane.showMessageDialog(null, "Student je dodan!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
+						if(chckbxNewCheckBox.isSelected()) {							
 							long id = s.dodajStudenta(session);
 							Dug d = new Dug(1, false, godina,
 									s.dajDugZaSkolarinu(), s.getId(), TipDuga.dugZaSkolarinu);
 							d.dodajDug(session);
 							lblcijena.setText(String.valueOf(cijena));							
 							s.setId(id);
-							studenti.add(s);						
+							studenti.add(s);
+							JOptionPane.showMessageDialog(null, "Student je dodan!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 						}
-						else {
-							JOptionPane.showMessageDialog(null, "Student je uređen!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
+						else {							
 							s.urediStudenta(session);
 							Dug d = new Dug(1, false, "2014/2015",
 									s.dajUkupniDug(), s.getId(), TipDuga.dugZaSkolarinu);
 							d.dodajDug(session);
+							JOptionPane.showMessageDialog(null, "Student je uređen!", "InfoBox", JOptionPane.INFORMATION_MESSAGE);
 						}
 						
 						session.close();	
-						}
-						catch (Exception ex)
+						}catch(ConstraintViolationException cve) {
+							JOptionPane.showMessageDialog(null,"Korisnik sa tim indeksom ili jbmg-om već postoji u sistemu ! Nije moguć unos" +  cve.getConstraintName(),"Problem",JOptionPane.INFORMATION_MESSAGE);
+							logger.error("Pokušaj unosa već postojeće literature", cve );	
+							return;
+						} catch (Exception ex)
 						{
-							JOptionPane.showMessageDialog(null,
-									ex.getLocalizedMessage());
+							JOptionPane.showMessageDialog(null, ex.getMessage());
 							//ex.printStackTrace();
 							logger.error("Greška kod dodavanja novog studenta! " + ex.getMessage() , ex);
 						}

@@ -132,7 +132,7 @@ public class LiteraturaWindow {
 		});
 		frmUnosDugaZa.setTitle("Literatura");
 		frmUnosDugaZa.setBounds(100, 100, 467, 544);
-		frmUnosDugaZa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmUnosDugaZa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmUnosDugaZa.getContentPane().setLayout(
 				new FormLayout(new ColumnSpec[] {
 						FormFactory.RELATED_GAP_COLSPEC,
@@ -288,12 +288,8 @@ public class LiteraturaWindow {
 					logger.error("ISBN nije valjan kod unosa!", iae );
 					l = null;
 					return;
-				}catch(ConstraintViolationException cve) {
-					JOptionPane.showMessageDialog(null,"Knjiga sa tim ISBN-om je već unesena! Ako želite unijeti nove primjerke, prvo obrišite postojeću. ","Problem",JOptionPane.INFORMATION_MESSAGE);
-					logger.error("Pokušaj unosa već postojeće literature", cve );
-					l = null;
-					return;
 				}
+				try {
 				Session session = HibernateUtil.getSessionFactory().openSession();
 
 				long id = l.dodajLiteraturu(session); //svoj id dobije tek nakon smjestanja u bazu
@@ -308,6 +304,17 @@ public class LiteraturaWindow {
 				logger.info("Dodana literatura" + l.getId()+ " , " + l.getNaziv());
 				JOptionPane.showMessageDialog(null,"Literatura je dodana!","Message",JOptionPane.INFORMATION_MESSAGE);				
 				ocistiPoljaZaUnos();
+				}catch(ConstraintViolationException cve) {
+					JOptionPane.showMessageDialog(null,"Knjiga sa tim ISBN-om je već unesena! Ako želite unijeti nove primjerke, prvo obrišite postojeću. ","Problem",JOptionPane.INFORMATION_MESSAGE);
+					logger.error("Pokušaj unosa već postojeće literature", cve );
+					l = null;
+					return;
+				}catch(Exception ex) {
+					JOptionPane.showMessageDialog(null,"Problem kod spremanja literature " + ex.getMessage(),"Problem",JOptionPane.INFORMATION_MESSAGE);
+					logger.error("Problem kod spremanja literature", ex );
+					l = null;
+					return;
+				}
 		
 			}
 		});
