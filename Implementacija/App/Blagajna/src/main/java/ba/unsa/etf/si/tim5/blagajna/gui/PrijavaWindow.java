@@ -1,6 +1,8 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
+import java.awt.Cursor;
 import java.awt.EventQueue;
+
 
 
 
@@ -12,6 +14,7 @@ import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
+
 
 
 
@@ -88,6 +91,7 @@ public class PrijavaWindow {
 	 */
 	private void initialize() {
 		frmPrijava = new JFrame();
+		frmPrijava.setResizable(false);
 		frmPrijava.setTitle("Prijava");
 		frmPrijava.setBounds(100, 100, 342, 201);
 		frmPrijava.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,7 +125,7 @@ public class PrijavaWindow {
 		textPass = new JPasswordField();
 		frmPrijava.getContentPane().add(textPass, "4, 4, 3, 1, fill, top");
 		
-		JLabel lblZaboraviliSteLozinku = new JLabel("Zaboravili ste lozinku ?");
+	    final JLabel lblZaboraviliSteLozinku = new JLabel("Zaboravili ste lozinku ?");
 		lblZaboraviliSteLozinku.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
