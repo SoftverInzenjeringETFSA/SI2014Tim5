@@ -114,7 +114,7 @@ public class DugWindow {
 		frmDugovanjaUplate = new JFrame();
 		frmDugovanjaUplate.setTitle("Dugovanja - Uplate");
 		frmDugovanjaUplate.setBounds(100, 100, 548, 438);
-		frmDugovanjaUplate.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDugovanjaUplate.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmDugovanjaUplate.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,

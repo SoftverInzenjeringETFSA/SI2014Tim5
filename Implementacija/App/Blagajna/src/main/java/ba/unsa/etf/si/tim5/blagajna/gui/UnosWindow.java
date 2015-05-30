@@ -136,7 +136,7 @@ public class UnosWindow {
 		this.tFieldOpcinaPreb.setText(student.getOpcina());
 		this.tFieldMail.setText(student.getMail());
 		this.tFieldIndeks.setText(Integer.toString(student.getIndeks()));
-		this.cBoxGodina.setSelectedIndex(student.getGodinaStudija());
+		this.cBoxGodina.setSelectedItem(student.getGodinaStudija());
 		this.tFieldTroskovi.setText(String.valueOf(student.getTroskoviSkolarine()));
 		this.tFieldPopust.setText(String.valueOf(student.getPopust()));
 				
@@ -358,7 +358,7 @@ public class UnosWindow {
 						String opcinaPreb = tFieldOpcinaPreb.getText();
 						String mail = tFieldMail.getText();
 						int indeks =  Integer.parseInt(tFieldIndeks.getText());
-						int godinaUpisa = cBoxGodina.getSelectedIndex();
+						GodinaStudija godinaUpisa = (GodinaStudija)cBoxGodina.getSelectedItem();
 						double troskovi = Double.parseDouble(tFieldTroskovi.getText());
 						double popust =  Double.parseDouble(tFieldPopust.getText());
 						double cijena  = troskovi - (troskovi * popust /100);

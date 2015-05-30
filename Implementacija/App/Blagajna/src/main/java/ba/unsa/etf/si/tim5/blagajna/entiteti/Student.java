@@ -7,6 +7,7 @@ import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
@@ -33,14 +34,15 @@ public class Student implements java.io.Serializable {
 	private String opcinaRodjenja;
 	private String drzavaRodjenja;
 	private double popust;
-	private int godinaStudija;
-	private long dugId;
+	private GodinaStudija godinaStudija;
+
+
 
 	public Student(long id, String ime, String prezime, String jmbg,
 			String mail, String adresa, String opcina, String telefon,
 			int indeks, double troskoviSkolarine, String imeRoditelja,
 			String mjestoRodjenja, String opcinaRodjenja,
-			String drzavaRodjenja, double popust, int godinaStudija) {
+			String drzavaRodjenja, double popust, GodinaStudija godinaStudija) {
 		super();
 		this.setId(id);
 		this.setIme(ime);
@@ -62,14 +64,6 @@ public class Student implements java.io.Serializable {
 
 	public Student() {
 
-	}
-
-	public long getDugId() {
-		return dugId;
-	}
-
-	public void setDugId(long dugId) {
-		this.dugId = dugId;
 	}
 
 	public long getId() {
@@ -280,15 +274,13 @@ public class Student implements java.io.Serializable {
 	public void setPopust(double popust) {
 		this.popust = popust;
 	}
-
-	public int getGodinaStudija() {
-		return godinaStudija;
-	}
-
-	public void setGodinaStudija(int godinaStudija) {
+	public void setGodinaStudija(GodinaStudija godinaStudija) {
 		this.godinaStudija = godinaStudija;
 	}
-
+	public GodinaStudija getGodinaStudija() {
+		return this.godinaStudija;
+	}
+	
 	public double dajUkupniDug() {
 		return dajDugZaSkolarinu() + troskoviLiterature;
 

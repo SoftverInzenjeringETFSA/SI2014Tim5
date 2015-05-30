@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
+
 public class StudentTest extends Student {
 	
 	long id = 1; 
@@ -24,7 +26,7 @@ public class StudentTest extends Student {
 	String opcinaRodjenja = "Bihac";
 	String drzavaRodjenja = "BiH";
 	double popust = 10;
-	int godinaStudija = 3;
+	GodinaStudija godinaStudija = GodinaStudija.Cetvrta_BSC;
 	long dugId = 0;
 	
 	Student s = new Student(id, ime, prezime, jmbg,

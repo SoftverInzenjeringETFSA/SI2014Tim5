@@ -2,17 +2,20 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="">
-  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.password">2014SIEtf</property>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost/tim5</property>
-  <property name="hibernate.connection.username">EtfSI2014</property>
-  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-  <property name="hibernate.hbm2ddl.auto">update</property>
-  <mapping resource="Literatura.hbm.xml"/>
-  <mapping resource="Dug.hbm.xml"/>
-  <mapping resource="Korisnik.hbm.xml"/>
-  <mapping resource="Rata.hbm.xml"/>
-  <mapping resource="Student.hbm.xml"/>
- </session-factory>
+	<session-factory name="">
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.password">2014SIEtf</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/tim5</property>
+		<property name="hibernate.connection.username">EtfSI2014</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.connection.CharSet">utf8</property>
+		<property name="hibernate.connection.characterEncoding">utf8</property>
+		<property name="hibernate.connection.useUnicode">true</property>
+		<mapping resource="Literatura.hbm.xml" />
+		<mapping resource="Dug.hbm.xml" />
+		<mapping resource="Korisnik.hbm.xml" />
+		<mapping resource="Rata.hbm.xml" />
+		<mapping resource="Student.hbm.xml" />
+	</session-factory>
 </hibernate-configuration>
