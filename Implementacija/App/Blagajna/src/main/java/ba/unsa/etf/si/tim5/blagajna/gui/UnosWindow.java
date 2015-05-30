@@ -309,7 +309,7 @@ public class UnosWindow {
 		panel_1.add(tFieldIndeks, "4, 2, left, default");
 		tFieldIndeks.setColumns(10);
 
-		lblNewLabel_6 = new JLabel("Tro\u0161kovi strudija:");
+		lblNewLabel_6 = new JLabel("Troškovi studija:");
 		panel_1.add(lblNewLabel_6, "8, 2, right, default");
 
 		tFieldTroskovi = new JTextField();
@@ -319,7 +319,7 @@ public class UnosWindow {
 		lblKm = new JLabel("KM");
 		panel_1.add(lblKm, "14, 2");
 
-		lblGodinaKojuUpisje = new JLabel("Godina koju upisje:");
+		lblGodinaKojuUpisje = new JLabel("Godina koju upisuje:");
 		panel_1.add(lblGodinaKojuUpisje, "2, 4, right, default");
 
 		cBoxGodina = new JComboBox();
