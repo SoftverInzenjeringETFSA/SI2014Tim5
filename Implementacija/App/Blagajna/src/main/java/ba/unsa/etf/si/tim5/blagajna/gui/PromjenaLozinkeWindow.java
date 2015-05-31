@@ -1,33 +1,28 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
-
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-import org.apache.log4j.Logger;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 public class PromjenaLozinkeWindow {
 	final static Logger logger = Logger.getLogger(PromjenaLozinkeWindow.class);
 	

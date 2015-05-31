@@ -1,17 +1,20 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
-
-
-
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
@@ -23,19 +26,7 @@ import net.sf.dynamicreports.report.builder.style.StyleBuilder;
 import net.sf.dynamicreports.report.constant.HorizontalAlignment;
 import net.sf.dynamicreports.report.exception.DRException;
 
-import javax.swing.*;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.awt.*;
-import java.io.FileNotFoundException;
-
-
-
-
-//----------------------
-import javax.swing.DefaultComboBoxModel;
+import org.apache.log4j.Logger;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.MozePolagati;
@@ -47,13 +38,11 @@ import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
+//----------------------
 public class IzvjestajWindow {
 
 	final static Logger logger = Logger.getLogger(SlanjeMaila.class);
@@ -72,9 +61,7 @@ public class IzvjestajWindow {
 				try {
 					IzvjestajWindow window = new IzvjestajWindow();
 					window.frmIzvjetaj.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-					
+				} catch (Exception e) {	
 					logger.error(e.getMessage() , e);
 				}
 			}
@@ -281,12 +268,10 @@ public class IzvjestajWindow {
 				try {
 					GenerisiIzvjestaj(redovi);
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					// TODO Auto-generated catch block					
 					logger.error(e1.getMessage() , e1);
 				} catch (DRException e1) {
-					
-					e1.printStackTrace();
+										
 					logger.error(e1.getMessage() , e1);
 				}
 

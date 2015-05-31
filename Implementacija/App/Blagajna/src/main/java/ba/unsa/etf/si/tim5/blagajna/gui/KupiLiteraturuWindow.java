@@ -1,43 +1,34 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
-import com.mysql.jdbc.log.Log;
-
-import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.JButton;
-
-import org.apache.log4j.Logger;
-import org.apache.log4j.Priority;
-import org.hibernate.Session;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Date;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class KupiLiteraturuWindow {
 	final static Logger logger = Logger.getLogger(KupiLiteraturuWindow.class);

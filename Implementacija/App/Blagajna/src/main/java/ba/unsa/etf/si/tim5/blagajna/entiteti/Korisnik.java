@@ -1,18 +1,9 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
-import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.hibernate.Session;
 
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
-
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
-import org.hibernate.Session;
 
 public class Korisnik implements java.io.Serializable{
 	/**

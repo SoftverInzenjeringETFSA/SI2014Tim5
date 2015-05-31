@@ -1,55 +1,30 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
-import java.awt.Cursor;
-import java.awt.EventQueue;
-
-
-
-
-
-
-
-
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-
-
-
-
-
-
-
-
 import java.awt.Color;
-
-import javax.swing.JButton;
-
-import org.apache.log4j.Logger;
-import org.hibernate.mapping.Map;
-
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
-
-import com.itextpdf.text.Font;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.RowSpec;
-
-import java.awt.event.ActionListener;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.font.TextAttribute;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import org.apache.log4j.Logger;
+
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class PrijavaWindow {
 	final static Logger logger=Logger.getLogger(PrijavaWindow.class);

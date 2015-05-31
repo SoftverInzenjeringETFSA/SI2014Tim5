@@ -1,53 +1,45 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
-import java.awt.print.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
-import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
-
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
 
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder;
 import net.sf.dynamicreports.report.builder.DynamicReports;
-import net.sf.dynamicreports.report.builder.column.Columns;
 import net.sf.dynamicreports.report.builder.component.TextFieldBuilder;
 import net.sf.dynamicreports.report.exception.DRException;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
-import ba.unsa.etf.si.tim5.blagajna.util.*;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Rata;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.io.FileNotFoundException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import org.apache.log4j.Logger;
-import javax.swing.JTextField;
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 public class DugWindow {
 	final static Logger logger = Logger.getLogger(DugWindow.class);
 	
@@ -75,8 +67,7 @@ public class DugWindow {
 				try {
 					DugWindow window = new DugWindow();
 					window.frmDugovanjaUplate.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception e) {					
 					logger.error("Greška pri otvaranju forme za dugove! " + e.getMessage() , e);
 					
 				}
@@ -92,8 +83,7 @@ public class DugWindow {
 		initialize();
 		}
 		catch(Exception e) 
-		{ 
-			e.printStackTrace();
+		{ 			
 
 			logger.error("Greška - DugWindow() " + e.getMessage() , e);
 		}
@@ -313,13 +303,11 @@ public class DugWindow {
 				GenerisiIzvjestaj(student.getIme(), student.getPrezime(), student.getImeRoditelja(), dug, datum);
 				}
 				catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					// TODO Auto-generated catch block					
 					logger.error("Greška pri generisanju fajla za printanje! " + e1.getMessage() , e1);
 				} 
 				catch (DRException e1) {
-					
-					e1.printStackTrace();
+									
 					logger.error("Greška pri generisanju izvještaja za printanje! " + e1.getMessage() , e1);
 				}
 					

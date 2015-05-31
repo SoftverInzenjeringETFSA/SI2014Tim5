@@ -1,79 +1,46 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.UpozorenjeZaDug;
-import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
-
-
-import org.apache.log4j.Logger;
-import org.hibernate.Query;
-
-import javax.swing.JFrame;
-
-import java.awt.GridLayout;
-
-import javax.swing.JTextField;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.ListSelectionModel;
-
-import java.awt.Panel;
-
-import javax.swing.JList;
-
-import java.awt.Choice;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.border.BevelBorder;
-
-import java.awt.Color;
-
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
-
-import java.awt.ScrollPane;
-
-import javax.swing.JPanel;
-
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.List;
-import java.awt.Toolkit;
-import java.awt.Window;
-
-import javax.swing.JScrollPane;
-import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.factories.FormFactory;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.JSeparator;
-import javax.swing.SwingUtilities;
-
-import org.hibernate.Session;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class MainWindow {
 	final static Logger logger = Logger.getLogger(MainWindow.class);

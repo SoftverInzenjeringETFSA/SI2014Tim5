@@ -1,55 +1,35 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.EventQueue;
-
-import javassist.bytecode.Descriptor.Iterator;
-
-import javax.swing.JFrame;
-
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
-import java.awt.GridBagConstraints;
-
-import javax.swing.JTextField;
-
-import java.awt.Insets;
-
-import javax.swing.JButton;
-
-import antlr.collections.List;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
-import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.factories.FormFactory;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JPanel;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
+
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class LiteraturaWindow {
 	

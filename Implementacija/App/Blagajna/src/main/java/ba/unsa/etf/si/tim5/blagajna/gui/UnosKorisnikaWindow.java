@@ -1,46 +1,39 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
-import java.awt.Component;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
-import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
+
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
-import javax.swing.JButton;
-import javax.swing.table.DefaultTableModel;
-
-import org.hibernate.Session;
-import org.hibernate.exception.ConstraintViolationException;
-import org.apache.log4j.Logger;
-
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-
 public class UnosKorisnikaWindow {
-	
-	
+
 	JFrame frmUnosKorisnika;
-	
+
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -51,20 +44,21 @@ public class UnosKorisnikaWindow {
 
 	private ArrayList<Korisnik> korisnici;
 	private Korisnik k;
-//	private long id;
+	// private long id;
 	private JTable tabela;
 	protected Component frame;
 	private int selektovani;
 	static JButton btnUredi = new JButton("Uredi");
 	static JButton btnDodaj = new JButton("Dodaj");
 	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			//@Override
-			
+			// @Override
+
 			public void run() {
 				try {
 					UnosKorisnikaWindow window = new UnosKorisnikaWindow();
@@ -91,7 +85,7 @@ public class UnosKorisnikaWindow {
 		initialize();
 		popuniPolja(k);
 		this.textField_5.setEnabled(false);
-		this.tabela = tabela;	
+		this.tabela = tabela;
 		this.selektovani = selektovani;
 		btnDodaj.setVisible(false);
 	}
@@ -100,7 +94,7 @@ public class UnosKorisnikaWindow {
 		initialize();
 		this.korisnici = korisnici;
 		btnUredi.setVisible(false);
-		this.tabela = tabela;	
+		this.tabela = tabela;
 		btnDodaj.setVisible(true);
 	}
 
@@ -207,7 +201,7 @@ public class UnosKorisnikaWindow {
 				"4, 16, 4, 1, fill, center");
 
 		btnDodaj.addActionListener(new ActionListener() {
-			//@Override
+			// @Override
 			public void actionPerformed(ActionEvent e) {
 
 				String ime = textField.getText();
@@ -220,21 +214,30 @@ public class UnosKorisnikaWindow {
 
 				int pass = Utility.getInstance().generisiPassword();
 				String lozinka = String.valueOf(pass);
-				
+
 				TipKorisnika tip = (TipKorisnika) comboBox.getSelectedItem();
-				
+
 				try {
 					Session session = HibernateUtil.getSessionFactory()
 							.openSession();
-				
-					
-					 k = new Korisnik(1, ime, prezime, jmbg, adresa,
-							telefon, mail, tip, username, lozinka);
-					
+					try {
+
+						k = new Korisnik(1, ime, prezime, jmbg, adresa,
+								telefon, mail, tip, username, lozinka);
+					} catch (IllegalArgumentException iae) {
+						logger.error("Pogrešni podaci", iae);
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"Neispravni paremetri kod unosa, korisnik nije unešen! \n"+iae.getMessage(),
+										"Greška", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 					k.dodajKorisnika(session);
-					
-					logger.info("Dodali ste novog korisnika " + k.getIme() + " " + k.getPrezime()+".");
-					
+					korisnici.add(k);
+					logger.info("Dodali ste novog korisnika " + k.getIme()
+							+ " " + k.getPrezime() + ".");
+
 					textField.setText("");
 					textField_1.setText("");
 					textField_2.setText("");
@@ -242,42 +245,49 @@ public class UnosKorisnikaWindow {
 					textField_4.setText("");
 					textField_5.setText("");
 					textField_6.setText("");
-					comboBox.setSelectedIndex(0);		
-					
-					String[] m = {k.getMail()};
-					SlanjeMaila.getInstance().sendFromGMail(m, "Nova lozinka", "Vaša nova lozinka je: "+ lozinka);	
-					JOptionPane.showMessageDialog(null, "Dodali ste novog korisnika " + k.getIme() + " " + k.getPrezime()
-							+ ".\n "
-							+ "Vaša lozinka je "+k.getLozinka()+".","Korisnik dodan",JOptionPane.INFORMATION_MESSAGE);
+					comboBox.setSelectedIndex(0);
+
+					// String[] m = {k.getMail()};
+
+					// String subject =
+					// "Pristupni podaci za IS fakultetske blagajne";
+					// String poruka = " Korisničko ime: " +
+					// k.getKorisnickoIme() + "\n" + " Lozinka: " +
+					// k.getLozinka();
+					// SlanjeMaila.getInstance().sendFromGMail(m, subject ,
+					// poruka);
+					JOptionPane.showMessageDialog(null,
+							"Dodali ste novog korisnika " + k.getIme() + " "
+									+ k.getPrezime(), "Korisnik dodan",
+							JOptionPane.INFORMATION_MESSAGE);
 					session.close();
-					
-					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
+
+					DefaultTableModel tmodel = (DefaultTableModel) tabela
+							.getModel();
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
 							k.getPrezime(), k.getJmbg(), k.getAdresa(),
 							k.getTelefon(), k.getMail(), k.getTipKorisnika() });
 				}
-				
-				catch(ConstraintViolationException ex)
-				{
-					JOptionPane.showMessageDialog(frame,
-							"Uneseni korisnik već postoji.",
-							"Postojeći korisnik",
-							JOptionPane.ERROR_MESSAGE);
-					ex.printStackTrace();
-					logger.error("Greška kod dodavanja novog korisnika! " + ex.getMessage() , ex);
+
+				catch (ConstraintViolationException ex) {
+					JOptionPane
+							.showMessageDialog(
+									frame,
+									"Uneseni korisnik već postoji. \n (jmbg, telefon, mail ili korisničko ime već postoje)",
+									"Postojeći korisnik",
+									JOptionPane.ERROR_MESSAGE);
+					logger.error(
+							"Greška kod dodavanja novog korisnika! "
+									+ ex.getMessage(), ex);
+					return;
 				}
-								
-				catch (Exception ex) {
-					JOptionPane.showMessageDialog(null,
-							ex.getLocalizedMessage());
-					ex.printStackTrace();
-					logger.error("Greška kod dodavanja novog korisnika! " + ex.getMessage() , ex);
-					
+
+				catch (Exception ex) {					
+					logger.error(
+							"Greška kod dodavanja novog korisnika! "
+									+ ex.getMessage(), ex);
+					return;
 				}
-				
-				
-				
-	
 
 			}
 		});
@@ -298,20 +308,30 @@ public class UnosKorisnikaWindow {
 
 				try {
 					Session session = HibernateUtil.getSessionFactory()
-							.openSession();
-					//if(!Validacija.getInstance().validirajIsto(jmbg,telefon,mail,username)) throw new IllegalArgumentException();
-					k = new Korisnik(k.getId(), ime, prezime, jmbg, adresa,
-							telefon, mail, tip, username, "admin");
-					
+							.openSession();					
+					try {
+						k = new Korisnik(k.getId(), ime, prezime, jmbg, adresa,
+								telefon, mail, tip, username, k.getLozinka());
+					} catch (IllegalArgumentException iae) {
+						logger.error("Pogrešni podaci", iae);
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"Neispravni paremetri kod unosa, korisnik nije unešen!",
+										"Greška", JOptionPane.ERROR_MESSAGE);						
+						return;
+					}
 					k.urediKorisnika(session);
-					JOptionPane.showMessageDialog(frame,
-							"Uredili ste korisnika " + k.getIme() + " " + k.getPrezime()
-									+ ".",
-									"Korisnik uređen",
-									JOptionPane.PLAIN_MESSAGE);
-					logger.info("Uredili ste korisnika " + k.getIme() + " " + k.getPrezime()+".");
-					
-					DefaultTableModel tmodel = (DefaultTableModel) tabela.getModel();
+					JOptionPane.showMessageDialog(
+							frame,
+							"Uredili ste korisnika " + k.getIme() + " "
+									+ k.getPrezime() + ".", "Korisnik uređen",
+							JOptionPane.INFORMATION_MESSAGE);
+					logger.info("Uredili ste korisnika " + k.getIme() + " "
+							+ k.getPrezime() + ".");
+
+					DefaultTableModel tmodel = (DefaultTableModel) tabela
+							.getModel();
 					tmodel.setValueAt(k.getId(), selektovani, 0);
 					tmodel.setValueAt(k.getIme(), selektovani, 1);
 					tmodel.setValueAt(k.getPrezime(), selektovani, 2);
@@ -323,26 +343,24 @@ public class UnosKorisnikaWindow {
 					session.close();
 				}
 
-				catch(ConstraintViolationException ex)
-				{
+				catch (ConstraintViolationException ex) {
 					JOptionPane.showMessageDialog(frame,
 							"Uneseni korisnik već postoji.",
-							"Postojeći korisnik",
-							JOptionPane.ERROR_MESSAGE);
-					ex.printStackTrace();
-					logger.error("Greška kod dodavanja novog korisnika! " + ex.getMessage() , ex);
+							"Postojeći korisnik", JOptionPane.ERROR_MESSAGE);
+					logger.error(
+							"Greška kod dodavanja novog korisnika! "
+									+ ex.getMessage(), ex);
+					return;
 				}
-				
-				catch (Exception ex) {
-					JOptionPane.showMessageDialog(null,
-							ex.getLocalizedMessage());
-					logger.error("Greška kod uredjivanja novog korisnika! " + ex.getMessage() , ex);
+
+				catch (Exception ex) {					
+					logger.error("Greška kod uredjivanja novog korisnika! "
+							+ ex.getMessage(), ex);
+					return;
 				}
-				
-				
 
 			}
-			
+
 		});
 
 		frmUnosKorisnika.getContentPane()
@@ -350,7 +368,7 @@ public class UnosKorisnikaWindow {
 
 		JButton btnIzai = new JButton("Iza\u0111i");
 		btnIzai.addActionListener(new ActionListener() {
-			//@Override
+			// @Override
 			public void actionPerformed(ActionEvent arg0) {
 				frmUnosKorisnika.dispose();
 			}

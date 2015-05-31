@@ -1,10 +1,8 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
 
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
-import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 
 

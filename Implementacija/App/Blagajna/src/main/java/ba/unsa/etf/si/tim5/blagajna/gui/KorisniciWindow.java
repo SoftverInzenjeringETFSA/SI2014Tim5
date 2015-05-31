@@ -2,62 +2,36 @@ package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.Component;
 import java.awt.EventQueue;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
-
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
-import ba.unsa.etf.si.tim5.blagajna.entiteti.Literatura;
-import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
-
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
-import com.mysql.jdbc.log.Log;
-
-import java.awt.BorderLayout;
-
-import javax.swing.BoxLayout;
-
-import java.awt.GridBagLayout;
-
-import javax.swing.JButton;
-
-import java.awt.GridBagConstraints;
-
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import org.hibernate.Session;
-import org.apache.log4j.Logger;
-
-import java.awt.Insets;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
+
+import com.jgoodies.forms.factories.FormFactory;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
+import com.mysql.jdbc.Connection;
+
 public class KorisniciWindow {
 
 	JFrame frmKorisnici;
-	private JTable table;
-	private Connection conn;
+	private JTable table;	
 	protected Component frame;
 	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
 	private ArrayList<Korisnik> korisnici;

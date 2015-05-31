@@ -1,60 +1,38 @@
 package ba.unsa.etf.si.tim5.blagajna.gui;
 
 import java.awt.EventQueue;
-import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.GroupLayout;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.exception.ConstraintViolationException;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
-
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-
-import java.awt.Color;
-import java.awt.geom.Rectangle2D;
-
-import javax.swing.JButton;
-
-import java.awt.Choice;
-import java.awt.Button;
-import java.util.ArrayList;
-import java.util.Date;
-
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JCheckBox;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
-
-import org.hibernate.Session;
-import org.hibernate.exception.ConstraintViolationException;
-import org.apache.commons.lang3.SystemUtils;
-import org.apache.log4j.Logger;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.RowSpec;
 
 public class UnosWindow {
 	JFrame frmUnosStudenta;

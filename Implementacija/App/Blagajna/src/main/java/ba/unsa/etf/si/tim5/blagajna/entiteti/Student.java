@@ -1,9 +1,6 @@
 package ba.unsa.etf.si.tim5.blagajna.entiteti;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
-
-import javax.swing.table.DefaultTableModel;
 
 import org.hibernate.Session;
 
