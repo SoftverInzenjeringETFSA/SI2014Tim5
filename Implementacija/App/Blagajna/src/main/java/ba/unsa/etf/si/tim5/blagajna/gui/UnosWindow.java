@@ -348,30 +348,39 @@ public class UnosWindow {
 		btnUnesi = new JButton("Unesi");
 		btnUnesi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String ime = tFieldIme.getText();
-				String prezime = tFieldPrezime.getText();
-				String roditelj = tFieldRoditelj.getText();
-				String telefon = tFieldTelefon.getText();
-				String jmbg = tFieldJmbg.getText();
-				String mjestoRodj = tFieldMjestoRodj.getText();
-				String opcinaRodj = tFieldOpcina.getText();
-				String drzava = tFieldDrzava.getText();
-				String adresaPreb = tFieldAdresaPreb.getText();
-				String opcinaPreb = tFieldOpcinaPreb.getText();
-				String mail = tFieldMail.getText();
-				int indeks = Integer.parseInt(tFieldIndeks.getText());
-				GodinaStudija godinaUpisa = (GodinaStudija) cBoxGodina
-						.getSelectedItem();
-				double troskovi = Double.parseDouble(tFieldTroskovi.getText());
-				double popust = Double.parseDouble(tFieldPopust.getText());
-				double cijena = troskovi - (troskovi * popust / 100);
 				Student s;
+				double cijena;
 				try {
+					String ime = tFieldIme.getText();
+					String prezime = tFieldPrezime.getText();
+					String roditelj = tFieldRoditelj.getText();
+					String telefon = tFieldTelefon.getText();
+					String jmbg = tFieldJmbg.getText();
+					String mjestoRodj = tFieldMjestoRodj.getText();
+					String opcinaRodj = tFieldOpcina.getText();
+					String drzava = tFieldDrzava.getText();
+					String adresaPreb = tFieldAdresaPreb.getText();
+					String opcinaPreb = tFieldOpcinaPreb.getText();
+					String mail = tFieldMail.getText();
+					int indeks = Integer.parseInt(tFieldIndeks.getText());
+					GodinaStudija godinaUpisa = (GodinaStudija) cBoxGodina
+							.getSelectedItem();
+					double troskovi = Double.parseDouble(tFieldTroskovi
+							.getText());
+					double popust = Double.parseDouble(tFieldPopust.getText());
+					cijena = troskovi - (troskovi * popust / 100);
+					
 					s = new Student(1, ime, prezime, jmbg, mail, adresaPreb,
 							opcinaPreb, telefon, indeks, troskovi, roditelj,
 							mjestoRodj, opcinaRodj, drzava, popust, godinaUpisa);
 					s.setTroskoviSkolarine(cijena);
 					s.setPopust(popust);
+				} catch (NumberFormatException ine) {
+					JOptionPane.showMessageDialog(null,
+							"U polja predviđena za broj, unesena su slova!"
+									+ ine.getMessage(), "Greška",
+							JOptionPane.ERROR_MESSAGE);
+					return;
 				} catch (IllegalArgumentException ex) {
 					JOptionPane.showMessageDialog(null,
 							"Problem:" + ex.getMessage(), "InfoBox",
@@ -379,6 +388,13 @@ public class UnosWindow {
 					logger.error(
 							"Greška kod dodavanja novog studenta! "
 									+ ex.getMessage(), ex);
+					return;
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(
+							null,
+							"Neka polja nisu unesena ili nisu korektna!"
+									+ ex.getMessage(), "Greška",
+							JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 
@@ -407,12 +423,11 @@ public class UnosWindow {
 							JOptionPane.showMessageDialog(null,
 									"Student je uređen!", "InfoBox",
 									JOptionPane.INFORMATION_MESSAGE);
-						}
-						else {
-						Dug d = new Dug(1, false, "2014/2015",
-								s.dajUkupniDug(), s.getId(),
-								TipDuga.dugZaSkolarinu);
-						d.dodajDug(session);
+						} else {
+							Dug d = new Dug(1, false, "2014/2015", s
+									.dajUkupniDug(), s.getId(),
+									TipDuga.dugZaSkolarinu);
+							d.dodajDug(session);
 						}
 					}
 
@@ -469,6 +484,7 @@ public class UnosWindow {
 		s.setMjestoRodjenja(mjestoRodj);
 		s.setOpcinaRodjenja(opcinaRodj);
 		s.setDrzavaRodjenja(drzava);
+		s.setIndeks(indeks);
 		s.setAdresa(adresaPreb);
 		s.setOpcina(opcinaPreb);
 		s.setMail(mail);

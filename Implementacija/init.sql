@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2015 at 05:19 PM
+-- Generation Time: May 31, 2015 at 12:05 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -49,10 +49,7 @@ INSERT INTO `dug` (`id`, `JELIIZMIREN`, `AKADEMSKAGODINA`, `VRIJEDNOST`, `TIPDUG
 (5, b'0', '2014/2015', 18000, 'dugZaSkolarinu', 0, 15),
 (7, b'0', '2014/2015', 1620, 'dugZaSkolarinu', 0, 18),
 (8, b'0', '2014/2015', 735, 'dugZaSkolarinu', 0, 1),
-(9, b'0', '2014/2015', 4500, 'dugZaSkolarinu', 0, 20),
-(10, b'0', '2014/2015', 1500, 'dugZaSkolarinu', 0, 23),
-(11, b'0', '2014/2015', 50, 'dugZaLiteraturu', 0, 23),
-(12, b'0', '2014/2015', 12.5, 'dugZaLiteraturu', 0, 23);
+(9, b'0', '2014/2015', 4500, 'dugZaSkolarinu', 0, 20);
 
 -- --------------------------------------------------------
 
@@ -77,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
   UNIQUE KEY `JMBG_UNIQUE` (`JMBG`),
   UNIQUE KEY `TELEFON_UNIQUE` (`TELEFON`),
   UNIQUE KEY `MAIL_UNIQUE` (`MAIL`)
-) ENGINE=InnoDB  DEFAULT CHARSET=ucs2 COLLATE=ucs2_slovenian_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=ucs2 COLLATE=ucs2_slovenian_ci AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `korisnik`
@@ -85,7 +82,9 @@ CREATE TABLE IF NOT EXISTS `korisnik` (
 
 INSERT INTO `korisnik` (`id`, `IME`, `PREZIME`, `JMBG`, `ADRESA`, `TELEFON`, `MAIL`, `TIPKORISNIKA`, `KORISNICKOIME`, `LOZINKA`) VALUES
 (1, 'Faris', 'Džafić', '0611993176507', 'Visoko', '062/961-960', 'faris.dzafic@outlook.com', 'Korisnik', 'fdzafic', 'Admin123'),
-(2, 'Admin', 'Admin', '0906992174152', 'Admin', '063/961-960', 'sitim52014@gmail.com', 'Administrator', 'Admin', 'Admin123');
+(2, 'Admin', 'Admin', '0906992174152', 'Admin', '063/961-960', 'sitim52014@gmail.com', 'Administrator', 'Admin', 'Admin123'),
+(4, 'Amra', 'Dautbegović', '0906992147158', 'Sarajevo', '061/987-963', 'amra@amra.com', 'Korisnik', 'adautbegovic', 'admin'),
+(6, 'Dino', 'Hurem', '0906991174152', 'Sarajevo', '061/789-987', 'dino@dino.com', 'Korisnik', 'dhurem', 'admin');
 
 -- --------------------------------------------------------
 
@@ -149,19 +148,7 @@ INSERT INTO `rata` (`id`, `VRIJEDNOST`, `JELIUPLACENA`, `DATUMZADUZENJA`, `DATUM
 (33, 1125, b'0', '2015-05-30 15:42:58', NULL, '2015-08-28 15:42:58', 9),
 (34, 1125, b'0', '2015-05-30 15:42:58', NULL, '2015-08-28 15:42:58', 9),
 (35, 1125, b'0', '2015-05-30 15:42:58', NULL, '2015-08-28 15:42:58', 9),
-(36, 1125, b'0', '2015-05-30 15:42:58', NULL, '2015-08-28 15:42:58', 9),
-(37, 375, b'0', '2015-05-30 15:48:17', NULL, '2015-08-28 15:48:17', 10),
-(38, 375, b'0', '2015-05-30 15:48:17', NULL, '2015-08-28 15:48:17', 10),
-(39, 375, b'0', '2015-05-30 15:48:17', NULL, '2015-08-28 15:48:17', 10),
-(40, 375, b'0', '2015-05-30 15:48:17', NULL, '2015-08-28 15:48:17', 10),
-(41, 12.5, b'0', '2015-05-30 15:48:36', NULL, '2015-08-28 15:48:36', 11),
-(42, 12.5, b'0', '2015-05-30 15:48:36', NULL, '2015-08-28 15:48:36', 11),
-(43, 12.5, b'0', '2015-05-30 15:48:36', NULL, '2015-08-28 15:48:36', 11),
-(44, 12.5, b'0', '2015-05-30 15:48:36', NULL, '2015-08-28 15:48:36', 11),
-(45, 12.5, b'1', '2015-05-30 15:48:40', '2015-05-30 15:50:13', '2015-08-28 15:48:40', 12),
-(46, 12.5, b'0', '2015-05-30 15:48:40', NULL, '2015-08-28 15:48:40', 12),
-(47, 12.5, b'1', '2015-05-30 15:48:40', '2015-05-30 15:49:56', '2015-08-28 15:48:40', 12),
-(48, 12.5, b'1', '2015-05-30 15:48:40', '2015-05-30 15:49:59', '2015-08-28 15:48:40', 12);
+(36, 1125, b'0', '2015-05-30 15:42:58', NULL, '2015-08-28 15:42:58', 9);
 
 -- --------------------------------------------------------
 
@@ -202,8 +189,7 @@ INSERT INTO `student` (`id`, `IME`, `PREZIME`, `JMBG`, `MAIL`, `ADRESA`, `OPCINA
 (1, 'Šaban', 'Šabanović', '0906993174156', 'saban@saban.com', 'Šaban', 'Šaban', '062/454-969', 45698, 1400, 0, 'Šaban', 'Šaban', 'Šaban', 'Šaban', 30, NULL),
 (15, 'Faris', 'Džafić', '0906992174152', 'fdzafic1@etf.unsa.ba', 'Visoko', 'Visoko', '062/961-960', 15987, 18000, 0, 'Romeo', 'Visoko', 'Visoko', 'Bosna i Hercegovina', 0, NULL),
 (18, 'Sabina', 'Grošić', '0906992174153', 'sgrosic1@etf.unsa.ba', 'Grošić', 'Grošić', '062/456-969', 12345, 1800, 0, 'Grošić', 'Bihać', 'Grošić', 'Grošić', 10, NULL),
-(20, 'Faris', 'Faris', '0906993174158', 'asd@asd.com', 'Faris', 'Faris', '066/987-987', 15647, 9000, 0, 'Faris', 'Faris', 'Faris', 'Faris', 50, 'Prva_BSC'),
-(23, 'TestićNovi', 'Testić', '0905992174152', 'test@test.com', 'Testić', 'Testić', '011/111-111', 55555, 375, 0, 'Testić', 'Testić', 'Testić', 'Testić', 50, 'Prva_BSC');
+(20, 'Faris', 'Faris', '0906993174158', 'asd@asd.com', 'Faris', 'Faris', '066/987-987', 15647, 9000, 0, 'Faris', 'Faris', 'Faris', 'Faris', 50, 'Prva_BSC');
 
 --
 -- Constraints for dumped tables
@@ -213,13 +199,13 @@ INSERT INTO `student` (`id`, `IME`, `PREZIME`, `JMBG`, `MAIL`, `ADRESA`, `OPCINA
 -- Constraints for table `dug`
 --
 ALTER TABLE `dug`
-  ADD CONSTRAINT `student_id_fk` FOREIGN KEY (`studentId`) REFERENCES `student` (`id`);
+  ADD CONSTRAINT `student_id_fk` FOREIGN KEY (`studentId`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `rata`
 --
 ALTER TABLE `rata`
-  ADD CONSTRAINT `dug_id_fk` FOREIGN KEY (`dugId`) REFERENCES `dug` (`id`);
+  ADD CONSTRAINT `dug_id_fk` FOREIGN KEY (`dugId`) REFERENCES `dug` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

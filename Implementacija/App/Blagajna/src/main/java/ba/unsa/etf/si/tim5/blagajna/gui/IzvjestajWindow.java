@@ -5,7 +5,9 @@ import java.awt.EventQueue;
 
 
 
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +30,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.awt.*;
 import java.io.FileNotFoundException;
+
 
 
 
@@ -94,9 +97,14 @@ public class IzvjestajWindow {
 	public void GenerisiIzvjestaj(ArrayList<TabelaIzvjestaj> redovi)
 			throws FileNotFoundException, DRException {
 		// dynamic report
-		JasperReportBuilder report = DynamicReports.report();
-
-		// styles
+		if(redovi.size() == 0) {
+			JOptionPane.showMessageDialog(null, "Ne postoje studenti koji imaju dug za literaturu!",
+							"Obavijest",
+							JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+		JasperReportBuilder report = DynamicReports.report();		
+		// style
 		StyleBuilder boldStyle = DynamicReports.stl.style().bold();
 		StyleBuilder totalStyle = DynamicReports.stl.style().bold()
 				.setBackgroundColor(Color.YELLOW)
@@ -191,7 +199,7 @@ public class IzvjestajWindow {
 		ReportStyleBuilder textStyle = DynamicReports.stl.style()
 				.setHorizontalAlignment(HorizontalAlignment.CENTER);
 		report.setTextStyle(textStyle);
-		report.show();
+		report.show(false);
 	
 	}
 
