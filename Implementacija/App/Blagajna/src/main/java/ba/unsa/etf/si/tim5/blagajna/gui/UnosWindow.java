@@ -416,7 +416,7 @@ public class UnosWindow {
 								"Student je dodan!", "InfoBox",
 								JOptionPane.INFORMATION_MESSAGE);
 						Dug d = new Dug(1, false, godina,
-								s.dajDugZaSkolarinu(), s.getId(),
+								cijena, s.getId(),
 								TipDuga.dugZaSkolarinu);
 						d.dodajDug(session);
 						System.out.println("lalalala");
