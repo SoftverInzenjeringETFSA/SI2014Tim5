@@ -12,11 +12,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
+import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -118,7 +120,6 @@ public class ZaboraviliLozinkuWindow {
 				ucitajSveKorisnike();
 				String email=textField.getText();
 				int a=Utility.getInstance().generisiPassword();
-				
 				boolean dobarEmail=false;
 				
 				for(int i=0;i<sviKorisnici.size();i++)
@@ -128,9 +129,14 @@ public class ZaboraviliLozinkuWindow {
 						System.out.println("dobar");
 						dobarEmail=true;
 						String[] m = {email};
+						
+						textField.setText("");
+						Session session = HibernateUtil.getSessionFactory()
+								.openSession();
+						sviKorisnici.get(i).urediKorisnika(session);
+						session.close();
 						SlanjeMaila.getInstance().sendFromGMail(m, "Promjena lozinke", "Vaša nova lozinka je: "+ String.valueOf(a));	
 						JOptionPane.showMessageDialog(null, "Vaša lozinka je poslana, provjerite inbox vašeg e-mail-a!", "InfoBox: " + "Uspješno slanje maila.", JOptionPane.INFORMATION_MESSAGE);
-						textField.setText("");
 						break;
 					}
 					

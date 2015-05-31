@@ -21,6 +21,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.SlanjeMaila;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
@@ -260,15 +261,15 @@ public class UnosKorisnikaWindow {
 					textField_6.setText("");
 					comboBox.setSelectedIndex(0);
 
-					// String[] m = {k.getMail()};
+					String[] m = {k.getMail()};
 
-					// String subject =
-					// "Pristupni podaci za IS fakultetske blagajne";
-					// String poruka = " Korisničko ime: " +
-					// k.getKorisnickoIme() + "\n" + " Lozinka: " +
-					// k.getLozinka();
-					// SlanjeMaila.getInstance().sendFromGMail(m, subject ,
-					// poruka);
+					String subject =
+					"Pristupni podaci za IS fakultetske blagajne";
+					String poruka = " Korisničko ime: " +
+					k.getKorisnickoIme() + "\n" + " Lozinka: " +
+					k.getLozinka();
+					SlanjeMaila.getInstance().sendFromGMail(m, subject ,
+					poruka);
 
 					session.close();
 					JOptionPane.showMessageDialog(null,

@@ -121,7 +121,6 @@ public class PromjenaLozinkeWindow {
 			s1 = new String(pass1);
 			s2 = new String(pass2);
 			s3 = new String(pass3);
-
 			if (!s1.equals(korisnik.getLozinka()))
 				JOptionPane.showMessageDialog(null,"Stara lozinka nije tacna !","Error",JOptionPane.WARNING_MESSAGE);		
 			else if (!Validacija.getInstance().passwordValidation(s2))
