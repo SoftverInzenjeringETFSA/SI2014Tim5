@@ -396,7 +396,7 @@ public class DugWindow {
 		String s = dajDatum(date);
 		TextFieldBuilder<String> title7 = DynamicReports.cmp.text("Datum: " + s); 
 		report.title(title7); 		
-		report.show(); 		
+		report.show(false); 		
 	}
 }	// TODO Auto-generated method stub
 		
