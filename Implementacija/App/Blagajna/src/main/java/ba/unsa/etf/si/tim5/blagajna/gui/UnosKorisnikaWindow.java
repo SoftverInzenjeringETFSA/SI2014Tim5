@@ -88,6 +88,7 @@ public class UnosKorisnikaWindow {
 		k = _k;
 		initialize();
 		popuniPolja(k);
+		this.textField_5.setEnabled(false);
 		this.tabela = tabela;	
 		this.selektovani = selektovani;
 		btnDodaj.setVisible(false);

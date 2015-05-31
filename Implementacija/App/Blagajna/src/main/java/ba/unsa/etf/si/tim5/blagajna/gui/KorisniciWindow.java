@@ -50,6 +50,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class KorisniciWindow {
 
@@ -222,6 +224,13 @@ public class KorisniciWindow {
 	private void FillTable(DefaultTableModel tmodel) {
 		try {
 			korisnici = Dao.getInstance().dajSveKorisnike();
+			
+			Collections.sort(korisnici, new Comparator<Korisnik>() {
+			    public int compare(Korisnik k1, Korisnik k2) {
+			        return k1.getIme().compareTo(k2.getIme());
+			    }
+			});
+			
 			for (int i = 0; i < korisnici.size(); i++) {
 				k = korisnici.get(i);
 				tmodel.addRow(new Object[] { k.getId(), k.getIme(),
