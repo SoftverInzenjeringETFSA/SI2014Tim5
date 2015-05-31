@@ -7,20 +7,7 @@ import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.UpozorenjeZaDug;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
-<<<<<<< HEAD
 
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> 63532cebe9fb627d5fde5fea25767814ead87447
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
@@ -437,7 +424,7 @@ public class MainWindow {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setRowSelectionAllowed(true);
-<<<<<<< HEAD
+
 		
 		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 	        @Override
@@ -461,31 +448,7 @@ public class MainWindow {
 	            return this;
 	        }   
 	    });
-=======
 
-		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-			@Override
-			public Component getTableCellRendererComponent(JTable table,
-					Object value, boolean isSelected, boolean hasFocus,
-					int row, int col) {
-
-				super.getTableCellRendererComponent(table, value, isSelected,
-						hasFocus, row, col);
-
-				if (hasFocus)
-					setBackground(Color.DARK_GRAY);
-
-				for (int i = 0; i < sviStudenti.size(); i++) {
-					if (sviStudenti.get(i).dajUkupniDug() != 0)
-						setBackground(Color.RED);
-					else
-						setBackground(Color.WHITE);
-				}
-
-				return this;
-			}
-		});
->>>>>>> 63532cebe9fb627d5fde5fea25767814ead87447
 		scrollPane.setViewportView(table);
 
 		final DefaultTableModel m = new DefaultTableModel(new Object[][] {
