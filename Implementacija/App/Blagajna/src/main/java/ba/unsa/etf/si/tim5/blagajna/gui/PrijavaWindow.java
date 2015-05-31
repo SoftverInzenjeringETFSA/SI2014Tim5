@@ -8,6 +8,9 @@ import java.awt.EventQueue;
 
 
 
+
+
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
@@ -19,17 +22,22 @@ import javax.swing.JPasswordField;
 
 
 
+
+
+
 import java.awt.Color;
 
 import javax.swing.JButton;
 
 import org.apache.log4j.Logger;
+import org.hibernate.mapping.Map;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 
+import com.itextpdf.text.Font;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
@@ -41,6 +49,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
 
 public class PrijavaWindow {
 	final static Logger logger=Logger.getLogger(PrijavaWindow.class);
@@ -125,7 +134,7 @@ public class PrijavaWindow {
 		textPass = new JPasswordField();
 		frmPrijava.getContentPane().add(textPass, "4, 4, 3, 1, fill, top");
 		
-	    final JLabel lblZaboraviliSteLozinku = new JLabel("Zaboravili ste lozinku ?");
+	    final JLabel lblZaboraviliSteLozinku = new JLabel("<HTML><U>Zaboravili ste lozinku ?</U></HTML>");
 		lblZaboraviliSteLozinku.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -134,6 +143,8 @@ public class PrijavaWindow {
 			}
 		});
 		lblZaboraviliSteLozinku.setForeground(Color.BLUE);
+		
+		
 		frmPrijava.getContentPane().add(lblZaboraviliSteLozinku, "4, 6, 3, 1, fill, top");
 		
 		JButton btnPrijaviSe = new JButton("Prijavi se");
