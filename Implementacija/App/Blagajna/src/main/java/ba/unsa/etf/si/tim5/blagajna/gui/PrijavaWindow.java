@@ -47,8 +47,7 @@ public class PrijavaWindow {
 					
 					PrijavaWindow window = new PrijavaWindow();
 					window.frmPrijava.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception e) {					
 					logger.error("Greška pri otvaranju forme za prijavu!" + e.getMessage(), e);
 				}
 			}
@@ -179,7 +178,7 @@ public class PrijavaWindow {
 		JButton btnIzai = new JButton("Iza\u0111i");
 		btnIzai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frmPrijava.dispatchEvent(new WindowEvent(frmPrijava, WindowEvent.WINDOW_CLOSING));
+				System.exit(0);
 			}
 		});
 		frmPrijava.getContentPane().add(btnIzai, "6, 8, fill, top");

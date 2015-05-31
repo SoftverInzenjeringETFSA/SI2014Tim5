@@ -186,7 +186,7 @@ public class KorisniciWindow {
 					JOptionPane.showMessageDialog(frame,
 							"Odaberite korisnika za brisanje prvo.",
 						    "Odaberite korisnika",
-						    JOptionPane.ERROR_MESSAGE);
+						    JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -211,8 +211,7 @@ public class KorisniciWindow {
 						k.getPrezime(), k.getJmbg(), k.getAdresa(),
 						k.getTelefon(), k.getMail(), k.getTipKorisnika() });
 			}
-		} catch (Exception e) { //
-			e.printStackTrace();
+		} catch (Exception e) { //			
 			logger.error("Greška kod popunjavanja tabele! " + e.getMessage() , e);
 		}
 	}

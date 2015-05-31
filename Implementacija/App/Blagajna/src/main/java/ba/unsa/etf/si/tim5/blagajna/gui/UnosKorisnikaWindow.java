@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -48,8 +49,8 @@ public class UnosKorisnikaWindow {
 	private JTable tabela;
 	protected Component frame;
 	private int selektovani;
-	static JButton btnUredi = new JButton("Uredi");
-	static JButton btnDodaj = new JButton("Dodaj");
+	JButton btnUredi;
+	JButton btnDodaj = new JButton("Dodaj");
 	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
 
 	/**
@@ -63,7 +64,6 @@ public class UnosKorisnikaWindow {
 				try {
 					UnosKorisnikaWindow window = new UnosKorisnikaWindow();
 					window.frmUnosKorisnika.setVisible(true);
-					btnUredi.setVisible(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 					logger.info(e.getMessage());
@@ -133,6 +133,7 @@ public class UnosKorisnikaWindow {
 								RowSpec.decode("20px"), RowSpec.decode("35px"),
 								RowSpec.decode("23px"), }));
 
+		btnUredi = new JButton("Uredi");
 		JLabel lblIme = new JLabel("Ime:");
 		frmUnosKorisnika.getContentPane().add(lblIme, "2, 2, right, center");
 
@@ -226,14 +227,26 @@ public class UnosKorisnikaWindow {
 								telefon, mail, tip, username, lozinka);
 					} catch (IllegalArgumentException iae) {
 						logger.error("Pogrešni podaci", iae);
+						JOptionPane.showMessageDialog(null,
+								"Neispravni paremetri kod unosa, korisnik nije unešen! \n"
+										+ iae.getMessage(), "Greška",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+					try {
+						k.dodajKorisnika(session);
+					} catch (ConstraintViolationException ex) {
 						JOptionPane
 								.showMessageDialog(
 										null,
-										"Neispravni paremetri kod unosa, korisnik nije unešen! \n"+iae.getMessage(),
-										"Greška", JOptionPane.ERROR_MESSAGE);
+										"Uneseni korisnik već postoji. \n (jmbg, telefon, mail ili korisničko ime već postoje)",
+										"Postojeći korisnik",
+										JOptionPane.ERROR_MESSAGE);
+						logger.error("Greška kod dodavanja novog korisnika! "
+								+ ex.getMessage(), ex);
 						return;
-					}
-					k.dodajKorisnika(session);
+					} 
+
 					korisnici.add(k);
 					logger.info("Dodali ste novog korisnika " + k.getIme()
 							+ " " + k.getPrezime() + ".");
@@ -256,33 +269,18 @@ public class UnosKorisnikaWindow {
 					// k.getLozinka();
 					// SlanjeMaila.getInstance().sendFromGMail(m, subject ,
 					// poruka);
+
+					session.close();
 					JOptionPane.showMessageDialog(null,
 							"Dodali ste novog korisnika " + k.getIme() + " "
 									+ k.getPrezime(), "Korisnik dodan",
 							JOptionPane.INFORMATION_MESSAGE);
-					session.close();
-
 					DefaultTableModel tmodel = (DefaultTableModel) tabela
 							.getModel();
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
 							k.getPrezime(), k.getJmbg(), k.getAdresa(),
 							k.getTelefon(), k.getMail(), k.getTipKorisnika() });
-				}
-
-				catch (ConstraintViolationException ex) {
-					JOptionPane
-							.showMessageDialog(
-									frame,
-									"Uneseni korisnik već postoji. \n (jmbg, telefon, mail ili korisničko ime već postoje)",
-									"Postojeći korisnik",
-									JOptionPane.ERROR_MESSAGE);
-					logger.error(
-							"Greška kod dodavanja novog korisnika! "
-									+ ex.getMessage(), ex);
-					return;
-				}
-
-				catch (Exception ex) {					
+				} catch (Exception ex) {
 					logger.error(
 							"Greška kod dodavanja novog korisnika! "
 									+ ex.getMessage(), ex);
@@ -308,20 +306,40 @@ public class UnosKorisnikaWindow {
 
 				try {
 					Session session = HibernateUtil.getSessionFactory()
-							.openSession();					
+							.openSession();
 					try {
-						k = new Korisnik(k.getId(), ime, prezime, jmbg, adresa,
-								telefon, mail, tip, username, k.getLozinka());
+						k.setIme(ime);
+						k.setPrezime(prezime);
+						k.setJmbg(jmbg);
+						k.setAdresa(adresa);
+						k.setTelefon(telefon);
+						k.setMail(mail);
+						k.setTipKorisnika(tip);
+						k.setKorisnickoIme(username);
 					} catch (IllegalArgumentException iae) {
 						logger.error("Pogrešni podaci", iae);
 						JOptionPane
 								.showMessageDialog(
 										null,
 										"Neispravni paremetri kod unosa, korisnik nije unešen!",
-										"Greška", JOptionPane.ERROR_MESSAGE);						
+										"Greška", JOptionPane.ERROR_MESSAGE);
+						session.close();
 						return;
 					}
-					k.urediKorisnika(session);
+					try {
+						k.urediKorisnika(session);
+					} catch (ConstraintViolationException ex) {
+						JOptionPane
+								.showMessageDialog(frame,
+										"Uneseni korisnik već postoji.",
+										"Postojeći korisnik",
+										JOptionPane.ERROR_MESSAGE);
+						logger.error("Greška kod dodavanja novog korisnika! "
+								+ ex.getMessage(), ex);
+						session.close();
+						return;
+					}
+
 					JOptionPane.showMessageDialog(
 							frame,
 							"Uredili ste korisnika " + k.getIme() + " "
@@ -341,19 +359,7 @@ public class UnosKorisnikaWindow {
 					tmodel.setValueAt(k.getMail(), selektovani, 6);
 					tmodel.setValueAt(k.getTipKorisnika(), selektovani, 7);
 					session.close();
-				}
-
-				catch (ConstraintViolationException ex) {
-					JOptionPane.showMessageDialog(frame,
-							"Uneseni korisnik već postoji.",
-							"Postojeći korisnik", JOptionPane.ERROR_MESSAGE);
-					logger.error(
-							"Greška kod dodavanja novog korisnika! "
-									+ ex.getMessage(), ex);
-					return;
-				}
-
-				catch (Exception ex) {					
+				} catch (Exception ex) {
 					logger.error("Greška kod uredjivanja novog korisnika! "
 							+ ex.getMessage(), ex);
 					return;
