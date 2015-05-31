@@ -196,6 +196,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setIndeks(int indeks) {
+		if(indeks < 0) throw new IllegalArgumentException("Indeks mora biti pozitivan broj!");
 		this.indeks = indeks;
 	}
 
@@ -204,6 +205,7 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setTroskoviSkolarine(double troskoviSkolarine) {
+		if(troskoviSkolarine < 0) throw new IllegalArgumentException("Troskovi skolarine moraju biti pozitivan broj!");
 		this.troskoviSkolarine = troskoviSkolarine;
 	}
 
@@ -308,10 +310,6 @@ public class Student implements java.io.Serializable {
 		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where studentId = "+this.id+";").addEntity(Dug.class).list();
 		t.commit();
 		return l;
-	}
-
-	public void izvrsiUplatu(Rata rata) {
-
 	}
 
 	public long dodajStudenta(Session session) {

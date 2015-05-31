@@ -208,6 +208,7 @@ public class KupiLiteraturuWindow {
 				Session session = HibernateUtil.getSessionFactory().openSession();
 				d.dodajDug(session);
 				student.setTroskoviLiterature(student.getTroskoviLiterature() + l.getCijena());
+				student.urediStudenta(session);
 				session.close();
 				JOptionPane.showMessageDialog(null,"Literatura je zadužena!","OK",JOptionPane.INFORMATION_MESSAGE);
 				

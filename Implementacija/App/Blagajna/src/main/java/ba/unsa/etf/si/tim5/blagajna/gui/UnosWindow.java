@@ -369,6 +369,7 @@ public class UnosWindow {
 							.getText());
 					double popust = Double.parseDouble(tFieldPopust.getText());
 					cijena = troskovi - (troskovi * popust / 100);
+					if(cijena < 0) throw new IllegalArgumentException("Sad ispade mi studentu dužni! Popravite unos troskova i popusta!"); 
 					
 					s = new Student(1, ime, prezime, jmbg, mail, adresaPreb,
 							opcinaPreb, telefon, indeks, troskovi, roditelj,
