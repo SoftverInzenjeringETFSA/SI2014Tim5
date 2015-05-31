@@ -192,7 +192,15 @@ public class DugWindow {
 	            
 	        	super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
 	            
-	            if (hasFocus) setBackground(Color.DARK_GRAY);
+	            String datum = (String)table.getModel().getValueAt(row, 3);
+	           
+	        	 if (datum == "") 
+		                setBackground(Color.RED);
+	        	 else if (isSelected) this.setBackground(Color.LIGHT_GRAY);
+	        	 else setBackground(Color.WHITE);
+		           
+	        
+	      /*      if (hasFocus) setBackground(Color.DARK_GRAY);
 	            
 	            String datum = (String)table.getModel().getValueAt(row, 3);
 	            if (datum == "") {
@@ -201,7 +209,7 @@ public class DugWindow {
 	            else 
 	            {
 	            	setBackground(Color.WHITE);
-	            }
+	            }*/
 	            return this;
 	        }   
 	    });

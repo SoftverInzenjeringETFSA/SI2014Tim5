@@ -17,6 +17,7 @@ import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 
 
+
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
@@ -371,7 +372,7 @@ public class MainWindow {
 		frmBlagajna.getContentPane().add(btnPretrai, "6, 5");
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.getViewport().setBackground(Color.red);
+		scrollPane.getViewport().setBackground(Color.white);
 		frmBlagajna.getContentPane().add(scrollPane, "2, 6, 7, 1");
 
 		table = new JTable();
@@ -386,24 +387,40 @@ public class MainWindow {
 	            
 	        	super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
 	            
-	            if (hasFocus) setBackground(Color.DARK_GRAY);
+	          //  if (hasFocus) setBackground(Color.DARK_GRAY);
 	            
-	           
+	            /*String datum = (String)table.getModel().getValueAt(row, 3);
+		           
 	            for (int i=0;i<sviStudenti.size();i++)
 	            {
-	            	if(sviStudenti.get(i).dajUkupniDug()!= 0 )
+	            	if((sviStudenti.get(i).dajNeisplaceneDugoveLiteratura()+sviStudenti.get(i).dajNeisplaceneDugoveSkolarina())>1 )
 	            		setBackground(Color.RED);
 	            	else setBackground(Color.WHITE);
-	            }
+	            }*/
 	           
 	            return this;
 	        }   
 	    });
 		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(new Object[][] {
 
-		}, new String[] { "ID", "Ime i Prezime", "Indeks",
-				"Dug za \u0161kolarinu", "Dug za literaturu" }));
+		final DefaultTableModel m = new DefaultTableModel(new Object[][] {
+		}, new String[] {
+			"ID", "Ime i Prezime", "Indeks",
+				"Dug za \u0161kolarinu", "Dug za literaturu"
+		}) 
+		{
+
+			private static final long serialVersionUID = 8947897896919412127L;
+			@Override
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
+	    };
+	    
+	
+		
+		table.setModel(m);
 
 		JButton btnObrisi = new JButton("Obrisi");
 		if(tip.equals(TipKorisnika.Korisnik))btnObrisi.setVisible(false);
