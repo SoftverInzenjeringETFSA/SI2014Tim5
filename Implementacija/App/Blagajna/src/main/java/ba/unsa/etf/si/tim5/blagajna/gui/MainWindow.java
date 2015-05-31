@@ -404,7 +404,8 @@ public class MainWindow {
 
 		}, new String[] { "ID", "Ime i Prezime", "Indeks",
 				"Dug za \u0161kolarinu", "Dug za literaturu" }));
-
+		
+				
 		JButton btnObrisi = new JButton("Obrisi");
 		if(tip.equals(TipKorisnika.Korisnik))btnObrisi.setVisible(false);
 		btnObrisi.addActionListener(new ActionListener() {
