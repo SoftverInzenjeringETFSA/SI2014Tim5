@@ -35,100 +35,73 @@ public class StudentTest extends Student {
 			 mjestoRodjenja,  opcinaRodjenja,
 			 drzavaRodjenja,  popust,  godinaStudija); 
   
-	/*@Test
+	@Test
 	public void testGetId() {
-		long id1;
-		id1=s.getId();
-		Assert.assertEquals(1, id1);
+		Assert.assertEquals(1, s.getId());
 	}
 	
 	@Test
-	public void testGetIme() {
-		String ime1;
-		ime1=s.getIme();
-		Assert.assertEquals("Aida", ime1);
+	public void testGetIme() {		
+		Assert.assertEquals("Aida", s.getIme());
 	}
 	
 	@Test
 	public void testGetPrezime() {
-		String prezime1;
-		prezime1=s.getPrezime();
-		Assert.assertEquals("Grosic", prezime1);
+		Assert.assertEquals("Grosic", s.getPrezime());
 	}
 	
 	
     @Test 
     public void testGetJmbg() {
-     String jmbg1; 
-     jmbg1 = s.getJmbg(); 
-     Assert.assertEquals("1105992115009", jmbg1);
+     Assert.assertEquals("1105992115009", s.getJmbg());
     }
 	
     
     @Test
     public void testGetOpcina() {
-    	String opcina1; 
-    	opcina1 = s.getOpcina(); 
-    	Assert.assertEquals("Novo Sarajevo", opcina1);
+    	Assert.assertEquals("Novo Sarajevo", s.getOpcina());
     	
     }
     
     @Test
     public void testGetOpcinaRodjenja() {
-    	String opcinaRod1; 
-    	opcinaRod1 = s.getOpcinaRodjenja(); 
-    	Assert.assertEquals("Bihac", opcinaRod1);
+    	Assert.assertEquals("Bihac", s.getOpcinaRodjenja());
     }
     
     
     @Test 
     public void testGetMjestoRodjenja() {
-    	String mjesto1; 
-    	mjesto1 = s.getMjestoRodjenja(); 
-    	Assert.assertEquals("Bihac", mjesto1); 
+    	Assert.assertEquals("Bihac", s.getMjestoRodjenja()); 
     }
 	
     @Test 
     public void testGetDrzavaRodjenja(){
-    	 String drzava1; 
-    	 drzava1 = s.getDrzavaRodjenja();
-    	 Assert.assertEquals("BiH", drzava1);
+    	 Assert.assertEquals("BiH", s.getDrzavaRodjenja());
     }
     
     @Test
     public void testGetIndeks(){
-    	int indeks1; 
-    	indeks1 = s.getIndeks(); 
-    	Assert.assertEquals(16049, indeks1);
+    	Assert.assertEquals(16049, s.getIndeks());
     }
     
     @Test
-    public void testGetGodinaStudija()
-    {
-    	int god1; 
-    	god1 = s.getGodinaStudija(); 
-    	Assert.assertEquals(3, god1);
+    public void testGetGodinaStudija(){
+    	Assert.assertEquals(GodinaStudija.Cetvrta_BSC, s.getGodinaStudija());
     }
     
     @Test 
     public void testGetMail(){
-    	String mail1; 
-    	mail1 = s.getMail(); 
-    	Assert.assertEquals("sgrosic1@etf.unsa.ba", mail1);
+    	Assert.assertEquals("sgrosic1@etf.unsa.ba", s.getMail());
     }
     
     @Test
     public void testGetTelefon(){
-    	String tel1; 
-    	tel1 = s.getTelefon(); 
-    	Assert.assertEquals("061/970-280", tel1);
+    	Assert.assertEquals("061/970-280", s.getTelefon());
     }
     
     @Test
     public void testGetImeRoditelja(){
-    	String imeRod1; 
-    	imeRod1 = s.getImeRoditelja(); 
-    	Assert.assertEquals("Cazim", imeRod1);
+    	Assert.assertEquals("Cazim", s.getImeRoditelja());
     }
     
     @Test
@@ -312,5 +285,5 @@ public class StudentTest extends Student {
    			Assert.fail("Test failed - getMjestoRodjenja");
    		}
    	}
-   	*/
+   	
 }
