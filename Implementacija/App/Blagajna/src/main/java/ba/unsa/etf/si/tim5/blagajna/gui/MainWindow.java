@@ -7,6 +7,7 @@ import ba.unsa.etf.si.tim5.blagajna.dodaci.TipKorisnika;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.UpozorenjeZaDug;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
+<<<<<<< HEAD
 
 
 
@@ -18,6 +19,8 @@ import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
 
 
 
+=======
+>>>>>>> 63532cebe9fb627d5fde5fea25767814ead87447
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 
@@ -86,14 +89,14 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class MainWindow {
-	final static Logger logger=Logger.getLogger(MainWindow.class);
+	final static Logger logger = Logger.getLogger(MainWindow.class);
 
 	JFrame frmBlagajna;
 	private JTable table;
 	private JTextField textField;
 	ArrayList<Student> sviStudenti;
-	Korisnik user=new Korisnik();
-	boolean userExist=false;
+	Korisnik user = new Korisnik();
+	boolean userExist = false;
 	TipKorisnika tip;
 
 	public void ucitajSveStudente() {
@@ -108,24 +111,21 @@ public class MainWindow {
 		 * t.commit(); ArrayList<Student> list =
 		 * (ArrayList<Student>)query.list();
 		 */
-		sviStudenti = Dao.getInstance().dajSveStudente();		
-        
+		sviStudenti = Dao.getInstance().dajSveStudente();
+
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		for (int i = 0; i < sviStudenti.size(); i++) {
-			
-			
-			model.addRow(new Object[] { sviStudenti.get(i).getId(),
-					sviStudenti.get(i).getIme() +" "+ sviStudenti.get(i).getPrezime(),
+
+			model.addRow(new Object[] {
+					sviStudenti.get(i).getId(),
+					sviStudenti.get(i).getIme() + " "
+							+ sviStudenti.get(i).getPrezime(),
 					sviStudenti.get(i).getIndeks(),
 					sviStudenti.get(i).dajNeisplaceneDugoveSkolarina(),
-					sviStudenti.get(i).dajNeisplaceneDugoveLiteratura() }
-					);
+					sviStudenti.get(i).dajNeisplaceneDugoveLiteratura() });
 		}
 
 	}
-	
-	
-	
 
 	/**
 	 * Create the application.
@@ -137,34 +137,33 @@ public class MainWindow {
 					MainWindow window = new MainWindow();
 					window.frmBlagajna.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
-					logger.error("Greška pri otvaranju glavne forme!" + e.getMessage(), e);
+					logger.error(
+							"Greška pri otvaranju glavne forme!"
+									+ e.getMessage(), e);
 				}
 			}
 		});
 	}
 
 	private static ArrayList<Student> studenti = new ArrayList<Student>();
-	
+
 	public MainWindow() {
-		tip=TipKorisnika.Korisnik;
+		tip = TipKorisnika.Korisnik;
 		initialize();
 		ucitajSveStudente();
-		
+
 	}
-	
+
 	public MainWindow(Korisnik k) {
-		
-		user=k;
-		tip=k.getTipKorisnika();
+
+		user = k;
+		tip = k.getTipKorisnika();
 		initialize();
-		
-		UpozorenjeZaDug dug=new UpozorenjeZaDug();
+
+		UpozorenjeZaDug dug = new UpozorenjeZaDug();
 		dug.posaljiMail();
 		ucitajSveStudente();
-	
-		
-	
+
 	}
 
 	/**
@@ -206,9 +205,21 @@ public class MainWindow {
 		JLabel lblIme = new JLabel("{Ime}");
 		lblIme.setText(user.getIme());
 		frmBlagajna.getContentPane().add(lblIme, "3, 4");
-		//if(userExist==true)
-		//System.out.println(user.ge);
 		
+		JButton btnOsvjei = new JButton("Osvježi");
+		btnOsvjei.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel model = (DefaultTableModel) table
+						.getModel();
+				model.setRowCount(0);
+				ucitajSveStudente();
+				return;
+			}
+		});
+		frmBlagajna.getContentPane().add(btnOsvjei, "2, 5");
+		// if(userExist==true)
+		// System.out.println(user.ge);
+
 		JLabel label = new JLabel("Pretraga po:");
 		frmBlagajna.getContentPane().add(label, "3, 5, center, default");
 
@@ -220,64 +231,79 @@ public class MainWindow {
 		textField = new JTextField();
 		frmBlagajna.getContentPane().add(textField, "5, 5");
 		textField.setColumns(10);
-		//JScrollPane scrollPane = new JScrollPane();
+		// JScrollPane scrollPane = new JScrollPane();
 		JButton btnPretrai = new JButton("Pretra\u017Ei");
 		btnPretrai.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String izbor = comboBox.getSelectedItem().toString();
-				
-				//table.setOpaque(false);
-				//scrollPane.getViewport().setBackground(Color.red);
-				//table.setBackground(Color.red);
-				//table.setFillsViewportHeight(true);
+
+				// table.setOpaque(false);
+				// scrollPane.getViewport().setBackground(Color.red);
+				// table.setBackground(Color.red);
+				// table.setFillsViewportHeight(true);
 				// session.beginTransaction();
-				//System.out.println(izbor);
+				// System.out.println(izbor);
 				studenti.clear();
-				
-				if ( textField.getText() == null || textField.getText().isEmpty()){
-					
-					DefaultTableModel model = (DefaultTableModel) table.getModel();
-				    model.setRowCount(0);
+
+				if (textField.getText() == null
+						|| textField.getText().isEmpty()) {
+
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+					model.setRowCount(0);
 					ucitajSveStudente();
 					return;
 				}
-				
+
 				if (izbor == "Indeks") {
-				
-					
-					String indeks = textField.getText();
+					int indeks;
+					try {
+						indeks = Integer.parseInt(textField.getText());
+					} catch (NumberFormatException nfe) {
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"Za selektovan indeks morate unijeti broj za pretragu!",
+										"InfoBox: " + "Greška",
+										JOptionPane.ERROR_MESSAGE);
+						logger.error(
+								"Greška kod pretrage, pogrešan format unosa!"
+										+ nfe.getMessage(), nfe);
+						return;
+					}
+					// String statement = "SELECT * FROM Student WHERE indeks="
+					// + Integer.parseInt(indeks);
 
-					//String statement = "SELECT * FROM Student WHERE indeks="
-							//+ Integer.parseInt(indeks);
-					
-					//Query query = session.createQuery("from Student where  = :id ");
-					//query.setParameter("id", indeks);
-					//List<?> list = query.list();
+					// Query query =
+					// session.createQuery("from Student where  = :id ");
+					// query.setParameter("id", indeks);
+					// List<?> list = query.list();
 
-					//Query query = session.createQuery(statement);
-					//ArrayList<Student> list = (ArrayList<Student>)query.list();
-					//java.util.List list=query.list();
-					
+					// Query query = session.createQuery(statement);
+					// ArrayList<Student> list =
+					// (ArrayList<Student>)query.list();
+					// java.util.List list=query.list();
+
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if(sviStudenti.get(i).getIndeks()== Integer.parseInt(indeks))
+						if (sviStudenti.get(i).getIndeks() == indeks)
 							studenti.add(sviStudenti.get(i));
 					}
-					//System.out.println(studenti.size());
-					//studenti = list;
-		
-					
+					// System.out.println(studenti.size());
+					// studenti = list;
+
 					DefaultTableModel model = (DefaultTableModel) table
 							.getModel();
-						model.setRowCount(0);
+					model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
-								studenti.get(i).getIme()
-										+" "+ studenti.get(i).getPrezime(),
+								studenti.get(i).getIme() + " "
+										+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
-								studenti.get(i).getTroskoviSkolarine(),
-								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
+								studenti.get(i).dajNeisplaceneDugoveSkolarina(),
+								studenti.get(i)
+										.dajNeisplaceneDugoveLiteratura() });
 					}
 
 					// Student dbStudent = (Student)session.get(Student.class,
@@ -285,78 +311,111 @@ public class MainWindow {
 
 					// table.add()
 				}
-				
-			
 
 				else if (izbor == "Ime") {
 					String ime = textField.getText();
 
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if(sviStudenti.get(i).getIme().contains(ime))
+						if (sviStudenti.get(i).getIme().contains(ime))
 							studenti.add(sviStudenti.get(i));
 					}
-					
-					DefaultTableModel model = (DefaultTableModel) table
-							.getModel();
-						model.setRowCount(0);
-					for (int i = 0; i < studenti.size(); i++) {
-						model.addRow(new Object[] {
-								studenti.get(i).getId(),
-								studenti.get(i).getIme()
-										+" "+ studenti.get(i).getPrezime(),
-								studenti.get(i).getIndeks(),
-								studenti.get(i).getTroskoviSkolarine(),
-								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
-					}
-				}
 
-				else if (izbor == "Dug za skolarinu") {
-					String dugSkolarina = textField.getText();
-
-					for (int i = 0; i < sviStudenti.size(); i++) {
-						if(Math.abs(sviStudenti.get(i).dajNeisplaceneDugoveSkolarina())==Math.abs(Double.parseDouble(dugSkolarina)))
-							studenti.add(sviStudenti.get(i));
-					}
-					
 					DefaultTableModel model = (DefaultTableModel) table
 							.getModel();
 					model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
-								studenti.get(i).getIme()
-										+" "+ studenti.get(i).getPrezime(),
+								studenti.get(i).getIme() + " "
+										+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
-								studenti.get(i).getTroskoviSkolarine(),
-								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
+								studenti.get(i).dajNeisplaceneDugoveSkolarina(),
+								studenti.get(i)
+										.dajNeisplaceneDugoveLiteratura() });
+					}
+				}
+
+				else if (izbor == "Dug za skolarinu") {
+					double dugSkolarina;
+					try {
+						dugSkolarina = Double.parseDouble(textField.getText());
+					} catch (NumberFormatException nfe) {
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"Za selektovan indeks morate unijeti broj za pretragu!",
+										"InfoBox: " + "Greška",
+										JOptionPane.ERROR_MESSAGE);
+						logger.error(
+								"Greška kod pretrage, pogrešan format unosa!"
+										+ nfe.getMessage(), nfe);
+						return;
+					}
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if (Math.abs(sviStudenti.get(i)
+								.dajNeisplaceneDugoveSkolarina()) == Math
+								.abs(dugSkolarina))
+							studenti.add(sviStudenti.get(i));
+					}
+
+					DefaultTableModel model = (DefaultTableModel) table
+							.getModel();
+					model.setRowCount(0);
+					for (int i = 0; i < studenti.size(); i++) {
+						model.addRow(new Object[] {
+								studenti.get(i).getId(),
+								studenti.get(i).getIme() + " "
+										+ studenti.get(i).getPrezime(),
+								studenti.get(i).getIndeks(),
+								studenti.get(i).dajNeisplaceneDugoveSkolarina(),
+								studenti.get(i)
+										.dajNeisplaceneDugoveLiteratura() });
 					}
 					// String s = table.getValueAt(1, 1).toString();
 					// JOptionPane.showMessageDialog(null,s,"Message",JOptionPane.INFORMATION_MESSAGE);
 				}
 
 				else if (izbor == "Dug za literaturu") {
-					String dugLiteratura = textField.getText();
-
-					for (int i = 0; i < sviStudenti.size(); i++) {
-						if(Math.abs(sviStudenti.get(i).dajNeisplaceneDugoveLiteratura())==Math.abs(Double.parseDouble(dugLiteratura)))
-							studenti.add(sviStudenti.get(i));
+					double dugLiteratura;
+					
+					try {
+						dugLiteratura = Double.parseDouble(textField.getText());
+					} catch (NumberFormatException nfe) {
+						JOptionPane
+								.showMessageDialog(
+										null,
+										"Za selektovan Dug za literatruru, morate unijeti broj za pretragu!",
+										"InfoBox: " + "Greška",
+										JOptionPane.ERROR_MESSAGE);
+						logger.error(
+								"Greška kod pretrage, pogrešan format unosa!"
+										+ nfe.getMessage(), nfe);
+						return;
 					}
 					
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if (Math.abs(sviStudenti.get(i)
+								.dajNeisplaceneDugoveLiteratura()) == Math
+								.abs(dugLiteratura))
+							studenti.add(sviStudenti.get(i));
+					}
+
 					DefaultTableModel model = (DefaultTableModel) table
 							.getModel();
 					model.setRowCount(0);
 					for (int i = 0; i < studenti.size(); i++) {
 						model.addRow(new Object[] {
 								studenti.get(i).getId(),
-								studenti.get(i).getIme()
-										+" "+ studenti.get(i).getPrezime(),
+								studenti.get(i).getIme() + " "
+										+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
-								studenti.get(i).getTroskoviSkolarine(),
-								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
+								studenti.get(i).dajNeisplaceneDugoveSkolarina(),
+								studenti.get(i)
+										.dajNeisplaceneDugoveLiteratura() });
 					}
 
 				}
-				
+
 			}
 		});
 
@@ -378,6 +437,7 @@ public class MainWindow {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		table.setRowSelectionAllowed(true);
+<<<<<<< HEAD
 		
 		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 	        @Override
@@ -401,6 +461,31 @@ public class MainWindow {
 	            return this;
 	        }   
 	    });
+=======
+
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table,
+					Object value, boolean isSelected, boolean hasFocus,
+					int row, int col) {
+
+				super.getTableCellRendererComponent(table, value, isSelected,
+						hasFocus, row, col);
+
+				if (hasFocus)
+					setBackground(Color.DARK_GRAY);
+
+				for (int i = 0; i < sviStudenti.size(); i++) {
+					if (sviStudenti.get(i).dajUkupniDug() != 0)
+						setBackground(Color.RED);
+					else
+						setBackground(Color.WHITE);
+				}
+
+				return this;
+			}
+		});
+>>>>>>> 63532cebe9fb627d5fde5fea25767814ead87447
 		scrollPane.setViewportView(table);
 
 		final DefaultTableModel m = new DefaultTableModel(new Object[][] {
@@ -423,16 +508,18 @@ public class MainWindow {
 		table.setModel(m);
 
 		JButton btnObrisi = new JButton("Obrisi");
-		if(tip.equals(TipKorisnika.Korisnik))btnObrisi.setVisible(false);
+		if (tip.equals(TipKorisnika.Korisnik))
+			btnObrisi.setVisible(false);
 		btnObrisi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if(table.getSelectedRow()!=-1){
+
+				if (table.getSelectedRow() != -1) {
 					int indexSelektovani = table.getSelectedRow();
-					long idStudenta = (long) Integer.parseInt((table.getValueAt(
-							indexSelektovani, 0).toString()));
-					
-					Session session1 = HibernateUtil.getSessionFactory().openSession();
+					long idStudenta = (long) Integer.parseInt((table
+							.getValueAt(indexSelektovani, 0).toString()));
+
+					Session session1 = HibernateUtil.getSessionFactory()
+							.openSession();
 
 					for (int i = 0; i < sviStudenti.size(); i++) {
 						if (sviStudenti.get(i).getId() == idStudenta) {
@@ -440,7 +527,7 @@ public class MainWindow {
 							sviStudenti.get(i).obrisiStudenta(session1);
 							session1.close();
 							sviStudenti.remove(i);
-							
+
 							DefaultTableModel model = (DefaultTableModel) table
 									.getModel();
 							model.setRowCount(0);
@@ -448,72 +535,85 @@ public class MainWindow {
 								model.addRow(new Object[] {
 										sviStudenti.get(j).getId(),
 										sviStudenti.get(j).getIme()
-												+" "+ sviStudenti.get(j).getPrezime(),
+												+ " "
+												+ sviStudenti.get(j)
+														.getPrezime(),
 										sviStudenti.get(j).getIndeks(),
-										sviStudenti.get(j).getTroskoviSkolarine(),
-										sviStudenti.get(j).dajNeisplaceneDugoveLiteratura() });
+										sviStudenti
+												.get(j)
+												.dajNeisplaceneDugoveSkolarina(),
+										sviStudenti
+												.get(j)
+												.dajNeisplaceneDugoveLiteratura() });
 							}
 
 						}
 					}
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
-						    
-						
-					}
+				} else {
+					JOptionPane
+							.showMessageDialog(null,
+									"Morate selektovati nekog studenta!",
+									"InfoBox: " + "Greška",
+									JOptionPane.INFORMATION_MESSAGE);
+
+				}
 			}
 		});
-        
-		
+
 		JButton btnUredi = new JButton("Detalji/\r\nUredi");
-		if(tip.equals(TipKorisnika.Korisnik))btnUredi.setVisible(false);
+		if (tip.equals(TipKorisnika.Korisnik))
+			btnUredi.setVisible(false);
 		btnUredi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(table.getSelectedRow()!=-1){
+				if (table.getSelectedRow() != -1) {
 					int indexSelektovani = table.getSelectedRow();
-					long idStudenta = (long) Integer.parseInt((table.getValueAt(
-							indexSelektovani, 0).toString()));
+					long idStudenta = (long) Integer.parseInt((table
+							.getValueAt(indexSelektovani, 0).toString()));
 
 					for (int i = 0; i < sviStudenti.size(); i++) {
 						if (sviStudenti.get(i).getId() == idStudenta) {
-							UnosWindow window = new UnosWindow(sviStudenti.get(i));
+							UnosWindow window = new UnosWindow(sviStudenti
+									.get(i), table, indexSelektovani);
 							window.frmUnosStudenta.setVisible(true);
 
 						}
 					}
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
-						    
-						
-					}
+				} else {
+					JOptionPane
+							.showMessageDialog(null,
+									"Morate selektovati nekog studenta!",
+									"InfoBox: " + "Greška",
+									JOptionPane.INFORMATION_MESSAGE);
+
+				}
 			}
 		});
 
 		JButton button = new JButton("Uplate");
-		
+
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Student s = new Student();
-				
-				if(table.getSelectedRow()!=-1){
-				int indexSelektovani = table.getSelectedRow();
-				long idStudenta = (long) Integer.parseInt((table.getValueAt(
-						indexSelektovani, 0).toString()));
 
-				for (int i = 0; i < sviStudenti.size(); i++) {
-					if (sviStudenti.get(i).getId() == idStudenta) {
-						DugWindow window = new DugWindow(sviStudenti.get(i));
-						window.frmDugovanjaUplate.setVisible(true);
+				if (table.getSelectedRow() != -1) {
+					int indexSelektovani = table.getSelectedRow();
+					long idStudenta = (long) Integer.parseInt((table
+							.getValueAt(indexSelektovani, 0).toString()));
 
+					for (int i = 0; i < sviStudenti.size(); i++) {
+						if (sviStudenti.get(i).getId() == idStudenta) {
+							DugWindow window = new DugWindow(sviStudenti.get(i));
+							window.frmDugovanjaUplate.setVisible(true);
+
+						}
 					}
-				}
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
-					    
-					
+				} else {
+					JOptionPane
+							.showMessageDialog(null,
+									"Morate selektovati nekog studenta!",
+									"InfoBox: " + "Greška",
+									JOptionPane.INFORMATION_MESSAGE);
+
 				}
 
 				// DugWindow window = new DugWindow(s);
@@ -525,24 +625,27 @@ public class MainWindow {
 		JButton btnZaduiKnjigu = new JButton("Kupi literaturu");
 		btnZaduiKnjigu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(table.getSelectedRow()!=-1){
+				if (table.getSelectedRow() != -1) {
 					int indexSelektovani = table.getSelectedRow();
-					long idStudenta = (long) Integer.parseInt((table.getValueAt(
-							indexSelektovani, 0).toString()));
+					long idStudenta = (long) Integer.parseInt((table
+							.getValueAt(indexSelektovani, 0).toString()));
 
 					for (int i = 0; i < sviStudenti.size(); i++) {
 						if (sviStudenti.get(i).getId() == idStudenta) {
-							KupiLiteraturuWindow window = new KupiLiteraturuWindow(sviStudenti.get(i));
+							KupiLiteraturuWindow window = new KupiLiteraturuWindow(
+									sviStudenti.get(i));
 							window.frmKupovinaLiterature.setVisible(true);
 
 						}
 					}
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Morate selektovati nekog studenta!", "InfoBox: " + "Greška", JOptionPane.INFORMATION_MESSAGE);
-						    
-						
-					}
+				} else {
+					JOptionPane
+							.showMessageDialog(null,
+									"Morate selektovati nekog studenta!",
+									"InfoBox: " + "Greška",
+									JOptionPane.INFORMATION_MESSAGE);
+
+				}
 			}
 		});
 		frmBlagajna.getContentPane()
@@ -559,18 +662,18 @@ public class MainWindow {
 		JMenuItem mntmUplate = new JMenuItem("Promijeni lozinku");
 		mntmUplate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				PromjenaLozinkeWindow window = new PromjenaLozinkeWindow();
-					window.frmPromjenaLozinke.setVisible(true);
+				window.frmPromjenaLozinke.setVisible(true);
 			}
 		});
-		//mntmUplate.addMouseListener(new MouseAdapter() {
-			//@Override
-			//public void mouseClicked(MouseEvent e) {
-			//	PromjenaLozinkeWindow window = new PromjenaLozinkeWindow();
-			//	window.frmPromjenaLozinke.setVisible(true);
-			//}
-		//});
+		// mntmUplate.addMouseListener(new MouseAdapter() {
+		// @Override
+		// public void mouseClicked(MouseEvent e) {
+		// PromjenaLozinkeWindow window = new PromjenaLozinkeWindow();
+		// window.frmPromjenaLozinke.setVisible(true);
+		// }
+		// });
 		mnFile.add(mntmUplate);
 
 		JSeparator separator = new JSeparator();
@@ -579,55 +682,57 @@ public class MainWindow {
 		JMenuItem mntmNapusti = new JMenuItem("Napusti");
 		mntmNapusti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//PrijavaWindow window = new PrijavaWindow();
-				//window.frmPrijava.setVisible(true);
-				//Window window1 = SwingUtilities.getWindowAncestor(frmBlagajna);
-				//PrijavaWindow window = new PrijavaWindow();
+
+				// PrijavaWindow window = new PrijavaWindow();
+				// window.frmPrijava.setVisible(true);
+				// Window window1 =
+				// SwingUtilities.getWindowAncestor(frmBlagajna);
+				// PrijavaWindow window = new PrijavaWindow();
 				frmBlagajna.dispose();
 				PrijavaWindow window = new PrijavaWindow();
 				window.frmPrijava.setVisible(true);
-				//window1.setVisible( false );
-				
-				//WindowEvent winClosingEvent = new WindowEvent(frmBlagajna, WindowEvent.WINDOW_CLOSING);
-				//Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
-				
-				//frmBlagajna.dispatchEvent(new WindowEvent(frmBlagajna, WindowEvent.WINDOW_CLOSING));
-				
+				// window1.setVisible( false );
+
+				// WindowEvent winClosingEvent = new WindowEvent(frmBlagajna,
+				// WindowEvent.WINDOW_CLOSING);
+				// Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+
+				// frmBlagajna.dispatchEvent(new WindowEvent(frmBlagajna,
+				// WindowEvent.WINDOW_CLOSING));
+
 			}
 		});
 		mntmNapusti.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 			}
 		});
 		mnFile.add(mntmNapusti);
 
 		JMenu mnUredi = new JMenu("Uredi");
 		menuBar.add(mnUredi);
-		
+
 		JMenuItem mntmUrediUposlenike = new JMenuItem("Uredi korisnike");
 		mntmUrediUposlenike.setVisible(true);
-		if(tip.equals(TipKorisnika.Korisnik))mntmUrediUposlenike.setVisible(false);
-		
+		if (tip.equals(TipKorisnika.Korisnik))
+			mntmUrediUposlenike.setVisible(false);
+
 		mntmUrediUposlenike.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				KorisniciWindow window = new KorisniciWindow();
 				window.frmKorisnici.setVisible(true);
 			}
 		});
-		
-		
-		
+
 		mnUredi.add(mntmUrediUposlenike);
 
 		JMenuItem mntmLiteratura = new JMenuItem("Uredi literaturu");
-		
+
 		mntmLiteratura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				LiteraturaWindow window = new LiteraturaWindow();
 				window.frmUnosDugaZa.setVisible(true);
 			}
@@ -640,18 +745,19 @@ public class MainWindow {
 		JMenuItem mntmDodajStudenta = new JMenuItem("Dodaj studenta");
 		mntmDodajStudenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UnosWindow window = new UnosWindow();
+				UnosWindow window = new UnosWindow(sviStudenti, table);
 				window.frmUnosStudenta.setVisible(true);
-				
+
 			}
 		});
 		mnDodaj.add(mntmDodajStudenta);
 
 		JMenuItem mntmDodajKorisnika = new JMenuItem("Dodaj korisnika");
-		if(tip.equals(TipKorisnika.Korisnik))mntmDodajKorisnika.setVisible(false);
+		if (tip.equals(TipKorisnika.Korisnik))
+			mntmDodajKorisnika.setVisible(false);
 		mntmDodajKorisnika.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UnosKorisnikaWindow window=new UnosKorisnikaWindow();
+				UnosKorisnikaWindow window = new UnosKorisnikaWindow();
 				window.frmUnosKorisnika.setVisible(true);
 			}
 		});
@@ -667,21 +773,20 @@ public class MainWindow {
 		mnDodaj.add(mntmDodajLiteraturu);
 
 		JMenu mnIzvjetaj = new JMenu("Izvje\u0161taj");
-		if(tip.equals(TipKorisnika.Korisnik))mnIzvjetaj.setVisible(false);
+		if (tip.equals(TipKorisnika.Korisnik))
+			mnIzvjetaj.setVisible(false);
 
 		menuBar.add(mnIzvjetaj);
-		
+
 		JMenuItem mntmKreirajIzvjetaj = new JMenuItem("Kreiraj izvještaj");
 		mntmKreirajIzvjetaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				IzvjestajWindow window = new IzvjestajWindow(user);
 				window.frmIzvjetaj.setVisible(true);
 			}
-		});		
+		});
 		mnIzvjetaj.add(mntmKreirajIzvjetaj);
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 	}
-	
-	
 
 }

@@ -208,7 +208,6 @@ public class Korisnik implements java.io.Serializable{
 	}
 	
 	
-	
 	public void dodajKorisnika(Session session) {
 		org.hibernate.Transaction t = session.beginTransaction();
 		Long id = (Long)session.save(this);
