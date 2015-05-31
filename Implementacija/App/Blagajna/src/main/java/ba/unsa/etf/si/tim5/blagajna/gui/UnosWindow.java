@@ -393,6 +393,7 @@ public class UnosWindow {
 						JOptionPane.showMessageDialog(null,
 								"Student je dodan!", "InfoBox",
 								JOptionPane.INFORMATION_MESSAGE);
+						ocistiPolja();
 						Dug d = new Dug(1, false, godina,
 								cijena, s.getId(),
 								TipDuga.dugZaSkolarinu);
@@ -453,7 +454,24 @@ public class UnosWindow {
 		frmUnosStudenta.getContentPane()
 				.add(btnNewButton_1, "4, 6, right, top");
 	}
-
+	
+	private void ocistiPolja() {
+		tFieldIme.setText("");
+		tFieldPrezime.setText("");
+		tFieldRoditelj.setText("");
+		tFieldTelefon.setText("");
+		tFieldJmbg.setText("");
+		tFieldMjestoRodj.setText("");
+		tFieldOpcina.setText("");;
+		tFieldDrzava.setText("");
+		tFieldAdresaPreb.setText("");
+		tFieldOpcinaPreb.setText("");
+		tFieldMail.setText("");
+		tFieldIndeks.setText("");;
+		tFieldTroskovi.setText("");
+		tFieldPopust.setText("");
+	}
+	
 	private void urediStudenta(Student s) {
 		String ime = tFieldIme.getText();
 		String prezime = tFieldPrezime.getText();
