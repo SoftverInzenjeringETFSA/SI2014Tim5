@@ -190,32 +190,11 @@ public class Validacija {
 	
 	
 	
-	public Boolean validirajIsto(String jmbg,String telefon,String mail,String username) {
-		
-		ArrayList<Korisnik>korisnici= Dao.getInstance().dajSveKorisnike();
-		for(int i=0;i<korisnici.size();i++)
-		{
-			if(username==korisnici.get(i).getKorisnickoIme()){
-				throw new IllegalArgumentException("Korisnicko ime vec postoji!");
-			}	
-			if(jmbg==korisnici.get(i).getJmbg()){ 
-				throw new IllegalArgumentException("JMBG vec postoji!");
-			}
-			if(telefon==korisnici.get(i).getTelefon()){
-				throw new IllegalArgumentException("Telefon vec postoji!");
-			}
-			if(mail==korisnici.get(i).getMail()){
-				throw new IllegalArgumentException("Mail vec postoji!");
-			}
-		}
-		return true;
-	}
-	
 	
 	public Boolean validirajTekst(String tekst) {
 		if (tekst.length() > 30) return false;
 		else if(tekst.length() <2) return false;
-		Pattern pattern = Pattern.compile("^[A-Z|Č|Ć|Ž|Š|Đ]{1}[a-z|č|ć|ž|š|đ ]{2,}$");
+		Pattern pattern = Pattern.compile("^[a-zA-Z\u0161\u0111\u010D\u0107\u017E\u0160\u0110\u010C\u0106\u017D ]+$");
 		Matcher matcher = pattern.matcher(tekst);
 		if (matcher.matches())	return true;
 		else return false;

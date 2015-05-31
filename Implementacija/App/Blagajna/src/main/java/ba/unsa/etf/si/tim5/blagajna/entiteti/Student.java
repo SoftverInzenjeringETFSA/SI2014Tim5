@@ -168,7 +168,20 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setOpcina(String opcina) {	
+		if(opcina.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli općinu prebivališta!");
+		}
+		if (!Validacija.getInstance().validirajTekst(opcina))
+        {
+            throw new IllegalArgumentException("Neispravno unesena općina prebivališta!");
+        }
+        else
+        {
         	this.opcina = opcina;
+        }
+		
+        	
 
 	}
 
@@ -256,8 +269,19 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setOpcinaRodjenja(String opcinaRodjenja) {
-
+		if(opcinaRodjenja.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli općinu rođenja!");
+		}
+		if (!Validacija.getInstance().validirajTekst(opcinaRodjenja))
+        {
+            throw new IllegalArgumentException("Neispravno unesena općina rođenja!");
+        }
+        else
+        {
         	this.opcinaRodjenja = opcinaRodjenja;
+        }
+        	
 	}
 
 	public String getDrzavaRodjenja() {
@@ -265,8 +289,19 @@ public class Student implements java.io.Serializable {
 	}
 
 	public void setDrzavaRodjenja(String drzavaRodjenja) {
-		
+		if(drzavaRodjenja.equals("")) 
+		{
+			 throw new IllegalArgumentException("Niste unijeli državu rođenja!");
+		}
+		if (!Validacija.getInstance().validirajTekst(drzavaRodjenja))
+        {
+            throw new IllegalArgumentException("Neispravno unesena država rođenja!");
+        }
+        else
+        {
         	this.drzavaRodjenja = drzavaRodjenja;
+        }
+        	
 	}
 
 	public double getPopust() {
