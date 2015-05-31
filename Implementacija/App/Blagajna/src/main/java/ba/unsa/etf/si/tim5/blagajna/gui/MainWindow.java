@@ -275,7 +275,7 @@ public class MainWindow {
 								studenti.get(i).getIme()
 										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
-								studenti.get(i).getTroskoviSkolarine(),
+								studenti.get(i).dajNeisplaceneDugoveSkolarina(),
 								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
 					}
 
@@ -304,7 +304,7 @@ public class MainWindow {
 								studenti.get(i).getIme()
 										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
-								studenti.get(i).getTroskoviSkolarine(),
+								studenti.get(i).dajNeisplaceneDugoveSkolarina(),
 								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
 					}
 				}
@@ -326,7 +326,7 @@ public class MainWindow {
 								studenti.get(i).getIme()
 										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
-								studenti.get(i).getTroskoviSkolarine(),
+								studenti.get(i).dajNeisplaceneDugoveSkolarina(),
 								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
 					}
 					// String s = table.getValueAt(1, 1).toString();
@@ -350,7 +350,7 @@ public class MainWindow {
 								studenti.get(i).getIme()
 										+" "+ studenti.get(i).getPrezime(),
 								studenti.get(i).getIndeks(),
-								studenti.get(i).getTroskoviSkolarine(),
+								studenti.get(i).dajNeisplaceneDugoveSkolarina(),
 								studenti.get(i).dajNeisplaceneDugoveLiteratura() });
 					}
 
@@ -433,7 +433,7 @@ public class MainWindow {
 										sviStudenti.get(j).getIme()
 												+" "+ sviStudenti.get(j).getPrezime(),
 										sviStudenti.get(j).getIndeks(),
-										sviStudenti.get(j).getTroskoviSkolarine(),
+										sviStudenti.get(j).dajNeisplaceneDugoveSkolarina(),
 										sviStudenti.get(j).dajNeisplaceneDugoveLiteratura() });
 							}
 
@@ -460,7 +460,7 @@ public class MainWindow {
 
 					for (int i = 0; i < sviStudenti.size(); i++) {
 						if (sviStudenti.get(i).getId() == idStudenta) {
-							UnosWindow window = new UnosWindow(sviStudenti.get(i));
+							UnosWindow window = new UnosWindow(sviStudenti.get(i), table, indexSelektovani);
 							window.frmUnosStudenta.setVisible(true);
 
 						}
@@ -623,7 +623,7 @@ public class MainWindow {
 		JMenuItem mntmDodajStudenta = new JMenuItem("Dodaj studenta");
 		mntmDodajStudenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UnosWindow window = new UnosWindow();
+				UnosWindow window = new UnosWindow(sviStudenti, table);
 				window.frmUnosStudenta.setVisible(true);
 				
 			}

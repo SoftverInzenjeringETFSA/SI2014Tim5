@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JTable;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
@@ -25,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
 import java.awt.geom.Rectangle2D;
@@ -112,19 +114,22 @@ public class UnosWindow {
 
 	private ArrayList<Student> studenti;
 	private Student student;
-
-	public UnosWindow(ArrayList<Student> studenti) {
+	JTable tabela;
+	int indexSelektovani;
+	public UnosWindow(ArrayList<Student> studenti, JTable tabela) {
 		initialize();
 		this.studenti = studenti;
+		this.tabela  = tabela;
 	}
 
-	public UnosWindow(Student student) {
+	public UnosWindow(Student student, JTable tabela, int indexSelektovani) {
 		initialize();
 		this.student = student;
 		this.btnUnesi.setText("Uredi");
 		this.chckbxNewCheckBox.setContentAreaFilled(true);
 		popuniPolja();
 		chckbxNewCheckBox.setVisible(false);
+		tFieldJmbg.setEnabled(false);
 	}
 
 	private void popuniPolja() {
@@ -414,6 +419,19 @@ public class UnosWindow {
 								s.dajDugZaSkolarinu(), s.getId(),
 								TipDuga.dugZaSkolarinu);
 						d.dodajDug(session);
+						System.out.println("lalalala");
+						//dodavanje u tabelu na početnoj
+						DefaultTableModel model = (DefaultTableModel) tabela
+								.getModel();		
+							model.addRow(new Object[] {
+									s.getId(),
+									s.getIme()
+											+" "+ s.getPrezime(),
+									s.getIndeks(),
+									s.dajNeisplaceneDugoveSkolarina(),
+									s.dajNeisplaceneDugoveLiteratura() });
+					
+						//-----------------------------
 						lblcijena.setText(String.valueOf(cijena));
 						s.setId(id);
 						studenti.add(s);
@@ -425,8 +443,7 @@ public class UnosWindow {
 									"Student je uređen!", "InfoBox",
 									JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							Dug d = new Dug(1, false, "2014/2015", s
-									.dajUkupniDug(), s.getId(),
+							Dug d = new Dug(1, false, "2014/2015", cijena , s.getId(),
 									TipDuga.dugZaSkolarinu);
 							d.dodajDug(session);
 						}
