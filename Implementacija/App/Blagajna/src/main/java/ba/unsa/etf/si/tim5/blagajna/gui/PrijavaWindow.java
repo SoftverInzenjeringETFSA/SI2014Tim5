@@ -62,7 +62,7 @@ public class PrijavaWindow {
 	 */
 	public PrijavaWindow() {
 		initialize();
-		ucitajSveKorisnike();
+		//ucitajSveKorisnike();
 		//System.out.println(sviKorisnici.get(0).getKorisnickoIme());
 	}
 	
@@ -123,6 +123,7 @@ public class PrijavaWindow {
 		JButton btnPrijaviSe = new JButton("Prijavi se");
 		btnPrijaviSe.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ucitajSveKorisnike();
 				//logovaniKorisnik.setKorisnickoIme("");
 				String username=textUser.getText();
 				char[] password=textPass.getPassword();

@@ -129,7 +129,7 @@ public class ZaboraviliLozinkuWindow {
 						System.out.println("dobar");
 						dobarEmail=true;
 						String[] m = {email};
-						
+						sviKorisnici.get(i).setLozinka(String.valueOf(a));
 						textField.setText("");
 						Session session = HibernateUtil.getSessionFactory()
 								.openSession();

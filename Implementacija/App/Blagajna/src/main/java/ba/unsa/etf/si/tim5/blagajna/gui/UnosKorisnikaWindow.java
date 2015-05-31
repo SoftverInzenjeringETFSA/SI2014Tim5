@@ -268,14 +268,22 @@ public class UnosKorisnikaWindow {
 					String poruka = " Korisničko ime: " +
 					k.getKorisnickoIme() + "\n" + " Lozinka: " +
 					k.getLozinka();
+					try {
 					SlanjeMaila.getInstance().sendFromGMail(m, subject ,
 					poruka);
-
+					}catch(Exception ex) {
+						JOptionPane.showMessageDialog(null,
+								"Problem sa slanjem maila", "Problem",
+								JOptionPane.ERROR_MESSAGE);
+						logger.error("Problem sa slanjem maila", ex);
+						return;
+					}
 					session.close();
 					JOptionPane.showMessageDialog(null,
 							"Dodali ste novog korisnika " + k.getIme() + " "
 									+ k.getPrezime(), "Korisnik dodan",
 							JOptionPane.INFORMATION_MESSAGE);
+					logger.info("Dodan je novi korisnik");
 					DefaultTableModel tmodel = (DefaultTableModel) tabela
 							.getModel();
 					tmodel.addRow(new Object[] { k.getId(), k.getIme(),
