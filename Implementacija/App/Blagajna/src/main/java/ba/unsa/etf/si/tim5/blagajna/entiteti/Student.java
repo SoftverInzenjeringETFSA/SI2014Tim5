@@ -371,7 +371,7 @@ public class Student implements java.io.Serializable {
 		t.commit();	
 		for(int i=0; i<l.size(); i++) {
 			ArrayList<Rata> temp = l.get(i).dajSveRate(session);
-			for(int j = 0; j<temp.size(); j++) rate.add(temp.get(i));
+			for(int j = 0; j<temp.size(); j++) rate.add(temp.get(j));
 		}
 		session.close();
 		return rate;
