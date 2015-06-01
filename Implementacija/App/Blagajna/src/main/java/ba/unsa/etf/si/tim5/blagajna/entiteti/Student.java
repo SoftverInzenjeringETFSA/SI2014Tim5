@@ -362,6 +362,21 @@ public class Student implements java.io.Serializable {
 		session.update(this);
 		t.commit();		
 	}
+	
+	public ArrayList<Rata> dajSveRateZaGodinu(String studijskaGodina) {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Rata> rate = new ArrayList<Rata>();
+		ArrayList<Dug> l = (ArrayList<Dug>)session.createSQLQuery("SELECT * FROM dug where akademskagodina='"+studijskaGodina+"' and studentid="+ this.id).addEntity(Dug.class).list();		
+		t.commit();	
+		for(int i=0; i<l.size(); i++) {
+			ArrayList<Rata> temp = l.get(i).dajSveRate(session);
+			for(int j = 0; j<temp.size(); j++) rate.add(temp.get(i));
+		}
+		session.close();
+		return rate;
+	}
+	
 	public double dajNeisplaceneDugoveLiteratura() {
 		Session session = HibernateUtil.getSessionFactory().openSession();		
 		org.hibernate.Transaction t = session.beginTransaction();
