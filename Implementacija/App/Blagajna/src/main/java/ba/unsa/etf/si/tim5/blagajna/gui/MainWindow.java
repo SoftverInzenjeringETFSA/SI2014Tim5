@@ -593,7 +593,7 @@ public class MainWindow {
 		mntmUplate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				PromjenaLozinkeWindow window = new PromjenaLozinkeWindow();
+				PromjenaLozinkeWindow window = new PromjenaLozinkeWindow(user);
 				window.frmPromjenaLozinke.setVisible(true);
 			}
 		});

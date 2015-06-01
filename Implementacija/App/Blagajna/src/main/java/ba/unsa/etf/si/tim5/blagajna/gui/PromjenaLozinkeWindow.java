@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
@@ -118,9 +119,10 @@ public class PromjenaLozinkeWindow {
 			pass2 = NovaLozinkaTB.getPassword();
 			pass3 = PotvrdiNovuLozinkuTB.getPassword();		
 			String s1, s2, s3;
-			s1 = new String(pass1);
+			s1 = Utility.getInstance().MD5((new String(pass1)));
 			s2 = new String(pass2);
 			s3 = new String(pass3);
+
 			if (!s1.equals(korisnik.getLozinka()))
 				JOptionPane.showMessageDialog(null,"Stara lozinka nije tacna !","Error",JOptionPane.WARNING_MESSAGE);		
 			else if (!Validacija.getInstance().passwordValidation(s2))
@@ -132,7 +134,7 @@ public class PromjenaLozinkeWindow {
 			else
 			{
 				Session session = HibernateUtil.getSessionFactory().openSession();
-				korisnik.setLozinka(s2);
+				korisnik.setLozinka(Utility.getInstance().MD5(s2));
 				korisnik.urediKorisnika(session);
 				session.close();
 				JOptionPane.showMessageDialog(null,"Uspjesno ste izmijenili lozinku !","Message",JOptionPane.INFORMATION_MESSAGE);

@@ -247,7 +247,7 @@ public class DugWindow {
 			else
 			{		
 				int red = table.getSelectedRow();
-				int id = Integer.parseInt(table.getValueAt(red, 0).toString());
+				long id = Integer.parseInt(table.getValueAt(red, 0).toString());
 		
 			for (int i =0;i<rate.size();i++)
 				if (rate.get(i).getId()==id)
