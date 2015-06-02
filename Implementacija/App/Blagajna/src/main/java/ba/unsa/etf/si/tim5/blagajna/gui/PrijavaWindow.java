@@ -179,7 +179,7 @@ public class PrijavaWindow {
 		JButton btnIzai = new JButton("Iza\u0111i");
 		btnIzai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				Runtime.getRuntime().halt(0);
 			}
 		});
 		frmPrijava.getContentPane().add(btnIzai, "6, 8, fill, top");

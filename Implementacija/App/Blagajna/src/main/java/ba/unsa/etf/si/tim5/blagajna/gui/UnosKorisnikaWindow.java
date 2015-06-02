@@ -65,9 +65,8 @@ public class UnosKorisnikaWindow {
 				try {
 					UnosKorisnikaWindow window = new UnosKorisnikaWindow();
 					window.frmUnosKorisnika.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-					logger.info(e.getMessage());
+				} catch (Exception e) {					
+					logger.error(e.getMessage(), e);
 				}
 			}
 		});

@@ -61,8 +61,7 @@ public class LiteraturaWindow {
 				try {
 					LiteraturaWindow window = new LiteraturaWindow();
 					window.frmUnosDugaZa.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception e) {					
 					logger.error(e.getMessage() , e);
 				}
 			}

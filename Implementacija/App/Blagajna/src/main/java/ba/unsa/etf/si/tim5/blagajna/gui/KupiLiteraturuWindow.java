@@ -53,8 +53,7 @@ public class KupiLiteraturuWindow {
 				try {
 					KupiLiteraturuWindow window = new KupiLiteraturuWindow();
 					window.frmKupovinaLiterature.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception e) {					
 					logger.error("Greška pri otvaranju forme za kupovinu literature! " + e.getMessage() , e);
 					//logger.log(Priority.ERROR, e.getMessage(), e);
 				}

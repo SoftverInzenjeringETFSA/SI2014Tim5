@@ -306,9 +306,9 @@ public class MainWindow {
 						return;
 					}
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if (Math.abs(sviStudenti.get(i)
-								.dajNeisplaceneDugoveSkolarina()) == Math
-								.abs(dugSkolarina))
+						if (Math.abs((Math.abs(sviStudenti.get(i)
+								.dajNeisplaceneDugoveSkolarina()) - Math
+								.abs(dugSkolarina))) < 1)
 							studenti.add(sviStudenti.get(i));
 					}
 
@@ -348,9 +348,9 @@ public class MainWindow {
 					}
 					
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if (Math.abs(sviStudenti.get(i)
-								.dajNeisplaceneDugoveLiteratura()) == Math
-								.abs(dugLiteratura))
+						if (Math.abs((Math.abs(sviStudenti.get(i)
+								.dajNeisplaceneDugoveLiteratura()) - Math
+								.abs(dugLiteratura))) < 1)
 							studenti.add(sviStudenti.get(i));
 					}
 

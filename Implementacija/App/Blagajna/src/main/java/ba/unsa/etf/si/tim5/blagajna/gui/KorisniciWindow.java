@@ -31,7 +31,7 @@ import com.mysql.jdbc.Connection;
 public class KorisniciWindow {
 
 	JFrame frmKorisnici;
-	private JTable table;	
+	private JTable table;
 	protected Component frame;
 	final static Logger logger = Logger.getLogger(UnosKorisnikaWindow.class);
 	private ArrayList<Korisnik> korisnici;
@@ -47,7 +47,6 @@ public class KorisniciWindow {
 					KorisniciWindow window = new KorisniciWindow();
 					window.frmKorisnici.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
 					logger.info(e.getMessage());
 				}
 			}
@@ -118,7 +117,8 @@ public class KorisniciWindow {
 		JButton btnDodaj = new JButton("Dodaj");
 		btnDodaj.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UnosKorisnikaWindow window = new UnosKorisnikaWindow(korisnici, table);
+				UnosKorisnikaWindow window = new UnosKorisnikaWindow(korisnici,
+						table);
 				window.frmUnosKorisnika.setVisible(true);
 
 			}
@@ -127,25 +127,23 @@ public class KorisniciWindow {
 
 		JButton btnUredi = new JButton("Detalji/Uredi");
 		btnUredi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+			public void actionPerformed(ActionEvent arg0) {				
 				int indexSelektovani = table.getSelectedRow();
-			if(table.getSelectedRowCount()!=0){
-				long idKorisnika = (long) Integer.parseInt((table.getValueAt(
-						indexSelektovani, 0).toString()));
+				if (table.getSelectedRowCount() != 0) {
+					long idKorisnika = (long) Integer.parseInt((table
+							.getValueAt(indexSelektovani, 0).toString()));
 
-				Korisnik k = Dao.getInstance().dajKorisnikaPoId(idKorisnika);
+					Korisnik k = Dao.getInstance()
+							.dajKorisnikaPoId(idKorisnika);
 
-				UnosKorisnikaWindow window1 = new UnosKorisnikaWindow(k, table, indexSelektovani);
-				window1.frmUnosKorisnika.setVisible(true);
-			}
-			else 
-			{
-				JOptionPane.showMessageDialog(frame,
-						"Odaberite korisnika za izmjenu prvo.",
-					    "Odaberite korisnika",
-					    JOptionPane.ERROR_MESSAGE);
-			}
+					UnosKorisnikaWindow window1 = new UnosKorisnikaWindow(k,
+							table, indexSelektovani);
+					window1.frmUnosKorisnika.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(frame,
+							"Odaberite korisnika za izmjenu prvo.",
+							"Odaberite korisnika", JOptionPane.ERROR_MESSAGE);
+				}				
 
 			}
 		});
@@ -155,38 +153,39 @@ public class KorisniciWindow {
 		btnObrisi.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				if(table.getSelectedRowCount()!=0){
-				try{
-				int indexSelektovani = table.getSelectedRow();
-				long idKorisnika = (long) Integer.parseInt((table.getValueAt(
-						indexSelektovani, 0).toString()));
+				if (table.getSelectedRowCount() != 0) {
+					try {
+						int indexSelektovani = table.getSelectedRow();
+						long idKorisnika = (long) Integer.parseInt((table
+								.getValueAt(indexSelektovani, 0).toString()));
 
-				Korisnik k = Dao.getInstance().dajKorisnikaPoId(idKorisnika);
-				Session session = HibernateUtil.getSessionFactory()
-						.openSession();
+						Korisnik k = Dao.getInstance().dajKorisnikaPoId(
+								idKorisnika);
+						Session session = HibernateUtil.getSessionFactory()
+								.openSession();
 
-				k.obrisiKorisnika(session);
-				korisnici.remove(k);
-				JOptionPane.showMessageDialog(frame, "Izbrisali ste korisnika "
-						+ k.getIme() + " " + k.getPrezime() + ".",
-						"Korisnik izbrisan",
-					    JOptionPane.PLAIN_MESSAGE);
-				logger.info("Izbrisali ste korisnika " + k.getIme() + " " + k.getPrezime()+".");
-				session.close();
-				((DefaultTableModel) table.getModel())
-						.removeRow(indexSelektovani);
-				}
-				catch(Exception ex){
-					ex.printStackTrace();
-					logger.error("Greška kod brisanja korisnika "+ k.getIme() + " " + k.getPrezime() + "." + ex.getMessage() , ex);
-				}
-				}
-				else
-				{
+						k.obrisiKorisnika(session);
+						korisnici.remove(k);
+						JOptionPane.showMessageDialog(frame,
+								"Izbrisali ste korisnika " + k.getIme() + " "
+										+ k.getPrezime() + ".",
+								"Korisnik izbrisan", JOptionPane.PLAIN_MESSAGE);
+						logger.info("Izbrisali ste korisnika " + k.getIme()
+								+ " " + k.getPrezime() + ".");
+						session.close();
+						((DefaultTableModel) table.getModel())
+								.removeRow(indexSelektovani);
+					} catch (Exception ex) {
+						logger.error(
+								"Greška kod brisanja korisnika " + k.getIme()
+										+ " " + k.getPrezime() + "."
+										+ ex.getMessage(), ex);
+					}
+				} else {
 					JOptionPane.showMessageDialog(frame,
 							"Odaberite korisnika za brisanje prvo.",
-						    "Odaberite korisnika",
-						    JOptionPane.INFORMATION_MESSAGE);
+							"Odaberite korisnika",
+							JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
@@ -198,21 +197,21 @@ public class KorisniciWindow {
 	private void FillTable(DefaultTableModel tmodel) {
 		try {
 			korisnici = Dao.getInstance().dajSveKorisnike();
-			
+
 			Collections.sort(korisnici, new Comparator<Korisnik>() {
-			    public int compare(Korisnik k1, Korisnik k2) {
-			        return k1.getIme().compareTo(k2.getIme());
-			    }
+				public int compare(Korisnik k1, Korisnik k2) {
+					return k1.getIme().compareTo(k2.getIme());
+				}
 			});
-			
+
 			for (int i = 0; i < korisnici.size(); i++) {
 				k = korisnici.get(i);
 				tmodel.addRow(new Object[] { k.getId(), k.getIme(),
 						k.getPrezime(), k.getJmbg(), k.getAdresa(),
 						k.getTelefon(), k.getMail(), k.getTipKorisnika() });
 			}
-		} catch (Exception e) { //			
-			logger.error("Greška kod popunjavanja tabele! " + e.getMessage() , e);
+		} catch (Exception e) { //
+			logger.error("Greška kod popunjavanja tabele! " + e.getMessage(), e);
 		}
 	}
 

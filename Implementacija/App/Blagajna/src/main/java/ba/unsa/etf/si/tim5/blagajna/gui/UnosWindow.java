@@ -77,7 +77,7 @@ public class UnosWindow {
 					UnosWindow window = new UnosWindow();
 					window.frmUnosStudenta.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		});
@@ -379,6 +379,7 @@ public class UnosWindow {
 							"Neka polja nisu unesena ili nisu korektna!"
 									+ ex.getMessage(), "Greška",
 							JOptionPane.ERROR_MESSAGE);
+					logger.error(ex.getMessage(), ex);
 					return;
 				}
 
@@ -437,6 +438,7 @@ public class UnosWindow {
 					logger.error("Pokušaj unosa već postojeće literature", cve);
 					return;
 				} catch (Exception ex) {
+					logger.error(ex.getMessage(), ex);
 					return;
 				}
 

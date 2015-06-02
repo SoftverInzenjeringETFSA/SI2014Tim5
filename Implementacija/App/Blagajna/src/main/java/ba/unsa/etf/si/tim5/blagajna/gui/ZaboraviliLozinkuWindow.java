@@ -42,8 +42,7 @@ public class ZaboraviliLozinkuWindow {
 				try {
 					ZaboraviliLozinkuWindow window = new ZaboraviliLozinkuWindow();
 					window.frmPromjenaLozinke.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception e) {					
 					logger.error("Greška pri otvaranju glavne forme!" + e.getMessage(), e);
 				}
 			}
