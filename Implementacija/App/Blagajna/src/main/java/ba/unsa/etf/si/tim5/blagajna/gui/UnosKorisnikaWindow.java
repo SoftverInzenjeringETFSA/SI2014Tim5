@@ -281,7 +281,7 @@ public class UnosKorisnikaWindow {
 					session.close();
 					JOptionPane.showMessageDialog(null,
 							"Dodali ste novog korisnika " + k.getIme() + " "
-									+ k.getPrezime(), "Korisnik dodan",
+									+ k.getPrezime()+".", "Korisnik dodan",
 							JOptionPane.INFORMATION_MESSAGE);
 					logger.info("Dodan je novi korisnik");
 					DefaultTableModel tmodel = (DefaultTableModel) tabela
