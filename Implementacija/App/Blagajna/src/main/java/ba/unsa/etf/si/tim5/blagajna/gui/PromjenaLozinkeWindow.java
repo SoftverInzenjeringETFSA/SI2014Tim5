@@ -43,7 +43,7 @@ public class PromjenaLozinkeWindow {
 				try {
 					PromjenaLozinkeWindow window = new PromjenaLozinkeWindow();
 					window.frmPromjenaLozinke.setVisible(true);
-				} catch (Exception e) {					
+				} catch (Exception e) {
 					logger.error("Greška pri otvaranju forme za promjenu lozinke! " + e.getMessage() , e);
 				}
 			}
