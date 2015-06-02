@@ -260,7 +260,7 @@ public class IzvjestajWindow {
 
 					TabelaIzvjestaj ti = new TabelaIzvjestaj(s.getIndeks(), s
 							.getIme() + " " + s.getPrezime(), ukupanDug, dug,
-							dug == 0 ? MozePolagati.DA : MozePolagati.NE);
+							dug < 1 ? MozePolagati.DA : MozePolagati.NE);
 
 					redovi.add(ti);
 				}

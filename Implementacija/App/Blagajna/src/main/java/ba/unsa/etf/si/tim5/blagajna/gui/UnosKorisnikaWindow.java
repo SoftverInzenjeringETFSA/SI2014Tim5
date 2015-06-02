@@ -65,9 +65,8 @@ public class UnosKorisnikaWindow {
 				try {
 					UnosKorisnikaWindow window = new UnosKorisnikaWindow();
 					window.frmUnosKorisnika.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-					logger.info(e.getMessage());
+				} catch (Exception e) {					
+					logger.error(e.getMessage(), e);
 				}
 			}
 		});
@@ -215,8 +214,7 @@ public class UnosKorisnikaWindow {
 				String username = textField_6.getText();
 
 				int pass = Utility.getInstance().generisiPassword();
-				String lozinka = String.valueOf(pass);
-
+				String lozinka = Utility.getInstance().MD5(String.valueOf(pass));
 				TipKorisnika tip = (TipKorisnika) comboBox.getSelectedItem();
 
 				try {
@@ -267,7 +265,7 @@ public class UnosKorisnikaWindow {
 					"Pristupni podaci za IS fakultetske blagajne";
 					String poruka = " Korisničko ime: " +
 					k.getKorisnickoIme() + "\n" + " Lozinka: " +
-					k.getLozinka();
+					String.valueOf(pass);
 					try {
 					SlanjeMaila.getInstance().sendFromGMail(m, subject ,
 					poruka);

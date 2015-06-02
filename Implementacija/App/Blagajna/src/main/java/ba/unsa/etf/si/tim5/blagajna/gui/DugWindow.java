@@ -247,7 +247,7 @@ public class DugWindow {
 			else
 			{		
 				int red = table.getSelectedRow();
-				int id = Integer.parseInt(table.getValueAt(red, 0).toString());
+				long id = Integer.parseInt(table.getValueAt(red, 0).toString());
 		
 			for (int i =0;i<rate.size();i++)
 				if (rate.get(i).getId()==id)
@@ -323,31 +323,32 @@ public class DugWindow {
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		dugovi = student.dajSveDugove(session);
-			
 		String s = "";
 		s = (String)StudijskaGodinaCB.getSelectedItem();
+		rate = student.dajSveRateZaGodinu(s);	
+		
 		DefaultTableModel model= (DefaultTableModel)table.getModel();
+		
 		model.setRowCount(0);
-		for (int i =0;i<dugovi.size();i++)
-		{		
-			if (dugovi.get(i).getAkademskaGodina().toString().equals(s))
-			{	
-			rate = dugovi.get(i).dajSveRate(session);
-			for (int j = 0;j<rate.size();j++)
+		for (int j = 0;j<rate.size();j++)
 			{
-				String datum1, datum2, datum3;
+			String tipDuga = "";
+			
+			for (int i =0;i<dugovi.size();i++)	
+			{
+				tipDuga = dugovi.get(i).getTipDuga().toString();
+				if (tipDuga.equals("dugZaSkolarinu")) tipDuga = "Dug za školarinu";
+				else tipDuga = "Dug za literaturu";
+			}	
+			
+			String datum1, datum2, datum3;
 				datum1 = dajDatum(rate.get(j).getDatumZaduzenja());
 				
 				datum2 = dajDatum(rate.get(j).getDatumRazduzenja());
 				datum3 = dajDatum(rate.get(j).getRokUplate());
-				String tipDuga;
-				tipDuga = dugovi.get(i).getTipDuga().toString();
-				if (tipDuga.equals("dugZaSkolarinu")) tipDuga = "Dug za školarinu";
-				else tipDuga = "Dug za literaturu";
 				model.addRow(new Object[] {rate.get(j).getId() , (int)rate.get(j).getVrijednost(), datum1, datum2, datum3, tipDuga });
 			}
-		}
-		}
+		
 		
 		session.close();
 

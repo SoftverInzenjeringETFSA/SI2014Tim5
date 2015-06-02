@@ -53,8 +53,7 @@ public class KupiLiteraturuWindow {
 				try {
 					KupiLiteraturuWindow window = new KupiLiteraturuWindow();
 					window.frmKupovinaLiterature.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception e) {					
 					logger.error("Greška pri otvaranju forme za kupovinu literature! " + e.getMessage() , e);
 					//logger.log(Priority.ERROR, e.getMessage(), e);
 				}
@@ -195,7 +194,8 @@ public class KupiLiteraturuWindow {
 				}
 				String godina =  Utility.getInstance().dajStudijskuGodinu();
 				Dug d = new Dug(69, false, godina,
-				l.getCijena(), student.getId(), TipDuga.dugZaLiteraturu);				
+				l.getCijena(), student.getId(), TipDuga.dugZaLiteraturu);	
+				d.setLiteraturaId(l.getId());
 				Session session = HibernateUtil.getSessionFactory().openSession();
 				d.dodajDug(session);
 				student.setTroskoviLiterature(student.getTroskoviLiterature() + l.getCijena());

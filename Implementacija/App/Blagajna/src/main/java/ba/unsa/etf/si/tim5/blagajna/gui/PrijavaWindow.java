@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import org.apache.log4j.Logger;
 
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Korisnik;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -128,7 +129,7 @@ public class PrijavaWindow {
 				String username=textUser.getText();
 				char[] password=textPass.getPassword();
 				
-				String passString = new String(password);
+				String passString = Utility.getInstance().MD5(new String(password));
 //				boolean isPassCorrect=Validacija.getInstance().passwordValidation(passString);
 //				if (!isPassCorrect)return;
 				
@@ -178,7 +179,7 @@ public class PrijavaWindow {
 		JButton btnIzai = new JButton("Iza\u0111i");
 		btnIzai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				Runtime.getRuntime().halt(0);
 			}
 		});
 		frmPrijava.getContentPane().add(btnIzai, "6, 8, fill, top");

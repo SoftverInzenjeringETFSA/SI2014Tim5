@@ -306,9 +306,9 @@ public class MainWindow {
 						return;
 					}
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if (Math.abs(sviStudenti.get(i)
-								.dajNeisplaceneDugoveSkolarina()) == Math
-								.abs(dugSkolarina))
+						if (Math.abs((Math.abs(sviStudenti.get(i)
+								.dajNeisplaceneDugoveSkolarina()) - Math
+								.abs(dugSkolarina))) < 1)
 							studenti.add(sviStudenti.get(i));
 					}
 
@@ -348,9 +348,9 @@ public class MainWindow {
 					}
 					
 					for (int i = 0; i < sviStudenti.size(); i++) {
-						if (Math.abs(sviStudenti.get(i)
-								.dajNeisplaceneDugoveLiteratura()) == Math
-								.abs(dugLiteratura))
+						if (Math.abs((Math.abs(sviStudenti.get(i)
+								.dajNeisplaceneDugoveLiteratura()) - Math
+								.abs(dugLiteratura))) < 1)
 							studenti.add(sviStudenti.get(i));
 					}
 
@@ -444,6 +444,10 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 
 				if (table.getSelectedRow() != -1) {
+					int dialogResult = JOptionPane.showConfirmDialog (null, "Jeste li sigurni da želite obrisati studenta?","Upozorenje",2);
+					if(dialogResult == JOptionPane.CANCEL_OPTION || dialogResult == JOptionPane.NO_OPTION){ 
+						return;
+					}
 					int indexSelektovani = table.getSelectedRow();
 					long idStudenta = (long) Integer.parseInt((table
 							.getValueAt(indexSelektovani, 0).toString()));
@@ -593,7 +597,7 @@ public class MainWindow {
 		mntmUplate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				PromjenaLozinkeWindow window = new PromjenaLozinkeWindow();
+				PromjenaLozinkeWindow window = new PromjenaLozinkeWindow(user);
 				window.frmPromjenaLozinke.setVisible(true);
 			}
 		});

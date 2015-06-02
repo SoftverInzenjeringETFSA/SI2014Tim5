@@ -4,7 +4,7 @@
 
 	<groupId>ba.unsa.etf.si.tim5</groupId>
 	<artifactId>blagajna</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
 	<name>blagajna</name>

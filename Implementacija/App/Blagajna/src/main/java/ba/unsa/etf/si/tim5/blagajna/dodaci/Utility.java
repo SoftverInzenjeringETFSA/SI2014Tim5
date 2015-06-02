@@ -5,11 +5,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 
 //pomocna singleton klasa za smještanje raznih pomocnih funkcija
 public class Utility {
 	private static Utility instanca = null;
-
+	final static Logger logger = Logger.getLogger(SlanjeMaila.class);
 	public static Utility getInstance() {
 		if (instanca == null)
 			instanca = new Utility();
@@ -62,6 +64,7 @@ public class Utility {
 		       }
 		        return sb.toString();
 		    } catch (java.security.NoSuchAlgorithmException e) {
+		    	logger.error("Problem kod generisanja hash koda", e);
 		    }
 		    return null;
 		}

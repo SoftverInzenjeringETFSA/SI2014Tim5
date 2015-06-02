@@ -22,9 +22,11 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Dao;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.GodinaStudija;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.TipDuga;
 import ba.unsa.etf.si.tim5.blagajna.dodaci.Utility;
+import ba.unsa.etf.si.tim5.blagajna.dodaci.Validacija;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Dug;
 import ba.unsa.etf.si.tim5.blagajna.entiteti.Student;
 import ba.unsa.etf.si.tim5.blagajna.util.HibernateUtil;
@@ -77,7 +79,7 @@ public class UnosWindow {
 					UnosWindow window = new UnosWindow();
 					window.frmUnosStudenta.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					logger.error(e.getMessage(), e);
 				}
 			}
 		});
@@ -90,14 +92,15 @@ public class UnosWindow {
 		initialize();
 	}
 
-	private ArrayList<Student> studenti;
-	private Student student;
+	private ArrayList<Student> studenti = null;
+	private Student student = null;
 	JTable tabela;
 	int indexSelektovani;
+
 	public UnosWindow(ArrayList<Student> studenti, JTable tabela) {
 		initialize();
 		this.studenti = studenti;
-		this.tabela  = tabela;
+		this.tabela = tabela;
 	}
 
 	public UnosWindow(Student student, JTable tabela, int indexSelektovani) {
@@ -124,8 +127,7 @@ public class UnosWindow {
 		this.tFieldMail.setText(student.getMail());
 		this.tFieldIndeks.setText(Integer.toString(student.getIndeks()));
 		this.cBoxGodina.setSelectedItem(student.getGodinaStudija());
-		this.tFieldTroskovi.setText(String.valueOf(student
-				.getTroskoviSkolarine()));
+		this.tFieldTroskovi.setText(String.valueOf(student.dajNeisplaceneDugoveSkolarina()));
 		this.tFieldPopust.setText(String.valueOf(student.getPopust()));
 
 	}
@@ -352,8 +354,10 @@ public class UnosWindow {
 							.getText());
 					double popust = Double.parseDouble(tFieldPopust.getText());
 					cijena = troskovi - (troskovi * popust / 100);
-					if(cijena < 0) throw new IllegalArgumentException("Sad ispade mi studentu dužni! Popravite unos troskova i popusta!"); 
-					
+					if (cijena < 0)
+						throw new IllegalArgumentException(
+								"Sad ispade mi studentu dužni! Popravite unos troskova i popusta!");
+
 					s = new Student(1, ime, prezime, jmbg, mail, adresaPreb,
 							opcinaPreb, telefon, indeks, troskovi, roditelj,
 							mjestoRodj, opcinaRodj, drzava, popust, godinaUpisa);
@@ -379,6 +383,7 @@ public class UnosWindow {
 							"Neka polja nisu unesena ili nisu korektna!"
 									+ ex.getMessage(), "Greška",
 							JOptionPane.ERROR_MESSAGE);
+					logger.error(ex.getMessage(), ex);
 					return;
 				}
 
@@ -394,23 +399,20 @@ public class UnosWindow {
 								"Student je dodan!", "InfoBox",
 								JOptionPane.INFORMATION_MESSAGE);
 						ocistiPolja();
-						Dug d = new Dug(1, false, godina,
-								cijena, s.getId(),
+						Dug d = new Dug(1, false, godina, cijena, s.getId(),
 								TipDuga.dugZaSkolarinu);
 						d.dodajDug(session);
 						System.out.println("lalalala");
-						//dodavanje u tabelu na početnoj
+						// dodavanje u tabelu na početnoj
 						DefaultTableModel model = (DefaultTableModel) tabela
-								.getModel();		
-							model.addRow(new Object[] {
-									s.getId(),
-									s.getIme()
-											+" "+ s.getPrezime(),
-									s.getIndeks(),
-									s.dajNeisplaceneDugoveSkolarina(),
-									s.dajNeisplaceneDugoveLiteratura() });
-					
-						//-----------------------------
+								.getModel();
+						model.addRow(new Object[] { s.getId(),
+								s.getIme() + " " + s.getPrezime(),
+								s.getIndeks(),
+								s.dajNeisplaceneDugoveSkolarina(),
+								s.dajNeisplaceneDugoveLiteratura() });
+
+						// -----------------------------
 						lblcijena.setText(String.valueOf(cijena));
 						s.setId(id);
 						studenti.add(s);
@@ -422,9 +424,31 @@ public class UnosWindow {
 									"Student je uređen!", "InfoBox",
 									JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							Dug d = new Dug(1, false, "2014/2015", cijena , s.getId(),
-									TipDuga.dugZaSkolarinu);
-							d.dodajDug(session);
+							if (Validacija.getInstance().validirajJmbg(
+									tFieldJmbg.getText())) {
+								Student st = Dao
+										.getInstance()
+										.dajStudentaPoJMBG(tFieldJmbg.getText());
+								urediStudenta(st);
+								if(st == null || st.getId()  < 0) {
+									JOptionPane.showMessageDialog(null,
+											"Student sa tim JMBG ne postoji", "InfoBox",
+											JOptionPane.INFORMATION_MESSAGE);
+									return;
+								}
+								Dug d = new Dug(1, false, Utility.getInstance()
+										.dajStudijskuGodinu(), cijena, st
+										.getId(), TipDuga.dugZaSkolarinu);
+								d.dodajDug(session);
+								JOptionPane.showMessageDialog(null,
+										"Registrovani su novi troškovi školarine!", "InfoBox",
+										JOptionPane.INFORMATION_MESSAGE);
+							} else {
+								JOptionPane.showMessageDialog(null,
+										"Morate unijeti JMBG postojećeg studenta", "InfoBox",
+										JOptionPane.INFORMATION_MESSAGE);
+								return;
+							}
 						}
 					}
 
@@ -437,6 +461,7 @@ public class UnosWindow {
 					logger.error("Pokušaj unosa već postojeće literature", cve);
 					return;
 				} catch (Exception ex) {
+					logger.error(ex.getMessage(), ex);
 					return;
 				}
 
@@ -454,7 +479,7 @@ public class UnosWindow {
 		frmUnosStudenta.getContentPane()
 				.add(btnNewButton_1, "4, 6, right, top");
 	}
-	
+
 	private void ocistiPolja() {
 		tFieldIme.setText("");
 		tFieldPrezime.setText("");
@@ -462,16 +487,18 @@ public class UnosWindow {
 		tFieldTelefon.setText("");
 		tFieldJmbg.setText("");
 		tFieldMjestoRodj.setText("");
-		tFieldOpcina.setText("");;
+		tFieldOpcina.setText("");
+		;
 		tFieldDrzava.setText("");
 		tFieldAdresaPreb.setText("");
 		tFieldOpcinaPreb.setText("");
 		tFieldMail.setText("");
-		tFieldIndeks.setText("");;
+		tFieldIndeks.setText("");
+		;
 		tFieldTroskovi.setText("");
 		tFieldPopust.setText("");
 	}
-	
+
 	private void urediStudenta(Student s) {
 		String ime = tFieldIme.getText();
 		String prezime = tFieldPrezime.getText();
@@ -503,7 +530,7 @@ public class UnosWindow {
 		s.setOpcina(opcinaPreb);
 		s.setMail(mail);
 		s.setGodinaStudija(godinaUpisa);
-		s.setTroskoviSkolarine(cijena);
+		s.setTroskoviSkolarine(s.dajNeisplaceneDugoveSkolarina() + cijena);
 		s.setPopust(popust);
 	}
 

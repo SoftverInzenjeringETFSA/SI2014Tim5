@@ -42,8 +42,7 @@ public class ZaboraviliLozinkuWindow {
 				try {
 					ZaboraviliLozinkuWindow window = new ZaboraviliLozinkuWindow();
 					window.frmPromjenaLozinke.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception e) {					
 					logger.error("Greška pri otvaranju glavne forme!" + e.getMessage(), e);
 				}
 			}
@@ -129,7 +128,7 @@ public class ZaboraviliLozinkuWindow {
 						System.out.println("dobar");
 						dobarEmail=true;
 						String[] m = {email};
-						sviKorisnici.get(i).setLozinka(String.valueOf(a));
+						sviKorisnici.get(i).setLozinka(Utility.getInstance().MD5(String.valueOf(a)));
 						textField.setText("");
 						Session session = HibernateUtil.getSessionFactory()
 								.openSession();
