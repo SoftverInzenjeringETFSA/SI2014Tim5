@@ -69,6 +69,16 @@ public class Dao {
 		session.close();
 		return l;
 	}
+	
+	public Student dajStudentaPoJMBG(String jmbg) {
+		Session session = HibernateUtil.getSessionFactory().openSession();		
+		org.hibernate.Transaction t = session.beginTransaction();
+		ArrayList<Student> l = (ArrayList<Student>)session.createSQLQuery("SELECT * FROM student where jmbg='"+jmbg +"'").addEntity(Student.class).list();		
+		t.commit();	
+		session.close();
+		return l.get(0);
+	}
+	
 	public ArrayList<Literatura> dajSvuLiteraturu() {
 		Session session = HibernateUtil.getSessionFactory().openSession();		
 		org.hibernate.Transaction t = session.beginTransaction();
@@ -95,5 +105,6 @@ public class Dao {
 		session.close();
 		return l;
 	}
+	
 	
 }

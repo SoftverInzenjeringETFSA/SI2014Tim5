@@ -444,6 +444,10 @@ public class MainWindow {
 			public void actionPerformed(ActionEvent e) {
 
 				if (table.getSelectedRow() != -1) {
+					int dialogResult = JOptionPane.showConfirmDialog (null, "Jeste li sigurni da želite obrisati studenta?","Upozorenje",2);
+					if(dialogResult == JOptionPane.CANCEL_OPTION || dialogResult == JOptionPane.NO_OPTION){ 
+						return;
+					}
 					int indexSelektovani = table.getSelectedRow();
 					long idStudenta = (long) Integer.parseInt((table
 							.getValueAt(indexSelektovani, 0).toString()));

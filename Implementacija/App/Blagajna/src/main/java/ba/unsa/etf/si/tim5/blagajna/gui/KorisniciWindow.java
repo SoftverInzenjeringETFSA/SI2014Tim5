@@ -154,6 +154,10 @@ public class KorisniciWindow {
 
 			public void actionPerformed(ActionEvent arg0) {
 				if (table.getSelectedRowCount() != 0) {
+					int dialogResult = JOptionPane.showConfirmDialog (null, "Jeste li sigurni da želite obrisati korisnika?","Upozorenje",2);
+					if(dialogResult == JOptionPane.CANCEL_OPTION || dialogResult == JOptionPane.NO_OPTION){ 
+						return;
+					}
 					try {
 						int indexSelektovani = table.getSelectedRow();
 						long idKorisnika = (long) Integer.parseInt((table
